@@ -1,0 +1,18 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+	Jacob Meacham -- Developer
+
+# THANKS
+
+    Jessica Goodburn
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    jQuery, Modernizr
+    Mongoose.js, MongoDB,
+    Angular.js, Require.js, Binary.js,
+    socket.IO, express.js, SASS

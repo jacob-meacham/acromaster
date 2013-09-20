@@ -1,0 +1,36 @@
+{
+    "name": "acro-master",
+    "description": "Partner Acrobatics training and collaboration app.",
+    "version": "0.0.1",
+    "private": true,
+    "author": "Jacob Meacham",
+    "engines": {
+        "node": "0.10.x",
+        "npm": "1.2.x"
+    },
+    "scripts": {
+        "postinstall": "node node_modules/bower/bin/bower install"
+    },
+    "dependencies": {
+        "express": "latest",
+        "jade": "latest",
+        "mongoose": "latest",
+        "connect-mongo": "latest",
+        "underscore": "latest",
+        "async": "latest",
+        "view-helpers": "latest",
+        "bower": "latest"
+    },
+    "devDependencies": {
+        "supertest": "latest",
+        "should": "latest",
+        "grunt": "latest",
+        "grunt-contrib-compass": "~0.3.0",
+        "grunt-contrib-watch": "~0.4.4",
+        "grunt-contrib-jshint": "~0.6.0",
+        "grunt-nodemon": "0.0.8",
+        "grunt-concurrent": "~0.3.0",
+        "grunt-karma": "~0.6.2",
+        "grunt-mocha-test": "latest"
+    }
+}
