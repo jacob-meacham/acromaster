@@ -4,38 +4,32 @@
 var express = require('express'),
     fs = require('fs');
 
-/**
- * Main application entry file.
- * Please note that the order of loading is important.
- */
-
-//Load configurations
-//if test env, load example file
 var env = process.env.NODE_ENV || 'development',
     config = require('./config/config')[env],
     mongoose = require('mongoose');
 
-//Bootstrap db connection
 var db = mongoose.connect(config.db);
 
-//Bootstrap models
-var models_path = __dirname + '/app/models';
+// Add models
+var models_path = __dirname + '/server/models';
 fs.readdirSync(models_path).forEach(function(file) {
     require(models_path + '/' + file);
 });
 
 var app = express();
 
-//express settings
+// Setup server
 require('./config/express')(app, config);
 
-//Bootstrap routes
-require('./config/routes')(app);
+// Hook up routes
+var routes_path = __dirname + '/server/routes';
+fs.readdirSync(routes_path).forEach(function(file) {
+    require(routes_path + '/' + file)(app);
+});
 
-//Start the app by listening on <port>
-var port = process.env.PORT || 3000;
-app.listen(port);
-console.log('Express app started on port ' + port);
+require('http').createServer(app).listen(app.get('port'), function () {
+    console.log('Express (' + app.get('env') + ') server listening on port ' + app.get('port'));
+});
 
 //expose app
 exports = module.exports = app;

@@ -4,7 +4,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         watch: {
             jade: {
-                files: ['app/views/**'],
+                files: ['server/views/**'],
                 options: {
                     livereload: true
                 }
@@ -34,8 +34,8 @@ module.exports = function(grunt) {
                 tasks: ['karma:dev:run']
             },
             mocha: {
-                files: ['test/**/*.js'],
-                tasks: ['runMocha:dev']
+                files: ['test/server/**/*.js', 'server/**/*.js'],
+                tasks: ['mochaTest:dev']
             }
         },
         jshint: {
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
                     args: [],
                     ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
                     watchedExtensions: ['js'],
-                    watchedFolders: ['app', 'config'],
+                    watchedFolders: ['server', 'config'],
                     debug: true,
                     delayTime: 1,
                     env: {
@@ -94,7 +94,7 @@ module.exports = function(grunt) {
                 singleRun: true
             }
         },
-        mocha: {
+        mochaTest: {
             dev: {
                 src: ['test/server/**/*.js'],
                 options: {
@@ -122,5 +122,5 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint', 'compass:dev', 'karma:dev', 'concurrent']);
 
     //Test task.
-    grunt.registerTask('test', ['runMocha:dev', 'karma:ci']);
+    grunt.registerTask('test', ['mochaTest:dev', 'karma:ci']);
 };

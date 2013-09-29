@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore');
 
-
-exports.render = function(req, res) {
-    res.render('index');
+module.exports = function (app) {
+    app.get('/', function (req, res, next) {
+      res.json(['INDEX 2']);
+    });
 };
