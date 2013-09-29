@@ -31,15 +31,15 @@ module.exports = function(grunt) {
             },
             karma: {
                 files: ['public/lib/angular/angular.js', 'public/lib/angular/angular-*.js', 'test/lib/angular/angular-mocks.js','test/unit/**/*.js'],
-                tasks: ['karma:unit:run']
+                tasks: ['karma:dev:run']
             },
             mocha: {
                 files: ['test/**/*.js'],
-                tasks: ['mocha:dev']
+                tasks: ['runMocha:dev']
             }
         },
         jshint: {
-            all: ['gruntfile.js']
+            all: ['Gruntfile.js', 'test/**/*.js', 'config/**/*.js', 'app/**/*.js']
         },
         compass: {
             dist: {
@@ -80,33 +80,23 @@ module.exports = function(grunt) {
             }
         },
         karma: {
-            unit: {
+            options: {
+                files: ['test/client/**/*.js'],
+            },
+            dev: {
                 background: true,
-                files: [
-                  'public/lib/angular/angular.js',
-                  'public/lib/angular/angular-*.js',
-                  'test/lib/angular/angular-mocks.js',
-                  'public/js/**/*.js',
-                ],
 
-                frameworks: ['mocha'],
                 browsers: ['Chrome'],
 
-                plugins : [
-                    'karma-junit-reporter',
-                    'karma-chrome-launcher',
-                    'karma-mocha'
-                    ],
-
-                junitReporter : {
-                    outputFile: 'build/test-out/unit.xml',
-                    suite: 'unit'
-                }
+                plugins : ['karma-chrome-launcher']
+            },
+            ci: {
+                singleRun: true
             }
         },
         mocha: {
             dev: {
-                src: ['test/**/*.js'],
+                src: ['test/server/**/*.js'],
                 options: {
                     reporter: 'spec',
                     slow: 200,
@@ -124,14 +114,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-karma');
-    
 
     //Making grunt default to force in order not to break the project.
     grunt.option('force', true);
 
     //Default task(s).
-    grunt.registerTask('default', ['jshint', 'compass:dev', 'karma:unit', 'concurrent']);
+    grunt.registerTask('default', ['jshint', 'compass:dev', 'karma:dev', 'concurrent']);
 
     //Test task.
-    grunt.registerTask('test', ['mocha:dev']);
+    grunt.registerTask('test', ['runMocha:dev', 'karma:ci']);
 };

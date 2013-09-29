@@ -3,7 +3,7 @@ var path = require('path'),
 
 module.exports = {
     development: {
-        db: 'mongodb://localhost:27017/am-dev',
+        db: 'mongodb://localhost/am-dev',
         root: rootPath,
         app: {
             name: 'AcroMaster - Development'
