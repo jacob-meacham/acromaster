@@ -7,6 +7,6 @@ var mongoose = require('mongoose'),
 
 module.exports = function (app) {
     app.get('/', function (req, res, next) {
-      res.json(['INDEX 2']);
+      res.json(['INDEX']);
     });
 };

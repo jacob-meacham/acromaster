@@ -22,10 +22,7 @@ var app = express();
 require('./config/express')(app, config);
 
 // Hook up routes
-var routes_path = __dirname + '/server/routes';
-fs.readdirSync(routes_path).forEach(function(file) {
-    require(routes_path + '/' + file)(app);
-});
+require('./routes')(app);
 
 require('http').createServer(app).listen(app.get('port'), function () {
     console.log('Express (' + app.get('env') + ') server listening on port ' + app.get('port'));
