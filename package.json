@@ -9,6 +9,8 @@
         "npm": "1.2.x"
     },
     "scripts": {
+        "start": "node node_modules/grunt-cli/bin/grunt",
+        "test": "node node_modules/grunt-cli/bin/grunt test",
         "postinstall": "node node_modules/bower/bin/bower install"
     },
     "dependencies": {
@@ -22,9 +24,13 @@
         "bower": "latest"
     },
     "devDependencies": {
-        "supertest": "latest",
+        "mocha": "latest",
         "should": "latest",
+        "sinon": "latest",
+        "istanbul": "latest",
+
         "grunt": "latest",
+        "grunt-cli": "latest",
         "grunt-contrib-compass": "~0.3.0",
         "grunt-contrib-watch": "~0.4.4",
         "grunt-contrib-jshint": "~0.6.0",

@@ -39,7 +39,10 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            all: ['Gruntfile.js', 'test/**/*.js', 'config/**/*.js', 'app/**/*.js']
+            files: ['Gruntfile.js', 'test/**/*.js', 'config/**/*.js', 'app/**/*.js'],
+            options: {
+                ignores: ['test/server/coverageRunner.js']
+            }
         },
         compass: {
             dist: {
@@ -52,7 +55,8 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     sassDir: 'public/sass',
-                    cssDir: 'public/css'
+                    cssDir: 'public/css',
+                    debugInfo: true
                 }
             }
         },
@@ -60,21 +64,15 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     file: 'server.js',
-                    args: [],
-                    ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
+                    ignoredFiles: ['README.md', 'node_modules/**'],
                     watchedExtensions: ['js'],
-                    watchedFolders: ['server', 'config'],
                     debug: true,
                     delayTime: 1,
-                    env: {
-                        PORT: 3000
-                    },
-                    cwd: __dirname
                 }
             }
         },
         concurrent: {
-            tasks: ['nodemon', 'watch'],
+            tasks: ['nodemon:dev', 'watch'],
             options: {
                 logConcurrentOutput: true
             }
@@ -85,23 +83,37 @@ module.exports = function(grunt) {
             },
             dev: {
                 background: true,
-
                 browsers: ['Chrome'],
-
-                plugins : ['karma-chrome-launcher']
+                plugins : ['karma-chrome-launcher'],
+                reporters: ['dots, coverage'],
+                coverageReporter: {
+                    type: 'html',
+                    dir: 'build/coverage/client'
+                },
+                preprocessors: {
+                    'public/js/**/*.js' : 'coverage'
+                }
             },
             ci: {
+                reporters: ['dots'],
+                browsers: ['PhantomJS'],
+                background: false,
                 singleRun: true
             }
         },
         mochaTest: {
+            options: {
+                globals: [
+                    'should',
+                    'sinon'
+                ],
+                timeout: 3000,
+                ignoreLeaks: false,
+                ui: 'bdd',
+                reporter: 'spec'
+            },
             dev: {
-                src: ['test/server/**/*.js'],
-                options: {
-                    reporter: 'spec',
-                    slow: 200,
-                    timeout: 1000
-                }
+                src: ['test/server/**/*.spec.js'],
             }
         },
     });
@@ -115,12 +127,48 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-karma');
 
-    //Making grunt default to force in order not to break the project.
-    grunt.option('force', true);
+    grunt.registerTask('mochaCoverage', 'Run server mocha coverage.', function () {
+        var done = this.async();
+
+        var path = './test/server/coverageRunner.js';
+
+        var options = {
+            cmd: 'node',
+            grunt: false,
+            args: [
+                'node_modules/istanbul/lib/cli.js', // Have to pass in the actual cli, otherwise we assume a global istanbul.
+                'cover',
+                '--default-excludes',
+                '-x', 'public/**',
+                '--report', 'lcov',
+                '--dir', './build/coverage/server',
+                path
+            ],
+            opts: {
+                // preserve colors for stdout in terminal
+                stdio: 'inherit',
+            },
+        };
+
+        function doneFunction(error, result, code) {
+            if (result && result.stderr) {
+                process.stderr.write(result.stderr);
+            }
+
+            if (result && result.stdout) {
+                grunt.log.writeln(result.stdout);
+            }
+
+            // abort tasks in queue if there's an error
+            done(error);
+        }
+
+        grunt.util.spawn(options, doneFunction);
+    });
 
     //Default task(s).
     grunt.registerTask('default', ['jshint', 'compass:dev', 'karma:dev', 'concurrent']);
 
     //Test task.
-    grunt.registerTask('test', ['mochaTest:dev', 'karma:ci']);
+    grunt.registerTask('test', ['mochaCoverage', 'karma:ci']);
 };
