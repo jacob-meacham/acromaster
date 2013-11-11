@@ -22,7 +22,7 @@ var app = express();
 require('./config/express')(app, config);
 
 // Hook up routes
-require('./routes')(app);
+require('./server/routes/movelist')(app);
 
 require('http').createServer(app).listen(app.get('port'), function () {
     console.log('Express (' + app.get('env') + ') server listening on port ' + app.get('port'));
