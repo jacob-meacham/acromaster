@@ -10,4 +10,12 @@ var MoveListSchema = new Schema({
   duration: Number
 });
 
+MoveListSchema.statics = {
+  load: function(id, cb) {
+    this.findOne({
+      _id: id
+    }).exec(cb);
+  }
+};
+
 mongoose.model('MoveList', MoveListSchema);

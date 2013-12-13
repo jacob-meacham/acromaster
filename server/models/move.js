@@ -18,7 +18,7 @@ var MoveSchema = new Schema({
 });
 
 MoveSchema.path('name').validate(function(name) {
-  return name.length > 0;
+  return name && name.length > 0;
 }, "Move name can't be blank");
 
 var Move = mongoose.model('Move', MoveSchema);
