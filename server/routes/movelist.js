@@ -16,20 +16,28 @@ showList = function(req, res) {
 //   'transitionMoves' : true,
 //   'style' : 'Training' // or whatever
 // }
-newList = function(req, res) {
+newList = function(req, res, next) {
+  if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
+    res.status(400).send({error: 'totalTime and timePerMove required'});
+    return;
+  }
+
   var all_moves = [];
   Move.find({}, function(err, moves) {
     all_moves = moves;
   });
 
-  console.log(req.query);
+  parse = function(num) {
+    var parsed = parseFloat(num);
+    return isNaN(parsed) ? 0 : parsed;
+  };
 
   // Construct a new list using the passed parameters
   var move_list = [];
   var time_so_far = 0;
-  var total_time = parseFloat(req.query.totalTime);
-  var time_per_move = parseFloat(req.query.timePerMove);
-  var time_variance = parseFloat(req.query.timeVariance);
+  var total_time = parse(req.query.totalTime);
+  var time_per_move = parse(req.query.timePerMove);
+  var time_variance = parse(req.query.timeVariance);
   while (true) {
     var move_time = time_per_move + Math.random() * time_variance;
     time_so_far += move_time;

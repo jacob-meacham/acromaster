@@ -25,7 +25,8 @@
     },
     "devDependencies": {
         "mocha": "latest",
-        "should": "latest",
+        "chai": "latest",
+        "supertest": "latest",
         "sinon": "latest",
         "istanbul": "latest",
 
