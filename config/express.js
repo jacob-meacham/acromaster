@@ -8,6 +8,9 @@ var express = require('express'),
 module.exports = function(app, config) {
     app.set('showStackError', true);
 
+    app.use(express.favicon());
+    app.use(express.static(config.root + '/public'));
+
     // Don't use logger for test env
     if (process.env.NODE_ENV !== 'test') {
         app.use(express.logger('dev'));
@@ -35,7 +38,4 @@ module.exports = function(app, config) {
 
     app.use(helpers(config.app.name));
     app.use(app.router);
-
-    app.use(express.favicon());
-    app.use(express.static(config.root + '/public'));
 };
