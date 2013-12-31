@@ -21,7 +21,8 @@
         "underscore": "latest",
         "async": "latest",
         "view-helpers": "latest",
-        "bower": "latest"
+        "bower": "latest",
+        "s3": "0.3.1"
     },
     "devDependencies": {
         "mocha": "latest",

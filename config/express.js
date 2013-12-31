@@ -12,7 +12,7 @@ module.exports = function(app, config) {
     app.use(express.static(config.root + '/public'));
 
     // Don't use logger for test env
-    if (process.env.NODE_ENV !== 'test') {
+    if (config.useLogger) {
         app.use(express.logger('dev'));
     }
 
@@ -31,8 +31,7 @@ module.exports = function(app, config) {
     app.use(express.session({
         secret: 'AcroMaster',
         store: new mongoStore({
-            url: config.db,
-            collection: 'sessions'
+            url: config.db
         })
     }));
 

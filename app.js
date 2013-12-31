@@ -1,25 +1,25 @@
 var express = require('express'),
     fs = require('fs');
 
-var env = process.env.NODE_ENV || 'development',
-    config = require('./config/config')[env],
-    mongoose = require('mongoose');
-
-var db = mongoose.connect(config.db);
-
-// Add models
-var models_path = __dirname + '/server/models';
-fs.readdirSync(models_path).forEach(function(file) {
-    require(models_path + '/' + file);
-});
+var env = process.env.NODE_ENV || 'development';
+var config = require('./config/config')[env];
+var mongoose = require('mongoose');
 
 var app = express();
+
+// Hook up Mongoose.
+mongoose.connect(config.db);
 
 // Setup server
 require('./config/express')(app, config);
 
 // Hook up routes
-require('./server/routes/movelist')(app);
+[
+  "./server/routes/movelist",
+  "./server/routes/index"
+].forEach(function (routePath) {
+    require(routePath)(app);
+});
 
 //expose app
 exports = module.exports = app;

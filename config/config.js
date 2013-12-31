@@ -4,6 +4,7 @@ var path = require('path'),
 module.exports = {
     development: {
         db: 'mongodb://localhost/am-dev',
+        useLogger: true,
         root: rootPath,
         app: {
             name: 'AcroMaster - Development'
@@ -12,6 +13,7 @@ module.exports = {
     test: {
         db: 'mongodb://localhost/am-test',
         root: rootPath,
+        useLogger: false,
         app: {
             name: 'AcroMaster - Test'
         }
@@ -19,6 +21,7 @@ module.exports = {
     production: {
         db: 'mongodb://localhost/am',
         root: rootPath,
+        useLogger: true,
         app: {
             name: 'AcroMaster'
         }

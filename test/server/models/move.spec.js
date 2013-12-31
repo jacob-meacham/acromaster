@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 var chai = require('chai');
 var model = require('../../../server/models/move.js');
-var Move = mongoose.model('Move');
 
 chai.should();
 
 // TODO: Remove
-mongoose.createConnection('mongodb://localhost/test_db');
+var connection = mongoose.createConnection('mongodb://localhost/test_db');
+var Move = connection.model('Move');
 describe('Moves', function() {
   describe('save()', function() {
     it('should save without error', function(done) {
