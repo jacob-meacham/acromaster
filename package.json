@@ -19,6 +19,7 @@
         "mongoose": "latest",
         "connect-mongo": "latest",
         "underscore": "latest",
+        "forever": "latest",
         "async": "latest",
         "view-helpers": "latest",
         "bower": "latest",
