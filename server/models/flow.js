@@ -1,5 +1,7 @@
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+'use strict';
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
   name: String,

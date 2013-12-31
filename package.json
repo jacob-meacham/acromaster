@@ -1,5 +1,5 @@
 {
-    "name": "acro-master",
+    "name": "acromaster",
     "description": "Partner Acrobatics training and collaboration app.",
     "version": "0.0.1",
     "private": true,
@@ -23,7 +23,7 @@
         "async": "latest",
         "view-helpers": "latest",
         "bower": "latest",
-        "s3": "0.3.1"
+        "s3": "latest"
     },
     "devDependencies": {
         "mocha": "latest",
@@ -34,12 +34,12 @@
 
         "grunt": "latest",
         "grunt-cli": "latest",
-        "grunt-contrib-compass": "~0.3.0",
-        "grunt-contrib-watch": "~0.4.4",
-        "grunt-contrib-jshint": "~0.6.0",
-        "grunt-nodemon": "0.0.8",
-        "grunt-concurrent": "~0.3.0",
-        "grunt-karma": "~0.6.2",
+        "grunt-contrib-compass": "latest",
+        "grunt-contrib-watch": "latest",
+        "grunt-contrib-jshint": "latest",
+        "grunt-nodemon": "latest",
+        "grunt-concurrent": "latest",
+        "grunt-karma": "latest",
         "grunt-mocha-test": "latest"
     }
 }

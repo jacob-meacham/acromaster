@@ -1,4 +1,6 @@
-render = function(req, res) {
+'use strict';
+
+var render = function(req, res) {
     res.render('index');
 };
 

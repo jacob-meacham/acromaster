@@ -1,1 +1,3 @@
-var foo = 1;
+'use strict';
+
+// Placeholder

@@ -1,12 +1,13 @@
-/**
- * Module dependencies.
- */
+'use strict';
+
 var express = require('express'),
     mongoStore = require('connect-mongo')(express),
     helpers = require('view-helpers');
 
 module.exports = function(app, config) {
     app.set('showStackError', true);
+
+    app.locals.pretty = true;
 
     app.use(express.favicon());
     app.use(express.static(config.root + '/public'));
@@ -21,7 +22,7 @@ module.exports = function(app, config) {
     app.set('view engine', 'jade');
 
     // Enable jsonp
-    app.enable("jsonp callback");
+    app.enable('jsonp callback');
     
     app.use(express.cookieParser());
     app.use(express.bodyParser());

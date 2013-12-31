@@ -1,3 +1,5 @@
+'use strict';
+
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
@@ -19,6 +21,6 @@ var MoveSchema = new Schema({
 
 MoveSchema.path('name').validate(function(name) {
   return name && name.length > 0;
-}, "Move name can't be blank");
+}, 'Move name can\'t be blank');
 
-var Move = mongoose.model('Move', MoveSchema);
+mongoose.model('Move', MoveSchema);

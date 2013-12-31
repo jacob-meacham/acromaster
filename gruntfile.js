@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(grunt) {
     // Project Configuration
     grunt.initConfig({
@@ -16,7 +18,8 @@ module.exports = function(grunt) {
                 }
             },
             js: {
-                files: ['public/js/**'],
+                files: ['gruntfile.js', 'server.js', 'server/**/*.js', 'public/js/**', 'test/**/*.js'],
+                tasks: ['jshint'],
                 options: {
                     livereload: true
                 }
@@ -39,8 +42,9 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            files: ['Gruntfile.js', 'test/**/*.js', 'config/**/*.js', 'app/**/*.js'],
+            files: ['gruntfile.js', 'app.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js'],
             options: {
+                jshintrc: true,
                 ignores: ['test/server/coverageRunner.js']
             }
         },
@@ -150,7 +154,7 @@ module.exports = function(grunt) {
             },
         };
 
-        function doneFunction(error, result, code) {
+        grunt.util.spawn(options, function(error, result) {
             if (result && result.stderr) {
                 process.stderr.write(result.stderr);
             }
@@ -161,9 +165,7 @@ module.exports = function(grunt) {
 
             // abort tasks in queue if there's an error
             done(error);
-        }
-
-        grunt.util.spawn(options, doneFunction);
+        });
     });
 
     //Default task(s).

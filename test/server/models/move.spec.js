@@ -1,6 +1,8 @@
+'use strict';
+
 var mongoose = require('mongoose');
 var chai = require('chai');
-var model = require('../../../server/models/move.js');
+require('../../../server/models/move.js');
 
 chai.should();
 

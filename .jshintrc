@@ -11,7 +11,16 @@
     "strict": true, // Require `use strict` pragma in every file.
     "trailing": true, // Prohibit trailing whitespaces.
     "globals": { // Globals variables.
-        "angular": true
+        "angular": true,
+
+        /* MOCHA */
+        "require": false,
+        "describe": false,
+        "it": false,
+        "before": false,
+        "beforeEach": false,
+        "after": false,
+        "afterEach": false
     },
     "predef": [ // Extra globals.
         "define",

@@ -1,3 +1,5 @@
+'use strict';
+
 var app = require('./app');
 
 require('http').createServer(app).listen(app.get('port'), function () {
