@@ -3,27 +3,27 @@ var path = require('path'),
 
 module.exports = {
     development: {
-        db: 'mongodb://localhost/am-dev',
+        db: process.env.MONGOHQ_URL || 'mongodb://localhost/am-dev',
         useLogger: true,
         root: rootPath,
         app: {
-            name: 'AcroMaster - Development'
+            name: 'Acromaster - Development'
         }
     },
     test: {
-        db: 'mongodb://localhost/am-test',
+        db: process.env.MONGOHQ_URL || 'mongodb://localhost/am-test',
         root: rootPath,
         useLogger: false,
         app: {
-            name: 'AcroMaster - Test'
+            name: 'Acromaster - Test'
         }
     },
     production: {
-        db: 'mongodb://localhost/am',
+        db:  process.env.MONGOHQ_URL,
         root: rootPath,
         useLogger: true,
         app: {
-            name: 'AcroMaster'
+            name: 'Acromaster'
         }
     }
 };
