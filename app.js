@@ -1,5 +1,6 @@
-var express = require('express'),
-    fs = require('fs');
+'use strict';
+
+var express = require('express');
 
 var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config')[env];
@@ -15,8 +16,8 @@ require('./config/express')(app, config);
 
 // Hook up routes
 [
-  "./server/routes/movelist",
-  "./server/routes/index"
+  './server/routes/flow',
+  './server/routes/index'
 ].forEach(function (routePath) {
     require(routePath)(app);
 });

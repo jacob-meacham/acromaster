@@ -1,12 +1,12 @@
+'use strict';
+
 var request = require('supertest');
 var app = require('../../../app');
-var chai = require('chai');
-var expect = chai.expect;
 
-describe('GET /moves/newList', function() {
+describe('GET /flow/create', function() {
   it('should return JSON', function(done) {
     request(app)
-      .get('/moves/newList')
+      .get('/flow/create')
       .set('Accept', 'application/json')
       .query({totalTime:'10', timePerMove:'10'})
       .expect('Content-Type', /json/)
@@ -15,7 +15,7 @@ describe('GET /moves/newList', function() {
 
   it('should fail without total time', function(done) {
     request(app)
-      .get('/moves/newList')
+      .get('/flow/create')
       .set('Accept', 'application/json')
       .query({timePerMove:'10'})
       .expect('Content-Type', /json/)
@@ -25,7 +25,7 @@ describe('GET /moves/newList', function() {
 
   it('should fail without time per move', function(done) {
     request(app)
-      .get('/moves/newList')
+      .get('/flow/create')
       .set('Accept', 'application/json')
       .query({totalTime:'10'})
       .expect('Content-Type', /json/)

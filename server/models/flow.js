@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-var MoveListSchema = new Schema({
+var FlowSchema = new Schema({
   name: String,
   moves: [{
     move: { type: Schema.Types.ObjectId, ref: 'Move' },
@@ -10,7 +10,7 @@ var MoveListSchema = new Schema({
   duration: Number
 });
 
-MoveListSchema.statics = {
+FlowSchema.statics = {
   load: function(id, cb) {
     this.findOne({
       _id: id
@@ -18,4 +18,4 @@ MoveListSchema.statics = {
   }
 };
 
-mongoose.model('MoveList', MoveListSchema);
+mongoose.model('Flow', FlowSchema);
