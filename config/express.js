@@ -25,7 +25,8 @@ module.exports = function(app, config) {
     app.enable('jsonp callback');
     
     app.use(express.cookieParser());
-    app.use(express.bodyParser());
+    app.use(express.json());
+    app.use(express.urlencoded());
     app.use(express.methodOverride());
 
     // express/mongo session storage
