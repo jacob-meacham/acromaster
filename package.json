@@ -40,6 +40,7 @@
         "grunt-nodemon": "latest",
         "grunt-concurrent": "latest",
         "grunt-karma": "latest",
-        "grunt-mocha-test": "latest"
+        "grunt-mocha-test": "latest",
+        "grunt-open": "latest"
     }
 }

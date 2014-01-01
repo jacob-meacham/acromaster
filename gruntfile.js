@@ -41,6 +41,11 @@ module.exports = function(grunt) {
                 tasks: ['mochaTest:dev']
             }
         },
+        open: {
+          server: {
+            url: 'http://localhost:3000'
+          }
+        },
         jshint: {
             files: ['gruntfile.js', 'app.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js'],
             options: {
@@ -127,6 +132,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-karma');
