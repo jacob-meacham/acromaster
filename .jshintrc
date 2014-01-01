@@ -10,32 +10,17 @@
     "unused": true, // Warn unused variables.
     "strict": true, // Require `use strict` pragma in every file.
     "trailing": true, // Prohibit trailing whitespaces.
+    "devel": true, // Allow development statements e.g. `console.log();`.
+    "noempty": true, // Prohibit use of empty blocks.
     "globals": { // Globals variables.
-        "angular": true,
+        "angular": false,
 
         /* MOCHA */
-        "require": false,
         "describe": false,
         "it": false,
         "before": false,
         "beforeEach": false,
         "after": false,
         "afterEach": false
-    },
-    "predef": [ // Extra globals.
-        "define",
-        "require",
-        "exports",
-        "module",
-        "describe",
-        "before",
-        "beforeEach",
-        "after",
-        "afterEach",
-        "it",
-        "inject",
-        "expect"
-    ],
-    "devel": true, // Allow development statements e.g. `console.log();`.
-    "noempty": true // Prohibit use of empty blocks.
+    }
 }
