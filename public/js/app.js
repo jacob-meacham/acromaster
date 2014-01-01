@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('acromaster', [
-  'acromaster.controllers'
+  'ngRoute', 'acromaster.controllers'
 ]);
 
 angular.module('acromaster').config(['$routeProvider',
