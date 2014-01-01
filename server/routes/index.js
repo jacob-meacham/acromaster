@@ -1,9 +1,12 @@
 'use strict';
 
-var render = function(req, res) {
+var index = function(req, res) {
     res.render('index');
 };
 
 module.exports = function(app) {
-  app.get('/', render);
+  app.get('/', index);
+
+  // Wildcard catchall
+  app.get('*', index);
 };

@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('acromaster.controllers', []);
-angular.module('acromaster.controllers').controller('IndexController', ['$scope', function($scope) {
+var controllers = angular.module('acromaster.controllers', []);
+
+// Quick Create
+controllers.controller('QuickCreateController', ['$scope', 'Flow', function($scope, Flow) {
 
 }]);
-

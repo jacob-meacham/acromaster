@@ -1,22 +1,21 @@
 'use strict';
 
-angular.module('acromaster', [
-  'ngRoute', 'acromaster.controllers'
+var app = angular.module('acromaster', [
+  'ngRoute',
+  'acromaster.services',
+  'acromaster.controllers'
 ]);
 
-angular.module('acromaster').config(['$routeProvider',
-  function($routeProvider) {
+app.config(function($routeProvider, $locationProvider) {
     $routeProvider.
-    when('/list/create', {
-      templateUrl: 'partials/list/create.html',
-      controller: 'ListController'
-    }).
-    when('/', {
-      templateUrl: 'partials/index.html',
-      controller: 'IndexController'
+    when('/flow/quick', {
+      templateUrl: '/partials/flow/quick.html',
+      controller: 'QuickCreateController'
     }).
     otherwise({
-      redirectTo: '/'
+      redirectTo: '/flow/quick'
     });
+
+    $locationProvider.html5Mode(true);
   }
-]);
+);

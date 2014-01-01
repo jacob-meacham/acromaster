@@ -3,10 +3,10 @@
 var request = require('supertest');
 var app = require('../../../app');
 
-describe('GET /flow/create', function() {
+describe('GET /flow/generate', function() {
   it('should return JSON', function(done) {
     request(app)
-      .get('/flow/create')
+      .get('/api/flow/generate')
       .set('Accept', 'application/json')
       .query({totalTime:'10', timePerMove:'10'})
       .expect('Content-Type', /json/)
@@ -15,7 +15,7 @@ describe('GET /flow/create', function() {
 
   it('should fail without total time', function(done) {
     request(app)
-      .get('/flow/create')
+      .get('/api/flow/generate')
       .set('Accept', 'application/json')
       .query({timePerMove:'10'})
       .expect('Content-Type', /json/)
@@ -25,7 +25,7 @@ describe('GET /flow/create', function() {
 
   it('should fail without time per move', function(done) {
     request(app)
-      .get('/flow/create')
+      .get('/api/flow/generate')
       .set('Accept', 'application/json')
       .query({totalTime:'10'})
       .expect('Content-Type', /json/)

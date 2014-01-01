@@ -3,9 +3,9 @@
 require('../models/flow.js');
 require('../models/move.js');
 var async = require('async');
-var mongoose = require('mongoose'),
-  Flow = mongoose.model('Flow'),
-  Move = mongoose.model('Move');
+var mongoose = require('mongoose');
+var Flow = mongoose.model('Flow');
+var Move = mongoose.model('Move');
 
 var show = function(req, res) {
   res.jsonp(req.flow);
@@ -19,7 +19,7 @@ var show = function(req, res) {
 //   'transitionMoves' : true,
 //   'style' : 'Training' // or whatever
 // }
-var create = function(req, res) {
+var generate = function(req, res) {
   if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
     res.status(400).send({error: 'totalTime and timePerMove required'});
     return;
@@ -89,7 +89,7 @@ var getById = function(req, res, next, id) {
 };
 
 module.exports = function(app) {
-  app.get('/flow/create', create);
-  app.get('/flow/:flowId', show);
+  app.get('/api/flow/generate', generate);
+  app.get('/api/flow/:flowId', show);
   app.param('flowId', getById);
 };
