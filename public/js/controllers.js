@@ -11,7 +11,6 @@ controllers.controller('QuickPlayCreateController', ['$scope', '$location', 'Flo
     flowParams.totalTime = flowParams.totalMinutes * 60;
     Flow.generate(flowParams, function(flow) {
       flowService.setFlow(flow);
-      console.log(flowService.getFlow());
       $location.path('/flow/quick/play');
     });
   };
