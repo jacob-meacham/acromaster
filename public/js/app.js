@@ -3,14 +3,19 @@
 var app = angular.module('acromaster', [
   'ngRoute',
   'acromaster.services',
-  'acromaster.controllers'
+  'acromaster.controllers',
+  'ui.slider'
 ]);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider.
     when('/flow/quick', {
       templateUrl: '/partials/flow/quick.html',
-      controller: 'QuickCreateController'
+      controller: 'QuickPlayCreateController'
+    }).
+    when('/flow/quick/play', {
+      templateUrl: '/partials/flow/play.html',
+      controller: 'FlowPlayController'
     }).
     otherwise({
       redirectTo: '/flow/quick'

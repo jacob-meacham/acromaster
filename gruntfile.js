@@ -47,7 +47,7 @@ module.exports = function(grunt) {
           }
         },
         jshint: {
-            files: ['gruntfile.js', 'app.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js'],
+            files: ['gruntfile.js', 'app.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/js/**/*.js'],
             options: {
                 jshintrc: true,
                 ignores: ['test/server/coverageRunner.js']
@@ -92,8 +92,7 @@ module.exports = function(grunt) {
             },
             dev: {
                 background: true,
-                browsers: ['Chrome'],
-                plugins : ['karma-chrome-launcher'],
+                browsers: ['PhantomJS'],
                 reporters: ['dots, coverage'],
                 coverageReporter: {
                     type: 'html',

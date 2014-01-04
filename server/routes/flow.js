@@ -43,7 +43,8 @@ var generate = function(req, res) {
       };
 
       // Construct a new list using the passed parameters
-      var flow = [];
+      var flow = {};
+      var flowEntries = [];
       var timeSoFar = 0;
       var totalTime = parse(req.query.totalTime);
       var timePerMove = parse(req.query.timePerMove);
@@ -53,8 +54,8 @@ var generate = function(req, res) {
         var moveTime = timePerMove + Math.random() * timeVariance;
         timeSoFar += moveTime;
 
-        var move = {'time': moveTime, 'move': all_moves[Math.floor(Math.random() * all_moves.length)]};
-        flow.push(move);
+        var flowEntry = {'time': moveTime, 'move': all_moves[Math.floor(Math.random() * all_moves.length)]};
+        flowEntries.push(flowEntry);
 
         if (timeSoFar > totalTime) {
           break;
@@ -62,6 +63,7 @@ var generate = function(req, res) {
         numIterations++;
       }
 
+      flow.flowEntries = flowEntries;
       next(null, flow);
     }
   ],
@@ -69,6 +71,7 @@ var generate = function(req, res) {
     if (err) {
       res.status(500).send({error: 'An error occured: ' + err});
     } else {
+      console.log(result);
       res.jsonp(result);
     }
   });
