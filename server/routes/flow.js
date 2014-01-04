@@ -71,7 +71,6 @@ var generate = function(req, res) {
     if (err) {
       res.status(500).send({error: 'An error occured: ' + err});
     } else {
-      console.log(result);
       res.jsonp(result);
     }
   });

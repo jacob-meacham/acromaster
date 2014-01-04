@@ -3,9 +3,9 @@
 require('../models/flow.js');
 require('../models/move.js');
 
-var s3 = require('s3');
+//var s3 = require('s3');
 var mongoose = require('mongoose');
-var async = require('async');
+//var async = require('async');
 
 var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
@@ -13,29 +13,30 @@ var Move = mongoose.model('Move');
 var moves = [
   {
     name: 'Barrel Roll',
-    audioUri: 'foo',
+    audioUri: '/audio/acro_-01.wav',
     tags: 'washing_machine,simple'
   },
   {
     name: 'Seattle Barrel Roll',
-    audioUri: 'foo',
+    audioUri: '/audio/acro_-03.wav',
     tags: 'washing_machine,simple'
   },
   {
     name: 'High Foot to Hand',
-    audioUri: 'foo'
+    audioUri: '/audio/acro_-02.wav',
   },
   {
     name: 'Mayurasana',
-    audioUri: 'foo'
+    audioUri: '/audio/acro_-04.wav',
   },
   {
     name: 'Secretary',
-    audioUri: 'foo'
+    audioUri: '/audio/acro_-05.wav',
   }
 ];
 
 var config = require('../../config/config').development;
+/*
 var s3Client = s3.createClient({
   key: '123',
   secret: 'abc',
@@ -43,7 +44,9 @@ var s3Client = s3.createClient({
   endpoint: 'localhost',
   port: 10001
 });
+*/
 
+/*
 async.each(moves,
   function(item, callback) {
     var uploader = s3Client.upload(item.file, item.path);
@@ -60,6 +63,7 @@ async.each(moves,
   function(err) {
     console.log('error uploading files to s3: ' + err);
   });
+*/
 
 mongoose.connect(config.db, function(err) {
   if (err) {

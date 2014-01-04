@@ -42,5 +42,7 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
       nextMove(entryIndex+1); }, currentEntry.time * 1000, 1);
   };
   
-  nextMove(0);
+  $scope.$on('$routeChangeSuccess', function () {
+    nextMove(0);
+  });
 }]);
