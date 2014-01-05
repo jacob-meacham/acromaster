@@ -31,7 +31,7 @@ module.exports = function(app, config) {
 
     // express/mongo session storage
     app.use(express.session({
-        secret: 'AcroMaster',
+        secret: config.mongoSecret,
         store: new mongoStore({
             url: config.db
         })

@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Barrel Roll",
+    "audioUri": "barrel_roll.wav",
+    "tags": "washing_machine,simple"
+  },
+  {
+    "name": "Seattle Barrel Roll",
+    "audioUri": "seattle_barrel_roll.wav",
+    "tags": "washing_machine,simple"
+  },
+  {
+    "name": "High Foot to Hand",
+    "audioUri": "high_fth.wav"
+  },
+  {
+    "name": "Mayurasana",
+    "audioUri": "mayurasana.wav"
+  },
+  {
+    "name": "Secretary",
+    "audioUri": "secretary.wav"
+  }
+]
