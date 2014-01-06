@@ -52,3 +52,49 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
     nextMove(0);
   });
 }]);
+
+controllers.controller('FlowListController', ['$scope', 'Flow', function($scope, Flow) {
+  var find = $scope.find = function(query) {
+    var flowResponse = Flow.get(query, function() {
+      $scope.flows = flowResponse.flows;
+    });
+  };
+
+  find();
+}]);
+
+controllers.controller('FlowCreateController', ['$scope', 'Flow', 'Moves', function($scope, Flow, Moves) {
+  var allMoves = Moves.query();
+  $scope.create = function() {
+    var movesList = [{
+      move: allMoves[0]._id,
+      duration: 20
+    },
+    {
+      move: allMoves[1]._id,
+      duration: 30
+    },
+    {
+      move: allMoves[2]._id,
+      duration: 40
+    }];
+
+    var newFlow = new Flow({name: 'Test', author: 'Test Author', moves: movesList});
+    newFlow.$save();
+  };
+}]);
+
+controllers.controller('FlowEditController', ['$scope', '$routeParams', 'Flow', function($scope, $routeParams, Flow) {
+  var flow = $scope.flow = Flow.get({flowId: $routeParams.flowId});
+  flow.$update();
+}]);
+
+controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', 'Flow', 'flowService', function($scope, $routeParams, $location, Flow, flowService) {
+  var flow = $scope.flow = Flow.get({flowId: $routeParams.flowId});
+
+  $scope.start = function() {
+    // Pass the flow we'd like to use on.
+    flowService.setFlow(flow);
+    $location.path('/flow/' + flow._id + '/play');
+  };
+}]);

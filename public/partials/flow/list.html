@@ -1,0 +1,9 @@
+<section>
+    <a href="/flow/create">New Flow</a>
+    <ul>
+        <li ng-repeat='flow in flows'>
+            <a href="/flow/{{flow._id}}">{{flow.name}}</a>
+            <a href="/flow/{{flow._id}}/edit">Edit</a>
+        </li>
+    </ul>
+</section>

@@ -14,6 +14,10 @@ acromasterServices.factory('Flow', ['$resource',
   }]
 );
 
+acromasterServices.factory('Moves', ['$resource', function($resource) {
+  return $resource('/api/moves');
+}]);
+
 acromasterServices.service('flowService', function() {
   var flow = null;
   return {

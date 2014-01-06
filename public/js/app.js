@@ -9,7 +9,15 @@ var app = angular.module('acromaster', [
 
 app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
-    when('/flow/quick', {
+    when('/flows', {
+      templateUrl: '/partials/flow/list.html',
+      controller: 'FlowListController'
+    })
+    .when('/flow/create', {
+      templateUrl: '/partials/flow/create.html',
+      controller: 'FlowCreateController'
+    })
+    .when('/flow/quick', {
       templateUrl: '/partials/flow/quick.html',
       controller: 'QuickPlayCreateController'
     })
@@ -17,8 +25,20 @@ app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
       templateUrl: '/partials/flow/play.html',
       controller: 'FlowPlayController'
     })
+    .when('/flow/:flowId/edit', {
+      templateUrl: '/partials/flow/edit.html',
+      controller: 'FlowEditController'
+    })
+    .when('/flow/:flowId', {
+      templateUrl: '/partials/flow/view.html',
+      controller: 'FlowViewController'
+    })
+    .when('/flow/:flowId/play', {
+      templateUrl: '/partials/flow/play.html',
+      controller: 'FlowPlayController'
+    })
     .otherwise({
-      redirectTo: '/flow/quick'
+      redirectTo: '/flows'
     });
 
     $locationProvider.html5Mode(true);
