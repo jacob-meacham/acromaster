@@ -6,14 +6,16 @@ acromasterServices.factory('Flow', ['$resource',
   function($resource){
     return $resource('/api/flow/:flowId', {
       flowId: '@id'
-    }, {
+    },
+    {
+      update: { method: 'PUT' },
       generate: { method:'GET', url:'/api/flow/generate' }
     });
   }]
 );
 
 acromasterServices.service('flowService', function() {
-  var flow = {};
+  var flow = null;
   return {
     setFlow: function(_flow) { flow = _flow; },
     getFlow: function() { return flow; }

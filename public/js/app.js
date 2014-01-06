@@ -7,20 +7,24 @@ var app = angular.module('acromaster', [
   'ui.slider'
 ]);
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
     when('/flow/quick', {
       templateUrl: '/partials/flow/quick.html',
       controller: 'QuickPlayCreateController'
-    }).
-    when('/flow/quick/play', {
+    })
+    .when('/flow/quick/play', {
       templateUrl: '/partials/flow/play.html',
       controller: 'FlowPlayController'
-    }).
-    otherwise({
+    })
+    .otherwise({
       redirectTo: '/flow/quick'
     });
 
     $locationProvider.html5Mode(true);
+
+    $sceDelegateProvider.resourceUrlWhitelist([
+      'self',
+      'http://localhost**']);
   }
 );

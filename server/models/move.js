@@ -14,7 +14,6 @@ var setTags = function(tags) {
 var MoveSchema = new Schema({
   name: {type: String, required: true },
   audioUri: String,
-  createdAt : { type: Date, default: Date.now },
 
   tags: { type: [String], get: getTags, set: setTags },
 });
@@ -22,5 +21,15 @@ var MoveSchema = new Schema({
 MoveSchema.path('name').validate(function(name) {
   return name && name.length > 0;
 }, 'Move name can\'t be blank');
+
+MoveSchema.statics = {
+  list: function(options, cb) {
+    var criteria = options.criteria || {};
+
+    this.find(criteria)
+      .sort('name')
+      .exec(cb);
+  }
+};
 
 mongoose.model('Move', MoveSchema);

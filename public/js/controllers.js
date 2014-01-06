@@ -16,12 +16,18 @@ controllers.controller('QuickPlayCreateController', ['$scope', '$location', 'Flo
   };
 }]);
 
-controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', 'flowService', function($scope, $interval, $location, flowService) {
-  var flow = $scope.flow = flowService.getFlow();
+controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'flowService', 'Flow', function($scope, $interval, $location, $routeParams, flowService, Flow) {
+  // TODO: Smelly!
+  var flow = flowService.getFlow();
+  if (flow === null) {
+    flow = Flow.get({flowId: $routeParams.flowId});
+  }
+  
+  $scope.flow = flow;
   var currentEntry = {};
   $scope.currentMove = {};
 
-  angular.forEach(flow.flowEntries, function(entry) {
+  angular.forEach(flow.moves, function(entry) {
     entry.visible = false;
   });
 
@@ -30,16 +36,16 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
       currentEntry.visible = false;
     }
 
-    if (entryIndex >= flow.flowEntries.length) {
+    if (entryIndex >= flow.moves.length) {
       $location.path('/flow/quick');
     }
     
-    currentEntry = flow.flowEntries[entryIndex];
+    currentEntry = flow.moves[entryIndex];
     currentEntry.visible = true;
     $scope.currentMove = currentEntry.move;
 
     $interval(function() {
-      nextMove(entryIndex+1); }, currentEntry.time * 1000, 1);
+      nextMove(entryIndex+1); }, currentEntry.duration * 1000, 1);
   };
   
   $scope.$on('$routeChangeSuccess', function () {

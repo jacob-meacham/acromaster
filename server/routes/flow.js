@@ -3,6 +3,7 @@
 require('../models/flow.js');
 require('../models/move.js');
 var async = require('async');
+var _ = require('underscore');
 var mongoose = require('mongoose');
 var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
@@ -27,7 +28,7 @@ var generate = function(req, res) {
 
   async.waterfall([
     function(next) {
-      Move.find(function(err, moves) {
+      Move.list({}, function(err, moves) {
         if (err) {
           next(err, null);
         } else {
@@ -43,19 +44,20 @@ var generate = function(req, res) {
       };
 
       // Construct a new list using the passed parameters
-      var flow = {};
-      var flowEntries = [];
+      var flow = new Flow();
+      flow.name = 'Quick Flow';
+
       var timeSoFar = 0;
       var totalTime = parse(req.query.totalTime);
       var timePerMove = parse(req.query.timePerMove);
       var timeVariance = parse(req.query.timeVariance);
       var numIterations = 0;
       while (numIterations < 100) {
-        var moveTime = timePerMove + Math.random() * timeVariance;
-        timeSoFar += moveTime;
+        var moveDuration = timePerMove + Math.random() * timeVariance;
+        timeSoFar += moveDuration;
 
-        var flowEntry = {'time': moveTime, 'move': all_moves[Math.floor(Math.random() * all_moves.length)]};
-        flowEntries.push(flowEntry);
+        var move = { 'duration': moveDuration, 'move': all_moves[Math.floor(Math.random() * all_moves.length)] };
+        flow.moves.push(move);
 
         if (timeSoFar > totalTime) {
           break;
@@ -63,8 +65,9 @@ var generate = function(req, res) {
         numIterations++;
       }
 
-      flow.flowEntries = flowEntries;
-      next(null, flow);
+      flow.populate('moves.move', function(err) {
+        next(err, flow);
+      });
     }
   ],
   function(err, result) {
@@ -76,7 +79,7 @@ var generate = function(req, res) {
   });
 };
 
-var getById = function(req, res, next, id) {
+var loadById = function(req, res, next, id) {
   Flow.load(id, function(err, flow) {
     if (err) {
       return next(err);
@@ -85,6 +88,7 @@ var getById = function(req, res, next, id) {
     if (!flow) {
       return next(new Error('Failed to load move list: ' + id));
     }
+
     req.flow = flow;
     next();
   });
@@ -93,5 +97,6 @@ var getById = function(req, res, next, id) {
 module.exports = function(app) {
   app.get('/api/flow/generate', generate);
   app.get('/api/flow/:flowId', show);
-  app.param('flowId', getById);
+
+  app.param('flowId', loadById);
 };
