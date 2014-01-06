@@ -17,10 +17,11 @@ var args = process.argv.splice(2);
 var audioDir = args[1];
 
 var config = require('../../config/config').development;
+var bucket = 'moves';
 var s3Client = s3.createClient({
   key: config.s3.key,
   secret: config.s3.secret,
-  bucket: 'moves',
+  bucket: bucket,
   endpoint: config.s3Url,
   port: config.s3Port,
   style: 'path'
@@ -53,6 +54,10 @@ var writeAudioToS3 = function(callback, results) {
 
       uploader.on('end', function() {
         console.log('Successfully uploaded ' + item.audioUri);
+
+        // Also fix the URI to point to where we actually uploaded it:
+        item.audioUri = config.s3Url + ':' + config.s3Port + '/' + bucket + '/audio/' + item.audioUri;
+
         each_callback(null);
       });
     },
@@ -87,7 +92,7 @@ var writeToMongo = function(callback, results) {
 async.auto({
   read_file: readMovesFile,
   write_to_s3: ['read_file', writeAudioToS3],
-  write_to_mongo: ['read_file', writeToMongo]
+  write_to_mongo: ['read_file', 'write_to_s3', writeToMongo]
   },
   function done(err) {
     if (err) {
