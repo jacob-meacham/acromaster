@@ -14,6 +14,8 @@ var setTags = function(tags) {
 var MoveSchema = new Schema({
   name: {type: String, required: true },
   audioUri: String,
+  difficulty: {type: Number, default: 5},
+  aliases: [String],
 
   tags: { type: [String], get: getTags, set: setTags },
 });

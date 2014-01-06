@@ -44,22 +44,23 @@ var readMovesFile = function(callback) {
 var writeAudioToS3 = function(callback, results) {
   async.each(results.read_file,
     function(item, each_callback) {
-      var audioFile = path.resolve(path.join(audioDir, item.audioUri));
-      console.log(audioFile);
-      
-      var uploader = s3Client.upload(audioFile, 'audio/' + item.audioUri);
-      uploader.on('error', function(err) {
-        console.log('error uploading ' + item.audioUri + '(' + err + ')');
-      });
+      setTimeout(function() {
+        var audioFile = path.resolve(path.join(audioDir, item.audioUri));
+        
+        var uploader = s3Client.upload(audioFile, 'audio/' + item.audioUri);
+        uploader.on('error', function(err) {
+          console.log('error uploading ' + item.audioUri + '(' + err + ')');
+        });
 
-      uploader.on('end', function() {
-        console.log('Successfully uploaded ' + item.audioUri);
+        uploader.on('end', function() {
+          console.log('Successfully uploaded ' + item.audioUri);
 
-        // Also fix the URI to point to where we actually uploaded it:
-        item.audioUri = config.s3Url + ':' + config.s3Port + '/' + bucket + '/audio/' + item.audioUri;
+          // Also fix the URI to point to where we actually uploaded it:
+          item.audioUri = 'http://' + config.s3Url + ':' + config.s3Port + '/' + bucket + '/audio/' + item.audioUri;
 
-        each_callback(null);
-      });
+          each_callback(null);
+        });
+      }, Math.random() * 1000);
     },
     
     function(err) {

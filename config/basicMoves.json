@@ -1,24 +1,386 @@
 [
   {
+    "name": "3 Step",
+    "audioUri": "3-step.wav",
+    "difficulty": 7,
+    "tags": "washing_machine,star"
+  },
+  {
+    "name": "4 Step",
+    "audioUri": "4-step.wav",
+    "difficulty": 6,
+    "tags": "washing_machine,star"
+  },
+  {
+    "name": "360s",
+    "audioUri": "360s.wav",
+    "difficulty": 6,
+    "tags": "washing_machine,shoulderstand"
+  },
+  {
+    "name": "Asym",
+    "audioUri": "Asym.wav",
+    "difficulty": 4,
+    "tags": "simple,static"
+  },
+  {
+    "name": "Back Plank",
+    "audioUri": "back_plank.wav",
+    "difficulty": 1,
+    "tags": "simple,static"
+  },
+  {
     "name": "Barrel Roll",
     "audioUri": "barrel_roll.wav",
+    "difficulty": 5,
     "tags": "washing_machine,simple"
+  },
+  {
+    "name": "Bed",
+    "audioUri": "bed.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Bird",
+    "audioUri": "bird.wav",
+    "difficulty": 1,
+    "tags": "static"
+  },
+  {
+    "name": "Boomerang",
+    "audioUri": "boomerang.wav",
+    "difficulty": 5,
+    "tags": "washing_machine"
+  },
+  {
+    "name": "Bow",
+    "audioUri": "bow.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Camel on Shins",
+    "audioUri": "camel_on_shins.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Catherine's Wheel",
+    "audioUri": "catherines_wheel.wav",
+    "difficulty": 5,
+    "tags": "washing_machine,bird"
+  },
+  {
+    "name": "Dancer's Lament",
+    "audioUri": "dancers_lament.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Fireball",
+    "audioUri": "fireball.wav",
+    "difficulty": 5,
+    "tags": "washing_machine,star"
+  },
+  {
+    "name": "Flag Rollup",
+    "audioUri": "flag_rollup.wav",
+    "difficulty": 5,
+    "tags": "standing"
+  },
+  {
+    "name": "Floating Camel",
+    "audioUri": "floating_camel.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Floating Paschi",
+    "audioUri": "floating_paschi.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Folded Leaf",
+    "audioUri": "folded_leaf.wav",
+    "difficulty": 1,
+    "tags": "static"
+  },
+  {
+    "name": "Foot to Foot",
+    "audioUri": "ftf.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Goofy Monolimb Reverse Star",
+    "audioUri": "goofy_monolimb_rev_star.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Goofy Monolimb Star",
+    "audioUri": "goofy_monolimb_star.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "High Flying Whale",
+    "audioUri": "high_flying_whale.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "High Foot to Hand",
+    "audioUri": "high_fth.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "High Ninja Star",
+    "audioUri": "high_ninja_star.wav",
+    "difficulty": 5,
+    "tags": "washing_machine"
+  },
+  {
+    "name": "High Reverse Foot to Hand",
+    "audioUri": "high_rev_fth.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Hand to Hand",
+    "audioUri": "hth.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Low Foot to Hand",
+    "audioUri": "low_fth.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Low Hand to Hand",
+    "audioUri": "low_hth.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Low Reverse Foot to Hand",
+    "audioUri": "low_rev_fth.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Mayurasana",
+    "audioUri": "mayurasana.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Melted Candlestick",
+    "audioUri": "melted_candlestick.wav",
+    "difficulty": 5,
+    "tags": "static,shoulderstand"
+  },
+  {
+    "name": "Mermaid",
+    "audioUri": "mermaid.wav",
+    "difficulty": 5,
+    "tags": "static,throne"
+  },
+  {
+    "name": "Monkey Bars",
+    "audioUri": "monkey_bars.wav",
+    "difficulty": 5,
+    "tags": "washing_machine"
+  },
+  {
+    "name": "Monkey Frog",
+    "audioUri": "monkey_frog.wav",
+    "difficulty": 5,
+    "tags": "washing_machine"
+  },
+  {
+    "name": "Ninja Star",
+    "audioUri": "ninja_star.wav",
+    "difficulty": 5,
+    "tags": "washing_machine"
+  },
+  {
+    "name": "Not Ninja Star",
+    "audioUri": "not_ninja_star.wav",
+    "difficulty": 5,
+    "tags": "washing_machine"
+  },
+  {
+    "name": "Reverse Asym",
+    "audioUri": "rev_asym.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Reverse Bird",
+    "audioUri": "rev_bird.wav",
+    "difficulty": 1,
+    "tags": "static"
+  },
+  {
+    "name": "Reverse Bow",
+    "audioUri": "rev_bow.wav",
+    "difficulty": 2,
+    "tags": "static"
+  },
+  {
+    "name": "Reverse Floating Camel",
+    "audioUri": "rev_floating_camel.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Reverse Low Hand to Hand",
+    "audioUri": "rev_low_hth.wav",
+    "difficulty": 7,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Reverse Mermaid",
+    "audioUri": "rev_mermaid.wav",
+    "difficulty": 5,
+    "tags": "static,throne"
+  },
+  {
+    "name": "Reverse Shin to Foot",
+    "audioUri": "rev_shin_to_foot.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Reverse Shoulderstand",
+    "audioUri": "rev_shoulderstand.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Reverse Star",
+    "audioUri": "rev_star.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Reverse Thinker",
+    "audioUri": "rev_thinker.wav",
+    "difficulty": 5,
+    "tags": "static,throne"
+  },
+  {
+    "name": "Reverse Throne",
+    "audioUri": "rev_throne.wav",
+    "difficulty": 5,
+    "tags": "static,throne"
+  },
+  {
+    "name": "Reverse Vash",
+    "audioUri": "rev_vash.wav",
+    "difficulty": 5,
+    "tags": "static"
   },
   {
     "name": "Seattle Barrel Roll",
     "audioUri": "seattle_barrel_roll.wav",
-    "tags": "washing_machine,simple"
-  },
-  {
-    "name": "High Foot to Hand",
-    "audioUri": "high_fth.wav"
-  },
-  {
-    "name": "Mayurasana",
-    "audioUri": "mayurasana.wav"
+    "difficulty": 6,
+    "tags": "washing_machine"
   },
   {
     "name": "Secretary",
-    "audioUri": "secretary.wav"
+    "audioUri": "secretary.wav",
+    "difficulty": 6,
+    "tags": "washing_machine"
+  },
+  {
+    "name": "Shoulderstand",
+    "audioUri": "shoulderstand.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Shoulderstand Spins",
+    "audioUri": "shoulderstand_spins.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Side Star",
+    "audioUri": "side_star.wav",
+    "difficulty": 2,
+    "tags": "static"
+  },
+  {
+    "name": "Spider Roll",
+    "audioUri": "spider_roll.wav",
+    "difficulty": 5,
+    "tags": "washing_machine"
+  },
+  {
+    "name": "Star",
+    "audioUri": "star.wav",
+    "difficulty": 2,
+    "tags": "static"
+  },
+  {
+    "name": "Star Ball Balance on Hands",
+    "audioUri": "star_ball_balance_on_hands.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Straddle Bat",
+    "audioUri": "straddle_bat.wav",
+    "difficulty": 1,
+    "tags": "static"
+  },
+  {
+    "name": "String Cheese",
+    "audioUri": "string_cheese.wav",
+    "difficulty": 5,
+    "tags": "static,hand_balance"
+  },
+  {
+    "name": "Thinker",
+    "audioUri": "thinker.wav",
+    "difficulty": 3,
+    "tags": "static,throne"
+  },
+  {
+    "name": "Titanic Rollup",
+    "audioUri": "titanic_rollup.wav",
+    "difficulty": 5,
+    "tags": "standing"
+  },
+  {
+    "name": "True Free Shoulderstand",
+    "audioUri": "true_free_shoulderstand.wav",
+    "difficulty": 5,
+    "tags": "static,shoulderstand"
+  },
+  {
+    "name": "Two Scoops",
+    "audioUri": "two_scoops.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Vash",
+    "audioUri": "vash.wav",
+    "difficulty": 5,
+    "tags": "static"
+  },
+  {
+    "name": "Vashing Machine",
+    "audioUri": "vashing_machine.wav",
+    "difficulty": 5,
+    "tags": "washing_machine"
   }
 ]
