@@ -4,7 +4,8 @@ var app = angular.module('acromaster', [
   'ngRoute',
   'acromaster.services',
   'acromaster.controllers',
-  'ui.slider'
+  'ui.slider',
+  'ui.bootstrap'
 ]);
 
 app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {

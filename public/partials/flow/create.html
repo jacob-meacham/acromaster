@@ -1,5 +1,4 @@
 <section>
-    <form ng-submit="create()">
         <div class="control-group">
             <label class="control-label" for="name">Name</label>
             <div class="controls">
@@ -9,10 +8,24 @@
             <div class="controls">
                 <input type="text" ng-model="flow.author" id="author" placeholder="Author">
             </div>
-            <div class="control-group">
-                <div class="controls">
-                    <input type="submit" class="btn">
-                </div>
+        </div>
+    </form>
+    <div ng-repeat='move in moveList'>
+        {{move.move.name}} - {{move.duration}}
+    </div>
+    <form ng-submit="addMove()">
+        <input type="text" ng-model="currentMove" typeahead="move as move.name for move in allMoves | filter:$viewValue | limitTo:20" typeahead-editable="false" class="form-control">
+        <input type="text" ng-model="currentDuration" class="form-control">
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" class="btn">
+            </div>
+        </div>
+    </form>
+    <form ng-submit="create()">
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" class="btn">
             </div>
         </div>
     </form>

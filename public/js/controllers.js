@@ -63,24 +63,38 @@ controllers.controller('FlowListController', ['$scope', 'Flow', function($scope,
   find();
 }]);
 
-controllers.controller('FlowCreateController', ['$scope', 'Flow', 'Moves', function($scope, Flow, Moves) {
-  var allMoves = Moves.query();
-  $scope.create = function() {
-    var movesList = [{
-      move: allMoves[0]._id,
-      duration: 20
-    },
-    {
-      move: allMoves[1]._id,
-      duration: 30
-    },
-    {
-      move: allMoves[2]._id,
-      duration: 40
-    }];
+controllers.controller('FlowCreateController', ['$scope', '$location', 'Flow', 'Moves', function($scope, $location, Flow, Moves) {
+  var allMoves = $scope.allMoves = Moves.query();
+  console.log(allMoves);
+  var flow = $scope.flow = new Flow({moves: []});
+  $scope.currentMove = null;
+  $scope.currentDuration = 20;
 
-    var newFlow = new Flow({name: 'Test', author: 'Test Author', moves: movesList});
-    newFlow.$save();
+  // TODO: Need a much better way to do this.
+  $scope.moveList = [];
+
+  // TODO: Refactor into directive.
+  $scope.addMove = function() {
+    flow.moves.push({
+      move: $scope.currentMove._id,
+      duration: $scope.currentDuration
+    });
+
+    // Currently need to keep two lists so that the flow only keeps the
+    // move id.
+    $scope.moveList.push({
+      move: $scope.currentMove,
+      duration: $scope.currentDuration
+    });
+    
+    $scope.currentMove = null;
+    $scope.currentDuration = 20;
+  };
+
+  $scope.create = function() {
+    flow.$save(function(savedFlow, headers) {
+      $location.path('/flow/' + savedFlow._id);
+    });
   };
 }]);
 
