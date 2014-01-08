@@ -6,7 +6,6 @@ var rootPath = path.normalize(__dirname + '/..');
 var config = {
     development: {
         db: process.env.MONGOHQ_URL || 'mongodb://localhost/am-dev',
-        dbSecret: process.env.MONGOSECRET || 'acromaster',
         useLogger: true,
         root: rootPath,
         app: {
@@ -14,15 +13,14 @@ var config = {
         },
 
         s3: {
+            url: 'localhost/acromaster',
             key: process.env.S3_KEY || 's3key',
             secret: process.env.S3_SECRET || 's3secret',
-            url: process.env.S3_URL || 'localhost',
             port: 10001
         }
     },
     test: {
         db: process.env.MONGOHQ_URL || 'mongodb://localhost/am-test',
-        dbSecret: process.env.MONGOSECRET || 'acromaster',
         root: rootPath,
         useLogger: false,
         app: {
@@ -30,15 +28,14 @@ var config = {
         },
 
         s3: {
+            url: 'localhost/acromaster',
             key: process.env.S3_KEY || 's3key',
             secret: process.env.S3_SECRET || 's3secret',
-            url: process.env.S3_URL || 'localhost',
             port: 10001
         }
     },
     production: {
         db:  process.env.MONGOHQ_URL,
-        dbSecret: process.env.MONGOSECRET,
         root: rootPath,
         useLogger: true,
         app: {
@@ -46,10 +43,9 @@ var config = {
         },
 
         s3: {
+            url: 'acromaster.s3.amazonaws.com',
             key: process.env.S3_KEY,
             secret: process.env.S3_SECRET,
-            url: process.env.S3_URL,
-            port: 10001
         }
     }
 };
