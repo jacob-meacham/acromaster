@@ -6,6 +6,7 @@ var rootPath = path.normalize(__dirname + '/..');
 var config = {
     development: {
         db: process.env.MONGOHQ_URL || 'mongodb://localhost/am-dev',
+        dbSecret: 'acromaster',
         useLogger: true,
         root: rootPath,
         app: {
@@ -21,6 +22,7 @@ var config = {
     },
     test: {
         db: process.env.MONGOHQ_URL || 'mongodb://localhost/am-test',
+        dbSecret: 'acromaster',
         root: rootPath,
         useLogger: false,
         app: {
@@ -36,6 +38,7 @@ var config = {
     },
     production: {
         db:  process.env.MONGOHQ_URL,
+        dbSecret: process.env.DB_SECRET,
         root: rootPath,
         useLogger: true,
         app: {
