@@ -17,7 +17,7 @@ var args = process.argv.splice(2);
 var audioDir = args[1];
 
 var config = require('../../config/config').development;
-var bucket = 'moves';
+var bucket = 'acromaster';
 var s3Client = s3.createClient({
   key: config.s3.key,
   secret: config.s3.secret,

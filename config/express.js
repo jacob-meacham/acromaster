@@ -31,7 +31,7 @@ module.exports = function(app, config) {
 
     // express/mongo session storage
     app.use(express.session({
-        secret: config.mongoSecret,
+        secret: config.dbSecret,
         store: new mongoStore({
             url: config.db
         })

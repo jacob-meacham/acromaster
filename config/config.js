@@ -2,47 +2,56 @@
 
 var path = require('path');
 var rootPath = path.normalize(__dirname + '/..');
-var _ = require('underscore');
-var secret = require('./secret');
 
 var config = {
     development: {
         db: process.env.MONGOHQ_URL || 'mongodb://localhost/am-dev',
-        s3Url: 'localhost',
-        s3Port: 10001,
+        dbSecret: process.env.MONGOSECRET || 'acromaster',
         useLogger: true,
         root: rootPath,
         app: {
             name: 'Acromaster - Development'
+        },
+
+        s3: {
+            key: process.env.S3_KEY || 's3key',
+            secret: process.env.S3_SECRET || 's3secret',
+            url: process.env.S3_URL || 'localhost',
+            port: 10001
         }
     },
     test: {
         db: process.env.MONGOHQ_URL || 'mongodb://localhost/am-test',
-        s3Url: 'localhost',
-        s3Port: 10001,
+        dbSecret: process.env.MONGOSECRET || 'acromaster',
         root: rootPath,
         useLogger: false,
         app: {
             name: 'Acromaster - Test'
+        },
+
+        s3: {
+            key: process.env.S3_KEY || 's3key',
+            secret: process.env.S3_SECRET || 's3secret',
+            url: process.env.S3_URL || 'localhost',
+            port: 10001
         }
     },
     production: {
         db:  process.env.MONGOHQ_URL,
-        s3Url: 'localhost',
-        s3Port: 10001,
+        dbSecret: process.env.MONGOSECRET,
         root: rootPath,
         useLogger: true,
         app: {
             name: 'Acromaster'
+        },
+
+        s3: {
+            key: process.env.S3_KEY,
+            secret: process.env.S3_SECRET,
+            url: process.env.S3_URL,
+            port: 10001
         }
     }
 };
-
-for (var env in config) {
-    // Pull in all of the config that can't be checked in.
-    _.extend(config[env], secret[env]);
-}
-
-
 
 module.exports = config;
