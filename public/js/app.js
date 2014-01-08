@@ -46,6 +46,7 @@ app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
 
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
-      'http://localhost**']);
+      'http://localhost**',
+      'http://acromaster.s3.amazonaws.com/**']);
   }
 );
