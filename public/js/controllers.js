@@ -92,7 +92,7 @@ controllers.controller('FlowCreateController', ['$scope', '$location', 'Flow', '
   };
 
   $scope.create = function() {
-    flow.$save(function(savedFlow, headers) {
+    flow.$save(function(savedFlow) {
       $location.path('/flow/' + savedFlow._id);
     });
   };
