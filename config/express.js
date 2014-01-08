@@ -18,7 +18,7 @@ module.exports = function(app, config) {
     }
 
     app.set('port', process.env.PORT || 3000);
-    app.set('views', path.join(app.directory, 'server/views'));
+    app.set('views', path.join(config.root, 'server/views'));
     app.set('view engine', 'jade');
 
     // Enable jsonp
@@ -39,6 +39,6 @@ module.exports = function(app, config) {
 
     app.use(helpers(config.app.name));
     
-    app.use(express.static(path.join(app.directory, 'public')));
+    app.use(express.static(path.join(config.root, 'public')));
     app.use(app.router);
 };
