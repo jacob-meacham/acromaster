@@ -1,22 +1,22 @@
 {
   "name": "acromaster",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "dependencies": {
-    "bootstrap": "latest",
-    "angular": "latest",
-    "angular-route": "latest",
-    "angular-resource": "latest",
-    "angular-bootstrap": "latest",
-    "angular-ui-utils": "latest",
+    "bootstrap": "3.1.x",
+    "angular": "1.2.x",
+    "angular-route": "1.2.x",
+    "angular-resource": "1.2.x",
+    "angular-bootstrap": "0.11.x",
+    "angular-ui-utils": "0.1.x",
     "angular-ui-slider": "latest",
-    "json3": "latest",
-    "jquery": "latest"
+    "json3": "3.3.x",
+    "jquery": "1.9.x"
   },
   "devDependencies": {
-    "angular-mocks": "latest",
-    "angular-scenario": "latest"
+    "angular-mocks": "1.2.x",
+    "angular-scenario": "1.2.x"
   },
   "resolutions": {
-    "angular": "1.2.7"
+    "angular": "1.2.x"
   }
 }
