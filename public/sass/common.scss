@@ -26,3 +26,21 @@ a.divLinker {
   text-decoration: none;
   z-index: 10;
 }
+
+.washing-machine a:hover {
+  color: #fff;
+  text-shadow: 0px 0px 4px #999;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.washing-machine h1 {
+  padding-top: 30px;
+}
+
+.back-button {
+  font-size: 4.0em !important;
+  padding-top: 30px;
+  float: left;
+  opacity: 0.5;
+}

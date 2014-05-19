@@ -18,7 +18,7 @@ var config = {
         root: rootPath,
 
         s3: {
-            url: 'localhost/acromaster',
+            url: 'localhost',
             key: 's3key',
             secret: 's3secret',
             port: 10001
@@ -38,7 +38,7 @@ var config = {
         root: rootPath,
 
         s3: {
-            url: 'localhost/acromaster',
+            url: 'localhost',
             key: 's3key',
             secret: 's3secret',
             port: 10001

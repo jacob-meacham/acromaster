@@ -1,0 +1,104 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\000031}}
+.view-container {
+  position: relative;
+  top: -200px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\000036}}
+.view-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000313}}
+.view-frame.ng-leave {
+  -webkit-animation: viewExit 0.5s both ease-in-out;
+  -moz-animation: viewExit 0.5s both ease-in-out;
+  animation: viewExit 0.5s both ease-in-out;
+  z-index: 99;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000319}}
+.view-frame.ng-enter {
+  -webkit-animation: viewEnter 0.5s both ease-in-out;
+  -moz-animation: viewEnter 0.5s both ease-in-out;
+  animation: viewEnter 0.5s both ease-in-out;
+  z-index: 100;
+}
+
+@keyframes viewExit {
+  /* line 27, ../sass/animations.scss */
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@-moz-keyframes viewExit {
+  /* line 30, ../sass/animations.scss */
+  to {
+    -moz-transform: translateX(100%);
+  }
+}
+
+@-webkit-keyframes viewExit {
+  /* line 33, ../sass/animations.scss */
+  to {
+    -webkit-transform: translateX(100%);
+  }
+}
+
+@keyframes viewEnter {
+  /* line 37, ../sass/animations.scss */
+  from {
+    transform: translateX(-100%);
+  }
+
+  /* line 38, ../sass/animations.scss */
+  to {
+    transform: translateX(0);
+  }
+}
+
+@-moz-keyframes viewEnter {
+  /* line 41, ../sass/animations.scss */
+  from {
+    -moz-transform: translateX(-100%);
+  }
+
+  /* line 42, ../sass/animations.scss */
+  to {
+    -moz-transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes viewEnter {
+  /* line 45, ../sass/animations.scss */
+  from {
+    -webkit-transform: translateX(-100%);
+  }
+
+  /* line 46, ../sass/animations.scss */
+  to {
+    -webkit-transform: translateX(0);
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000349}}
+.thumbnail:hover {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  opacity: 1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000358}}
+.back-button:hover {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  opacity: 1;
+}

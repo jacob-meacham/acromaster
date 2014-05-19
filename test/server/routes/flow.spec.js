@@ -1,7 +1,7 @@
 'use strict';
 
 var request = require('supertest');
-var app = require('../../../app');
+var app = require('../../../server');
 
 describe('GET /flow/generate', function() {
   it('should return JSON', function(done) {

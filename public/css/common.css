@@ -28,3 +28,24 @@ a.divLinker {
   text-decoration: none;
   z-index: 10;
 }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000330}}
+.washing-machine a:hover {
+  color: #fff;
+  text-shadow: 0px 0px 4px #999;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000337}}
+.washing-machine h1 {
+  padding-top: 30px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000341}}
+.back-button {
+  font-size: 4.0em !important;
+  padding-top: 30px;
+  float: left;
+  opacity: 0.5;
+}

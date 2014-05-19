@@ -146,7 +146,12 @@ var generate = function(req, res) {
 };
 
 var getMoves = function(req, res) {
-  Move.list({}, function(err, moves) {
+  var query = {};
+  if (req.query !== null) {
+    query = req.query;
+  }
+  
+  Move.find(query, function(err, moves) {
     if (err) {
       res.status(500).send({error: err});
       return;

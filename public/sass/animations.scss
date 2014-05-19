@@ -54,3 +54,12 @@
 
   opacity: 1;
 }
+
+.back-button:hover {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out; 
+
+  opacity: 1;
+}
