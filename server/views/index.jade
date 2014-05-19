@@ -1,5 +1,20 @@
-extends layout
+doctype html
+html(lang='en', ng-app='acromaster')
+  include includes/head
+  body
 
-block content
-  section(data-ng-view)
-  script(type="text/javascript")
+    div.site-wrapper
+        div.site-wrapper-inner
+            div.cover-container
+                div.masthead.clearfix
+                    div.inner
+                        h3.masthead-brand acromaster
+                        ul.nav.masthead-nav
+                            li.active
+                                a(href='/') Home
+                            li
+                                a(href='/about') About
+                div.inner.cover
+                    div.view-container
+                        section(data-ng-view).view-frame
+    include includes/foot

@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('underscore');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -11,7 +12,9 @@ var FlowSchema = new Schema({
     duration: Number
   }],
 
-  createdAt: { type : Date, default : Date.now }
+  createdAt: { type : Date, default : Date.now },
+  official: Boolean,
+  ratings: [Number]
 });
 
 FlowSchema.statics = {
@@ -34,6 +37,20 @@ FlowSchema.statics = {
       .limit(options.perPage)
       .skip(options.perPage * options.page)
       .exec(cb);
+  }
+};
+
+FlowSchema.methods = {
+  getRating: function() {
+    if (this.ratings.length === 0) {
+      return -1;
+    }
+
+    var sum = _.reduce(this.ratings, function(memo, num) {
+      return memo + num;
+    });
+
+    return sum/this.ratings.length;
   }
 };
 

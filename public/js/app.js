@@ -1,6 +1,7 @@
 'use strict';
 
 var app = angular.module('acromaster', [
+  'ngAnimate',
   'ngRoute',
   'acromaster.services',
   'acromaster.controllers',
@@ -10,7 +11,14 @@ var app = angular.module('acromaster', [
 
 app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
-    when('/flows', {
+    when('/', {
+      templateUrl: '/partials/index.html'
+    })
+    .when('/washing-machine', {
+      templateUrl: '/partials/washing-machine/view.html',
+      controller: 'WashingMachineViewController'
+    })
+    .when('/flows', {
       templateUrl: '/partials/flow/list.html',
       controller: 'FlowListController'
     })
@@ -39,7 +47,7 @@ app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
       controller: 'FlowPlayController'
     })
     .otherwise({
-      redirectTo: '/flows'
+      redirectTo: '/'
     });
 
     $locationProvider.html5Mode(true);

@@ -9,6 +9,7 @@
     "angular-bootstrap": "0.11.x",
     "angular-ui-utils": "0.1.x",
     "angular-ui-slider": "latest",
+    "angular-animate": "latest",
     "json3": "3.3.x",
     "jquery": "1.9.x"
   },

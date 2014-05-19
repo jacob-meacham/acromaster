@@ -1,29 +1,30 @@
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\000031}}
-.navbar .nav > li > a.brand {
-  padding-left: 20px;
-  margin-left: 0;
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\000033}}
+span.glyphicon {
+  font-size: 5.0em;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\000036}}
-.content {
-  margin-top: 50px;
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\000037}}
+.thumbnail {
+  padding-top: 30px;
+  background: rgba(1, 1, 1, 0.5);
+  height: 300px;
+  position: relative;
+  opacity: 0.5;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000315}}
+.thumbnail .caption {
+  opacity: 0.7;
+  color: white;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000320}}
+a.divLinker {
+  position: absolute;
   width: 100%;
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000311}}
-footer {
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  height: 30px;
-  width: 100%;
-  background: #ddd;
-  -webkit-box-shadow: 0 8px 6px 6px black;
-  -moz-box-shadow: 0 8px 6px 6px black;
-  box-shadow: 0 8px 6px 6px black;
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000323}}
-footer p {
-  padding: 5px 0 12px 10px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-decoration: none;
+  z-index: 10;
 }

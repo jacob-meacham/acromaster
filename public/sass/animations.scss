@@ -1,0 +1,56 @@
+.view-container {
+  position: relative;
+  top: -200px;
+}
+
+.view-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.view-frame.ng-leave        {
+  -webkit-animation:viewExit 0.5s both ease-in-out;
+  -moz-animation:viewExit 0.5s both ease-in-out;
+  animation:viewExit 0.5s both ease-in-out;
+  z-index:99;
+}
+.view-frame.ng-enter    {  
+  -webkit-animation:viewEnter 0.5s both ease-in-out;
+  -moz-animation:viewEnter 0.5s both ease-in-out;
+  animation:viewEnter 0.5s both ease-in-out;
+  z-index: 100;
+}
+
+@keyframes viewExit {
+  to    { transform: translateX(100%); }
+}
+@-moz-keyframes viewExit {  
+  to    { -moz-transform: translateX(100%); }
+}
+@-webkit-keyframes viewExit {
+  to    { -webkit-transform: translateX(100%); }
+}
+
+@keyframes viewEnter {
+  from  { transform:translateX(-100%); }
+  to    { transform: translateX(0); }
+}
+@-moz-keyframes viewEnter {
+  from  { -moz-transform:translateX(-100%); }
+  to    { -moz-transform: translateX(0); }
+}
+@-webkit-keyframes viewEnter {
+  from  { -webkit-transform:translateX(-100%); }
+  to    { -webkit-transform: translateX(0); }
+}
+
+.thumbnail:hover {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out; 
+
+  opacity: 1;
+}
