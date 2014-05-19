@@ -16,14 +16,14 @@ var Move = mongoose.model('Move');
 var args = process.argv.splice(2);
 var audioDir = args[1];
 
-var config = require('../../config/config').development;
+var config = require('../config/config').development;
 var bucket = 'acromaster';
 var s3Client = s3.createClient({
   key: config.s3.key,
   secret: config.s3.secret,
   bucket: bucket,
-  endpoint: config.s3Url,
-  port: config.s3Port,
+  endpoint: config.s3.url,
+  port: config.s3.port,
   style: 'path'
 });
 
@@ -75,7 +75,7 @@ var writeAudioToS3 = function(callback, results) {
 
 // Write moves to mongo
 var writeToMongo = function(callback, results) {
-  mongoose.connect(config.db, function(err) {
+  mongoose.connect(config.dbUrl, function(err) {
     if (err) {
       callback(err);
     }
