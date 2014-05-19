@@ -56,7 +56,7 @@ var writeAudioToS3 = function(callback, results) {
           console.log('Successfully uploaded ' + item.audioUri);
 
           // Also fix the URI to point to where we actually uploaded it:
-          item.audioUri = 'http://' + config.s3Url + ':' + config.s3Port + '/' + bucket + '/audio/' + item.audioUri;
+          item.audioUri = 'http://' + config.s3.url + ':' + config.s3.port + '/' + bucket + '/audio/' + item.audioUri;
 
           each_callback(null);
         });
