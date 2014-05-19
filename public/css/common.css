@@ -49,3 +49,8 @@ a.divLinker {
   float: left;
   opacity: 0.5;
 }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000348}}
+.ui-slider {
+  background: #777;
+}

@@ -1,11 +1,19 @@
 <section>
-    Total Time (Minutes): {{flowParams.totalMinutes}}
-    <div ui-slider min="0" step="10" max="120" ng-model="flowParams.totalMinutes"></div>
-    Difficulty: {{flowParams.difficulty}}
-    <div ui-slider min="0" max="11" ng-model="flowParams.difficulty"></div>
-    Move Duration (Seconds): {{flowParams.timePerMove}}
-    <div ui-slider min="5" max="60" ng-model="flowParams.timePerMove"></div>
-    Move Variance (Seconds): {{flowParams.timeVariance}}
-    <div ui-slider min="0" max="60" ng-model="flowParams.timeVariance"></div>
-    <button ng-click="start()">Start!</button>
+    <button type="button" class="btn btn-default btn-lg" ng-click="start()">Start!</button>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Basic Setup</h2>
+            <h3>Total Time (Minutes): {{flowParams.totalMinutes}}</h3>
+                <div ui-slider min="0" step="10" max="120" ng-model="flowParams.totalMinutes"></div>
+            <h3>Difficulty: {{flowParams.difficulty}}</h3>
+                <div ui-slider min="0" max="11" ng-model="flowParams.difficulty"></div>
+        </div>
+        <div class="col-md-4 col-md-offset-2">
+            <h4>Advanced Setup</h4>
+            <h5>Move Duration: {{flowParams.timePerMove}}</h5>
+                <div ui-slider min="5" max="60" ng-model="flowParams.timePerMove"></div>
+            <h5>Move Variance: {{flowParams.timeVariance}}</h5>
+                <div ui-slider min="0" max="60" ng-model="flowParams.timeVariance"></div>
+        </div>
+    </div>
 </section>
