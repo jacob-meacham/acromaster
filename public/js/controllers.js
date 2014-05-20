@@ -31,6 +31,7 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
     entry.visible = false;
   });
 
+  var intervalPromise;
   var nextMove = function(entryIndex) {
     if (currentEntry) {
       currentEntry.visible = false;
@@ -44,12 +45,19 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
     currentEntry.visible = true;
     $scope.currentMove = currentEntry.move;
 
-    $interval(function() {
+    intervalPromise = $interval(function() {
       nextMove(entryIndex+1); }, currentEntry.duration * 1000, 1);
   };
   
   $scope.$on('$routeChangeSuccess', function () {
     nextMove(0);
+  });
+
+  $scope.$on('$destroy', function() {
+    if (angular.isDefined(intervalPromise)) {
+      $interval.cancel(intervalPromise);
+      intervalPromise = undefined;
+    }
   });
 }]);
 
