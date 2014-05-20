@@ -23,27 +23,68 @@
   z-index: 100;
 }
 
+.view-frame.ng-leave .back-button {
+  opacity: 0;
+}
+
 @keyframes viewExit {
-  to    { transform: translateX(100%); }
+  to    { transform: translateX(100%); opacity: 0; }
 }
 @-moz-keyframes viewExit {  
-  to    { -moz-transform: translateX(100%); }
+  to    { -moz-transform: translateX(100%); opacity: 0; }
 }
 @-webkit-keyframes viewExit {
-  to    { -webkit-transform: translateX(100%); }
+  to    { -webkit-transform: translateX(100%); opacity: 0; }
 }
 
 @keyframes viewEnter {
-  from  { transform:translateX(-100%); }
-  to    { transform: translateX(0); }
+  from  { transform:translateX(-100%); opacity: 0; }
+  to    { transform: translateX(0); opacity: 1; }
 }
 @-moz-keyframes viewEnter {
-  from  { -moz-transform:translateX(-100%); }
-  to    { -moz-transform: translateX(0); }
+  from  { -moz-transform:translateX(-100%); opacity: 0; }
+  to    { -moz-transform: translateX(0); opacity: 1; }
 }
 @-webkit-keyframes viewEnter {
-  from  { -webkit-transform:translateX(-100%); }
-  to    { -webkit-transform: translateX(0); }
+  from  { -webkit-transform:translateX(-100%); opacity: 0; }
+  to    { -webkit-transform: translateX(0); opacity: 1; }
+}
+
+.play-move.ng-hide-add {
+  -webkit-animation:fade-out 0.5s both ease-in-out;
+  -moz-animation:fade-out 0.5s both ease-in-out;
+  animation:fade-out 0.5s both ease-in-out;
+}
+.play-move.ng-hide-remove {  
+  -webkit-animation:fade-in 0.5s both ease-in-out;
+  -moz-animation:fade-in 0.5s both ease-in-out;
+  animation:fade-in 0.5s both ease-in-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-moz-keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-webkit-keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@-moz-keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@-webkit-keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .thumbnail:hover {

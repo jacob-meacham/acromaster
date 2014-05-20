@@ -14,6 +14,9 @@ app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
     when('/', {
       templateUrl: '/partials/index.html'
     })
+    .when('/about', {
+      templateUrl: '/partials/about.html'
+    })
     .when('/washing-machine', {
       templateUrl: '/partials/washing-machine/view.html',
       controller: 'WashingMachineViewController'

@@ -1,4 +1,9 @@
 <section class="flows">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-8">
+            <input type="text" class="form-control" placeholder="Search" ng-model="query">
+        </div>
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -9,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat='flow in flows'>
+            <tr ng-repeat='flow in flows | filter:query'>
                 <td><a href="/flow/{{flow._id}}">{{flow.name}}</a></td>
                 <td>{{flow.author}}</td>
                 <td>100</td>
@@ -18,4 +23,5 @@
         </tbody>
     </table>
     <h3><a href="/flow/create">Create your own</a></h3>
+    <a href="/"><span class="glyphicon glyphicon-circle-arrow-left back-button"></span></a>
 </section>

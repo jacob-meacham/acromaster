@@ -45,7 +45,7 @@ a.divLinker {
 @media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000341}}
 .back-button {
   font-size: 4.0em !important;
-  padding-top: 30px;
+  padding-top: 40px;
   float: left;
   opacity: 0.5;
 }
@@ -72,6 +72,10 @@ a.divLinker {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000364}}
 .move-list {
-  padding-top: 20px;
   padding-bottom: 20px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000368}}
+.flow-title {
+  margin-bottom: 0px;
 }
