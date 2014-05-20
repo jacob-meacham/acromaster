@@ -39,7 +39,7 @@
         "supertest": "0.8.x",
         "sinon": "1.7.x",
         "istanbul": "0.2.x",
-
+        
         "grunt": "0.4.x",
         "grunt-cli": "0.1.x",
         "grunt-contrib-compass": "0.7.x",

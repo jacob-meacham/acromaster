@@ -3,7 +3,7 @@
 require('../models/flow.js');
 require('../models/move.js');
 var async = require('async');
-var _ = require('underscore');
+var _ = require('lodash');
 var mongoose = require('mongoose');
 var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
