@@ -54,3 +54,24 @@ a.divLinker {
 .ui-slider {
   background: #777;
 }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000352}}
+.flows {
+  text-align: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000356}}
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: #333;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000360}}
+.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
+  background-color: #555;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\0000364}}
+.move-list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

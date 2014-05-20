@@ -1,32 +1,36 @@
-<section>
-        <div class="control-group">
-            <label class="control-label" for="name">Name</label>
-            <div class="controls">
-                <input type="text" ng-model="flow.name" id="name" placeholder="Name">
-            </div>
-            <label class="control-label" for="author">Author</label>
-            <div class="controls">
-                <input type="text" ng-model="flow.author" id="author" placeholder="Author">
-            </div>
+<section class="flows">
+        <div class="form-group">
+            <label for="name">Flow Name</label>
+            <input type="text" class="form-control" ng-model="flow.name" id="name" placeholder="Flow Name">
+        </div>
+        <div class="form-group">
+            <label for="name">Flow Author</label>
+            <input type="text" class="form-control" ng-model="flow.author" id="author" placeholder="Flow Author">
         </div>
     </form>
-    <div ng-repeat='move in moveList'>
-        {{move.move.name}} - {{move.duration}}
+    
+    <form role="form" ng-submit="addMove()">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="move-picker">Pick a Move</label>
+                    <input type="text" ng-model="currentMove" typeahead="move as move.name for move in allMoves | filter:$viewValue | limitTo:20" typeahead-editable="false" class="form-control" id="move-picker">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    <input type="text" ng-model="currentDuration" class="form-control" id="time">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default">Add Move</button>
+    </form>
+    <div ng-repeat='move in moveList' class="move-list">
+        {{move.move.name}} - {{move.duration}} seconds
     </div>
-    <form ng-submit="addMove()">
-        <input type="text" ng-model="currentMove" typeahead="move as move.name for move in allMoves | filter:$viewValue | limitTo:20" typeahead-editable="false" class="form-control">
-        <input type="text" ng-model="currentDuration" class="form-control">
-        <div class="control-group">
-            <div class="controls">
-                <input type="submit" class="btn">
-            </div>
-        </div>
-    </form>
+
     <form ng-submit="create()">
-        <div class="control-group">
-            <div class="controls">
-                <input type="submit" class="btn">
-            </div>
-        </div>
+        <button type="submit" class="btn btn-default">Create Flow</button>
     </form>
 </section>

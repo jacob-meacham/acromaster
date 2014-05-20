@@ -48,3 +48,20 @@ a.divLinker {
 .ui-slider {
   background: #777;
 }
+
+.flows {
+  text-align: left;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: #333;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
+  background-color: #555;
+}
+
+.move-list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
