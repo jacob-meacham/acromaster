@@ -1,6 +1,5 @@
 .view-container {
   position: relative;
-  top: -200px;
 }
 
 .view-frame {
@@ -87,7 +86,8 @@
   to { opacity: 0; }
 }
 
-.thumbnail:hover {
+.thumbnail:hover,
+.back-button:focus {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;
@@ -96,7 +96,8 @@
   opacity: 1;
 }
 
-.back-button:hover {
+.back-button:hover,
+.back-button:focus {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;

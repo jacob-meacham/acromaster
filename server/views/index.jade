@@ -3,18 +3,22 @@ html(lang='en', ng-app='acromaster')
   include includes/head
   body
 
-    div.site-wrapper
-        div.site-wrapper-inner
-            div.cover-container
-                div.masthead.clearfix
-                    div.inner
-                        h3.masthead-brand acromaster
-                        ul.nav.masthead-nav
-                            li.active
-                                a(href='/') Home
-                            li
-                                a(href='/about') About
-                div.inner.cover
-                    div.view-container
-                        section(data-ng-view).view-frame
+    div(role='navigator').navbar.navbar-inverse
+        div.container.inner
+            div.navbar-header
+                button(type='button', data-target='.navbar-collapse', data-toggle='collapse').navbar-toggle
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                div.navbar-brand acromaster
+            div.collapse.navbar-collapse
+                ul.nav.navbar-nav
+                    li.active
+                        a(href='/') Home
+                    li
+                        a(href='/about') About
+    div.container.inner
+        div.view-container
+            section(data-ng-view).view-frame
     include includes/foot
