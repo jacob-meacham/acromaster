@@ -194,9 +194,10 @@
   opacity: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003101}}
 .back-button:hover,
-.back-button:focus {
+.back-button:focus,
+.back-button:active {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;

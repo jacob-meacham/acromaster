@@ -97,7 +97,8 @@
 }
 
 .back-button:hover,
-.back-button:focus {
+.back-button:focus,
+.back-button:active {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;

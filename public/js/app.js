@@ -1,3 +1,4 @@
+/*global FastClick */
 'use strict';
 
 var app = angular.module('acromaster', [
@@ -7,7 +8,9 @@ var app = angular.module('acromaster', [
   'acromaster.controllers',
   'ui.slider',
   'ui.bootstrap'
-]);
+]).run(function() {
+  FastClick.attach(document.body);
+});
 
 app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
