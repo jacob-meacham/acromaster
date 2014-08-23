@@ -1,7 +1,9 @@
 'use strict';
 
 var index = function(req, res) {
-    res.render('index');
+    res.render('index', {
+      user: req.user ? req.user : {}
+    });
 };
 
 module.exports = function(app) {

@@ -4,11 +4,30 @@ var path = require('path');
 var rootPath = path.normalize(__dirname + '/../..');
 
 var config = {
+    common: {
+        auth: {
+            facebook: {
+                clientID: '1571422493085485',
+                clientSecret: process.env.FACEBOOK_SECRET,
+                callbackUrl: 'http://localhost:3000/auth/facebook/callback'
+            },
+            twitter: {
+                clientID: '45DXHdEozkOykBCzEgmfrTmRL',
+                clientSecret: process.env.TWITTER_SECRET,
+                callbackUrl: 'http://localhost:3000/auth/twitter/callback'
+            },
+            google: {
+                clientID: '670350064075-frr7h9tvc0php8lf1c9jtc90674e4vk0.apps.googleusercontent.com',
+                clientSecret: process.env.GOOGLE_SECRET,
+                callbackUrl: 'http://localhost:3000/auth/google/callback'
+            }
+        }
+    },
     development: {
         app: {
             name: 'Acromaster - Development',
             port: process.env.PORT || 3000,
-            hostname: 'localhost' || process.env.HOST || process.env.HOSTNAME
+            hostname: '0.0.0.0' || process.env.HOST || process.env.HOSTNAME
         },
         session: {
             secret: 'acromaster',

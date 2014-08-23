@@ -3,22 +3,10 @@ html(lang='en', ng-app='acromaster')
   include includes/head
   body
 
-    div(role='navigator').navbar.navbar-inverse
-        div.container.inner
-            div.navbar-header
-                button(type='button', data-target='.navbar-collapse', data-toggle='collapse').navbar-toggle
-                    span.sr-only Toggle navigation
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
-                div.navbar-brand acromaster
-            div.collapse.navbar-collapse
-                ul.nav.navbar-nav
-                    li.active
-                        a(href='/') Home
-                    li
-                        a(href='/about') About
+    div(role='navigator', ng-include="'partials/navbar.html'" ng-controller="NavbarController").navbar.navbar-inverse
     div.container.inner
         div.view-container
             section(data-ng-view).view-frame
+    script(type='text/javascript').
+        window.user = !{JSON.stringify(user).replace(/<\//g, "<\\/")};
     include includes/foot

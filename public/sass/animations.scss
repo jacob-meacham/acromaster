@@ -86,23 +86,36 @@
   to { opacity: 0; }
 }
 
-.thumbnail:hover,
-.back-button:focus {
-  -webkit-transition: 0.2s ease-in-out;
-  -moz-transition: 0.2s ease-in-out;
-  -o-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out; 
+@mixin standard-ease($ease) {
+  -webkit-transition: $ease ease-in-out;
+  -moz-transition: $ease ease-in-out;
+  -o-transition: $ease ease-in-out;
+  transition: $ease ease-in-out; 
+}
 
+.thumbnail:hover,
+.thumbnail:focus {
+  @include standard-ease(0.2s);
   opacity: 1;
 }
 
 .back-button:hover,
 .back-button:focus,
 .back-button:active {
-  -webkit-transition: 0.2s ease-in-out;
-  -moz-transition: 0.2s ease-in-out;
-  -o-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out; 
-
+  @include standard-ease(0.2s);
   opacity: 1;
+}
+
+.login-twitter:hover,
+.login-twitter:focus,
+.login-twitter:active {
+  @include standard-ease(0.2s);
+  background-color: #3ea1ec;
+}
+
+.login-facebook:hover,
+.login-facebook:focus,
+.login-facebook:active {
+  @include standard-ease(0.2s);
+  background-color: #344e86;
 }

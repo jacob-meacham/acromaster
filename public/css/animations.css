@@ -184,9 +184,9 @@
   }
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000397}}
 .thumbnail:hover,
-.back-button:focus {
+.thumbnail:focus {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;
@@ -194,7 +194,7 @@
   opacity: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003104}}
 .back-button:hover,
 .back-button:focus,
 .back-button:active {
@@ -203,4 +203,26 @@
   -o-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
   opacity: 1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003111}}
+.login-twitter:hover,
+.login-twitter:focus,
+.login-twitter:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  background-color: #3ea1ec;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003118}}
+.login-facebook:hover,
+.login-facebook:focus,
+.login-facebook:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  background-color: #344e86;
 }

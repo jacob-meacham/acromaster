@@ -6,6 +6,7 @@ var app = angular.module('acromaster', [
   'ngRoute',
   'acromaster.services',
   'acromaster.controllers',
+  'acromaster.directives',
   'ui.slider',
   'ui.bootstrap'
 ]).run(function() {
@@ -16,6 +17,9 @@ app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
     when('/', {
       templateUrl: '/partials/index.html'
+    })
+    .when('/login', {
+      templateUrl: '/partials/login.html'
     })
     .when('/about', {
       templateUrl: '/partials/about.html'
