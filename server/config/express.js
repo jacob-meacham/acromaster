@@ -13,7 +13,7 @@ var express = require('express'),
     morgan = require('morgan'),
     path = require('path');
 
-module.exports = function(app, config) {
+module.exports = function(app, passport, config) {
     app.set('showStackError', true);
 
     app.locals.pretty = true;
@@ -44,6 +44,9 @@ module.exports = function(app, config) {
     }));
 
     app.use(helpers(config.app.name));
+
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     app.use(flash());
     app.use(favicon());

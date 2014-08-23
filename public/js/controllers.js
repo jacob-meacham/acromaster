@@ -2,6 +2,25 @@
 
 var controllers = angular.module('acromaster.controllers', []);
 
+controllers.controller('NavbarController', ['$scope', '$http', '$location', '$route', 'authService', function($scope, $http, $location, $route, authService) {
+  var resetAuth = function() {
+    $scope.user = authService.getUser();
+    $scope.authenticated = authService.isAuthenticated();
+  };
+
+  $scope.logout = function() {
+    $http.get('/logout').success(function() {
+      authService.clearUser();
+      resetAuth();
+
+      $location.url('/');
+      $route.reload();
+    });
+  };
+
+  resetAuth();
+}]);
+
 // Quick Create
 controllers.controller('QuickPlayCreateController', ['$scope', '$location', 'Flow', 'flowService', function($scope, $location, Flow, flowService) {
   var flowParams = $scope.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};
