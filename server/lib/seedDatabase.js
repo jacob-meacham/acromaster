@@ -9,14 +9,14 @@ var async = require('async');
 var fs = require('fs');
 var path = require('path');
 
-var Flow = mongoose.model('Flow');
+//var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
 
 // get list of moves and local audio directory from command line
 var args = process.argv.splice(2);
 var audioDir = args[1];
 
-var config = require('../config/config').development;
+var config = require('../config/config').production;
 var bucket = 'acromaster';
 var s3Client = s3.createClient({
   key: config.s3.key,
@@ -81,19 +81,26 @@ var writeToMongo = function(callback, results) {
     }
 
     // Remove
-    Move.remove().exec()
-    .then(function() { return Flow.remove().exec(); })
+    //Move.remove().exec()
+    //.then(function() { return Flow.remove().exec(); })
+    var errorHandler = function(err) {
+      if (err) callback(err);
+    };
 
-    // Update
-    .then(function() { return Move.create(results.read_file); })
-    .then(function() { callback(null); }, function(err) { callback(err); });
+    var moves = results.read_file;
+    for (var i = 0; i < moves.length; i++) {
+      var move = moves[i];
+      Move.update({ name: move.name }, move, { upsert: true }, errorHandler);
+    }
+
+    callback(null);
   });
 };
 
 async.auto({
   read_file: readMovesFile,
-  write_to_s3: ['read_file', writeAudioToS3],
-  write_to_mongo: ['read_file', 'write_to_s3', writeToMongo]
+  //write_to_s3: ['read_file', writeAudioToS3],
+  write_to_mongo: ['read_file', /*'write_to_s3',*/ writeToMongo]
   },
   function done(err) {
     if (err) {
