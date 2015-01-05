@@ -1,0 +1,6 @@
+<div class="play-move" ng-repeat="entry in flow.moves" ng-show="entry.visible">
+    <h1>{{entry.move.name}}</h1>
+    <p>{{entry.move.tags}}</p>
+</div>
+<audio src="{{currentMove.audioUri}}" autoplay></audio>
+<a href="/"><span class="glyphicon glyphicon-circle-arrow-left back-button"></span></a>

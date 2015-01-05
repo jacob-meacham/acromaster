@@ -1,41 +1,34 @@
-/**
- * Module dependencies.
- */
-var express = require('express'),
-    fs = require('fs');
+'use strict';
 
-/**
- * Main application entry file.
- * Please note that the order of loading is important.
- */
+var fs = require('fs');
+var express = require('express');
 
-//Load configurations
-//if test env, load example file
-var env = process.env.NODE_ENV || 'development',
-    config = require('./config/config')[env],
-    mongoose = require('mongoose');
-
-//Bootstrap db connection
-var db = mongoose.connect(config.db);
-
-//Bootstrap models
-var models_path = __dirname + '/app/models';
-fs.readdirSync(models_path).forEach(function(file) {
-    require(models_path + '/' + file);
-});
+var env = process.env.NODE_ENV || 'development';
+var config = require('./server/config/config')[env];
+var passportConfig = require('./server/config/config').common;
+var mongoose = require('mongoose');
+var passport = require('passport');
 
 var app = express();
 
-//express settings
-require('./config/express')(app, config);
+// Hook up Mongoose.
+mongoose.connect(config.dbUrl);
 
-//Bootstrap routes
-require('./config/routes')(app);
+// Setup server
+require('./server/config/passport')(passport, passportConfig);
+require('./server/config/express')(app, passport, config);
 
-//Start the app by listening on <port>
-var port = process.env.PORT || 3000;
-app.listen(port);
-console.log('Express app started on port ' + port);
+var version = 'Development version';
+if (fs.existsSync('acromaster.version')) {
+  version = fs.readFileSync('acromaster.version', { encoding: 'utf-8' });
+}
 
-//expose app
+// Hook up routes
+require('./server/routes/index')(app, version);
+require('./server/routes/auth')(app, passport);
+require('./server/routes/flow')(app);
+
+app.listen(config.app.port, config.app.hostname);
+console.log('Acromaster started on port ' + config.app.hostname + ':' + config.app.port + ' (' + env + ')');
+
 exports = module.exports = app;

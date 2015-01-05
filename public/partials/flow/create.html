@@ -1,0 +1,46 @@
+<section class="flows">
+        <div class="form-group">
+            <label for="name">Flow Name</label>
+            <input type="text" class="form-control" ng-model="flow.name" id="name" placeholder="Flow Name">
+        </div>
+        <div class="form-group">
+            <label for="name">Flow Author</label>
+            <input type="text" class="form-control" ng-model="flow.author" id="author" placeholder="Flow Author">
+        </div>
+    </form>
+    <h3>Moves</h3>
+    <div class="move-list">
+        <div ng-show='moveList.length == 0'>
+            <em>None Yet!</em>
+        </div>
+        <div ng-repeat='move in moveList'>
+            {{move.move.name}} - {{move.duration}} seconds
+        </div>
+    </div>
+    <form role="form" ng-submit="addMove()">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="move-picker">Pick a Move</label>
+                    <input type="text" ng-model="currentMove" typeahead="move as move.name for move in allMoves | filter:$viewValue | limitTo:20" typeahead-editable="false" class="form-control" id="move-picker">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    <input type="text" ng-model="currentDuration" class="form-control" id="time">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Add Move</button>
+        </div>
+    </form>
+    
+
+    <form ng-submit="create()">
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Create Flow</button>
+        </div>
+    </form>
+</section>

@@ -1,22 +1,25 @@
+'use strict';
+
 module.exports = function(grunt) {
     // Project Configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         watch: {
             jade: {
-                files: ['app/views/**'],
+                files: ['server/views/**'],
                 options: {
                     livereload: true
                 }
             },
             html: {
-                files: ['public/views/**'],
+                files: ['public/partials/**'],
                 options: {
                     livereload: true
                 }
             },
             js: {
-                files: ['public/js/**'],
+                files: ['gruntfile.js', 'server.js', 'server/**/*.js', 'public/js/**', 'test/**/*.js'],
+                tasks: ['jshint'],
                 options: {
                     livereload: true
                 }
@@ -31,15 +34,24 @@ module.exports = function(grunt) {
             },
             karma: {
                 files: ['public/lib/angular/angular.js', 'public/lib/angular/angular-*.js', 'test/lib/angular/angular-mocks.js','test/unit/**/*.js'],
-                tasks: ['karma:unit:run']
+                tasks: ['karma:dev:run']
             },
             mocha: {
-                files: ['test/**/*.js'],
-                tasks: ['mocha:dev']
+                files: ['test/server/**/*.js', 'server/**/*.js'],
+                tasks: ['mochaTest:dev']
             }
         },
+        open: {
+          server: {
+            url: 'http://localhost:3000'
+          }
+        },
         jshint: {
-            all: ['gruntfile.js']
+            files: ['gruntfile.js', 'app.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/js/**/*.js'],
+            options: {
+                jshintrc: true,
+                ignores: ['test/server/coverageRunner.js']
+            }
         },
         compass: {
             dist: {
@@ -52,7 +64,8 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     sassDir: 'public/sass',
-                    cssDir: 'public/css'
+                    cssDir: 'public/css',
+                    debugInfo: true
                 }
             }
         },
@@ -60,58 +73,55 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     file: 'server.js',
-                    args: [],
-                    ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
+                    ignoredFiles: ['README.md', 'node_modules/**', 'test/**'],
                     watchedExtensions: ['js'],
-                    watchedFolders: ['app', 'config'],
                     debug: true,
                     delayTime: 1,
-                    env: {
-                        PORT: 3000
-                    },
-                    cwd: __dirname
                 }
             }
         },
         concurrent: {
-            tasks: ['nodemon', 'watch'],
+            tasks: ['nodemon:dev', 'watch'],
             options: {
                 logConcurrentOutput: true
             }
         },
         karma: {
-            unit: {
+            options: {
+                files: ['test/client/**/*.js'],
+            },
+            dev: {
                 background: true,
-                files: [
-                  'public/lib/angular/angular.js',
-                  'public/lib/angular/angular-*.js',
-                  'test/lib/angular/angular-mocks.js',
-                  'public/js/**/*.js',
-                ],
-
-                frameworks: ['mocha'],
-                browsers: ['Chrome'],
-
-                plugins : [
-                    'karma-junit-reporter',
-                    'karma-chrome-launcher',
-                    'karma-mocha'
-                    ],
-
-                junitReporter : {
-                    outputFile: 'build/test-out/unit.xml',
-                    suite: 'unit'
+                browsers: ['PhantomJS'],
+                reporters: ['dots, coverage'],
+                coverageReporter: {
+                    type: 'html',
+                    dir: 'build/coverage/client'
+                },
+                preprocessors: {
+                    'public/js/**/*.js' : 'coverage'
                 }
+            },
+            ci: {
+                reporters: ['dots'],
+                browsers: ['PhantomJS'],
+                background: false,
+                singleRun: true
             }
         },
-        mocha: {
+        mochaTest: {
+            options: {
+                globals: [
+                    'should',
+                    'sinon'
+                ],
+                timeout: 3000,
+                ignoreLeaks: false,
+                ui: 'bdd',
+                reporter: 'spec'
+            },
             dev: {
-                src: ['test/**/*.js'],
-                options: {
-                    reporter: 'spec',
-                    slow: 200,
-                    timeout: 1000
-                }
+                src: ['test/server/**/*.spec.js'],
             }
         },
     });
@@ -121,17 +131,72 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-karma');
-    
 
-    //Making grunt default to force in order not to break the project.
-    grunt.option('force', true);
+    grunt.registerTask('mochaCoverage', 'Run server mocha coverage.', function () {
+        var done = this.async();
+
+        var path = './test/server/coverageRunner.js';
+
+        var options = {
+            cmd: 'node',
+            grunt: false,
+            args: [
+                'node_modules/istanbul/lib/cli.js', // Have to pass in the actual cli, otherwise we assume a global istanbul.
+                'cover',
+                '--default-excludes',
+                '-x', 'public/**',
+                '--report', 'lcov',
+                '--dir', './build/coverage/server',
+                path
+            ],
+            opts: {
+                // preserve colors for stdout in terminal
+                stdio: 'inherit',
+            },
+        };
+
+        grunt.util.spawn(options, function(error, result) {
+            if (result && result.stderr) {
+                process.stderr.write(result.stderr);
+            }
+
+            if (result && result.stdout) {
+                grunt.log.writeln(result.stdout);
+            }
+
+            // abort tasks in queue if there's an error
+            done(error);
+        });
+    });
+
+    grunt.registerTask('version', 'generate version information', function() {
+        var done = this.async();
+
+        var options = {
+            cmd: 'git',
+            grunt: false,
+            args: [
+                'rev-parse',
+                'HEAD'
+            ]
+        };
+
+        grunt.util.spawn(options, function(error, result) {
+            if (result && result.stdout) {
+                grunt.file.write('acromaster.version', result.stdout.slice(0, 10));
+            }
+
+            done(error);
+        });
+    });
 
     //Default task(s).
-    grunt.registerTask('default', ['jshint', 'compass:dev', 'karma:unit', 'concurrent']);
+    grunt.registerTask('default', ['version', 'jshint', 'compass:dev', 'karma:dev', 'concurrent']);
 
     //Test task.
-    grunt.registerTask('test', ['mocha:dev']);
+    grunt.registerTask('test', ['mochaCoverage', 'karma:ci']);
 };

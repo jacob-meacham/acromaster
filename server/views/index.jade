@@ -1,0 +1,12 @@
+doctype html
+html(lang='en', ng-app='acromaster')
+  include includes/head
+  body
+
+    div(role='navigator', ng-include="'partials/navbar.html'" ng-controller="NavbarController").navbar.navbar-inverse
+    div.container.inner
+        div.view-container
+            section(data-ng-view).view-frame
+    script(type='text/javascript').
+        window.user = !{JSON.stringify(user).replace(/<\//g, "<\\/")};
+    include includes/foot

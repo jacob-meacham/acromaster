@@ -1,0 +1,12 @@
+<section class="flows">
+    <h1 class="flow-title">{{flow.name}}</h1>
+    <em>Created by {{flow.author}} on {{flow.createdAt | date}}</em>
+
+    <h3>Moves</h3>
+    <ul>
+        <li ng-repeat='moveEntry in flow.moves'>
+            {{moveEntry.move.name}} - {{moveEntry.duration}} seconds
+        </li>
+    </ul>
+    <button ng-click="start()" class="btn btn-default">Start Flow</button>
+</section>
