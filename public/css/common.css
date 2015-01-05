@@ -250,3 +250,10 @@ a.divLinker {
   background-color: #d63a21;
   color: #fff;
 }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003220}}
+.version {
+  color: #666666;
+  margin-top: 10px;
+  margin-left: 180px;
+}

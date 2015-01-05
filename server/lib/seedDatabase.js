@@ -9,7 +9,6 @@ var async = require('async');
 var fs = require('fs');
 var path = require('path');
 
-//var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
 
 // get list of moves and local audio directory from command line
@@ -80,9 +79,6 @@ var writeToMongo = function(callback, results) {
       callback(err);
     }
 
-    // Remove
-    //Move.remove().exec()
-    //.then(function() { return Flow.remove().exec(); })
     var errorHandler = function(err) {
       if (err) callback(err);
     };
@@ -99,8 +95,8 @@ var writeToMongo = function(callback, results) {
 
 async.auto({
   read_file: readMovesFile,
-  //write_to_s3: ['read_file', writeAudioToS3],
-  write_to_mongo: ['read_file', /*'write_to_s3',*/ writeToMongo]
+  write_to_s3: ['read_file', writeAudioToS3],
+  write_to_mongo: ['read_file', 'write_to_s3', writeToMongo]
   },
   function done(err) {
     if (err) {

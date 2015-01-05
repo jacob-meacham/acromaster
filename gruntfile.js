@@ -173,8 +173,29 @@ module.exports = function(grunt) {
         });
     });
 
+    grunt.registerTask('version', 'generate version information', function() {
+        var done = this.async();
+
+        var options = {
+            cmd: 'git',
+            grunt: false,
+            args: [
+                'rev-parse',
+                'HEAD'
+            ]
+        };
+
+        grunt.util.spawn(options, function(error, result) {
+            if (result && result.stdout) {
+                grunt.file.write('acromaster.version', result.stdout.slice(0, 10));
+            }
+
+            done(error);
+        });
+    });
+
     //Default task(s).
-    grunt.registerTask('default', ['jshint', 'compass:dev', 'karma:dev', 'concurrent']);
+    grunt.registerTask('default', ['version', 'jshint', 'compass:dev', 'karma:dev', 'concurrent']);
 
     //Test task.
     grunt.registerTask('test', ['mochaCoverage', 'karma:ci']);
