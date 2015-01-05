@@ -9,7 +9,7 @@
     "angular-bootstrap": "0.11.x",
     "angular-ui-utils": "0.1.x",
     "angular-ui-slider": "latest",
-    "angular-animate": "latest",
+    "angular-animate": "1.2.x",
     "json3": "3.3.x",
     "jquery": "1.9.x",
     "fastclick": "~1.0.1"
