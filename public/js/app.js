@@ -22,7 +22,8 @@ app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
       templateUrl: '/partials/login.html'
     })
     .when('/about', {
-      templateUrl: '/partials/about.html'
+      templateUrl: '/partials/about.html',
+      controller: 'AboutController'
     })
     .when('/washing-machine', {
       templateUrl: '/partials/washing-machine/view.html',

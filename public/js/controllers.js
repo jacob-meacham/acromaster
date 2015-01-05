@@ -21,6 +21,12 @@ controllers.controller('NavbarController', ['$scope', '$http', '$location', '$ro
   resetAuth();
 }]);
 
+controllers.controller('AboutController', ['$scope', '$http', function($scope, $http) {
+  $http.get('/version').success(function(data) {
+    $scope.version = data;
+  });
+}]);
+
 // Quick Create
 controllers.controller('QuickPlayCreateController', ['$scope', '$location', 'Flow', 'flowService', function($scope, $location, Flow, flowService) {
   var flowParams = $scope.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};

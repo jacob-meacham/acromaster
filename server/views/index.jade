@@ -7,7 +7,6 @@ html(lang='en', ng-app='acromaster')
     div.container.inner
         div.view-container
             section(data-ng-view).view-frame
-    p #{version}
     script(type='text/javascript').
         window.user = !{JSON.stringify(user).replace(/<\//g, "<\\/")};
     include includes/foot
