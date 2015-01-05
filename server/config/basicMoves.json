@@ -1,385 +1,391 @@
 [
   {
     "name": "3 Step",
-    "audioUri": "moves/audio/3-step.wav",
+    "audioUri": "moves/audio/3-step.mp3",
     "difficulty": 7,
     "tags": "washing_machine,star"
   },
   {
     "name": "4 Step",
-    "audioUri": "moves/audio/4-step.wav",
+    "audioUri": "moves/audio/4-step.mp3",
     "difficulty": 6,
     "tags": "washing_machine,star"
   },
   {
     "name": "360s",
-    "audioUri": "moves/audio/360s.wav",
+    "audioUri": "moves/audio/360s.mp3",
     "difficulty": 6,
     "tags": "washing_machine,shoulderstand"
   },
   {
     "name": "Asym",
-    "audioUri": "moves/audio/Asym.wav",
+    "audioUri": "moves/audio/Asym.mp3",
     "difficulty": 4,
     "tags": "simple,static"
   },
   {
     "name": "Back Plank",
-    "audioUri": "moves/audio/back_plank.wav",
+    "audioUri": "moves/audio/back_plank.mp3",
     "difficulty": 1,
     "tags": "simple,static"
   },
   {
     "name": "Barrel Roll",
-    "audioUri": "moves/audio/barrel_roll.wav",
+    "audioUri": "moves/audio/barrel_roll.mp3",
     "difficulty": 5,
     "tags": "washing_machine,simple"
   },
   {
     "name": "Bed",
-    "audioUri": "moves/audio/bed.wav",
+    "audioUri": "moves/audio/bed.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Bird",
-    "audioUri": "moves/audio/bird.wav",
+    "audioUri": "moves/audio/bird.mp3",
     "difficulty": 1,
     "tags": "static"
   },
   {
     "name": "Boomerang",
-    "audioUri": "moves/audio/boomerang.wav",
+    "audioUri": "moves/audio/boomerang.mp3",
     "difficulty": 5,
     "tags": "washing_machine"
   },
   {
     "name": "Bow",
-    "audioUri": "moves/audio/bow.wav",
+    "audioUri": "moves/audio/bow.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Camel on Shins",
-    "audioUri": "moves/audio/camel_on_shins.wav",
+    "audioUri": "moves/audio/camel_on_shins.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Catherine's Wheel",
-    "audioUri": "moves/audio/catherines_wheel.wav",
+    "audioUri": "moves/audio/catherines_wheel.mp3",
     "difficulty": 5,
     "tags": "washing_machine,bird"
   },
   {
     "name": "Dancer's Lament",
-    "audioUri": "moves/audio/dancers_lament.wav",
+    "audioUri": "moves/audio/dancers_lament.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Fireball",
-    "audioUri": "moves/audio/fireball.wav",
+    "audioUri": "moves/audio/fireball.mp3",
     "difficulty": 5,
     "tags": "washing_machine,star"
   },
   {
     "name": "Flag Rollup",
-    "audioUri": "moves/audio/flag_rollup.wav",
+    "audioUri": "moves/audio/flag_rollup.mp3",
     "difficulty": 5,
     "tags": "standing"
   },
   {
     "name": "Floating Camel",
-    "audioUri": "moves/audio/floating_camel.wav",
+    "audioUri": "moves/audio/floating_camel.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "Floating Paschi",
-    "audioUri": "moves/audio/floating_paschi.wav",
+    "audioUri": "moves/audio/floating_paschi.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "Folded Leaf",
-    "audioUri": "moves/audio/folded_leaf.wav",
+    "audioUri": "moves/audio/folded_leaf.mp3",
     "difficulty": 1,
     "tags": "static"
   },
   {
     "name": "Foot to Foot",
-    "audioUri": "moves/audio/ftf.wav",
+    "audioUri": "moves/audio/ftf.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Goofy Monolimb Reverse Star",
-    "audioUri": "moves/audio/goofy_monolimb_rev_star.wav",
+    "audioUri": "moves/audio/goofy_monolimb_rev_star.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Goofy Monolimb Star",
-    "audioUri": "moves/audio/goofy_monolimb_star.wav",
+    "audioUri": "moves/audio/goofy_monolimb_star.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "High Flying Whale",
-    "audioUri": "moves/audio/high_flying_whale.wav",
+    "audioUri": "moves/audio/high_flying_whale.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "High Foot to Hand",
-    "audioUri": "moves/audio/high_fth.wav",
+    "audioUri": "moves/audio/high_fth.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "High Ninja Star",
-    "audioUri": "moves/audio/high_ninja_star.wav",
+    "audioUri": "moves/audio/high_ninja_star.mp3",
     "difficulty": 5,
     "tags": "washing_machine"
   },
   {
     "name": "High Reverse Foot to Hand",
-    "audioUri": "moves/audio/high_rev_fth.wav",
+    "audioUri": "moves/audio/high_rev_fth.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "Hand to Hand",
-    "audioUri": "moves/audio/hth.wav",
+    "audioUri": "moves/audio/hth.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "Low Foot to Hand",
-    "audioUri": "moves/audio/low_fth.wav",
+    "audioUri": "moves/audio/low_fth.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "Low Hand to Hand",
-    "audioUri": "moves/audio/low_hth.wav",
+    "audioUri": "moves/audio/low_hth.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "Low Reverse Foot to Hand",
-    "audioUri": "moves/audio/low_rev_fth.wav",
+    "audioUri": "moves/audio/low_rev_fth.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "Mayurasana",
-    "audioUri": "moves/audio/mayurasana.wav",
+    "audioUri": "moves/audio/mayurasana.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Melted Candlestick",
-    "audioUri": "moves/audio/melted_candlestick.wav",
+    "audioUri": "moves/audio/melted_candlestick.mp3",
     "difficulty": 5,
     "tags": "static,shoulderstand"
   },
   {
     "name": "Mermaid",
-    "audioUri": "moves/audio/mermaid.wav",
+    "audioUri": "moves/audio/mermaid.mp3",
     "difficulty": 5,
     "tags": "static,throne"
   },
   {
     "name": "Monkey Bars",
-    "audioUri": "moves/audio/monkey_bars.wav",
+    "audioUri": "moves/audio/monkey_bars.mp3",
     "difficulty": 5,
     "tags": "washing_machine"
   },
   {
     "name": "Monkey Frog",
-    "audioUri": "moves/audio/monkey_frog.wav",
+    "audioUri": "moves/audio/monkey_frog.mp3",
     "difficulty": 5,
     "tags": "washing_machine"
   },
   {
     "name": "Ninja Star",
-    "audioUri": "moves/audio/ninja_star.wav",
+    "audioUri": "moves/audio/ninja_star.mp3",
     "difficulty": 5,
     "tags": "washing_machine"
   },
   {
     "name": "Not Ninja Star",
-    "audioUri": "moves/audio/not_ninja_star.wav",
+    "audioUri": "moves/audio/not_ninja_star.mp3",
     "difficulty": 5,
     "tags": "washing_machine"
   },
   {
     "name": "Reverse Asym",
-    "audioUri": "moves/audio/rev_asym.wav",
+    "audioUri": "moves/audio/rev_asym.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Reverse Bird",
-    "audioUri": "moves/audio/rev_bird.wav",
+    "audioUri": "moves/audio/rev_bird.mp3",
     "difficulty": 1,
     "tags": "static"
   },
   {
     "name": "Reverse Bow",
-    "audioUri": "moves/audio/rev_bow.wav",
+    "audioUri": "moves/audio/rev_bow.mp3",
     "difficulty": 2,
     "tags": "static"
   },
   {
     "name": "Reverse Floating Camel",
-    "audioUri": "moves/audio/rev_floating_camel.wav",
+    "audioUri": "moves/audio/rev_floating_camel.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "Reverse Low Hand to Hand",
-    "audioUri": "moves/audio/rev_low_hth.wav",
+    "audioUri": "moves/audio/rev_low_hth.mp3",
     "difficulty": 7,
     "tags": "static,hand_balance"
   },
   {
     "name": "Reverse Mermaid",
-    "audioUri": "moves/audio/rev_mermaid.wav",
+    "audioUri": "moves/audio/rev_mermaid.mp3",
     "difficulty": 5,
     "tags": "static,throne"
   },
   {
     "name": "Reverse Shin to Foot",
-    "audioUri": "moves/audio/rev_shin_to_foot.wav",
+    "audioUri": "moves/audio/rev_shin_to_foot.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Reverse Shoulderstand",
-    "audioUri": "moves/audio/rev_shoulderstand.wav",
+    "audioUri": "moves/audio/rev_shoulderstand.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Reverse Star",
-    "audioUri": "moves/audio/rev_star.wav",
+    "audioUri": "moves/audio/rev_star.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Reverse Thinker",
-    "audioUri": "moves/audio/rev_thinker.wav",
+    "audioUri": "moves/audio/rev_thinker.mp3",
     "difficulty": 5,
     "tags": "static,throne"
   },
   {
     "name": "Reverse Throne",
-    "audioUri": "moves/audio/rev_throne.wav",
+    "audioUri": "moves/audio/rev_throne.mp3",
     "difficulty": 5,
     "tags": "static,throne"
   },
   {
     "name": "Reverse Vash",
-    "audioUri": "moves/audio/rev_vash.wav",
+    "audioUri": "moves/audio/rev_vash.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Seattle Barrel Roll",
-    "audioUri": "moves/audio/seattle_barrel_roll.wav",
+    "audioUri": "moves/audio/seattle_barrel_roll.mp3",
     "difficulty": 6,
     "tags": "washing_machine"
   },
   {
     "name": "Secretary",
-    "audioUri": "moves/audio/secretary.wav",
+    "audioUri": "moves/audio/secretary.mp3",
     "difficulty": 6,
     "tags": "washing_machine"
   },
   {
     "name": "Shoulderstand",
-    "audioUri": "moves/audio/shoulderstand.wav",
+    "audioUri": "moves/audio/shoulderstand.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Shoulderstand Spins",
-    "audioUri": "moves/audio/shoulderstand_spins.wav",
+    "audioUri": "moves/audio/shoulderstand_spins.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Side Star",
-    "audioUri": "moves/audio/side_star.wav",
+    "audioUri": "moves/audio/side_star.mp3",
     "difficulty": 2,
     "tags": "static"
   },
   {
     "name": "Spider Roll",
-    "audioUri": "moves/audio/spider_roll.wav",
+    "audioUri": "moves/audio/spider_roll.mp3",
     "difficulty": 5,
     "tags": "washing_machine"
   },
   {
     "name": "Star",
-    "audioUri": "moves/audio/star.wav",
+    "audioUri": "moves/audio/star.mp3",
     "difficulty": 2,
     "tags": "static"
   },
   {
     "name": "Star Ball Balance on Hands",
-    "audioUri": "moves/audio/star_ball_balance_on_hands.wav",
+    "audioUri": "moves/audio/star_ball_balance_on_hands.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "Straddle Bat",
-    "audioUri": "moves/audio/straddle_bat.wav",
+    "audioUri": "moves/audio/straddle_bat.mp3",
     "difficulty": 1,
     "tags": "static"
   },
   {
     "name": "String Cheese",
-    "audioUri": "moves/audio/string_cheese.wav",
+    "audioUri": "moves/audio/string_cheese.mp3",
     "difficulty": 5,
     "tags": "static,hand_balance"
   },
   {
     "name": "Thinker",
-    "audioUri": "moves/audio/thinker.wav",
+    "audioUri": "moves/audio/thinker.mp3",
+    "difficulty": 3,
+    "tags": "static,throne"
+  },
+  {
+    "name": "Throne",
+    "audioUri": "moves/audio/throne.mp3",
     "difficulty": 3,
     "tags": "static,throne"
   },
   {
     "name": "Titanic Rollup",
-    "audioUri": "moves/audio/titanic_rollup.wav",
+    "audioUri": "moves/audio/titanic_rollup.mp3",
     "difficulty": 5,
     "tags": "standing"
   },
   {
     "name": "True Free Shoulderstand",
-    "audioUri": "moves/audio/true_free_shoulderstand.wav",
+    "audioUri": "moves/audio/true_free_shoulderstand.mp3",
     "difficulty": 5,
     "tags": "static,shoulderstand"
   },
   {
     "name": "Two Scoops",
-    "audioUri": "moves/audio/two_scoops.wav",
+    "audioUri": "moves/audio/two_scoops.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Vash",
-    "audioUri": "moves/audio/vash.wav",
+    "audioUri": "moves/audio/vash.mp3",
     "difficulty": 5,
     "tags": "static"
   },
   {
     "name": "Vashing Machine",
-    "audioUri": "moves/audio/vashing_machine.wav",
+    "audioUri": "moves/audio/vashing_machine.mp3",
     "difficulty": 5,
     "tags": "washing_machine"
   }

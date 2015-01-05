@@ -8,21 +8,17 @@ var config = {
         auth: {
             facebook: {
                 clientID: '1571422493085485',
-                clientSecret: 'fd54d250051833b88db625275f95cc02',
+                clientSecret: process.env.FACEBOOK_SECRET,
                 callbackUrl: 'http://localhost:3000/auth/facebook/callback'
             },
             twitter: {
-                /*
-                clientID: process.env.TWITTER_ID,
-                clientSecret: process.env.TWITTER_SECRET,
-                */
                 clientID: '45DXHdEozkOykBCzEgmfrTmRL',
-                clientSecret: '9hTESkWDoawYupjOvsqGtDIKMTPwqVHO42dannNeyzYDgSOZCC',
+                clientSecret: process.env.TWITTER_SECRET,
                 callbackUrl: 'http://localhost:3000/auth/twitter/callback'
             },
             google: {
                 clientID: '670350064075-frr7h9tvc0php8lf1c9jtc90674e4vk0.apps.googleusercontent.com',
-                clientSecret: 'l-acUsQCScrTcXZugLkYHbou',
+                clientSecret: process.env.GOOGLE_SECRET,
                 callbackUrl: 'http://localhost:3000/auth/google/callback'
             }
         }
