@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+    - "0.10"
+env:
+    - NODE_ENV=development
+    - TWITTER_SECRET=secret
+    - FACEBOOK_SECRET=secret
+    - GOOGLE_SECRET=secret
+services:
+    - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: AIS/PlScwvJfuCrSTajUPrEcJ0MyxWVNill6n9XWiYoRTFoK+OeYbWNu/hLP2WjbumoBVrqb3nD7H0EWl2k47pSOWUJVNsnmppTtPEYOCf+vtBsTusUpsBTtyCUOgpSAIESMuD4T89juchYKlCmuyY1IqMbXkl/xj0ci3zR6n/o=
+  app: acromaster
+  on:
+    repo: jacob-meacham/acromaster
