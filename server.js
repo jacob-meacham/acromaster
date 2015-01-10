@@ -1,6 +1,5 @@
 'use strict';
 
-var fs = require('fs');
 var express = require('express');
 
 var env = process.env.NODE_ENV || 'development';
@@ -18,10 +17,7 @@ mongoose.connect(config.dbUrl);
 require('./server/config/passport')(passport, passportConfig);
 require('./server/config/express')(app, passport, config);
 
-var version = 'Development version';
-if (fs.existsSync('acromaster.version')) {
-  version = fs.readFileSync('acromaster.version', { encoding: 'utf-8' });
-}
+var version = process.env.VERSION || 'Development version';
 
 // Hook up routes
 require('./server/routes/auth')(app, passport);
