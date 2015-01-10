@@ -1,8 +1,6 @@
 #!/bin/sh
 
-current_brach=$(git rev-parse --abbrev-ref HEAD)
-echo $current_brach
-if [ $current_brach == develop ]
+if [ $TRAVIS_BRANCH == develop ]
     then
         app_name=acromaster-staging
     else
@@ -10,16 +8,19 @@ if [ $current_brach == develop ]
 fi
 echo Deploying to app $app_name...
 
-gem install heroku
-git remote add heroku git@heroku.com:{$app_name}.git
+if [ $TRAVIS_TAG ]
+    then
+        verion=$TRAVIS_TAG-$TRAVIS_COMMIT
+    else
+        version=$TRAVIS_COMMIT
+fi
 
-# Turn off warnings about SSH keys:
-echo "Host heroku.com" >> ~/.ssh/config
-echo " StrictHostKeyChecking no" >> ~/.ssh/config
-echo " CheckHostIP no" >> ~/.ssh/config
-echo " UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-
-hash_name=COMMIT_HASH
-hash=$(git rev-parse HEAD | cut -c-10)
-echo Setting $hash_name to $hash
-heroku config:set $hash_name=$hash --app $app_name
+version_name=VERSION
+echo Setting $version_name to $version
+curl -sL -w "%{http_code}" -n -o /dev/null -X PATCH https://api.heroku.com/apps/acromaster-staging/config-vars \
+-H "Accept: application/vnd.heroku+json; version=3" \
+-H "Authorization: Bearer $API_KEY" \
+-H "Content-Type: application/json" \
+-d "{
+  \"VERSION\": \"$version\"
+}"
