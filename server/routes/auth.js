@@ -16,7 +16,6 @@ var login = function(req, res) {
 };
 
 var getUser = function(req, res) {
-  console.log('getUser');
   res.json(req.user || null);
 };
 
