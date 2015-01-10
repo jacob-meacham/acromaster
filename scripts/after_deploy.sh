@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $TRAVIS_BRANCH == develop ]
+if [ $TRAVIS_BRANCH == "develop" ]
     then
         app_name=acromaster-staging
     else
@@ -17,7 +17,7 @@ fi
 
 version_name=VERSION
 echo Setting $version_name to $version
-curl -sL -w "%{http_code}" -n -o /dev/null -X PATCH https://api.heroku.com/apps/acromaster-staging/config-vars \
+curl -s -v -n -X PATCH https://api.heroku.com/apps/acromaster-staging/config-vars \
 -H "Accept: application/vnd.heroku+json; version=3" \
 -H "Authorization: Bearer $API_KEY" \
 -H "Content-Type: application/json" \
