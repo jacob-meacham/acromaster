@@ -73,7 +73,7 @@ var config = {
             secret: process.env.DB_SECRET,
             collection: 'sessions'
         },
-        dbUrl:  process.env.MONGOHQ_URL,
+        dbUrl: process.env.MONGO_URL,
         root: rootPath,
 
         s3: {
