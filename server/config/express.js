@@ -31,7 +31,10 @@ module.exports = function(app, passport, config) {
 
     app.use(cookieParser());
     app.use(expressValidator());
-    app.use(bodyParser());
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
+    app.use(bodyParser.json());
     app.use(methodOverride());
 
     // express/mongo session storage
@@ -40,7 +43,9 @@ module.exports = function(app, passport, config) {
         store: new mongoStore({
             url: config.dbUrl,
             collection: config.session.collection
-        })
+        }),
+        resave: true,
+        saveUninitialized: true
     }));
 
     app.use(helpers(config.app.name));
