@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                 }
             },
             js: {
-                files: ['gruntfile.js', 'server.js', 'server/**/*.js', 'public/js/**', 'test/**/*.js'],
+                files: ['Gruntfile.js', 'server.js', 'server/**/*.js', 'public/js/**', 'test/**/*.js'],
                 tasks: ['jshint'],
                 options: {
                     livereload: true
@@ -174,7 +174,7 @@ module.exports = function(grunt) {
     });
 
     //Default task(s).
-    grunt.registerTask('default', ['version', 'jshint', 'compass:dev', 'karma:dev', 'concurrent']);
+    grunt.registerTask('default', ['jshint', 'compass:dev', 'karma:dev', 'concurrent']);
 
     //Test task.
     grunt.registerTask('test', ['mochaCoverage'/*, 'karma:ci'*/]);
