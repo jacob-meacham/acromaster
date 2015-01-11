@@ -123,6 +123,29 @@ module.exports = function(grunt) {
                 src: ['test/server/**/*.spec.js'],
             }
         },
+        mocha_istanbul: {
+            coverage: {
+                src: 'test/server/**/*.spec.js',
+                options: {
+                    coverageFolder: 'build/coverage',
+                    coverage: true,
+                    reportFormats: ['lcov'],
+                    check: {
+                        lines: 59,
+                        statements: 58
+                    }
+                }
+            }
+        },
+    });
+
+    grunt.event.on('coverage', function(lcov, done){
+        require('coveralls').handleInput(lcov, function(err) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
     });
 
     //Load NPM tasks 
@@ -134,47 +157,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-karma');
-
-    grunt.registerTask('mochaCoverage', 'Run server mocha coverage.', function () {
-        var done = this.async();
-
-        var path = './test/server/coverageRunner.js';
-
-        var options = {
-            cmd: 'node',
-            grunt: false,
-            args: [
-                'node_modules/istanbul/lib/cli.js', // Have to pass in the actual cli, otherwise we assume a global istanbul.
-                'cover',
-                '--default-excludes',
-                '-x', 'public/**',
-                '--report', 'lcov',
-                '--dir', './build/coverage/server',
-                path
-            ],
-            opts: {
-                // preserve colors for stdout in terminal
-                stdio: 'inherit',
-            },
-        };
-
-        grunt.util.spawn(options, function(error, result) {
-            if (result && result.stderr) {
-                process.stderr.write(result.stderr);
-            }
-
-            if (result && result.stdout) {
-                grunt.log.writeln(result.stdout);
-            }
-
-            // abort tasks in queue if there's an error
-            done(error);
-        });
-    });
+    grunt.loadNpmTasks('grunt-mocha-istanbul');
 
     //Default task(s).
     grunt.registerTask('default', ['jshint', 'compass:dev', 'karma:dev', 'concurrent']);
 
     //Test task.
-    grunt.registerTask('test', ['mochaCoverage'/*, 'karma:ci'*/]);
+    grunt.registerTask('test', ['mocha_istanbul:coverage'/*, 'karma:ci'*/]);
 };

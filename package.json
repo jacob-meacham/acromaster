@@ -43,6 +43,7 @@
         "supertest": "0.15.x",
         "sinon": "1.12.x",
         "istanbul": "0.3.x",
+        "coveralls": "2.11.x",
         
         "grunt": "0.4.x",
         "grunt-cli": "0.1.x",
@@ -53,6 +54,7 @@
         "grunt-concurrent": "1.x",
         "grunt-karma": "0.6.x",
         "grunt-mocha-test": "0.12.x",
-        "grunt-open": "0.2.x"
+        "grunt-open": "0.2.x",
+        "grunt-mocha-istanbul": "2.2.x" 
     }
 }
