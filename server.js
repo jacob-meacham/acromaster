@@ -22,7 +22,7 @@ var version = process.env.VERSION || 'Development version';
 // Hook up routes
 require('./server/routes/auth')(app, passport);
 require('./server/routes/flow')(app);
-require('./server/routes/index')(app, version);
+require('./server/routes/index')(app, version, env);
 
 app.listen(config.app.port, config.app.hostname);
 console.log('Acromaster started on port ' + config.app.hostname + ':' + config.app.port + ' (' + env + ')');
