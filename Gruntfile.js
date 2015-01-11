@@ -71,12 +71,11 @@ module.exports = function(grunt) {
         },
         nodemon: {
             dev: {
+                script: 'server.js',
                 options: {
-                    file: 'server.js',
-                    ignoredFiles: ['README.md', 'node_modules/**', 'test/**'],
-                    watchedExtensions: ['js'],
+                    ignore: ['README.md', 'node_modules/**', 'test/**'],
                     debug: true,
-                    delayTime: 1,
+                    delay: 1,
                 }
             }
         },
