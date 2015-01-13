@@ -5,16 +5,32 @@ var chai = require('chai');
 require('../../../server/models/move.js');
 
 chai.should();
+var expect = chai.expect;
 
-// TODO: Remove
-var connection = mongoose.createConnection('mongodb://localhost/test_db');
-var Move = connection.model('Move');
+var globalMove;
+var Move = mongoose.model('Move');
 describe('Moves', function() {
+  before(function (done) {
+    globalMove = {
+      name: 'New Move',
+      difficulty: 5,
+      audioUri: 'foo',
+      aliases: ['a', 'b'],
+      tags: 'tag1,tag2'
+    };
+
+    Move.remove({}, function() {
+      done();
+    });
+  });
   describe('save()', function() {
     it('should save without error', function(done) {
-      var move = new Move();
-      move.name = 'move name';
-      move.save(done);
+      var _move = new Move(globalMove);
+      _move.save(function(err) {
+        expect(err).to.not.exist();
+        _move.remove();
+        done();
+      });
     });
 
     it('should not save with a blank name', function(done) {
@@ -23,6 +39,16 @@ describe('Moves', function() {
         err.should.have.property('name', 'ValidationError');
         done();
       });
+    });
+  });
+
+  describe('tags', function() {
+    it('should set/get tags as a string', function(done) {
+      var _move = new Move(globalMove);
+      _move.tags.should.equal('tag1,tag2');
+      _move.tags = 'tag1,tag2,tag3';
+      _move.tags.should.equal('tag1,tag2,tag3');
+      done();
     });
   });
 });
