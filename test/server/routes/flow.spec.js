@@ -2,14 +2,19 @@
 
 var request = require('supertest');
 var app = require('../../../server');
+require('chai').should();
 
-describe('GET /flow/generate', function() {
+describe('GET /api/flow/generate', function() {
   it('should return JSON', function(done) {
     request(app)
       .get('/api/flow/generate')
       .set('Accept', 'application/json')
       .query({totalTime:'10', timePerMove:'10'})
       .expect('Content-Type', /json/)
+      .expect(function(res) {
+        res.body.should.have.property('name');
+        res.body.should.have.property('moves');
+      })
       .expect(200, done);
   });
 
