@@ -5,8 +5,7 @@ var env = '';
 var index = function(req, res) {
     res.render('index', {
       user: req.user ? req.user : {},
-      env: env,
-      version: versionString
+      env: env
     });
 };
 
