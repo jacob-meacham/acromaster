@@ -12,6 +12,7 @@ var UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
+    match: [/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please enter a valid email'], //"
   },
   createdAt: { type: Date, 'default': Date.now },
   provider: String,
@@ -20,31 +21,5 @@ var UserSchema = new Schema({
   twitter: {},
   google: {}
 });
-
-
-UserSchema.methods = {
-
-  /**
-   * HasRole - check if the user has required role
-   *
-   * @param {String} plainText
-   * @return {Boolean}
-   * @api public
-   */
-  hasRole: function(role) {
-    var roles = this.roles;
-    return roles.indexOf('admin') !== -1 || roles.indexOf(role) !== -1;
-  },
-
-  /**
-   * IsAdmin - check if the user is an administrator
-   *
-   * @return {Boolean}
-   * @api public
-   */
-  isAdmin: function() {
-    return this.roles.indexOf('admin') !== -1;
-  }
-};
 
 mongoose.model('User', UserSchema);
