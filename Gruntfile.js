@@ -38,7 +38,12 @@ module.exports = function(grunt) {
             },
             mocha: {
                 files: ['test/server/**/*.js', 'server/**/*.js'],
-                tasks: ['mochaTest:dev']
+                tasks: ['env:test', 'mochaTest:dev']
+            }
+        },
+        env : {
+            test : {
+              NODE_ENV : 'test'
             }
         },
         open: {
@@ -154,6 +159,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-open');
+    grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-karma');
@@ -163,5 +169,5 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint', 'compass:dev', 'karma:dev', 'concurrent']);
 
     //Test task.
-    grunt.registerTask('test', ['mocha_istanbul:coverage'/*, 'karma:ci'*/]);
+    grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage'/*, 'karma:ci'*/]);
 };

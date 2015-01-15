@@ -47,6 +47,7 @@
         "coveralls": "2.11.x",
         
         "grunt": "0.4.x",
+        "grunt-env": "0.4.x",
         "grunt-cli": "0.1.x",
         "grunt-contrib-compass": "1.x",
         "grunt-contrib-watch": "0.6.x",
