@@ -46,13 +46,15 @@ describe('Flow Model', function() {
       name: 'Flow',
       author: 'Zulu',
       official: false,
-      ratings: [5,10,5,10,5]
+      ratings: [5,10,5,10,5],
+      createdAt: '12/10/1990'
     };
 
     flow2 = {
       name: 'Flow 2',
       author: 'Abigail',
-      official: false
+      official: false,
+      createdAt: '12/10/2010'
     };
 
     done();
