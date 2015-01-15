@@ -15,7 +15,9 @@ mongoose.connect(config.dbUrl);
 
 // Setup server
 require('./server/config/passport')(passport, passportConfig);
-require('./server/config/express')(app, passport, config);
+var expressConfig = require('./server/config/express');
+
+expressConfig.setupApp(app, passport, config);
 
 var version = process.env.VERSION || 'Development version';
 
@@ -23,6 +25,9 @@ var version = process.env.VERSION || 'Development version';
 require('./server/routes/auth')(app, passport);
 require('./server/routes/flow')(app);
 require('./server/routes/index')(app, version, env);
+
+// Needs to happen after routes are added
+expressConfig.addErrorHandlers(app);
 
 app.listen(config.app.port, config.app.hostname);
 console.log('Acromaster started on port ' + config.app.hostname + ':' + config.app.port + ' (' + env + ')');
