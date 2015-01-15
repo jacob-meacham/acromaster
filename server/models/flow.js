@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
-  name: String,
+  name: { type: String, required: true },
   author: String,
   moves: [{
     move: { type: Schema.Types.ObjectId, ref: 'Move' },

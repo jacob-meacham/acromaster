@@ -37,7 +37,7 @@ describe('/api/flow', function() {
       name: 'Flow',
       author: 'Zulu',
       official: false,
-      ratings: [5,10,5,10,5],
+      ratings: [5, 10, 5, 10, 5],
     };
 
     flow = new Flow(_flow);
@@ -61,6 +61,31 @@ describe('/api/flow', function() {
     });
   });
 
+  describe('POST /api/flow', function() {
+    it('should not create with an empty body', function(done) {
+      request(app)
+        .post('/api/flow')
+        .send({})
+        .expect(500)
+        .expect('Content-Type', /json/)
+        .expect(/ValidationError/, done);
+    });
+
+    it('should create with a name', function(done) {
+      request(app)
+        .post('/api/flow')
+        .send({name: 'My Flow', author: 'Bradley'})
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          res.body.should.have.property('name');
+          res.body.name.should.equal('My Flow');
+          res.body.author.should.equal('Bradley');
+        })
+        .end(done);
+    });
+  });
+
   describe('GET /api/flow/:flowId', function() {
     it('should return an error with an invalid id', function(done) {
       request(app)
@@ -81,8 +106,12 @@ describe('/api/flow', function() {
         .get('/api/flow/' + flow._id)
         .expect(200)
         .expect('Content-Type', /json/)
+        .expect(function(res) {
+          var _flow = new Flow(res.body);
+          _flow.name.should.equal(flow.name);
+          _flow.author.should.equal(flow.author);
+        })
         .end(done);
-        //.expect(flow, done);
     });
   });
 
