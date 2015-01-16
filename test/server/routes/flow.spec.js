@@ -5,12 +5,14 @@ var app = require('../../../server');
 var mongoose = require('mongoose');
 require('../../../server/models/flow.js');
 require('../../../server/models/move.js');
-require('chai').should();
+var chai = require('chai');
+chai.should();
+
 
 var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
 
-var flow;
+var flow1, flow2;
 
 describe('/api/flow', function() {
   before(function(done) {
@@ -38,18 +40,27 @@ describe('/api/flow', function() {
       author: 'Zulu',
       official: false,
       ratings: [5, 10, 5, 10, 5],
+      createdAt: '12/10/2010'
     };
 
-    flow = new Flow(_flow);
-
+    flow1 = new Flow(_flow);
     var move = { 'duration': 10, 'move': move1._id };
-    flow.moves.push(move);
+    flow1.moves.push(move);
 
     move = {'duration': 20, 'move': move2._id };
-    flow.moves.push(move);
+    flow1.moves.push(move);
 
-    flow.save(function() {
-      done();
+    _flow = {
+      name: 'Flow 2',
+      author: 'Abigail',
+      createdAt: '12/10/1990'
+    };
+    flow2 = new Flow(_flow);
+
+    flow1.save(function() {
+      flow2.save(function() {
+        done();
+      });
     });
   });
 
@@ -103,15 +114,63 @@ describe('/api/flow', function() {
 
     it('should return the correct flow when asked', function(done) {
       request(app)
-        .get('/api/flow/' + flow._id)
+        .get('/api/flow/' + flow1._id)
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
           var _flow = new Flow(res.body);
-          _flow.name.should.equal(flow.name);
-          _flow.author.should.equal(flow.author);
+          _flow.name.should.equal(flow1.name);
+          _flow.author.should.equal(flow1.author);
         })
         .end(done);
+    });
+  });
+  
+  describe('PUT /api/flow/:flowId', function() {
+    it('should return an error with an invalid id', function(done) {
+      request(app)
+        .put('/api/flow/0')
+        .expect(500)
+        .expect(/CastError/, done);
+    });
+
+    it('should be a no op with an empty body', function(done) {
+      request(app)
+        .put('/api/flow/' + flow1._id)
+        .send({})
+        .expect(200)
+        .expect(function(res) {
+          var _flow = new Flow(res.body);
+          _flow.name.should.equal(flow1.name);
+          _flow.author.should.equal(flow1.author);
+        })
+        .end(done);
+    });
+
+    it('should update without errors', function(done) {
+      request(app)
+        .put('/api/flow/' + flow1._id)
+        .send({official: true})
+        .expect(200)
+        .expect(function(res) {
+          var _flow = new Flow(res.body);
+          _flow.official.should.equal(true);
+        })
+        .end(done);
+    });
+  });
+
+  describe('GET /api/flow/list', function() {
+    it('should list all flows', function(done) {
+      done();
+    });
+
+    it('should list by pages', function(done) {
+      done();
+    });
+
+    it('should error without bad criteria', function(done) {
+      done();
     });
   });
 
@@ -147,6 +206,45 @@ describe('/api/flow', function() {
         .expect('Content-Type', /json/)
         .expect(400)
         .expect({error: 'totalTime and timePerMove required'}, done);
+    });
+  });
+
+  describe('GET /api/moves', function() {
+    it('should return the set of moves with an empty', function(done) {
+      request(app)
+        .get('/api/moves')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect(function(res) {
+          res.body.should.have.length(2);
+          res.body[0].name.should.equal('New Move');
+        })
+        .end(done);
+    });
+
+    it('should return a particular move with a query', function(done) {
+      request(app)
+        .get('/api/moves')
+        .query({name: 'New Move'})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect(function(res) {
+          res.body.should.have.length(1);
+          res.body[0].name.should.equal('New Move');
+        })
+        .end(done);
+    });
+
+    it('should return nothing with an invalid query', function(done) {
+      request(app)
+        .get('/api/moves')
+        .query({foo: 'New Move'})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect(function(res) {
+          res.body.should.have.length(0);
+        })
+        .end(done);
     });
   });
 });
