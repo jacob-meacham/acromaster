@@ -1,7 +1,7 @@
 'use strict';
 
 var paths = {
-  js: ['Gruntfile.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/js/**/*.js'],
+  js: ['Gruntfile.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/js/**/*.js', '!public/js/client.min.js'],
 };
 
 module.exports = function(grunt) {
@@ -83,18 +83,6 @@ module.exports = function(grunt) {
                     cssDir: 'public/css',
                     debugInfo: true
                 }
-            }
-        },
-
-        concat: {
-            options: {
-                separator: ';\n'
-            },
-            production: {
-                files: [
-                    '<%= assets.vendor.css %>',
-                    '<%= assets.vendor.js %>'
-                ]
             }
         },
 
@@ -199,7 +187,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-concurrent');
@@ -216,5 +203,5 @@ module.exports = function(grunt) {
     //Test task.
     grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage'/*, 'karma:ci'*/]);
 
-    grunt.registerTask('heroku:production', ['concat:production', 'cssmin:production', 'uglify:production']);
+    grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
 };
