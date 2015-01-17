@@ -34,16 +34,15 @@ controllers.controller('QuickPlayCreateController', ['$scope', '$location', 'Flo
   $scope.start = function() {
     // Pass the flow we'd like to use on.
     flowParams.totalTime = flowParams.totalMinutes * 60;
-    Flow.generate(flowParams, function(flow) {
-      flowService.setFlow(flow);
+    Flow.generate(flowParams, function(newFlow) {
+      flowService.setCurrentFlow(newFlow);
       $location.path('/flow/quick/play');
     });
   };
 }]);
 
 controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'flowService', 'Flow', function($scope, $interval, $location, $routeParams, flowService, Flow) {
-  // TODO: Smelly!
-  var flow = flowService.getFlow();
+  var flow = flowService.getCurrentFlow();
   if (flow === null) {
     flow = Flow.get({flowId: $routeParams.flowId});
   }

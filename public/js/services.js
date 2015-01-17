@@ -18,11 +18,12 @@ acromasterServices.factory('Moves', ['$resource', function($resource) {
   return $resource('/api/moves');
 }]);
 
-acromasterServices.service('flowService', function() {
+acromasterServices.factory('flowService', function() {
   var flow = null;
   return {
-    setFlow: function(_flow) { flow = _flow; },
-    getFlow: function() { return flow; }
+    setCurrentFlow: function(_flow) { flow = _flow; },
+    getCurrentFlow: function() { return flow; },
+    clearCurrentFlow: function() { flow = null; }
   };
 });
 
