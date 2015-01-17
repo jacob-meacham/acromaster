@@ -32,7 +32,6 @@ controllers.controller('QuickPlayCreateController', ['$scope', '$location', 'Flo
   var flowParams = $scope.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};
 
   $scope.start = function() {
-    // Pass the flow we'd like to use on.
     flowParams.totalTime = flowParams.totalMinutes * 60;
     Flow.generate(flowParams, function(newFlow) {
       flowService.setCurrentFlow(newFlow);
