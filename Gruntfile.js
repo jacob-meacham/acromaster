@@ -37,6 +37,13 @@ module.exports = function(grunt) {
                     force: true
                 }
             },
+            css: {
+                files: ['public/css/**'],
+                tasks: ['csslint'],
+                options: {
+                    livereload: true
+                }
+            },
             mocha: {
                 files: ['test/server/**/*.js', 'server/**/*.js'],
                 tasks: ['env:test', 'mochaTest:dev']
@@ -58,8 +65,7 @@ module.exports = function(grunt) {
         jshint: {
             files: paths.js,
             options: {
-                jshintrc: true,
-                ignores: ['test/server/coverageRunner.js']
+                jshintrc: true
             }
         },
 
@@ -77,6 +83,32 @@ module.exports = function(grunt) {
                     cssDir: 'public/css',
                     debugInfo: true
                 }
+            }
+        },
+
+        concat: {
+            options: {
+                separator: ';\n'
+            },
+            production: {
+                files: [
+                    '<%= assets.vendor.css %>',
+                    '<%= assets.vendor.js %>'
+                ]
+            }
+        },
+
+        cssmin: {
+            options: {},
+            production: {
+                files: ['<%= assets.client.css %>']
+            }
+        },
+
+        uglify: {
+            options: {},
+            production: {
+                files: ['<%= assets.client.js %>']
             }
         },
         
@@ -167,6 +199,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-env');
@@ -180,4 +215,6 @@ module.exports = function(grunt) {
 
     //Test task.
     grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage'/*, 'karma:ci'*/]);
+
+    grunt.registerTask('heroku:production', ['concat:production', 'cssmin:production', 'uglify:production']);
 };
