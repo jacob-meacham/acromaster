@@ -40,6 +40,22 @@
     transform: translateX(100%);
   }
 }
+@-moz-keyframes viewExit {
+  to {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
+@-webkit-keyframes viewExit {
+  to {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
 @keyframes viewEnter {
   from {
     opacity: 0;
@@ -54,14 +70,42 @@
     transform: translateX(0);
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000353}}
+@-moz-keyframes viewEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes viewEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003101}}
 .play-move.ng-hide-add {
   -webkit-animation: fade-out 0.5s both ease-in-out;
   -moz-animation: fade-out 0.5s both ease-in-out;
   animation: fade-out 0.5s both ease-in-out;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003106}}
 .play-move.ng-hide-remove {
   -webkit-animation: fade-in 0.5s both ease-in-out;
   -moz-animation: fade-in 0.5s both ease-in-out;
@@ -116,7 +160,7 @@
     opacity: 0;
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003145}}
 .thumbnail:hover,
 .thumbnail:focus {
   -webkit-transition: 0.2s ease-in-out;
@@ -126,7 +170,7 @@
   opacity: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003103}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003151}}
 .back-button:hover,
 .back-button:focus,
 .back-button:active {
@@ -137,7 +181,7 @@
   opacity: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003110}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003158}}
 .login-twitter:hover,
 .login-twitter:focus,
 .login-twitter:active {
@@ -148,7 +192,7 @@
   background-color: #3ea1ec;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003117}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003165}}
 .login-facebook:hover,
 .login-facebook:focus,
 .login-facebook:active {
