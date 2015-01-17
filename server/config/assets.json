@@ -1,0 +1,35 @@
+{
+  "vendor": {
+    "css": {
+      "public/vendor.min.css": []
+    },
+    "js": {
+      "public/vendor.min.js": [
+        "public/lib/jquery/dist/jquery.min.js",
+        "public/lib/jquery-ui/ui/minified/jquery-ui.min.js",
+        "public/lib/bootstrap/dist/js/bootstrap.min.js",
+        "public/lib/fastclick/lib/fastclick.js",
+        "public/lib/angular/angular.min.js",
+        "public/lib/angular-route/angular-route.min.js",
+        "public/lib/angular-resource/angular-resource.min.js",
+        "public/lib/angular-animate/angular-animate.min.js",
+        "public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js",
+        "public/lib/angular-ui-slider/src/slider.js"
+      ]
+    }
+  },
+
+  "client": {
+    "css": {
+      "public/client.min.css": []
+    },
+
+    "js": {
+      "public/client.min.js": [
+        "public/js/app.js",
+        "public/js/*.js",
+        "public/js/**/*.js"
+      ]
+    }
+  }
+}

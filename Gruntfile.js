@@ -1,9 +1,14 @@
 'use strict';
 
+var paths = {
+  js: ['Gruntfile.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/js/**/*.js'],
+};
+
 module.exports = function(grunt) {
     // Project Configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        assets: grunt.file.readJSON('server/config/assets.json'),
         watch: {
             jade: {
                 files: ['server/views/**'],
@@ -18,13 +23,13 @@ module.exports = function(grunt) {
                 }
             },
             js: {
-                files: ['Gruntfile.js', 'server.js', 'server/**/*.js', 'public/js/**', 'test/**/*.js'],
+                files: paths.js,
                 tasks: ['jshint'],
                 options: {
                     livereload: true
                 }
             },
-            css: {
+            sass: {
                 files: ['public/sass/**'],
                 tasks: ['compass:dev'],
                 options: {
@@ -32,32 +37,32 @@ module.exports = function(grunt) {
                     force: true
                 }
             },
-            karma: {
-                files: ['public/lib/angular/angular.js', 'public/lib/angular/angular-*.js', 'test/lib/angular/angular-mocks.js','test/unit/**/*.js'],
-                tasks: ['karma:dev:run']
-            },
             mocha: {
                 files: ['test/server/**/*.js', 'server/**/*.js'],
                 tasks: ['env:test', 'mochaTest:dev']
             }
         },
+
         env : {
             test : {
               NODE_ENV : 'test'
             }
         },
+
         open: {
           server: {
             url: 'http://localhost:3000'
           }
         },
+
         jshint: {
-            files: ['gruntfile.js', 'app.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/js/**/*.js'],
+            files: paths.js,
             options: {
                 jshintrc: true,
                 ignores: ['test/server/coverageRunner.js']
             }
         },
+
         compass: {
             dist: {
                 options: {
@@ -74,6 +79,7 @@ module.exports = function(grunt) {
                 }
             }
         },
+        
         nodemon: {
             dev: {
                 script: 'server.js',
@@ -84,12 +90,14 @@ module.exports = function(grunt) {
                 }
             }
         },
+
         concurrent: {
             tasks: ['nodemon:dev', 'watch'],
             options: {
                 logConcurrentOutput: true
             }
         },
+
         karma: {
             options: {
                 files: ['test/client/**/*.js'],
@@ -113,6 +121,7 @@ module.exports = function(grunt) {
                 singleRun: true
             }
         },
+
         mochaTest: {
             options: {
                 globals: [
@@ -128,6 +137,7 @@ module.exports = function(grunt) {
                 src: ['test/server/**/*.spec.js'],
             }
         },
+
         mocha_istanbul: {
             coverage: {
                 src: 'test/server/**/*.spec.js',

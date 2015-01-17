@@ -36,7 +36,8 @@
         "morgan": "1.5.x",
         "s3": "4.3.x",
         "static-favicon": "1.0.x",
-        "view-helpers": "0.1.x"
+        "view-helpers": "0.1.x",
+        "assetmanager": "1.1.2"
     },
     "devDependencies": {
         "mocha": "2.1.x",

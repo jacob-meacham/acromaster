@@ -11,6 +11,7 @@ var express = require('express'),
     errorhandler = require('errorhandler'),
     favicon = require('static-favicon'),
     flash = require('connect-flash'),
+    assetmanager = require('assetmanager'),
     morgan = require('morgan'),
     path = require('path');
 
@@ -58,6 +59,18 @@ module.exports = {
         app.use(favicon());
 
         app.use(express.static(path.join(config.root, 'public')));
+
+        var assets = assetmanager.process({
+            assets: require('./assets.json'),
+            //debug: (process.env.NODE_ENV !== 'production'),
+            debug: true,
+            webroot: 'public'
+        });
+
+        app.use(function (req, res, next) {
+            res.locals.assets = assets;
+            next();
+        });
     },
 
     addErrorHandlers: function(app) {
