@@ -13,6 +13,11 @@ var app = angular.module('acromaster', [
   FastClick.attach(document.body);
 });
 
+// Pre-define modules
+angular.module('acromaster.services', ['ngResource']);
+angular.module('acromaster.controllers', []);
+angular.module('acromaster.directives', []);
+
 app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
     when('/', {

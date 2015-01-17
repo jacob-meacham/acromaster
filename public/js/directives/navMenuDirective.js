@@ -1,6 +1,6 @@
 'use strict';
 
-var directives = angular.module('acromaster.directives', []);
+var directives = angular.module('acromaster.directives');
 
 directives.directive('navMenu', ['$location', function($location) {
   return function(scope, element, attrs) {
