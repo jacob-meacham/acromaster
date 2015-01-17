@@ -2,6 +2,7 @@
 
 var paths = {
   js: ['Gruntfile.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/js/**/*.js', '!public/js/client.min.js'],
+  css: ['public/css/*.css', '!public/css/client.min.css']
 };
 
 module.exports = function(grunt) {
@@ -38,7 +39,7 @@ module.exports = function(grunt) {
                 }
             },
             css: {
-                files: ['public/css/**', '!public/css/client.min.css'],
+                files: paths.css,
                 tasks: ['csslint'],
                 options: {
                     livereload: true
@@ -98,6 +99,13 @@ module.exports = function(grunt) {
             production: {
                 files: ['<%= assets.client.js %>']
             }
+        },
+
+        csslint: {
+            options: {
+              csslintrc: '.csslintrc'
+            },
+            src: paths.css
         },
         
         nodemon: {
@@ -188,6 +196,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-open');
@@ -198,7 +207,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-istanbul');
 
     //Default task(s).
-    grunt.registerTask('default', ['jshint', 'compass:dev', 'karma:dev', 'concurrent']);
+    grunt.registerTask('default', ['jshint', 'csslint', 'compass:dev', 'karma:dev', 'concurrent']);
 
     //Test task.
     grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage'/*, 'karma:ci'*/]);

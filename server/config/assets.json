@@ -27,8 +27,7 @@
   "client": {
     "css": {
       "public/css/client.min.css": [
-        "public/css/common.css",
-        "public/css/animations.css"
+        "public/css/*.css"
       ]
     },
 

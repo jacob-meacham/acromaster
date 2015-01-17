@@ -78,6 +78,7 @@ body {
 .navbar-nav > li > a:hover,
 .navbar-nav > li > a:focus {
   background-color: transparent;
+  border-bottom-color: #fff; /* IE8 proofing */
   border-bottom-color: rgba(255,255,255,.25);
 }
 .navbar-nav > .active > a,
@@ -104,6 +105,7 @@ span.glyphicon {
 
 .thumbnail {
   padding-top: 30px;
+  background:#000; /* IE8 proofing */
   background:rgba(1,1,1,0.5);
   height: 300px;
   position: relative;
@@ -127,7 +129,7 @@ a.divLinker {
 
 .washing-machine a:hover {
   color: #fff;
-  text-shadow: 0px 0px 4px #999;
+  text-shadow: 0 0 4px #999;
   cursor: pointer;
   text-decoration: none;
 }
@@ -164,7 +166,7 @@ a.divLinker {
 }
 
 .flow-title {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .btn-login {
