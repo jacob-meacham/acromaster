@@ -1,37 +1,38 @@
 {
   "vendor": {
     "css": {
-      "public/vendor.min.css": [
-        "public/lib/bootstrap/dist/css/bootstrap.min.css",
-        "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css"
-      ]
+        "public/lib/bootstrap/dist/css/bootstrap.min.css": "public/lib/bootstrap/dist/css/bootstrap.min.css",
+        "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css": "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css",
+        "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css": "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
     },
     "js": {
-      "public/vendor.min.js": [
-        "public/lib/jquery/dist/jquery.min.js",
-        "public/lib/jquery-ui/ui/minified/jquery-ui.min.js",
-        "public/lib/bootstrap/dist/js/bootstrap.min.js",
-        "public/lib/fastclick/lib/fastclick.js",
-        "public/lib/angular/angular.min.js",
-        "public/lib/angular-route/angular-route.min.js",
-        "public/lib/angular-resource/angular-resource.min.js",
-        "public/lib/angular-animate/angular-animate.min.js",
-        "public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js",
-        "public/lib/angular-ui-slider/src/slider.js"
-      ]
+        "public/lib/jquery/dist/jquery.min.js": "public/lib/jquery/dist/jquery.js",
+        "public/lib/jquery-ui/ui/minified/jquery-ui.min.js": "public/lib/jquery-ui/ui/jquery-ui.js",
+        "public/lib/bootstrap/dist/js/bootstrap.min.js": "public/lib/bootstrap/dist/js/bootstrap.js",
+        "public/lib/fastclick/lib/fastclick.js": "public/lib/fastclick/lib/fastclick.js",
+        "public/lib/angular/angular.min.js": "public/lib/angular/angular.js",
+        "public/lib/angular-route/angular-route.min.js": "public/lib/angular-route/angular-route.js",
+        "public/lib/angular-resource/angular-resource.min.js": "public/lib/angular-resource/angular-resource.js",
+        "public/lib/angular-animate/angular-animate.min.js": "public/lib/angular-animate/angular-animate.js",
+        "public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js": "public/lib/angular-bootstrap/ui-bootstrap-tpls.js",
+        "public/lib/angular-ui-slider/src/slider.js": "public/lib/angular-ui-slider/src/slider.js"
+    }
+  },
+
+  "cdn": {
+    "css": {
     }
   },
 
   "client": {
     "css": {
-      "public/client.min.css": [
-        "public/css/common.css",
-        "public/css/animations.css"
+      "public/css/client.min.css": [
+        "public/css/*.css"
       ]
     },
 
     "js": {
-      "public/client.min.js": [
+      "public/js/client.min.js": [
         "public/js/app.js",
         "public/js/*.js",
         "public/js/**/*.js"

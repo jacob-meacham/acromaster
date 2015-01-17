@@ -3,10 +3,8 @@
 .sass-cache/
 node_modules/
 public/lib
-public/client.min.css
-public/vendor.min.css
-public/client.min.js
-public/vendor.min.js
+public/css/client.min.css
+public/js/client.min.js
 build/
 config/secret.js
 acromaster.version
