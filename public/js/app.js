@@ -13,7 +13,7 @@ var app = angular.module('acromaster', [
   FastClick.attach(document.body);
 });
 
-app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
+app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
     when('/', {
       templateUrl: '/partials/index.html'
@@ -67,5 +67,4 @@ app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
       'self',
       'http://localhost**',
       'http://acromaster.s3.amazonaws.com/**']);
-  }
-);
+  }]);

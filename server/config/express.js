@@ -62,8 +62,7 @@ module.exports = {
 
         var assets = assetmanager.process({
             assets: require('./assets.json'),
-            //debug: (process.env.NODE_ENV !== 'production'),
-            debug: false,
+            debug: (process.env.NODE_ENV !== 'production'),
             webroot: 'public'
         });
 
