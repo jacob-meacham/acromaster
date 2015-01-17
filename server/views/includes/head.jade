@@ -16,9 +16,10 @@ head
   meta(property='og:type', content='website')
   meta(property='og:site_name', content='#{appName}')
 
-  link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
-  link(rel='stylesheet', href='/lib/jquery-ui/themes/base/jquery-ui.css')
-  link(rel='stylesheet', href='/css/common.css')
-  link(rel='stylesheet', href='/css/animations.css')
+  each asset in assets.vendor.css
+    link(rel='stylesheet', href=asset)
 
   link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
+  
+  each asset in assets.client.css
+    link(rel='stylesheet', href=asset)

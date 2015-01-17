@@ -1,7 +1,10 @@
 {
   "vendor": {
     "css": {
-      "public/vendor.min.css": []
+      "public/vendor.min.css": [
+        "public/lib/bootstrap/dist/css/bootstrap.min.css",
+        "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css"
+      ]
     },
     "js": {
       "public/vendor.min.js": [
@@ -21,7 +24,10 @@
 
   "client": {
     "css": {
-      "public/client.min.css": []
+      "public/client.min.css": [
+        "public/css/common.css",
+        "public/css/animations.css"
+      ]
     },
 
     "js": {
