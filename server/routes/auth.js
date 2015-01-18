@@ -1,8 +1,6 @@
 'use strict';
 
 require('../models/user.js');
-var mongoose = require('mongoose'),
-    User = mongoose.model('User');
 
 var authCallback = function(req, res) {
   res.redirect('/');
@@ -23,22 +21,8 @@ var isLoggedIn = function(req, res) {
   res.send(req.isAuthenticated() ? req.user : '0');
 };
 
-var findUser = function(req, res, next, id) {
-  User
-    .findOne({
-      _id: id
-    })
-    .exec(function(err, user) {
-      if (err) return next(err);
-      if (!user) return next(new Error('Failed to load User ' + id));
-      req.profile = user;
-      next();
-    });
-};
-
 module.exports = function(app, passport) {
   app.route('/auth/currentUser').get(getUser);
-  app.param('userId', findUser);
   app.route('/auth/loggedin').get(isLoggedIn);
   app.get('/logout', function(req, res) {
     req.logout();
@@ -47,7 +31,6 @@ module.exports = function(app, passport) {
 
   // Facebook oauth
   app.route('/auth/facebook').get(function() {
-    console.log('facebook authing');
     passport.authenticate('facebook');
   });
 
