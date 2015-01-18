@@ -46,6 +46,7 @@
         "sinon": "1.12.x",
         "istanbul": "0.3.x",
         "coveralls": "2.11.x",
+        "passport-stub": "1.0.x",
         
         "grunt": "0.4.x",
         "grunt-env": "0.4.x",
