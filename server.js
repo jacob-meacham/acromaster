@@ -14,9 +14,9 @@ var app = express();
 mongoose.connect(config.dbUrl);
 
 // Setup server
-require('./server/config/passport')(passport, passportConfig);
-var expressConfig = require('./server/config/express');
+require('./server/config/passport').setupPassport(passport, passportConfig);
 
+var expressConfig = require('./server/config/express');
 expressConfig.setupApp(app, passport, config);
 
 var version = process.env.VERSION || 'Development version';
