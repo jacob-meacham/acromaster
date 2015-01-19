@@ -165,17 +165,59 @@ describe('/api/flow', function() {
     });
   });
 
-  describe('GET /api/flow/list', function() {
+  describe('GET /api/flow', function() {
     it('should list all flows', function(done) {
-      done();
+      request(app)
+        .get('/api/flow')
+        .set('Accept', 'application/json')
+        .expect(200)
+        .expect(function(res) {
+          res.body.flows.should.have.length(3);
+          res.body.flows[0].name.should.equal('My Flow');
+          res.body.flows[1].name.should.equal('Flow');
+        })
+        .end(done);
     });
 
     it('should list by pages', function(done) {
-      done();
+      request(app)
+        .get('/api/flow')
+        .query({page: 1})
+        .set('Accept', 'application/json')
+        .expect(200)
+        .expect(function(res) {
+          res.body.flows.should.have.length(3);
+          res.body.page.should.equal(1);
+          res.body.pages.should.equal(1);
+        });
+
+      request(app)
+        .get('/api/flow')
+        .query({page: 2})
+        .set('Accept', 'application/json')
+        .expect(200)
+        .expect(function(res) {
+          res.body.flows.should.have.length(0);
+          res.body.page.should.equal(2);
+          res.body.pages.should.equal(1);
+        })
+        .end(done);
     });
 
-    it('should error without bad criteria', function(done) {
-      done();
+    it('should return an error if list fails', function(done) {
+      var stub = this.sinon.stub(Flow, 'list', function(options, callback) {
+        callback('Stub error', null);
+      });
+
+      request(app)
+        .get('/api/flow')
+        .set('Accept', 'application/json')
+        .expect(500)
+        .expect(function(res) {
+          stub.should.have.been.callCount(1);
+          res.body.error.should.equal('Stub error');
+        })
+        .end(done);
     });
   });
 
