@@ -44,6 +44,8 @@
         "chai": "1.10.x",
         "supertest": "0.15.x",
         "sinon": "1.12.x",
+        "mocha-sinon": "1.1.4",
+        "sinon-chai": "2.6.x",
         "istanbul": "0.3.x",
         "coveralls": "2.11.x",
         "passport-stub": "1.0.x",

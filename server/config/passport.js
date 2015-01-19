@@ -15,18 +15,15 @@ var deserializeUser = function(id, done) {
     });
 };
 
-var twitterCallback = function(token, tokenSecret, profile, done) {
-    User.findOne({ 'twitter.id_str': profile.id}, function(err, user) {
+var userCallback = function(profile, idProp, userCreator, done) {
+    var query = {};
+    query[idProp] = profile.id;
+    User.findOne(query, function(err, user) {
         if (err) {
             return done(err);
         }
         if (!user) {
-            user = new User({
-                name: profile.displayName,
-                username: profile.username,
-                provider: 'twitter',
-                twitter: profile._json
-            });
+            user = userCreator(profile);
             user.save(function(err) {
                 return done(err, user);
             });
@@ -34,50 +31,43 @@ var twitterCallback = function(token, tokenSecret, profile, done) {
             return done(err, user);
         }
     });
+};
+
+var twitterCallback = function(token, tokenSecret, profile, done) {
+    var userCreator = function(profile) {
+        return new User({
+            name: profile.displayName,
+            username: profile.username,
+            provider: 'twitter',
+            twitter: profile._json
+        });
+    };
+    userCallback(profile, 'twitter.id_str', userCreator, done);
 };
 
 var facebookCallback = function(accessToken, refreshToken, profile, done) {
-    User.findOne({'facebook.id': profile.id}, function(err, user) {
-        if (err) {
-            return done(err);
-        }
-        if (!user) {
-            user = new User({
-                name: profile.displayName,
-                email: profile.emails[0].value,
-                username: profile.username,
-                provider: 'facebook',
-                facebook: profile._json
-            });
-            user.save(function(err) {
-                if (err) console.log(err);
-                return done(err, user);
-            });
-        } else {
-            return done(err, user);
-        }
-    });
+    var userCreator = function(profile) {
+        return new User({
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            username: profile.username,
+            provider: 'facebook',
+            facebook: profile._json
+        });
+    };
+    userCallback(profile, 'facebook.id', userCreator, done);
 };
 
 var googleCallback = function(accessToken, refreshToken, profile, done) {
-    User.findOne({'google.id': profile.id}, function(err, user) {
-        if (!user) {
-            user = new User({
-                name: profile.name,
-                email: profile.email,
-                provider: 'google',
-                google: profile._json
-            });
-            user.save(function(err) {
-                if (err) {
-                    console.log(err);
-                }
-                return done(err, user);
-            });
-        } else {
-            return done(err, user);
-        }
-    });
+    var userCreator = function(profile) {
+        return new User({
+            name: profile.name,
+            email: profile.email,
+            provider: 'google',
+            google: profile._json
+        });
+    };
+    userCallback(profile, 'google.id', userCreator, done);
 };
 
 module.exports = {
@@ -88,7 +78,6 @@ module.exports = {
         });
 
         passport.deserializeUser(deserializeUser);
-
 
         //Use twitter strategy
         passport.use(new TwitterStrategy({
