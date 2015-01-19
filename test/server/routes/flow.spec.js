@@ -5,9 +5,14 @@ var app = require('../../../server');
 var mongoose = require('mongoose');
 require('../../../server/models/flow.js');
 require('../../../server/models/move.js');
+
 var chai = require('chai');
 chai.should();
 
+require('sinon');
+require('mocha-sinon');
+var sinonChai = require('sinon-chai');
+chai.use(sinonChai);
 
 var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
@@ -206,6 +211,23 @@ describe('/api/flow', function() {
         .expect('Content-Type', /json/)
         .expect(400)
         .expect({error: 'totalTime and timePerMove required'}, done);
+    });
+
+    it('should fail if the Move find fails', function(done) {
+      var stub = this.sinon.stub(Move, 'list', function(query, callback) {
+        callback('Stub error', null);
+      });
+
+      request(app)
+        .get('/api/flow/generate')
+        .set('Accept', 'application/json')
+        .query({totalTime:'10', timePerMove:'10'})
+        .expect(500)
+        .expect(function(res) {
+          stub.should.have.been.callCount(1);
+          res.body.error.should.equal('An error occurred: Stub error');
+        })
+        .end(done);
     });
   });
 
