@@ -1,9 +1,12 @@
 'use strict';
 
-angular.module('acromaster.controllers').controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'flowService', 'Flow', function($scope, $interval, $location, $routeParams, flowService, Flow) {
+var controllers = angular.module('acromaster.controllers');
+
+controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'flowService', 'Flow', function($scope, $interval, $location, $routeParams, flowService, Flow) {
   var flow = flowService.getCurrentFlow();
   if (flow === null) {
     flow = Flow.get({flowId: $routeParams.flowId});
+    flowService.setCurrentFlow(flow);
   }
   
   $scope.flow = flow;
@@ -33,6 +36,7 @@ angular.module('acromaster.controllers').controller('FlowPlayController', ['$sco
   };
   
   $scope.$on('$routeChangeSuccess', function () {
+    console.log(flow);
     nextMove(0);
   });
 
@@ -42,4 +46,43 @@ angular.module('acromaster.controllers').controller('FlowPlayController', ['$sco
       intervalPromise = undefined;
     }
   });
+}]);
+
+controllers.controller('FlowEndController', ['$scope', '$location', 'flowService', function($scope, $location, flowService) {
+  var flow = flowService.getCurrentFlow();
+  flow = {
+    moves: [{duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}, {duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}, {duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}]
+  };
+  if (flow === null || flow.moves.length === 0) {
+    // No flow defined, so redirect back to home.
+    $location.path('/');
+  }
+
+  var totalTime = 0;
+  var difficulty = 0;
+  for (var i = 0; i < flow.moves.length; i++) {
+    totalTime += flow.moves[i].duration;
+    difficulty += flow.moves[i].difficulty;
+  }
+
+  difficulty /= flow.moves.length;
+  
+  $scope.totalTime = totalTime;
+  $scope.difficulty = difficulty;
+  $scope.numMoves = flow.moves.length;
+
+  $scope.labelTest = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  $scope.data = [300, 500, 100];
+
+  $scope.labels = {
+    numMoves: 'Number of Moves',
+    totalTime: 'Total Time',
+    difficulty: 'Average Move Difficulty'
+  };
+
+  $scope.chartOptions = {
+    animationSteps : 50,
+    animationEasing : 'none',
+    animateRotate : true
+  };
 }]);
