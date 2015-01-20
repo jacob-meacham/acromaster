@@ -50,9 +50,12 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
 
 controllers.controller('FlowEndController', ['$scope', '$location', 'flowService', function($scope, $location, flowService) {
   var flow = flowService.getCurrentFlow();
-  flow = {
-    moves: [{duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}, {duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}, {duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}]
-  };
+  if (flow === null) {
+    flow = {
+      moves: [{duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}, {duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}, {duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}]
+    };
+  }
+  
   if (flow === null || flow.moves.length === 0) {
     // No flow defined, so redirect back to home.
     $location.path('/');
