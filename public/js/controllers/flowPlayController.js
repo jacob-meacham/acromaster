@@ -67,22 +67,49 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'flowService
 
   difficulty /= flow.moves.length;
   
-  $scope.totalTime = totalTime;
-  $scope.difficulty = difficulty;
-  $scope.numMoves = flow.moves.length;
-
-  $scope.labelTest = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  $scope.data = [300, 500, 100];
+  $scope.totalTime = [totalTime];
+  $scope.difficulty = [difficulty];
+  $scope.numMoves = [flow.moves.length];
 
   $scope.labels = {
-    numMoves: 'Number of Moves',
-    totalTime: 'Total Time',
-    difficulty: 'Average Move Difficulty'
+    numMoves: ['Number of Moves'],
+    totalTime: ['Total Time'],
+    difficulty: ['Average Move Difficulty']
+  };
+
+  $scope.colors = {
+    numMoves:
+      [{ // blue
+        fillColor: 'rgba(151,187,205,0.2)',
+        strokeColor: 'rgba(151,187,205,1)',
+        pointColor: 'rgba(151,187,205,1)',
+        pointStrokeColor: '#fff',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(151,187,205,0.8)'
+      }],
+    totalTime:
+      [{ // red
+        fillColor: 'rgba(247,70,74,0.2)',
+        strokeColor: 'rgba(247,70,74,1)',
+        pointColor: 'rgba(247,70,74,1)',
+        pointStrokeColor: '#fff',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(247,70,74,0.8)'
+      }],
+    difficulty:
+      [{ // green
+        fillColor: 'rgba(70,191,189,0.2)',
+        strokeColor: 'rgba(70,191,189,1)',
+        pointColor: 'rgba(70,191,189,1)',
+        pointStrokeColor: '#fff',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(70,191,189,0.8)'
+      }]
   };
 
   $scope.chartOptions = {
-    animationSteps : 50,
+    animationSteps : 30,
     animationEasing : 'none',
-    animateRotate : true
+    animateRotate : true,
   };
 }]);

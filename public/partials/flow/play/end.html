@@ -1,0 +1,18 @@
+<section>
+    <h1>Great Job!</h1>
+    <h3>Heres what you did</h3>
+    <div class="inner row">
+      <div class="col-md-4">
+        <canvas id="time-doughnut" class="chart chart-doughnut" data="totalTime" colours='colors.totalTime' labels="labels.totalTime" options="chartOptions"></canvas>
+        {{labels.totalTime[0]}} - {{totalTime[0]}}
+      </div>
+      <div class="col-md-4">
+        <canvas id="moves-doughnut" class="chart chart-doughnut" data="numMoves" colours='colors.numMoves' labels="labels.numMoves" options="chartOptions"></canvas> 
+        {{labels.numMoves[0]}} - {{numMoves[0]}}
+      </div>
+      <div class="col-md-4">
+        <canvas id="difficulty-doughnut" class="chart chart-doughnut" data="difficulty" colours='colors.difficulty' labels="labels.difficulty" options="chartOptions"></canvas> 
+        {{labels.difficulty[0]}} - {{difficulty[0]}}
+      </div>
+    </div>
+</section>
