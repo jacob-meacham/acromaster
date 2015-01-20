@@ -8,7 +8,8 @@ var app = angular.module('acromaster', [
   'acromaster.controllers',
   'acromaster.directives',
   'ui.slider',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'chart.js'
 ]).run(function() {
   FastClick.attach(document.body);
 });
@@ -43,12 +44,17 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       controller: 'FlowCreateController'
     })
     .when('/flow/quick', {
-      templateUrl: '/partials/flow/quick.html',
+      templateUrl: '/partials/flow/play/quick.html',
       controller: 'QuickPlayCreateController'
     })
     .when('/flow/quick/play', {
-      templateUrl: '/partials/flow/play.html',
+      templateUrl: '/partials/flow/play/play.html',
       controller: 'FlowPlayController'
+    })
+    // TODO: It's own controller?
+    .when('/flow/end', {
+      templateUrl: '/partials/flow/play/end.html',
+      controller: 'FlowEndController'
     })
     .when('/flow/:flowId/edit', {
       templateUrl: '/partials/flow/edit.html',
@@ -59,7 +65,7 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       controller: 'FlowViewController'
     })
     .when('/flow/:flowId/play', {
-      templateUrl: '/partials/flow/play.html',
+      templateUrl: '/partials/flow/play/play.html',
       controller: 'FlowPlayController'
     })
     .otherwise({
