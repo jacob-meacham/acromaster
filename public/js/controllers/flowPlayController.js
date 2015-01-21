@@ -73,10 +73,7 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'flowService
     value: 0,
     gaugeWidthScale: 0.75,
     donut: true,
-    relativeGaugeSize: true,
-    showInnerShadow: true,
-    shadowOpacity: 0.5,
-    shadowVerticalOffset: 3
+    relativeGaugeSize: true
   };
   
   $scope.totalTimeOptions = _.merge({
