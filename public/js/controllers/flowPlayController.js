@@ -47,7 +47,7 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
   });
 }]);
 
-controllers.controller('FlowEndController', ['$scope', '$location', 'flowService', function($scope, $location, flowService) {
+controllers.controller('FlowEndController', ['$scope', '$location', 'flowService', '$timeout', function($scope, $location, flowService, $timeout) {
   var flow = flowService.getCurrentFlow();
   if (flow === null) {
     flow = {
@@ -106,8 +106,10 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'flowService
   };
 
   $scope.$on('$routeChangeSuccess', function () {
-    $scope.numMovesOptions.value = flow.moves.length;
-    $scope.totalTimeOptions.value = totalTime;
-    $scope.difficultyOptions.value = difficulty;
+    $timeout(function() {
+      $scope.numMovesOptions.value = flow.moves.length;
+      $scope.totalTimeOptions.value = totalTime;
+      $scope.difficultyOptions.value = difficulty;
+    }, 650);
   });
 }]);
