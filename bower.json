@@ -13,7 +13,6 @@
     "json3": "3.3.x",
     "jquery": "2.1.x",
     "fastclick": "~1.0.1",
-    "justgage-toorshia": "b5398633c52",
     "angular-justgage": "245d87df429"
   },
   "devDependencies": {
