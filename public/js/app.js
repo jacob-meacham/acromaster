@@ -9,8 +9,9 @@ var app = angular.module('acromaster', [
   'acromaster.directives',
   'ui.slider',
   'ui.bootstrap',
-  'chart.js'
-]).run(function() {
+  'ngJustGage'
+])
+.run(function() {
   FastClick.attach(document.body);
 });
 
