@@ -47,7 +47,7 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
   });
 }]);
 
-controllers.controller('FlowEndController', ['$scope', '$location', 'flowService', '$timeout', function($scope, $location, flowService, $timeout) {
+controllers.controller('FlowEndController', ['$scope', '$location', 'flowService', '$timeout', '_', function($scope, $location, flowService, $timeout, _) {
   var flow = flowService.getCurrentFlow();
   if (flow === null) {
     flow = {
@@ -68,42 +68,38 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'flowService
   }
 
   difficulty /= flow.moves.length;
-  
-  $scope.totalTimeOptions = {
+
+  var commonOptions = {
     value: 0,
-    title: 'Total Time',
-    min: 0,
-    max: 60,
     gaugeWidthScale: 0.75,
-    levelColors: ['#00FF00'],
     donut: true,
     relativeGaugeSize: true,
     showInnerShadow: true,
     shadowOpacity: 0.5,
     shadowVerticalOffset: 3
   };
+  
+  $scope.totalTimeOptions = _.merge({
+    title: 'Total Time',
+    min: 0,
+    max: 60,
+    levelColors: ['#00FF00'],
+    
+  }, commonOptions);
 
-  $scope.difficultyOptions = {
-    value: 0,
+  $scope.difficultyOptions = _.merge({
     title: 'Average Move Difficulty',
     min: 0,
     max: 9,
-    gaugeWidthScale: 0.75,
     levelColors: ['#FFFF00'],
-    donut: true,
-    relativeGaugeSize: true
-  };
+  }, commonOptions);
 
-  $scope.numMovesOptions = {
-    value: 0,
+  $scope.numMovesOptions = _.merge({
     title: 'Number of Moves',
     min: 0,
     max: 90,
-    gaugeWidthScale: 0.75,
     levelColors: ['#CE1B21'],
-    donut: true,
-    relativeGaugeSize: true
-  };
+  }, commonOptions);
 
   $scope.$on('$routeChangeSuccess', function () {
     $timeout(function() {

@@ -19,7 +19,8 @@
         "public/lib/angular-ui-slider/src/slider.js": "public/lib/angular-ui-slider/src/slider.js",
         "public/lib/raphael/raphael.min.js": "public/lib/raphael/raphael.js",
         "public/lib/justgage-toorshia/justgage.js": "public/lib/justgage-toorshia/justgage.js",
-        "public/lib/angular-justgage/ng-justgage.js": "public/lib/angular-justgage/ng-justgage.js"
+        "public/lib/angular-justgage/ng-justgage.js": "public/lib/angular-justgage/ng-justgage.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"
     }
   },
 
