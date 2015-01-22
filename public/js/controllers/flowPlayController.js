@@ -2,7 +2,7 @@
 
 var controllers = angular.module('acromaster.controllers');
 
-controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'flowService', 'Flow', function($scope, $interval, $location, $routeParams, flowService, Flow) {
+controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'flowService', 'Flow', 'environment', function($scope, $interval, $location, $routeParams, flowService, Flow, environment) {
   var flow = flowService.getCurrentFlow();
   if (flow === null) {
     flow = Flow.get({flowId: $routeParams.flowId});
@@ -12,6 +12,8 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
   $scope.flow = flow;
   var currentEntry = {};
   $scope.currentMove = {};
+  console.log(environment.isDebug());
+  $scope.debug = environment.isDebug();
 
   angular.forEach(flow.moves, function(entry) {
     entry.visible = false;
@@ -24,7 +26,7 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
     }
 
     if (entryIndex >= flow.moves.length) {
-      $location.path('/flow/quick');
+      $location.path('/flow/end');
     }
     
     currentEntry = flow.moves[entryIndex];
@@ -51,7 +53,14 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'flowService
   var flow = flowService.getCurrentFlow();
   if (flow === null) {
     flow = {
-      moves: [{duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}, {duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}, {duration: 10, difficulty: 10}, {duration: 5, difficulty: 5}]
+      moves: [
+        { duration: 100, move: {difficulty: 10} },
+        { duration: 50, move: {difficulty: 5} },
+        { duration: 100, move: {difficulty: 10} },
+        { duration: 50, move: {difficulty: 5} },
+        { duration: 100, move: {difficulty: 10} },
+        { duration: 50, move: {difficulty: 5} }
+      ]
     };
   }
   
@@ -64,9 +73,10 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'flowService
   var difficulty = 0;
   for (var i = 0; i < flow.moves.length; i++) {
     totalTime += flow.moves[i].duration;
-    difficulty += flow.moves[i].difficulty;
+    difficulty += flow.moves[i].move.difficulty;
   }
 
+  totalTime /= 60;
   difficulty /= flow.moves.length;
 
   var commonOptions = {
@@ -94,7 +104,7 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'flowService
   $scope.numMovesOptions = _.merge({
     title: 'Number of Moves',
     min: 0,
-    max: 90,
+    max: 100,
     levelColors: ['#CE1B21'],
   }, commonOptions);
 
