@@ -8,8 +8,7 @@ services.factory('_', ['$window', function($window) {
 services.factory('environment', ['$window', function($window) {
   return {
     isDebug: function() {
-      //return $window.env === 'development';
-      return true;
+      return $window.env === 'development';
     }
   };
 }]);
