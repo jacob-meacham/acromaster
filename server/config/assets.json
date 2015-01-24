@@ -3,8 +3,8 @@
     "css": {
         "public/lib/bootstrap/dist/css/bootstrap.min.css": "public/lib/bootstrap/dist/css/bootstrap.min.css",
         "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css": "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css",
+        "public/lib/angular-xeditable/dist/css/xeditable.css": "public/lib/angular-xeditable/dist/css/xeditable.css",
         "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css": "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-        
     },
     "js": {
         "public/lib/jquery/dist/jquery.min.js": "public/lib/jquery/dist/jquery.js",
@@ -20,6 +20,8 @@
         "public/lib/raphael/raphael-min.js": "public/lib/raphael/raphael.js",
         "public/lib/justgage-toorshia/justgage.js": "public/lib/justgage-toorshia/justgage.js",
         "public/lib/angular-justgage/ng-justgage.js": "public/lib/angular-justgage/ng-justgage.js",
+        "public/lib/angular-ui-sortable/sortable.min.js": "public/lib/angular-ui-sortable/sortable.js",
+        "public/lib/angular-xeditable/dist/js/xeditable.min.js": "public/lib/angular-xeditable/dist/js/xeditable.js",
         "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"
     }
   },
