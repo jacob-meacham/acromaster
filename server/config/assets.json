@@ -1,8 +1,8 @@
 {
   "vendor": {
     "css": {
-        "public/lib/bootstrap/dist/css/bootstrap.min.css": "public/lib/bootstrap/dist/css/bootstrap.min.css",
-        "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css": "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css",
+        "public/lib/bootstrap/dist/css/bootstrap.min.css": "public/lib/bootstrap/dist/css/bootstrap.css",
+        "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css": "public/lib/jquery-ui/themes/base/minified/jquery-ui.css",
         "public/lib/angular-xeditable/dist/css/xeditable.css": "public/lib/angular-xeditable/dist/css/xeditable.css",
         "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css": "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
     },
