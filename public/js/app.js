@@ -7,8 +7,10 @@ var app = angular.module('acromaster', [
   'acromaster.services',
   'acromaster.controllers',
   'acromaster.directives',
+  'xeditable',
   'ui.slider',
   'ui.bootstrap',
+  'ui.sortable',
   'ngJustGage'
 ])
 .run(function() {
