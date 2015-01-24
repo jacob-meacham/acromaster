@@ -9,34 +9,41 @@
         </div>
     </form>
     <h3>Moves</h3>
-    <div class="move-list">
-        <div ng-show='moveList.length == 0'>
-            <em>None Yet!</em>
-        </div>
-        <div ng-repeat='move in moveList'>
-            {{move.move.name}} - {{move.duration}} seconds
-        </div>
-    </div>
-    <form role="form" ng-submit="addMove()">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="form-group">
-                    <label for="move-picker">Pick a Move</label>
-                    <input type="text" ng-model="currentMove" typeahead="move as move.name for move in allMoves | filter:$viewValue | limitTo:20" typeahead-editable="false" class="form-control" id="move-picker">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="time">Time</label>
-                    <input type="text" ng-model="currentDuration" class="form-control" id="time">
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-default">Add Move</button>
-        </div>
-    </form>
-    
+    <table class="move-list">
+        <thead>
+            <th>Move</th>
+            <th>Duration</th>
+        </thead>
+        <tbody ui:sortable ng:model="moveList">
+            <tr ng:repeat="move in moveList" class="item">
+                <td>
+                    <span editable-text="move.move.name" e-name="name" e-form="flowForm" e-required e-typeahead="move as move.name for move in allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" onaftersave="updateMove($index, $data)">
+                        {{move.move.name}}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="move.duration" e-name="duration" e-form="flowForm" e-required>
+                        {{move.duration}}
+                    </span>
+                </td>
+                <td>
+                    <form editable-form name="flowForm" ng-show="flowForm.$visible" class="form-buttons form-inline" shown="inserted == move">
+                      <button type="submit" ng-disabled="flowForm.$waiting" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-ok"></span>
+                      </button>
+                      <button type="button" ng-disabled="flowForm.$waiting" ng-click="flowForm.$cancel()" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove"></span>
+                      </button>
+                    </form>
+                    <div class="buttons" ng-show="!flowForm.$visible">
+                      <button class="btn btn-primary" ng-click="flowForm.$show()"><span class="glyphicon glyphicon-pencil"></span></button>
+                      <button class="btn btn-danger" ng-click="removeMove($index)"><span class="glyphicon glyphicon-minus"></span></button>
+                    </div>  
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-default" ng-click="addMove()"><span class="glyphicon glyphicon-plus"></button>
 
     <form ng-submit="create()">
         <div class="form-group">
