@@ -111,11 +111,6 @@ body {
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003102}}
-span.glyphicon {
-  font-size: 5.0em;
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003106}}
 .thumbnail {
   padding-top: 30px;
   background: #000;
@@ -126,13 +121,13 @@ span.glyphicon {
   opacity: 0.5;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003115}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003111}}
 .thumbnail .caption {
   opacity: 0.7;
   color: #fff;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003120}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003116}}
 a.divLinker {
   position: absolute;
   width: 100%;
@@ -143,7 +138,7 @@ a.divLinker {
   z-index: 10;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003130}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003126}}
 .washing-machine a:hover {
   color: #fff;
   text-shadow: 0 0 4px #999;
@@ -151,12 +146,12 @@ a.divLinker {
   text-decoration: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003137}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003133}}
 .washing-machine h1 {
   padding-top: 30px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003141}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003137}}
 .back-button {
   font-size: 4.0em !important;
   padding-top: 40px;
@@ -164,37 +159,37 @@ a.divLinker {
   opacity: 0.5;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003148}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003144}}
 .ui-slider {
   background: #777;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003152}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003148}}
 .flows {
   text-align: left;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003156}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003152}}
 .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
   background-color: #333;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003160}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003156}}
 .table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
   background-color: #555;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003164}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003160}}
 .move-list {
   padding-bottom: 20px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003168}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003164}}
 .flow-title {
   margin-bottom: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003172}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003168}}
 .btn-login {
   border: 0;
   -webkit-border-radius: 3px;
@@ -213,46 +208,51 @@ a.divLinker {
   line-height: 40px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003187}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003183}}
 .login-icon {
   margin-right: 15px;
   margin-top: 15px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003192}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003188}}
 .login-twitter {
   background-color: #55acee;
   border-color: #55acee;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003197}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003193}}
 .login-twitter:hover, .login-twitter:active {
   background-color: #3ea1ec;
   color: #fff;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003202}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003198}}
 .login-facebook {
   background-color: #3b5998;
   border-color: #3b5998;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003207}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003203}}
 .login-facebook:hover, .login-facebook:active {
   background-color: #344e86;
   color: #fff;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003212}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003208}}
 .login-google {
   background-color: #df4a32;
   border-color: #df4a32;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003217}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003213}}
 .login-google:hover, .login-google:active {
   background-color: #d63a21;
   color: #fff;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003218}}
+span.large-glyphicon {
+  font-size: 5em;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/common\.scss}line{font-family:\00003222}}

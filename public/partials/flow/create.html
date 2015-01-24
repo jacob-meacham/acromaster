@@ -1,4 +1,5 @@
 <section class="flows">
+    <form>
         <div class="form-group">
             <label for="name">Flow Name</label>
             <input type="text" class="form-control" ng-model="flow.name" id="name" placeholder="Flow Name">
@@ -9,10 +10,11 @@
         </div>
     </form>
     <h3>Moves</h3>
-    <table class="move-list">
+    <table class="table table-striped">
         <thead>
             <th>Move</th>
             <th>Duration</th>
+            <th> </th>
         </thead>
         <tbody ui:sortable ng:model="moveList">
             <tr ng:repeat="move in moveList" class="item">
@@ -45,11 +47,13 @@
     </table>
     <button class="btn btn-default" ng-click="addMove()"><span class="glyphicon glyphicon-plus"></button>
 
-    <form ng-submit="create()">
-        <div class="form-group">
-            <button type="submit" class="btn btn-default">Create Flow</button>
-        </div>
-    </form>
+    <div class="inner">
+        <form ng-submit="create()">
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Create Flow</button>
+            </div>
+        </form>
+    </div>
 
     <debug class="block">
         <p>{{moveList}}</p>
