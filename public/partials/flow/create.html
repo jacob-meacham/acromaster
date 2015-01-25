@@ -21,12 +21,12 @@
         <tbody ui:sortable ng:model="moveList">
             <tr ng:repeat="move in moveList" class="item">
                 <td>
-                    <span editable-text="move.move.name" e-autocomplete="off" e-name="name" e-form="flowForm" e-required e-typeahead="move as move.name for move in allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="cancelMove($index)" onbeforesave="checkMove($data)" onaftersave="updateMove($index, $data)">
+                    <span editable-text="move.move.name" e-autocomplete="off" e-name="name" e-class="form-control" e-form="flowForm" e-required e-typeahead="move as move.name for move in allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="cancelMove($index)" onbeforesave="checkMove($data)" onaftersave="updateMove($index, $data)">
                         {{move.move.name}}
                     </span>
                 </td>
                 <td>
-                    <span editable-text="move.duration" e-name="duration" e-form="flowForm" onbeforesave="checkDuration($data)" e-required>
+                    <span editable-text="move.duration" e-name="duration" e-class="form-control" e-form="flowForm" onbeforesave="checkDuration($data)" e-required>
                         {{move.duration}}
                     </span>
                 </td>
