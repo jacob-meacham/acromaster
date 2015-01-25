@@ -4,16 +4,16 @@
         <div class="col-md-6">
             <h2>Basic Setup</h2>
             <h3>Total Time (Minutes): {{flowParams.totalMinutes}}</h3>
-                <div ui-slider min="0" step="10" max="120" ng-model="flowParams.totalMinutes"></div>
+                <slider flow="0" step="10" ceiling="120" ng-model="flowParams.totalMinutes"></slider>
             <h3>Difficulty: {{flowParams.difficulty}}</h3>
-                <div ui-slider min="0" max="11" ng-model="flowParams.difficulty"></div>
+                <slider flow="0" ceiling="11" ng-model="flowParams.difficulty"></slider>
         </div>
         <div class="col-md-4 col-md-offset-2">
             <h4>Advanced Setup</h4>
             <h5>Move Duration: {{flowParams.timePerMove}}</h5>
-                <div ui-slider min="5" max="60" ng-model="flowParams.timePerMove"></div>
+                <slider floor="5" ceiling="60" ng-model="flowParams.timePerMove"></slider>
             <h5>Move Variance: {{flowParams.timeVariance}}</h5>
-                <div ui-slider min="0" max="60" ng-model="flowParams.timeVariance"></div>
+                <slider floor="0" ceiling="60" ng-model="flowParams.timeVariance"></slider>
         </div>
     </div>
     <a href="/"><span class="glyphicon glyphicon-circle-arrow-left large-glyphicon back-button"></span></a>
