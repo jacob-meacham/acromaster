@@ -11,7 +11,9 @@ var app = angular.module('acromaster', [
   'ui.slider',
   'ui.bootstrap',
   'ui.sortable',
-  'ngJustGage'
+  'ngJustGage',
+  'angular-flash.service',
+  'angular-flash.flash-alert-directive'
 ])
 .run(function() {
   FastClick.attach(document.body);
