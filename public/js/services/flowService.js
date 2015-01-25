@@ -2,7 +2,7 @@
 var acromasterServices = angular.module('acromaster.services');
 
 acromasterServices.factory('Flow', ['$resource',
-  function($resource){
+  function($resource) {
     return $resource('/api/flow/:flowId', {
       flowId: '@id'
     },
