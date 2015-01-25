@@ -12,7 +12,7 @@ controllers.controller('FlowListController', ['$scope', 'Flow', function($scope,
   find();
 }]);
 
-controllers.controller('FlowCreateController', ['$scope', '$location', 'Flow', 'Moves', function($scope, $location, Flow, Moves) {
+controllers.controller('FlowCreateController', ['$scope', '$location', 'flash', '_', 'Flow', 'Moves', function($scope, $location, flash, _, Flow, Moves) {
   $scope.allMoves = Moves.query();
   var flow = $scope.flow = new Flow({moves: []});
 
@@ -28,12 +28,39 @@ controllers.controller('FlowCreateController', ['$scope', '$location', 'Flow', '
     $scope.moveList.push($scope.inserted);
   };
 
-  $scope.updateMove = function($index, $data) {
-    $scope.moveList[$index].move = $data;
+  $scope.updateMove = function(index, $data) {
+    $scope.moveList[index].move = $data;
   };
 
   $scope.removeMove = function(index) {
     $scope.moveList.splice(index, 1);
+  };
+
+  $scope.cancelMove = function(index) {
+    // If the move has no name, just remove.
+    $scope.moveList.splice(index, 1);
+  };
+
+  $scope.checkMove = function($data) {
+    console.log($data);
+    if ($data === undefined) {
+      return 'No move specified';
+    }
+
+    if (_.indexOf($scope.allMoves, $data) < 0) {
+      return 'Not a valid move';
+    }
+  };
+
+  $scope.checkDuration = function($data) {
+    if ($data === undefined) {
+      return 'Move must have a duration';
+    }
+
+    var duration = parseInt($data, 10);
+    if (isNaN(duration) || duration < 0) {
+      return 'Duration must be a valid number';
+    }
   };
 
   $scope.create = function() {
@@ -45,9 +72,14 @@ controllers.controller('FlowCreateController', ['$scope', '$location', 'Flow', '
       });
     }
 
-    flow.$save(function(savedFlow) {
-     $location.path('/flow/' + savedFlow._id);
-    });
+    var saveSuccess = function(savedFlow) {
+      $location.path('/flow/' + savedFlow._id);
+    };
+    var saveFailure = function() {
+      flash.error = 'There was an issue saving your flow. Correct any issues and re-submit';
+    };
+
+    flow.$save(saveSuccess, saveFailure);
   };
 }]);
 

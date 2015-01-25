@@ -1,4 +1,4 @@
-<section class="flows">
+<section class="flows center-block col-sm-8">
     <form>
         <div class="form-group">
             <label for="name">Flow Name</label>
@@ -12,19 +12,21 @@
     <h3>Moves</h3>
     <table class="table table-striped">
         <thead>
-            <th>Move</th>
-            <th>Duration</th>
-            <th> </th>
+            <tr>
+                <th>Move</th>
+                <th>Duration</th>
+                <th> </th>
+            </tr>
         </thead>
         <tbody ui:sortable ng:model="moveList">
             <tr ng:repeat="move in moveList" class="item">
                 <td>
-                    <span editable-text="move.move.name" e-name="name" e-form="flowForm" e-required e-typeahead="move as move.name for move in allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" onaftersave="updateMove($index, $data)">
+                    <span editable-text="move.move.name" e-autocomplete="off" e-name="name" e-form="flowForm" e-required e-typeahead="move as move.name for move in allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="cancelMove($index)" onbeforesave="checkMove($data)" onaftersave="updateMove($index, $data)">
                         {{move.move.name}}
                     </span>
                 </td>
                 <td>
-                    <span editable-text="move.duration" e-name="duration" e-form="flowForm" e-required>
+                    <span editable-text="move.duration" e-name="duration" e-form="flowForm" onbeforesave="checkDuration($data)" e-required>
                         {{move.duration}}
                     </span>
                 </td>
@@ -50,11 +52,15 @@
     <div class="inner">
         <form ng-submit="create()">
             <div class="form-group">
+                <div flash-alert="error" active-class="in alert alert-danger" role="alert" class="fade" duration="0">
+                    <button type="button" class="close" ng-click="hide()">&times;</button>
+                    <strong class="alert-heading">Error</strong>
+                    <span class="alert-message">{{flash.message}}</span>
+                </div>
                 <button type="submit" class="btn btn-default">Create Flow</button>
             </div>
         </form>
     </div>
-
     <debug class="block">
         <p>{{moveList}}</p>
         <p>{{flow}}</p>
