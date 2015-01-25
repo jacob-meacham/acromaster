@@ -99,10 +99,6 @@ body {
   padding: 30px;
 }
 
-span.glyphicon {
-    font-size: 5.0em;
-}
-
 .thumbnail {
   padding-top: 30px;
   background:#000; /* IE8 proofing */
@@ -217,6 +213,10 @@ a.divLinker {
 .login-google:hover, .login-google:active {
   background-color: #d63a21;
   color: #fff;
+}
+
+span.large-glyphicon {
+  font-size: 5.0em
 }
 
 .version {
