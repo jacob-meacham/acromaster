@@ -144,7 +144,8 @@
 
 .thumbnail:hover,
 .thumbnail:focus {
-  @include standard-ease(0.2s);
+  @include standard-ease(0.3s);
+  background:rgba(1,1,1,1);
   opacity: 1;
 }
 
