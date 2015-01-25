@@ -52,15 +52,13 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
 controllers.controller('FlowEndController', ['$scope', '$location', 'flowService', '$timeout', '_', function($scope, $location, flowService, $timeout, _) {
   var flow = flowService.getCurrentFlow();
   if (flow === null) {
+    var moves = [];
+    for (var j = 0; j < 80; j++) {
+      moves.push({duration: 50, move: {difficulty: j % 15}});
+    }
+
     flow = {
-      moves: [
-        { duration: 100, move: {difficulty: 10} },
-        { duration: 50, move: {difficulty: 5} },
-        { duration: 100, move: {difficulty: 10} },
-        { duration: 50, move: {difficulty: 5} },
-        { duration: 100, move: {difficulty: 10} },
-        { duration: 50, move: {difficulty: 5} }
-      ]
+      moves: moves
     };
   }
   
@@ -81,9 +79,14 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'flowService
 
   var commonOptions = {
     value: 0,
-    gaugeWidthScale: 0.75,
+    gaugeWidthScale: 0.2,
     donut: true,
-    relativeGaugeSize: true
+    relativeGaugeSize: true,
+    valueFontColor: '#fff',
+    titleFontColor: '#fff',
+    gaugeColor: '#00000000',
+    counter: true,
+    donutStartAngle: 270
   };
   
   $scope.totalTimeOptions = _.merge({
@@ -111,8 +114,14 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'flowService
   $scope.$on('$routeChangeSuccess', function () {
     $timeout(function() {
       $scope.numMovesOptions.value = flow.moves.length;
-      $scope.totalTimeOptions.value = totalTime;
-      $scope.difficultyOptions.value = difficulty;
     }, 650);
+
+    $timeout(function() {
+      $scope.totalTimeOptions.value = totalTime;
+    }, 850);
+
+    $timeout(function() {
+      $scope.difficultyOptions.value = difficulty;
+    }, 1050);
   });
 }]);
