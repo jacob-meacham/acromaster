@@ -1,0 +1,51 @@
+{
+  "vendor": {
+    "css": {
+        "public/lib/bootstrap/dist/css/bootstrap.min.css": "public/lib/bootstrap/dist/css/bootstrap.css",
+        "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css": "public/lib/jquery-ui/themes/base/minified/jquery-ui.css",
+        "public/lib/angular-slider/slider.css": "public/lib/angular-slider/slider.css",
+        "public/lib/angular-xeditable/dist/css/xeditable.css": "public/lib/angular-xeditable/dist/css/xeditable.css",
+        "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css": "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+    },
+    "js": {
+        "public/lib/jquery/dist/jquery.min.js": "public/lib/jquery/dist/jquery.js",
+        "public/lib/jquery-ui/ui/minified/jquery-ui.min.js": "public/lib/jquery-ui/ui/jquery-ui.js",
+        "public/lib/bootstrap/dist/js/bootstrap.min.js": "public/lib/bootstrap/dist/js/bootstrap.js",
+        "public/lib/fastclick/lib/fastclick.js": "public/lib/fastclick/lib/fastclick.js",
+        "public/lib/angular/angular.min.js": "public/lib/angular/angular.js",
+        "public/lib/angular-route/angular-route.min.js": "public/lib/angular-route/angular-route.js",
+        "public/lib/angular-resource/angular-resource.min.js": "public/lib/angular-resource/angular-resource.js",
+        "public/lib/angular-animate/angular-animate.min.js": "public/lib/angular-animate/angular-animate.js",
+        "public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js": "public/lib/angular-bootstrap/ui-bootstrap-tpls.js",
+        "public/lib/angular-slider/slider.js": "public/lib/angular-slider/slider.js",
+        "public/lib/raphael/raphael-min.js": "public/lib/raphael/raphael.js",
+        "public/lib/justgage-toorshia/justgage.js": "public/lib/justgage-toorshia/justgage.js",
+        "public/lib/angular-justgage/ng-justgage.js": "public/lib/angular-justgage/ng-justgage.js",
+        "public/lib/angular-ui-sortable/sortable.min.js": "public/lib/angular-ui-sortable/sortable.js",
+        "public/lib/angular-xeditable/dist/js/xeditable.min.js": "public/lib/angular-xeditable/dist/js/xeditable.js",
+        "public/lib/angular-flash/dist/angular-flash.min.js": "public/lib/angular-flash/dist/angular-flash.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"
+    }
+  },
+
+  "cdn": {
+    "css": {
+    }
+  },
+
+  "client": {
+    "css": {
+      "public/css/client.min.css": [
+        "public/css/*.css"
+      ]
+    },
+
+    "js": {
+      "public/js/client.min.js": [
+        "public/js/app.js",
+        "public/js/*.js",
+        "public/js/**/*.js"
+      ]
+    }
+  }
+}

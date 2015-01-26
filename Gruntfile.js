@@ -1,9 +1,15 @@
 'use strict';
 
+var paths = {
+  js: ['Gruntfile.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/js/**/*.js', '!public/js/client.min.js'],
+  css: ['public/css/*.css', '!public/css/client.min.css']
+};
+
 module.exports = function(grunt) {
     // Project Configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        assets: grunt.file.readJSON('server/config/assets.json'),
         watch: {
             jade: {
                 files: ['server/views/**'],
@@ -18,13 +24,13 @@ module.exports = function(grunt) {
                 }
             },
             js: {
-                files: ['gruntfile.js', 'server.js', 'server/**/*.js', 'public/js/**', 'test/**/*.js'],
+                files: paths.js,
                 tasks: ['jshint'],
                 options: {
                     livereload: true
                 }
             },
-            css: {
+            sass: {
                 files: ['public/sass/**'],
                 tasks: ['compass:dev'],
                 options: {
@@ -32,27 +38,38 @@ module.exports = function(grunt) {
                     force: true
                 }
             },
-            karma: {
-                files: ['public/lib/angular/angular.js', 'public/lib/angular/angular-*.js', 'test/lib/angular/angular-mocks.js','test/unit/**/*.js'],
-                tasks: ['karma:dev:run']
+            css: {
+                files: paths.css,
+                tasks: ['csslint'],
+                options: {
+                    livereload: true
+                }
             },
             mocha: {
                 files: ['test/server/**/*.js', 'server/**/*.js'],
-                tasks: ['mochaTest:dev']
+                tasks: ['env:test', 'mochaTest:dev']
             }
         },
+
+        env : {
+            test : {
+              NODE_ENV : 'test'
+            }
+        },
+
         open: {
           server: {
             url: 'http://localhost:3000'
           }
         },
+
         jshint: {
-            files: ['gruntfile.js', 'app.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/js/**/*.js'],
+            files: paths.js,
             options: {
-                jshintrc: true,
-                ignores: ['test/server/coverageRunner.js']
+                jshintrc: true
             }
         },
+
         compass: {
             dist: {
                 options: {
@@ -64,28 +81,50 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     sassDir: 'public/sass',
-                    cssDir: 'public/css',
-                    debugInfo: true
+                    cssDir: 'public/css'
                 }
             }
         },
+
+        cssmin: {
+            options: {},
+            production: {
+                files: ['<%= assets.client.css %>']
+            }
+        },
+
+        uglify: {
+            options: {},
+            production: {
+                files: ['<%= assets.client.js %>']
+            }
+        },
+
+        csslint: {
+            options: {
+              csslintrc: '.csslintrc'
+            },
+            src: paths.css
+        },
+        
         nodemon: {
             dev: {
+                script: 'server.js',
                 options: {
-                    file: 'server.js',
-                    ignoredFiles: ['README.md', 'node_modules/**', 'test/**'],
-                    watchedExtensions: ['js'],
+                    ignore: ['README.md', 'node_modules/**', 'test/**'],
                     debug: true,
-                    delayTime: 1,
+                    delay: 1,
                 }
             }
         },
+
         concurrent: {
             tasks: ['nodemon:dev', 'watch'],
             options: {
                 logConcurrentOutput: true
             }
         },
+
         karma: {
             options: {
                 files: ['test/client/**/*.js'],
@@ -109,6 +148,7 @@ module.exports = function(grunt) {
                 singleRun: true
             }
         },
+
         mochaTest: {
             options: {
                 globals: [
@@ -124,79 +164,52 @@ module.exports = function(grunt) {
                 src: ['test/server/**/*.spec.js'],
             }
         },
+
+        mocha_istanbul: {
+            coverage: {
+                src: 'test/server/**/*.spec.js',
+                options: {
+                    coverageFolder: 'build/coverage',
+                    coverage: true,
+                    reportFormats: ['lcov'],
+                    check: {
+                        lines: 59,
+                        statements: 58
+                    }
+                }
+            }
+        },
+    });
+
+    grunt.event.on('coverage', function(lcov, done){
+        require('coveralls').handleInput(lcov, function(err) {
+            if (err) {
+                return done(err);
+            }
+            done();
+        });
     });
 
     //Load NPM tasks 
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-open');
+    grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-karma');
-
-    grunt.registerTask('mochaCoverage', 'Run server mocha coverage.', function () {
-        var done = this.async();
-
-        var path = './test/server/coverageRunner.js';
-
-        var options = {
-            cmd: 'node',
-            grunt: false,
-            args: [
-                'node_modules/istanbul/lib/cli.js', // Have to pass in the actual cli, otherwise we assume a global istanbul.
-                'cover',
-                '--default-excludes',
-                '-x', 'public/**',
-                '--report', 'lcov',
-                '--dir', './build/coverage/server',
-                path
-            ],
-            opts: {
-                // preserve colors for stdout in terminal
-                stdio: 'inherit',
-            },
-        };
-
-        grunt.util.spawn(options, function(error, result) {
-            if (result && result.stderr) {
-                process.stderr.write(result.stderr);
-            }
-
-            if (result && result.stdout) {
-                grunt.log.writeln(result.stdout);
-            }
-
-            // abort tasks in queue if there's an error
-            done(error);
-        });
-    });
-
-    grunt.registerTask('version', 'generate version information', function() {
-        var done = this.async();
-
-        var options = {
-            cmd: 'git',
-            grunt: false,
-            args: [
-                'rev-parse',
-                'HEAD'
-            ]
-        };
-
-        grunt.util.spawn(options, function(error, result) {
-            if (result && result.stdout) {
-                grunt.file.write('acromaster.version', result.stdout.slice(0, 10));
-            }
-
-            done(error);
-        });
-    });
+    grunt.loadNpmTasks('grunt-mocha-istanbul');
 
     //Default task(s).
-    grunt.registerTask('default', ['version', 'jshint', 'compass:dev', 'karma:dev', 'concurrent']);
+    grunt.registerTask('default', ['jshint', 'csslint', 'compass:dev', 'karma:dev', 'concurrent']);
 
     //Test task.
-    grunt.registerTask('test', ['mochaCoverage', 'karma:ci']);
+    grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage'/*, 'karma:ci'*/]);
+
+    grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
 };

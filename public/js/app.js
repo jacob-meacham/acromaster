@@ -7,13 +7,24 @@ var app = angular.module('acromaster', [
   'acromaster.services',
   'acromaster.controllers',
   'acromaster.directives',
+  'xeditable',
   'ui.slider',
-  'ui.bootstrap'
-]).run(function() {
+  'ui.bootstrap',
+  'ui.sortable',
+  'ngJustGage',
+  'angular-flash.service',
+  'angular-flash.flash-alert-directive'
+])
+.run(function() {
   FastClick.attach(document.body);
 });
 
-app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
+// Pre-define modules
+angular.module('acromaster.services', ['ngResource']);
+angular.module('acromaster.controllers', []);
+angular.module('acromaster.directives', []);
+
+app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
     when('/', {
       templateUrl: '/partials/index.html'
@@ -38,12 +49,17 @@ app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
       controller: 'FlowCreateController'
     })
     .when('/flow/quick', {
-      templateUrl: '/partials/flow/quick.html',
+      templateUrl: '/partials/flow/play/quick.html',
       controller: 'QuickPlayCreateController'
     })
     .when('/flow/quick/play', {
-      templateUrl: '/partials/flow/play.html',
+      templateUrl: '/partials/flow/play/play.html',
       controller: 'FlowPlayController'
+    })
+    // TODO: It's own controller?
+    .when('/flow/end', {
+      templateUrl: '/partials/flow/play/end.html',
+      controller: 'FlowEndController'
     })
     .when('/flow/:flowId/edit', {
       templateUrl: '/partials/flow/edit.html',
@@ -54,7 +70,7 @@ app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
       controller: 'FlowViewController'
     })
     .when('/flow/:flowId/play', {
-      templateUrl: '/partials/flow/play.html',
+      templateUrl: '/partials/flow/play/play.html',
       controller: 'FlowPlayController'
     })
     .otherwise({
@@ -67,5 +83,4 @@ app.config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
       'self',
       'http://localhost**',
       'http://acromaster.s3.amazonaws.com/**']);
-  }
-);
+  }]);

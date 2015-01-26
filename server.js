@@ -1,6 +1,5 @@
 'use strict';
 
-var fs = require('fs');
 var express = require('express');
 
 var env = process.env.NODE_ENV || 'development';
@@ -15,18 +14,20 @@ var app = express();
 mongoose.connect(config.dbUrl);
 
 // Setup server
-require('./server/config/passport')(passport, passportConfig);
-require('./server/config/express')(app, passport, config);
+require('./server/config/passport').setupPassport(passport, passportConfig);
 
-var version = 'Development version';
-if (fs.existsSync('acromaster.version')) {
-  version = fs.readFileSync('acromaster.version', { encoding: 'utf-8' });
-}
+var expressConfig = require('./server/config/express');
+expressConfig.setupApp(app, passport, config);
+
+var version = process.env.VERSION || 'Development version';
 
 // Hook up routes
-require('./server/routes/index')(app, version);
 require('./server/routes/auth')(app, passport);
 require('./server/routes/flow')(app);
+require('./server/routes/index')(app, version, env);
+
+// Needs to happen after routes are added
+expressConfig.addErrorHandlers(app);
 
 app.listen(config.app.port, config.app.hostname);
 console.log('Acromaster started on port ' + config.app.hostname + ':' + config.app.port + ' (' + env + ')');

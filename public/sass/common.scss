@@ -28,27 +28,28 @@ a:hover {
   border: 1px solid #fff;
 }
 
+html {
+  background-color: #333;
+  background:url('/img/background.jpg') no-repeat center center fixed;
+  background-size:cover;
+}
+
 /*
  * Base structure
  */
 html,
 body {
+  min-height:100%;
   height: 100%;
-  background-color: #333;
 }
 body {
-    overflow-x:hidden;
-    margin:0;
-    padding:0;
+  background-color: transparent;
+  overflow-x:hidden;
+  margin:0;
+  padding:0;
 
-    color: #fff;
-    text-align: center;
-    
-    /* These caused major slowdown on mobile, so removing them for now. */
-    /*
-    text-shadow: 0 1px 3px rgba(0,0,0,.5);
-    box-shadow: inset 0 0 100px rgba(0,0,0,.5);
-    */
+  color: #fff;
+  text-align: center;
 }
 
 .navbar {
@@ -78,6 +79,7 @@ body {
 .navbar-nav > li > a:hover,
 .navbar-nav > li > a:focus {
   background-color: transparent;
+  border-bottom-color: #fff; /* IE8 proofing */
   border-bottom-color: rgba(255,255,255,.25);
 }
 .navbar-nav > .active > a,
@@ -98,16 +100,13 @@ body {
   padding: 30px;
 }
 
-span.glyphicon {
-    font-size: 5.0em;
-}
-
 .thumbnail {
   padding-top: 30px;
-  background:rgba(1,1,1,0.5);
+  background:#000; /* IE8 proofing */
+  background:rgba(1,1,1,0.7);
   height: 300px;
   position: relative;
-  opacity: 0.5;
+  opacity: 0.9;
 }
 
 .thumbnail .caption {
@@ -127,7 +126,7 @@ a.divLinker {
 
 .washing-machine a:hover {
   color: #fff;
-  text-shadow: 0px 0px 4px #999;
+  text-shadow: 0 0 4px #999;
   cursor: pointer;
   text-decoration: none;
 }
@@ -164,7 +163,7 @@ a.divLinker {
 }
 
 .flow-title {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .btn-login {
@@ -217,8 +216,31 @@ a.divLinker {
   color: #fff;
 }
 
+span.large-glyphicon {
+  font-size: 5.0em
+}
+
 .version {
   color: #666666;
   margin-top: 10px;
   margin-left: 180px;
+}
+
+
+.move-name {
+  font-weight: bold;
+  font-size: 10vw;
+  letter-spacing: 2px;
+}
+
+.flow-start-button {
+  font-size: 18.0em !important;
+  padding-top: 40px;
+}
+
+.flow-start-button:hover {
+  color: #fff;
+  text-shadow: 0 0 4px #999;
+  cursor: pointer;
+  text-decoration: none;
 }

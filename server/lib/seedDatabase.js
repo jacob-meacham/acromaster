@@ -15,15 +15,16 @@ var Move = mongoose.model('Move');
 var args = process.argv.splice(2);
 var audioDir = args[1];
 
-var config = require('../config/config').production;
+var config = require('../config/config').development;
 var bucket = 'acromaster';
 var s3Client = s3.createClient({
-  key: config.s3.key,
-  secret: config.s3.secret,
-  bucket: bucket,
-  endpoint: config.s3.url,
-  port: config.s3.port,
-  style: 'path'
+  s3Options: {
+    accessKeyId: config.s3.key,
+    secretAccessKey: config.s3.secret,
+    endpoint: config.s3.url,
+    sslEnabled: false,
+    s3ForcePathStyle: true
+  }
 });
 
 // Read the passed json file and turn into a list of moves
@@ -46,7 +47,7 @@ var writeAudioToS3 = function(callback, results) {
       setTimeout(function() {
         var audioFile = path.resolve(path.join(audioDir, item.audioUri));
         
-        var uploader = s3Client.upload(audioFile, 'audio/' + item.audioUri);
+        var uploader = s3Client.uploadFile({localFile: audioFile, s3Params: {Bucket: bucket, Key: 'audio/' + item.audioUri}});
         uploader.on('error', function(err) {
           console.log('error uploading ' + item.audioUri + '(' + err + ')');
         });
@@ -55,7 +56,7 @@ var writeAudioToS3 = function(callback, results) {
           console.log('Successfully uploaded ' + item.audioUri);
 
           // Also fix the URI to point to where we actually uploaded it:
-          item.audioUri = 'http://' + config.s3.url + ':' + config.s3.port + '/' + bucket + '/audio/' + item.audioUri;
+          item.audioUri = 'http://' + config.s3.url + '/' + bucket + '/audio/' + item.audioUri;
 
           each_callback(null);
         });

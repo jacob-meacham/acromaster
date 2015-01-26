@@ -8,48 +8,73 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     expressValidator = require('express-validator'),
+    errorhandler = require('errorhandler'),
     favicon = require('static-favicon'),
     flash = require('connect-flash'),
+    assetmanager = require('assetmanager'),
     morgan = require('morgan'),
     path = require('path');
 
-module.exports = function(app, passport, config) {
-    app.set('showStackError', true);
+module.exports = {
+    setupApp: function(app, passport, config) {
+        app.set('showStackError', false);
 
-    app.locals.pretty = true;
+        app.locals.pretty = true;
 
-    // Don't use logger for test env
-    if (process.env.NODE_ENV === 'development') {
-        app.use(morgan('dev'));
+        if (process.env.NODE_ENV === 'development') {
+            app.use(morgan('dev'));
+        }
+
+        app.set('views', path.join(config.root, 'server/views'));
+        app.set('view engine', 'jade');
+
+        // Enable jsonp
+        app.enable('jsonp callback');
+
+        app.use(cookieParser());
+        app.use(expressValidator());
+        app.use(bodyParser.urlencoded({
+            extended: true
+        }));
+        app.use(bodyParser.json());
+        app.use(methodOverride());
+
+        // express/mongo session storage
+        app.use(session({
+            secret: config.session.secret,
+            store: new mongoStore({
+                url: config.dbUrl,
+                collection: config.session.collection
+            }),
+            resave: true,
+            saveUninitialized: true
+        }));
+
+        app.use(helpers(config.app.name));
+
+        app.use(passport.initialize());
+        app.use(passport.session());
+
+        app.use(flash());
+        app.use(favicon());
+
+        app.use(express.static(path.join(config.root, 'public')));
+
+        var assets = assetmanager.process({
+            assets: require('./assets.json'),
+            debug: (process.env.NODE_ENV !== 'production'),
+            webroot: 'public'
+        });
+
+        app.use(function (req, res, next) {
+            res.locals.assets = assets;
+            next();
+        });
+    },
+
+    addErrorHandlers: function(app) {
+        if (process.env.NODE_ENV === 'development') {
+            app.use(errorhandler({log: false}));
+        }
     }
-
-    app.set('views', path.join(config.root, 'server/views'));
-    app.set('view engine', 'jade');
-
-    // Enable jsonp
-    app.enable('jsonp callback');
-
-    app.use(cookieParser());
-    app.use(expressValidator());
-    app.use(bodyParser());
-    app.use(methodOverride());
-
-    // express/mongo session storage
-    app.use(session({
-        secret: config.session.secret,
-        store: new mongoStore({
-            url: config.dbUrl,
-            collection: config.session.collection
-        })
-    }));
-
-    app.use(helpers(config.app.name));
-
-    app.use(passport.initialize());
-    app.use(passport.session());
-
-    app.use(flash());
-    app.use(favicon());
-
-    app.use(express.static(path.join(config.root, 'public')));
 };

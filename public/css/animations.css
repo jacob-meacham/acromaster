@@ -33,79 +33,79 @@
 }
 
 @keyframes viewExit {
-  /* line 30, ../sass/animations.scss */
   to {
-    transform: translateX(100%);
     opacity: 0;
-  }
-}
-
-@-moz-keyframes viewExit {
-  /* line 33, ../sass/animations.scss */
-  to {
-    -moz-transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes viewExit {
-  /* line 36, ../sass/animations.scss */
-  to {
     -webkit-transform: translateX(100%);
-    opacity: 0;
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
   }
 }
-
+@-moz-keyframes viewExit {
+  to {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
+@-webkit-keyframes viewExit {
+  to {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
 @keyframes viewEnter {
-  /* line 40, ../sass/animations.scss */
   from {
-    transform: translateX(-100%);
     opacity: 0;
-  }
-
-  /* line 41, ../sass/animations.scss */
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@-moz-keyframes viewEnter {
-  /* line 44, ../sass/animations.scss */
-  from {
-    -moz-transform: translateX(-100%);
-    opacity: 0;
-  }
-
-  /* line 45, ../sass/animations.scss */
-  to {
-    -moz-transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes viewEnter {
-  /* line 48, ../sass/animations.scss */
-  from {
     -webkit-transform: translateX(-100%);
-    opacity: 0;
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
   }
-
-  /* line 49, ../sass/animations.scss */
   to {
-    -webkit-transform: translateX(0);
     opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
   }
 }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000352}}
+@-moz-keyframes viewEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes viewEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003101}}
 .play-move.ng-hide-add {
   -webkit-animation: fade-out 0.5s both ease-in-out;
   -moz-animation: fade-out 0.5s both ease-in-out;
   animation: fade-out 0.5s both ease-in-out;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003106}}
 .play-move.ng-hide-remove {
   -webkit-animation: fade-in 0.5s both ease-in-out;
   -moz-animation: fade-in 0.5s both ease-in-out;
@@ -113,88 +113,65 @@
 }
 
 @keyframes fade-in {
-  /* line 64, ../sass/animations.scss */
   from {
     opacity: 0;
   }
-
-  /* line 65, ../sass/animations.scss */
   to {
     opacity: 1;
   }
 }
-
 @-moz-keyframes fade-in {
-  /* line 68, ../sass/animations.scss */
   from {
     opacity: 0;
   }
-
-  /* line 69, ../sass/animations.scss */
   to {
     opacity: 1;
   }
 }
-
 @-webkit-keyframes fade-in {
-  /* line 72, ../sass/animations.scss */
   from {
     opacity: 0;
   }
-
-  /* line 73, ../sass/animations.scss */
   to {
     opacity: 1;
   }
 }
-
 @keyframes fade-out {
-  /* line 77, ../sass/animations.scss */
   from {
     opacity: 1;
   }
-
-  /* line 78, ../sass/animations.scss */
   to {
     opacity: 0;
   }
 }
-
 @-moz-keyframes fade-out {
-  /* line 81, ../sass/animations.scss */
   from {
     opacity: 1;
   }
-
-  /* line 82, ../sass/animations.scss */
   to {
     opacity: 0;
   }
 }
-
 @-webkit-keyframes fade-out {
-  /* line 85, ../sass/animations.scss */
   from {
     opacity: 1;
   }
-
-  /* line 86, ../sass/animations.scss */
   to {
     opacity: 0;
   }
 }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\0000397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003145}}
 .thumbnail:hover,
 .thumbnail:focus {
-  -webkit-transition: 0.2s ease-in-out;
-  -moz-transition: 0.2s ease-in-out;
-  -o-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  background: #010101;
   opacity: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003152}}
 .back-button:hover,
 .back-button:focus,
 .back-button:active {
@@ -205,7 +182,7 @@
   opacity: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003111}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003159}}
 .login-twitter:hover,
 .login-twitter:focus,
 .login-twitter:active {
@@ -216,7 +193,7 @@
   background-color: #3ea1ec;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/f\:\/web\/acromaster\/public\/sass\/animations\.scss}line{font-family:\00003166}}
 .login-facebook:hover,
 .login-facebook:focus,
 .login-facebook:active {

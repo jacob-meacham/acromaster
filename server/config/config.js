@@ -37,10 +37,9 @@ var config = {
         root: rootPath,
 
         s3: {
-            url: 'localhost',
+            url: 'acromaster.s3.amazonaws.com',
             key: 's3key',
-            secret: 's3secret',
-            port: 10001
+            secret: 's3secret'
         }
     },
     test: {
@@ -57,10 +56,9 @@ var config = {
         root: rootPath,
 
         s3: {
-            url: 'localhost',
+            url: 'localhost:10001',
             key: 's3key',
-            secret: 's3secret',
-            port: 10001
+            secret: 's3secret'
         }
     },
     production: {
@@ -73,7 +71,7 @@ var config = {
             secret: process.env.DB_SECRET,
             collection: 'sessions'
         },
-        dbUrl:  process.env.MONGOHQ_URL,
+        dbUrl: process.env.MONGO_URL,
         root: rootPath,
 
         s3: {

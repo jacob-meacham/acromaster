@@ -9,4 +9,5 @@ html(lang='en', ng-app='acromaster')
             section(data-ng-view).view-frame
     script(type='text/javascript').
         window.user = !{JSON.stringify(user).replace(/<\//g, "<\\/")};
+        window.env = "!{env}";
     include includes/foot
