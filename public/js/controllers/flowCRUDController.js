@@ -166,7 +166,7 @@ controllers.controller('FlowViewController', ['$scope', '$routeParams', '$locati
 
   $scope.start = function() {
     // Pass the flow we'd like to use on.
-    flowService.setFlow(flow);
+    flowService.setCurrentFlow(flow);
     $location.path('/flow/' + flow._id + '/play');
   };
 }]);
