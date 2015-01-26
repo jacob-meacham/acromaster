@@ -2,22 +2,36 @@
 
 var controllers = angular.module('acromaster.controllers');
 
-controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'flowService', 'Flow', 'environment', function($scope, $interval, $location, $routeParams, flowService, Flow, environment) {
+controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'flowService', 'Flow', function($scope, $interval, $location, $routeParams, flowService, Flow) {
+  // TODO: Possibly more of this should be in the directive
   var flow = flowService.getCurrentFlow();
-  if (flow === null) {
-    flow = Flow.get({flowId: $routeParams.flowId});
-    flowService.setCurrentFlow(flow);
-  }
   
   $scope.flow = flow;
   var currentEntry = {};
   $scope.currentMove = {};
-  console.log(environment.isDebug());
-  $scope.debug = environment.isDebug();
 
-  angular.forEach(flow.moves, function(entry) {
-    entry.visible = false;
-  });
+  $scope.hasStarted = false;
+  $scope.start = function() {
+    $scope.hasStarted = true;
+    if (flow === null) {
+      Flow.get({flowId: $routeParams.flowId}, function(returnedFlow) {
+        $scope.flow = flow = returnedFlow;
+        flowService.setCurrentFlow(flow);
+
+        angular.forEach(flow.moves, function(entry) {
+          entry.visible = false;
+        });
+
+        nextMove(0);
+      });
+    } else {
+      angular.forEach(flow.moves, function(entry) {
+        entry.visible = false;
+      });
+
+      nextMove(0);
+    }
+  };
 
   var intervalPromise;
   var nextMove = function(entryIndex) {
@@ -32,14 +46,11 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
     currentEntry = flow.moves[entryIndex];
     currentEntry.visible = true;
     $scope.currentMove = currentEntry.move;
+    $scope.$broadcast('flow-set', currentEntry.move.audioUri);
 
     intervalPromise = $interval(function() {
       nextMove(entryIndex+1); }, currentEntry.duration * 1000, 1);
   };
-  
-  $scope.$on('$routeChangeSuccess', function () {
-    nextMove(0);
-  });
 
   $scope.$on('$destroy', function() {
     if (angular.isDefined(intervalPromise)) {
@@ -51,7 +62,7 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
 
 controllers.controller('FlowEndController', ['$scope', '$location', 'flowService', '$timeout', '_', function($scope, $location, flowService, $timeout, _) {
   var flow = flowService.getCurrentFlow();
-  if (flow === null) {
+/*  if (flow === null) {
     var moves = [];
     for (var j = 0; j < 80; j++) {
       moves.push({duration: 50, move: {difficulty: j % 15}});
@@ -60,7 +71,8 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'flowService
     flow = {
       moves: moves
     };
-  }
+  }*/
+  console.log(flow);
   
   if (flow === null || flow.moves.length === 0) {
     // No flow defined, so redirect back to home.
