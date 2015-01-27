@@ -132,19 +132,23 @@ module.exports = function(grunt) {
 
         karma: {
             options: {
-                files: ['test/client/**/*spec.js'],
-                plugins: ['karma-mocha'],
+                files: [
+                    'public/lib/angular/angular.js',
+                    'public/js/*.js',
+                    'public/js/**/*.js',
+                    'test/client/**/*spec.js'
+                ],
                 frameworks: ['mocha', 'sinon-chai'],
                 browsers: ['PhantomJS'],
-                reporters: ['dots', 'coverage'],
+                reporters: ['mocha', 'coverage'],
                 coverageReporter: {
                     type: 'lcov',
                     dir: 'build/coverage/client'
                 },
                 preprocessors: {
+                    'public/js/*.js' : 'coverage',
                     'public/js/**/*.js' : 'coverage'
                 },
-                runnerPort: 7878,
                 autoWatch: false
             },
             dev: {
@@ -214,7 +218,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-istanbul');
 
     //Default task(s).
-    grunt.registerTask('default', ['jshint', 'csslint', 'compass:dev', 'karma:dev', 'concurrent', 'open:dev']);
+    grunt.registerTask('default', ['jshint', 'csslint', 'karma:dev', 'concurrent', 'open:dev']);
 
     //Test task.
     grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage', 'karma:ci']);
