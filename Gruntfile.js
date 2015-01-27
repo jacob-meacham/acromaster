@@ -48,6 +48,11 @@ module.exports = function(grunt) {
             mocha: {
                 files: ['test/server/**/*.js', 'server/**/*.js'],
                 tasks: ['env:test', 'mochaTest:dev']
+            },
+            
+            karma: {
+                files: ['test/client/**/*.spec.js', 'public/js/**/*.js'],
+                tasks: ['karma:dev:run']
             }
         },
 
@@ -58,8 +63,8 @@ module.exports = function(grunt) {
         },
 
         open: {
-          server: {
-            url: 'http://localhost:3000'
+          dev: {
+            path: 'http://localhost:3000'
           }
         },
 
@@ -127,23 +132,26 @@ module.exports = function(grunt) {
 
         karma: {
             options: {
-                files: ['test/client/**/*.js'],
-            },
-            dev: {
-                background: true,
+                files: ['test/client/**/*spec.js'],
+                plugins: ['karma-mocha'],
+                frameworks: ['mocha', 'sinon-chai'],
                 browsers: ['PhantomJS'],
-                reporters: ['dots, coverage'],
+                reporters: ['dots', 'coverage'],
                 coverageReporter: {
-                    type: 'html',
+                    type: 'lcov',
                     dir: 'build/coverage/client'
                 },
                 preprocessors: {
                     'public/js/**/*.js' : 'coverage'
-                }
+                },
+                runnerPort: 7878,
+                autoWatch: false
+            },
+            dev: {
+                background: true,
+                singleRun: false
             },
             ci: {
-                reporters: ['dots'],
-                browsers: ['PhantomJS'],
                 background: false,
                 singleRun: true
             }
@@ -206,10 +214,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-istanbul');
 
     //Default task(s).
-    grunt.registerTask('default', ['jshint', 'csslint', 'compass:dev', 'karma:dev', 'concurrent']);
+    grunt.registerTask('default', ['jshint', 'csslint', 'compass:dev', 'karma:dev', 'concurrent', 'open:dev']);
 
     //Test task.
-    grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage'/*, 'karma:ci'*/]);
+    grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage', 'karma:ci']);
 
     grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
 };
