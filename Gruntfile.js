@@ -146,7 +146,6 @@ module.exports = function(grunt) {
                     dir: 'build/coverage/client'
                 },
                 preprocessors: {
-                    'public/js/*.js' : 'coverage',
                     'public/js/**/*.js' : 'coverage'
                 },
                 autoWatch: false
@@ -182,7 +181,6 @@ module.exports = function(grunt) {
                 src: 'test/server/**/*.spec.js',
                 options: {
                     coverageFolder: 'build/coverage',
-                    coverage: true,
                     reportFormats: ['lcov'],
                     check: {
                         lines: 59,
@@ -191,9 +189,19 @@ module.exports = function(grunt) {
                 }
             }
         },
+
+        istanbul_check_coverage: {
+            default: {
+                options: {
+                  coverageFolder: 'build/coverage*',
+                  coverage: true
+                }
+            }
+        }
     });
 
-    grunt.event.on('coverage', function(lcov, done){
+    grunt.event.on('coverage', function(lcov, done) {
+        console.log(lcov);
         require('coveralls').handleInput(lcov, function(err) {
             if (err) {
                 return done(err);
@@ -221,7 +229,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint', 'csslint', 'karma:dev', 'concurrent', 'open:dev']);
 
     //Test task.
-    grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage', 'karma:ci']);
+    grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage', 'karma:ci', 'istanbul_check_coverage']);
 
     grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
 };
