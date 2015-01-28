@@ -176,16 +176,23 @@ module.exports = function(grunt) {
             }
         },
 
+        lcovMerge: {
+            options: {
+                emitters: ['file', 'event'],
+                outputFile: 'build/coverage/merged/lcov-merged.info'
+            },
+            files: ['build/coverage/client/**/*.info', 'build/coverage/server/**/*.info']
+        },
+
         mocha_istanbul: {
             coverage: {
                 src: 'test/server/**/*.spec.js',
                 options: {
-                    coverageFolder: 'build/coverage',
+                    coverageFolder: 'build/coverage/server',
                     reportFormats: ['lcov'],
-                    coverage: true,
                     check: {
-                        lines: 59,
-                        statements: 58
+                        lines: 80,
+                        statements: 80
                     }
                 }
             }
@@ -193,8 +200,11 @@ module.exports = function(grunt) {
     });
 
     grunt.event.on('coverage', function(lcov, done) {
-        console.log(lcov);
+        // Coveralls uses argv to set the basePath
+        var oldArgv = process.argv[2];
+        process.argv[2] = '';
         require('coveralls').handleInput(lcov, function(err) {
+            process.argv[2] = oldArgv;
             if (err) {
                 return done(err);
             }
@@ -216,12 +226,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-mocha-istanbul');
+    grunt.loadNpmTasks('grunt-lcov-merge');
 
     //Default task(s).
     grunt.registerTask('default', ['jshint', 'csslint', 'karma:dev', 'concurrent', 'open:dev']);
 
     //Test task.
-    grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage', 'karma:ci']);
+    grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage', 'karma:ci', 'lcovMerge']);
 
     grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
 };
