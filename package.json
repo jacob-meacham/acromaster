@@ -59,6 +59,7 @@
     "grunt-nodemon": "0.3.x",
     "grunt-open": "0.2.x",
     "istanbul": "0.3.x",
+    "jshint-stylish": "1.0.0",
     "karma": "0.12.x",
     "karma-chrome-launcher": "^0.1.7",
     "karma-coverage": "0.2.7",
