@@ -50,7 +50,7 @@ var facebookCallback = function(accessToken, refreshToken, profile, done) {
         return new User({
             name: profile.displayName,
             email: profile.emails[0].value,
-            username: profile.username,
+            username: profile.username || profile.emails[0].value.split('@')[0],
             provider: 'facebook',
             facebook: profile._json
         });
@@ -61,8 +61,8 @@ var facebookCallback = function(accessToken, refreshToken, profile, done) {
 var googleCallback = function(accessToken, refreshToken, profile, done) {
     var userCreator = function(profile) {
         return new User({
-            name: profile.name,
-            email: profile.email,
+            name: profile.displayName,
+            email: profile.emails[0].value,
             provider: 'google',
             google: profile._json
         });

@@ -84,8 +84,8 @@ var extraJson = {
 };
 
 var googleProfile = {
-  name: 'jemonjam',
-  email: 'a@b.com',
+  displayName: 'jemonjam',
+  emails: [{value: 'a@b.com'}, {value:'c@d.com'}],
   _json: extraJson
 };
 
