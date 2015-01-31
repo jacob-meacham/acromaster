@@ -20,14 +20,18 @@ var userCallback = function(profile, idProp, userCreator, done) {
     query[idProp] = profile.id;
     User.findOne(query, function(err, user) {
         if (err) {
+            console.log('Trying to find user resulted in error ' + err);
             return done(err);
         }
         if (!user) {
             user = userCreator(profile);
+            console.log('created user ' + user);
             user.save(function(err) {
+                console.log('User saved: ' + user + ', ' + err);
                 return done(err, user);
             });
         } else {
+            console.log('User already exists yo ' + user + ', ' + err);
             return done(err, user);
         }
     });
@@ -46,11 +50,12 @@ var twitterCallback = function(token, tokenSecret, profile, done) {
 };
 
 var facebookCallback = function(accessToken, refreshToken, profile, done) {
+    console.log('facebook callback: ' + accessToken + ', ' + refreshToken + ', ' + profile);
     var userCreator = function(profile) {
         return new User({
             name: profile.displayName,
             email: profile.emails[0].value,
-            username: profile.username,
+            username: profile.username || profile.emails[0].value.split('@')[0],
             provider: 'facebook',
             facebook: profile._json
         });
@@ -61,8 +66,8 @@ var facebookCallback = function(accessToken, refreshToken, profile, done) {
 var googleCallback = function(accessToken, refreshToken, profile, done) {
     var userCreator = function(profile) {
         return new User({
-            name: profile.name,
-            email: profile.email,
+            name: profile.displayName,
+            email: profile.emails[0].value,
             provider: 'google',
             google: profile._json
         });
