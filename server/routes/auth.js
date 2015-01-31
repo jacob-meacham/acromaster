@@ -30,10 +30,11 @@ module.exports = function(app, passport) {
   });
 
   // Facebook oauth
-  app.route('/auth/facebook').get(function() {
-    console.log('Auth on facebook');
-    passport.authenticate('facebook');
-  });
+  app.route('/auth/facebook')
+    .get(passport.authenticate('facebook', {
+      scope: ['email', 'user_about_me'],
+      failureRedirect: '/login'
+    }), login);
 
   app.route('/auth/facebook/callback')
     .get(passport.authenticate('facebook', {
