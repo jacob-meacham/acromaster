@@ -31,6 +31,7 @@ module.exports = function(app, passport) {
 
   // Facebook oauth
   app.route('/auth/facebook').get(function() {
+    console.log('Auth on facebook');
     passport.authenticate('facebook');
   });
 
