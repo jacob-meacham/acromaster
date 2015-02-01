@@ -133,23 +133,7 @@ module.exports = function(grunt) {
 
         karma: {
             options: {
-                files: [
-                    'public/lib/angular/angular.js',
-                    'public/js/*.js',
-                    'public/js/**/*.js',
-                    'test/client/**/*spec.js'
-                ],
-                frameworks: ['mocha', 'sinon-chai'],
-                browsers: ['PhantomJS'],
-                reporters: ['mocha', 'coverage'],
-                coverageReporter: {
-                    type: 'lcov',
-                    dir: 'build/coverage/client'
-                },
-                preprocessors: {
-                    'public/js/**/*.js' : 'coverage'
-                },
-                autoWatch: false
+                configFile: 'karma.conf.js'
             },
             dev: {
                 background: true,
