@@ -3,7 +3,7 @@ node_js:
 - '0.10'
 env:
   matrix:
-  - NODE_ENV=test TWITTER_SECRET=secret FACEBOOK_SECRET=secret GOOGLE_SECRET=secret
+  - NODE_ENV=test TWITTER_ID=id TWITTER_SECRET=secret FACEBOOK_ID=id FACEBOOK_SECRET=secret GOOGLE_ID=id GOOGLE_SECRET=secret
   global:
     secure: GajZXI/Yl9x7J+T3NYgsXhjSe+tWTgU8CnWfLO9mmkBKbPacAr4ca5zgTGsH4P2nBSvDXW+xKZQ9zfGHGEvUN1ITbyWV9cmS7LnPcoQ2YXfa8fU4a0VwwPknp8eYTnCmvKXw23pBpUWD3/QaDgYjU90n3zHt5gHDd9xW794Ycl4=
 services:
