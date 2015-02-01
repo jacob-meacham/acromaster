@@ -19,6 +19,7 @@ var Move = mongoose.model('Move');
 
 var flow1, flow2;
 
+// TODO: this should be mocked
 describe('/api/flow', function() {
   before(function(done) {
     var move1 = {
@@ -62,9 +63,11 @@ describe('/api/flow', function() {
     };
     flow2 = new Flow(_flow);
 
-    flow1.save(function() {
-      flow2.save(function() {
-        done();
+    mongoose.connect('mongodb://localhost/am-test', function() {
+      flow1.save(function() {
+        flow2.save(function() {
+          done();
+        });
       });
     });
   });

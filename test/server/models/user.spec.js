@@ -27,7 +27,8 @@ describe('User Model', function() {
       provider: 'google'
     };
 
-    done();
+    if (mongoose.connection.db) { return done(); }
+    mongoose.connect('mongodb://localhost/am-test', done);
   });
 
   beforeEach(function(done) {

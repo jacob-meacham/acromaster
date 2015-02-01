@@ -19,10 +19,16 @@ describe('Moves', function() {
       tags: 'tag1,tag2'
     };
 
+    if (mongoose.connection.db) { return done(); }
+    mongoose.connect('mongodb://localhost/am-test', done);
+  });
+
+  beforeEach(function(done) {
     Move.remove({}, function() {
       done();
     });
   });
+
   describe('save()', function() {
     it('should save without error', function(done) {
       var _move = new Move(globalMove);

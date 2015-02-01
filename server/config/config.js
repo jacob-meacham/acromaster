@@ -37,7 +37,7 @@ var config = {
         root: rootPath,
 
         s3: {
-            url: 'acromaster.s3.amazonaws.com',
+            url: 'localhost:10001',
             key: 's3key',
             secret: 's3secret'
         }

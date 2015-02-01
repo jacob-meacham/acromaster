@@ -161,12 +161,10 @@ controllers.controller('FlowEditController', ['$scope', '$routeParams', '$locati
   };
 }]);
 
-controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', 'Flow', 'flowService', function($scope, $routeParams, $location, Flow, flowService) {
-  var flow = $scope.flow = Flow.get({flowId: $routeParams.flowId});
+controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', 'FlowService', function($scope, $routeParams, $location, FlowService) {
+  var flow = $scope.flow = FlowService.instantiateFlow($routeParams.flowId);
 
   $scope.start = function() {
-    // Pass the flow we'd like to use on.
-    flowService.setCurrentFlow(flow);
     $location.path('/flow/' + flow._id + '/play');
   };
 }]);

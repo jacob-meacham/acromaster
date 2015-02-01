@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('acromaster.controllers').controller('NavbarController', ['$scope', '$http', '$location', '$route', 'authService', function($scope, $http, $location, $route, authService) {
+angular.module('acromaster.controllers').controller('NavbarController', ['$scope', '$http', '$location', '$route', 'AuthService', function($scope, $http, $location, $route, AuthService) {
   var resetAuth = function() {
-    $scope.user = authService.getUser();
-    $scope.authenticated = authService.isAuthenticated();
+    $scope.user = AuthService.getUser();
+    $scope.authenticated = AuthService.isAuthenticated();
   };
 
   $scope.logout = function() {
     $http.get('/logout').success(function() {
-      authService.clearUser();
+      AuthService.clearUser();
       resetAuth();
 
       $location.url('/');

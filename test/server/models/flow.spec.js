@@ -57,7 +57,8 @@ describe('Flow Model', function() {
       createdAt: '12/10/2010'
     };
 
-    done();
+    if (mongoose.connection.db) { return done(); }
+    mongoose.connect('mongodb://localhost/am-test', done);
   });
 
   after(function(done) {

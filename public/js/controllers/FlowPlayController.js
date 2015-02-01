@@ -2,9 +2,9 @@
 
 var controllers = angular.module('acromaster.controllers');
 
-controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'flowService', 'Flow', function($scope, $interval, $location, $routeParams, flowService, Flow) {
+controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'FlowService', function($scope, $interval, $location, $routeParams, FlowService) {
   // TODO: Possibly more of this should be in the directive
-  var flow = flowService.getCurrentFlow();
+  var flow = FlowService.getCurrentFlow();
   
   $scope.flow = flow;
   var currentEntry = {};
@@ -14,9 +14,8 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
   $scope.start = function() {
     $scope.hasStarted = true;
     if (flow === null) {
-      Flow.get({flowId: $routeParams.flowId}, function(returnedFlow) {
-        $scope.flow = flow = returnedFlow;
-        flowService.setCurrentFlow(flow);
+      FlowService.instantiateFlow($routeParams.flowId, function() {
+        $scope.flow = flow = FlowService.getCurrentFlow();
 
         angular.forEach(flow.moves, function(entry) {
           entry.visible = false;
@@ -60,8 +59,8 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
   });
 }]);
 
-controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService', '$timeout', '_', function($scope, $location, flowService, $timeout, _) {
-  var flow = flowService.getCurrentFlow();
+controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService', '$timeout', '_', function($scope, $location, FlowService, $timeout, _) {
+  var flow = FlowService.getCurrentFlow();
 /*  if (flow === null) {
     var moves = [];
     for (var j = 0; j < 80; j++) {
@@ -72,7 +71,6 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService
       moves: moves
     };
   }*/
-  console.log(flow);
   
   if (flow === null || flow.moves.length === 0) {
     // No flow defined, so redirect back to home.
