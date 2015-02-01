@@ -25,6 +25,7 @@
 
         /* KARMA */
         "inject": false,
-        "chai": false
+        "sinon": false,
+        "expect": false
     }
 }
