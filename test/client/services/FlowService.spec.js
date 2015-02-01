@@ -3,39 +3,6 @@
 describe('FlowService', function() {
   beforeEach(module('acromaster'));
 
-  describe('Flow factory', function() {
-    var Flow;
-    var $httpBackend;
-
-    beforeEach(inject(function(_Flow_, _$httpBackend_) {
-      Flow = _Flow_;
-      $httpBackend = _$httpBackend_;
-    }));
-
-    it('should get a flow with the specified id', function() {
-      $httpBackend.expectGET('/api/flow/test').respond({name: 'flow'});
-      Flow.get({flowId: 'test'});
-      $httpBackend.flush();
-    });
-
-    it('should update a flow with the specified id', function() {
-      $httpBackend.expectPUT('/api/flow/test').respond({name: 'flow'});
-      Flow.update({id: 'test'});
-      $httpBackend.flush();
-    });
-
-    it('should ask the backend to generate a flow', function() {
-      $httpBackend.expectGET('/api/flow/generate').respond({name: 'flow'});
-      Flow.generate();
-      $httpBackend.flush();
-    });
-
-    afterEach(function() {
-      $httpBackend.verifyNoOutstandingExpectation();
-      $httpBackend.verifyNoOutstandingRequest();
-    });
-  });
-
   describe('Moves factory', function() {
     var Moves;
     var $httpBackend;
@@ -58,29 +25,60 @@ describe('FlowService', function() {
   });
 
   describe('FlowService factory', function() {
-    var flowService;
+    var flow = {name: 'newFlow', moves: [{name: 'moveA'}, {name: 'moveB'}]};
+    var FlowService;
+    var $httpBackend;
 
-    beforeEach(inject(function(_flowService_) {
-      flowService = _flowService_;
+    beforeEach(inject(function(_FlowService_, _$httpBackend_) {
+      FlowService = _FlowService_;
+      $httpBackend = _$httpBackend_;
     }));
 
-    it('should return the flow set', function() {
-      expect(flowService.getCurrentFlow()).to.be.null();
+    var assertEqualFlows = function(flow1, flow2) {
+      flow1.name.should.eql(flow2.name);
+      flow1.moves.should.eql(flow2.moves);
+    };
 
-      var flow = {name: 'foo'};
-      flowService.setCurrentFlow(flow);
-      flowService.getCurrentFlow().should.equal(flow);
+    it('should start with no current flow', function() {
+      expect(FlowService.getCurrentFlow()).to.be.null();
+    });
+
+    it('should get a flow with the specified id', function() {
+      $httpBackend.expectGET('/api/flow/test').respond(flow);
+      FlowService.instantiateFlow('test', function(returnedFlow) {
+        assertEqualFlows(returnedFlow, flow);
+      });
+      $httpBackend.flush();
+      
+      assertEqualFlows(FlowService.getCurrentFlow(), flow);
+    });
+
+    it('should generate a flow', function() {
+      $httpBackend.expectGET('/api/flow/generate').respond(flow);
+      FlowService.generateFlow({}, function(returnedFlow) {
+        expect(returnedFlow).to.not.be.null();
+      });
+      $httpBackend.flush();
+      
+      assertEqualFlows(FlowService.getCurrentFlow(), flow);
     });
 
     it('should allow clearing the current flow', function() {
-      expect(flowService.getCurrentFlow()).to.be.null();
+      expect(FlowService.getCurrentFlow()).to.be.null();
 
-      var flow = {name: 'foo'};
-      flowService.setCurrentFlow(flow);
-      flowService.getCurrentFlow().should.equal(flow);
+      $httpBackend.expectGET('/api/flow/test').respond(flow);
+      FlowService.instantiateFlow('test');
+      $httpBackend.flush();
+      
+      assertEqualFlows(FlowService.getCurrentFlow(), flow);
 
-      flowService.clearCurrentFlow();
-      expect(flowService.getCurrentFlow()).to.be.null();
+      FlowService.clearCurrentFlow();
+      expect(FlowService.getCurrentFlow()).to.be.null();
+    });
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
     });
   });
 });
