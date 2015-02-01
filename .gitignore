@@ -1,6 +1,7 @@
 .DS_Store
 .nodemonignore
 .sass-cache/
+.idea/
 node_modules/
 public/lib
 public/css/client.min.css
