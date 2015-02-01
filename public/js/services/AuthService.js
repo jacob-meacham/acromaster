@@ -1,16 +1,17 @@
 'use strict';
 
-angular.module('acromaster.services').factory('AuthService', [function() {
+angular.module('acromaster.services').factory('AuthService', ['$window', function($window) {
     function isEmpty(obj) {
       for(var prop in obj) {
-          if(obj.hasOwnProperty(prop))
-              return false;
+          if(obj.hasOwnProperty(prop)) {
+            return false;
+          }
       }
 
       return true;
     }
 
-    var currentUser = window.user ? window.user : null;
+    var currentUser = $window.user ? $window.user : null;
     var service = {
         getUser: function() {
           return currentUser;
