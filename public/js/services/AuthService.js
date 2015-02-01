@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('acromaster.services').factory('authService', [function() {
+angular.module('acromaster.services').factory('AuthService', [function() {
     function isEmpty(obj) {
       for(var prop in obj) {
           if(obj.hasOwnProperty(prop))

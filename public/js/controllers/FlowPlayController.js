@@ -60,7 +60,7 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
   });
 }]);
 
-controllers.controller('FlowEndController', ['$scope', '$location', 'flowService', '$timeout', '_', function($scope, $location, flowService, $timeout, _) {
+controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService', '$timeout', '_', function($scope, $location, flowService, $timeout, _) {
   var flow = flowService.getCurrentFlow();
 /*  if (flow === null) {
     var moves = [];

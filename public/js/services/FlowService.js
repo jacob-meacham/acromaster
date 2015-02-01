@@ -17,7 +17,7 @@ acromasterServices.factory('Moves', ['$resource', function($resource) {
   return $resource('/api/moves');
 }]);
 
-acromasterServices.factory('flowService', function() {
+acromasterServices.factory('FlowService', function() {
   var flow = null;
   return {
     setCurrentFlow: function(_flow) { flow = _flow; },
