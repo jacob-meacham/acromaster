@@ -7,6 +7,10 @@ acromasterServices.factory('RandomService', [function() {
   return {
     random: function() {
       return Math.random();
+    },
+
+    choose: function(arr) {
+      return arr[Math.floor(Math.random()*arr.length)];
     }
   };
 }]);
