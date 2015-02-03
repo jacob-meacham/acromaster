@@ -28,7 +28,7 @@ acromasterServices.factory('WashingMachineService', ['Moves', 'RandomService', f
     name = name + rand.choose(descriptor) + ' ';
 
     var noun = ['Log', 'Ball', 'Roll', 'Puppet', 'Frog', 'Salamander', 'Twister', 'Whippet', 'Cranberry', 'Taser', 'Freeze', 'Dive', 'Bomb'];
-    name = name + rand.choose(noun) + ' ';
+    name = name + rand.choose(noun);
 
     if (rand.random() < 0.1) {
       var modifier = ['Amazingness', 'Friendship', 'the King', 'the Queen'];
