@@ -2,8 +2,8 @@
 var services = angular.module('acromaster.services');
 
 services.factory('_', ['$window', function($window) {
-    return $window._;
-  }]);
+  return $window._;
+}]);
 
 services.factory('environment', ['$window', function($window) {
   return {
