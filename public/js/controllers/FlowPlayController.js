@@ -59,19 +59,8 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
   });
 }]);
 
-controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService', '$timeout', '_', function($scope, $location, FlowService, $timeout, _) {
-  var flow = FlowService.getCurrentFlow();
-/*  if (flow === null) {
-    var moves = [];
-    for (var j = 0; j < 80; j++) {
-      moves.push({duration: 50, move: {difficulty: j % 15}});
-    }
-
-    flow = {
-      moves: moves
-    };
-  }*/
-  
+controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService', '$timeout', '_', function($scope, $location, flowService, $timeout, _) {
+  var flow = flowService.getCurrentFlow();
   if (flow === null || flow.moves.length === 0) {
     // No flow defined, so redirect back to home.
     $location.path('/');
