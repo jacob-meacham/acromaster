@@ -59,22 +59,14 @@ controllers.controller('FlowPlayController', ['$scope', '$interval', '$location'
   });
 }]);
 
-controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService', '$timeout', '_', function($scope, $location, flowService, $timeout, _) {
+controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService', 'FlowStatsService', '$timeout', '_', function($scope, $location, flowService, flowStats, $timeout, _) {
   var flow = flowService.getCurrentFlow();
-  if (flow === null || flow.moves.length === 0) {
+  if (!flow || !flow.moves || flow.moves.length === 0) {
     // No flow defined, so redirect back to home.
     $location.path('/');
   }
 
-  var totalTime = 0;
-  var difficulty = 0;
-  for (var i = 0; i < flow.moves.length; i++) {
-    totalTime += flow.moves[i].duration;
-    difficulty += flow.moves[i].move.difficulty;
-  }
-
-  totalTime /= 60;
-  difficulty /= flow.moves.length;
+  var stats = flowStats.getStats(flow);
 
   var commonOptions = {
     value: 0,
@@ -110,17 +102,15 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService
     levelColors: ['#CE1B21'],
   }, commonOptions);
 
-  $scope.$on('$routeChangeSuccess', function () {
-    $timeout(function() {
-      $scope.numMovesOptions.value = flow.moves.length;
-    }, 650);
+  $timeout(function() {
+    $scope.numMovesOptions.value = stats.numMoves;
+  }, 650);
 
-    $timeout(function() {
-      $scope.totalTimeOptions.value = totalTime;
-    }, 850);
+  $timeout(function() {
+    $scope.totalTimeOptions.value = stats.totalTime;
+  }, 850);
 
-    $timeout(function() {
-      $scope.difficultyOptions.value = difficulty;
-    }, 1050);
-  });
+  $timeout(function() {
+    $scope.difficultyOptions.value = stats.difficulty;
+  }, 1050);
 }]);
