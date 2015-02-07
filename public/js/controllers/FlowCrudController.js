@@ -87,13 +87,12 @@ controllers.controller('FlowEditController', ['$scope', '$routeParams', '$locati
   $scope.allMoves = Moves.query();
   $scope.moveList = [];
   var flow = $scope.flow = Flow.get({flowId: $routeParams.flowId}, function() {
-    for (var i = 0; i < flow.moves.length; i++) {
-      // Get the right move from the list of all moves
+    angular.forEach(flow.moves, function(entry) {
       $scope.moveList.push({
-        move: flow.moves[i].move,
-        duration: flow.moves[i].duration
+        move: entry.move,
+        duration: entry.duration
       });
-    }
+    });
   });
 
   // TODO: Refactor into directive.
