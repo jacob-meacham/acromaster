@@ -39,6 +39,58 @@ describe('AuthService', function() {
       AuthService.clearUser();
       AuthService.isAuthenticated().should.not.be.true();
     });
+
+    describe('logout', function() {
+      var pathSpy;
+      var routeStub;
+      var clearSpy;
+      var $httpBackend;
+      var sandbox;
+
+      beforeEach(function() {
+        sandbox = sinon.sandbox.create();
+
+        clearSpy = sandbox.spy(AuthService, 'clearUser');
+        inject(function($location, $route, _$httpBackend_) {
+          pathSpy = sandbox.spy($location, 'path');
+          routeStub = sandbox.stub($route, 'reload');
+          $httpBackend = _$httpBackend_;
+        });
+
+        $httpBackend.expectGET('/logout').respond({});
+        $httpBackend.expectGET('/partials/index.html').respond({});
+      });
+
+
+      afterEach(function() {
+        sandbox.restore();
+      });
+
+      var logoutExpectations = function() {
+        expect($window.user).to.be.null();
+        clearSpy.should.have.callCount(1);
+
+        routeStub.should.have.callCount(1);
+        pathSpy.should.have.have.been.calledWith('/');
+      };
+
+      it('should logout with no callback specified', function() {
+        AuthService.logout();
+        $httpBackend.flush();
+
+        logoutExpectations();
+      });
+
+      it('should call logout callback', function() {
+        var callbackSpy = sandbox.spy();
+        
+        AuthService.logout(callbackSpy);
+        $httpBackend.flush();
+
+        callbackSpy.should.have.callCount(1);
+        logoutExpectations();
+      });
+    });
   });
 
   describe('with no user set', function() {
