@@ -10,7 +10,8 @@ module.exports = function(config) {
       'public/lib/angular-mocks/angular-mocks.js',
       'public/js/*.js',
       'public/js/**/*.js',
-      'test/client/**/*spec.js'
+      'test/client/**/*spec.js',
+      'public/partials/**/*.html'
     ]),
     
     frameworks: ['mocha', 'chai', 'sinon', 'sinon-chai'],
@@ -25,7 +26,13 @@ module.exports = function(config) {
     },
     
     preprocessors: {
-        'public/js/**/*.js' : 'coverage'
+      'public/js/**/*.js' : 'coverage',
+      'public/partials/**/*.html' : 'ng-html2js'
+    },
+
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'public/',
+      moduleName: 'acromaster.templates'
     },
     
     autoWatch: false,

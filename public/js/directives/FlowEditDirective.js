@@ -20,8 +20,6 @@ angular.module('acromaster.directives')
       });
     }
 
-    console.log(vm.flow._id);
-
     vm.addMove = function() {
       vm.inserted = {
         move: null,
@@ -92,7 +90,8 @@ angular.module('acromaster.directives')
         flow: '=',
         saveSuccess: '&onSaveSuccess'
       },
-      templateUrl: '../../../partials/flow/floweditor.html',
+      //template: '<div class="foo"></div>',
+      templateUrl: 'partials/flow/floweditor.html',
       controller: 'FlowEditDirectiveController',
       controllerAs: 'vm',
       bindToController: true

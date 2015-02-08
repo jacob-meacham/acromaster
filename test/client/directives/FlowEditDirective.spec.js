@@ -1,11 +1,22 @@
 'use strict';
 
 describe('FlowEditDirective', function() {
-  beforeEach(module('acromaster'));
+  beforeEach(module('acromaster', 'acromaster.templates'));
+
+  var $rootScope;
+  var Moves;
+  var $q;
 
   var sandbox;
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
+
+    inject(function(_$rootScope_, _Moves_, _$q_) {
+      $rootScope = _$rootScope_;
+      Moves = _Moves_;
+      $q = _$q_;
+      sandbox.stub(Moves, 'query').returns(['move1', 'move2', 'move3']);
+    });
   });
 
   afterEach(function() {
@@ -16,17 +27,12 @@ describe('FlowEditDirective', function() {
     var controllerFn;
     var $rootScope;
     var flash;
-    var Moves;
-    var $q;
 
-    beforeEach(inject(function(_$rootScope_, $controller, _, _flash_, _Moves_, Flow, _$q_) {
+    beforeEach(inject(function(_$rootScope_, $controller, _, _flash_, Flow) {
       flash = _flash_;
-      Moves = _Moves_;
-      $q = _$q_;
       $rootScope = _$rootScope_;
       controllerFn = $controller('FlowEditDirectiveController', {_: _, Moves: Moves, flash: flash}, true);
       controllerFn.instance.flow = new Flow();
-      sandbox.stub(Moves, 'query').returns(['move1', 'move2', 'move3']);
     }));
 
     it('shoud have no moves with an empty flow', function() {
@@ -132,6 +138,8 @@ describe('FlowEditDirective', function() {
       ctrl.saveSuccess = 'expected-success';
       var updateStub = sandbox.stub(ctrl.flow, '$update');
 
+      ctrl.save();
+
       updateStub.should.have.been.calledWith(ctrl.saveSuccess);
     });
 
@@ -147,16 +155,50 @@ describe('FlowEditDirective', function() {
   });
 
   describe('directive', function() {
-    it('should have no moves with an empty flow', function() {
+    var $compile;
+    var Flow;
 
+    beforeEach(inject(function(_$compile_, _Flow_) {
+      $compile = _$compile_;
+      Flow = _Flow_;
+    }));
+
+    it('should have no moves with an empty flow', function() {
+      $rootScope.flow = new Flow();
+      var element = $compile('<floweditor flow="flow"></floweditor>')($rootScope);
+      $rootScope.$digest();
+
+      var ctrl = element.isolateScope().vm;
+      ctrl.moveList.should.be.empty();
+
+      element.find('tbody').children().size().should.eql(0);
     });
 
     it('should bind a flow', function() {
+      var moves = [{move: 'move1', duration: 30}, {move: 'move3', duration: 100}];
+      var deferred = $q.defer();
+      $rootScope.flow = new Flow({moves: moves});
+      $rootScope.flow.$promise = deferred.promise;
 
+      var element = $compile('<floweditor flow="flow"></floweditor>')($rootScope);
+      deferred.resolve();
+      $rootScope.$digest();
+
+      var ctrl = element.isolateScope().vm;
+      ctrl.flow.should.eql($rootScope.flow);
+      element.find('tbody').children().size().should.eql(2);
     });
 
     it('should bind a callback', function() {
+      $rootScope.flow = new Flow();
+      $rootScope.saveSuccess = sinon.spy();
+      var element = $compile('<floweditor flow="flow" on-save-success="saveSuccess(flow)"></floweditor>')($rootScope);
+      $rootScope.$digest();
 
+      var ctrl = element.isolateScope().vm;
+      ctrl.saveSuccess();
+
+      $rootScope.saveSuccess.should.have.callCount(1);
     });
   });
 });
