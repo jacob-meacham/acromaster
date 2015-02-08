@@ -45,6 +45,13 @@ module.exports = function(grunt) {
                     livereload: true
                 }
             },
+            express: {
+                files: ['server.js', 'server/**/*.js'],
+                tasks: ['express:dev', 'env:test', 'mochaTest:dev'],
+                options: {
+                    spawn: false
+                }
+            },
             mocha: {
                 files: ['test/server/**/*.js', 'server/**/*.js'],
                 tasks: ['env:test', 'mochaTest:dev']
@@ -112,22 +119,20 @@ module.exports = function(grunt) {
             },
             src: paths.css
         },
-        
-        nodemon: {
-            dev: {
-                script: 'server.js',
-                options: {
-                    ignore: ['README.md', 'node_modules/**', 'test/**'],
-                    debug: true,
-                    delay: 1,
-                }
-            }
-        },
 
-        concurrent: {
-            tasks: ['nodemon:dev', 'watch'],
-            options: {
-                logConcurrentOutput: true
+        express: {
+            dev: {
+                options: {
+                    script: 'server.js',
+                    debug: true
+                }
+            },
+
+            ci: {
+                options: {
+                    script: 'server.js',
+                    debug: false
+                }
             }
         },
 
@@ -181,7 +186,18 @@ module.exports = function(grunt) {
                     }
                 }
             }
-        }
+        },
+
+        mochaProtractor: {
+            options: {
+              browsers: ['PhantomJS'],
+              baseUrl: 'http://localhost:3000',
+              args: '--ignore-certificate-errors',
+              timeout: 10000,
+              suiteTimeout: 90000
+            },
+            files: ['test/e2e/**/*.spec.js']
+        },
     });
 
     grunt.event.on('coverage', function(lcov, done) {
@@ -207,17 +223,19 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-env');
-    grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-express-server');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-mocha-istanbul');
+    grunt.loadNpmTasks('grunt-selenium-webdriver');
+    grunt.loadNpmTasks('grunt-mocha-protractor');
     grunt.loadNpmTasks('grunt-lcov-merge');
 
     //Default task(s).
-    grunt.registerTask('default', ['jshint', 'csslint', 'karma:dev', 'concurrent', 'open:dev']);
+    grunt.registerTask('default', ['jshint', 'csslint', 'karma:dev', 'express:dev', 'watch', 'open:dev']);
 
     //Test task.
-    grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage', 'karma:ci', 'lcovMerge']);
+    grunt.registerTask('test', ['jshint', 'csslint', 'env:test', 'mocha_istanbul:coverage', 'karma:ci', 'selenium_start', 'express:ci', 'mochaProtractor', 'lcovMerge']);
 
     grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
 };
