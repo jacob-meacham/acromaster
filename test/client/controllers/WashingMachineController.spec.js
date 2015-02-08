@@ -3,7 +3,6 @@
 describe('WashingMachineController', function() {
 
   var $controller;
-  var $httpBackend;
   var $q;
   var WashingMachineServiceStub;
   var scope;
@@ -11,10 +10,9 @@ describe('WashingMachineController', function() {
   beforeEach(function() {
     module('acromaster');
 
-    inject(function(_$controller_, $rootScope, _$httpBackend_, _$q_) {
+    inject(function(_$controller_, $rootScope, _$q_) {
       scope = $rootScope.$new();
       $controller = _$controller_;
-      $httpBackend = _$httpBackend_;
       $q = _$q_;
     });
 
