@@ -220,7 +220,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-express-server');
