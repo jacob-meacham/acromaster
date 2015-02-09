@@ -90,7 +90,6 @@ angular.module('acromaster.directives')
         flow: '=',
         saveSuccess: '&onSaveSuccess'
       },
-      //template: '<div class="foo"></div>',
       templateUrl: 'partials/flow/floweditor.html',
       controller: 'FlowEditDirectiveController',
       controllerAs: 'vm',
