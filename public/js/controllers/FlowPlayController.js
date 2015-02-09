@@ -3,60 +3,16 @@
 var controllers = angular.module('acromaster.controllers');
 
 controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'FlowService', function($scope, $interval, $location, $routeParams, FlowService) {
-  // TODO: Possibly more of this should be in the directive
   var flow = FlowService.getCurrentFlow();
-  
+  if (!flow) {
+    flow = FlowService.instantiateFlow($routeParams.flowId);
+  }
+
   $scope.flow = flow;
-  var currentEntry = {};
-  $scope.currentMove = {};
-
-  $scope.hasStarted = false;
-  $scope.start = function() {
-    $scope.hasStarted = true;
-    if (flow === null) {
-      FlowService.instantiateFlow($routeParams.flowId, function() {
-        $scope.flow = flow = FlowService.getCurrentFlow();
-
-        angular.forEach(flow.moves, function(entry) {
-          entry.visible = false;
-        });
-
-        nextMove(0);
-      });
-    } else {
-      angular.forEach(flow.moves, function(entry) {
-        entry.visible = false;
-      });
-
-      nextMove(0);
-    }
+  
+  $scope.onFlowEnd = function() {
+    $location.path('/flow/end');
   };
-
-  var intervalPromise;
-  var nextMove = function(entryIndex) {
-    if (currentEntry) {
-      currentEntry.visible = false;
-    }
-
-    if (entryIndex >= flow.moves.length) {
-      $location.path('/flow/end');
-    }
-    
-    currentEntry = flow.moves[entryIndex];
-    currentEntry.visible = true;
-    $scope.currentMove = currentEntry.move;
-    $scope.$broadcast('flow-set', currentEntry.move.audioUri);
-
-    intervalPromise = $interval(function() {
-      nextMove(entryIndex+1); }, currentEntry.duration * 1000, 1);
-  };
-
-  $scope.$on('$destroy', function() {
-    if (angular.isDefined(intervalPromise)) {
-      $interval.cancel(intervalPromise);
-      intervalPromise = undefined;
-    }
-  });
 }]);
 
 controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService', 'FlowStatsService', '$timeout', '_', function($scope, $location, flowService, flowStats, $timeout, _) {

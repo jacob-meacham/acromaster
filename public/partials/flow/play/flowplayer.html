@@ -1,0 +1,6 @@
+<div>
+    <span class="glyphicon glyphicon-play-circle large-glyphicon flow-start-button" ng-hide="vm.hasStarted" ng-click="vm.start()"></span>
+    <div class="play-move" ng-repeat="entry in vm.flow.moves" ng-show="entry.visible">
+        <div class="move-name">{{entry.move.name}}</div>
+    </div>
+</div>

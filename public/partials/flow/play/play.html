@@ -1,8 +1,4 @@
-<span class="glyphicon glyphicon-play-circle large-glyphicon flow-start-button" ng-hide="hasStarted" ng-click="start()"></span>
-<div class="play-move" ng-repeat="entry in flow.moves" ng-show="entry.visible">
-    <div class="move-name">{{entry.move.name}}</div>
-</div>
-<flowplayer></flowplayer>
+<flowplayer flow="flow" on-flow-end="onFlowEnd()"></flowplayer>
 <a href="/"><span class="glyphicon glyphicon-circle-arrow-left large-glyphicon back-button"></span></a>
 
 <debug>
