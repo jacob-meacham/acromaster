@@ -7,5 +7,7 @@ public/lib
 public/css/client.min.css
 public/js/client.min.js
 build/
-config/secret.js
-acromaster.version
+moves/
+fileeditor
+server/config/secrets.sh
+phantomjsdriver.log
