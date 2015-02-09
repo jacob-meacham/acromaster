@@ -7,6 +7,7 @@ module.exports = function(config) {
 
   config.set({
     files: _.flatten(_.values(assets.vendor.js)).concat([
+      'test/client/globals.js',
       'public/lib/angular-mocks/angular-mocks.js',
       'public/js/*.js',
       'public/js/**/*.js',
@@ -17,7 +18,6 @@ module.exports = function(config) {
     frameworks: ['mocha', 'chai', 'sinon', 'sinon-chai'],
     
     browsers: ['PhantomJS'],
-    
     reporters: ['mocha', 'coverage'],
     
     coverageReporter: {

@@ -2,16 +2,20 @@
 
 var controllers = angular.module('acromaster.controllers');
 
-controllers.controller('FlowPlayController', ['$scope', '$interval', '$location', '$routeParams', 'FlowService', function($scope, $interval, $location, $routeParams, FlowService) {
-  var flow = FlowService.getCurrentFlow();
+controllers.controller('FlowPlayController', ['$scope', '$location', '$routeParams', 'FlowService', function($scope, $location, $routeParams, flowService) {
+  var flow = flowService.getCurrentFlow();
   if (!flow) {
-    flow = FlowService.instantiateFlow($routeParams.flowId);
+    flow = flowService.instantiateFlow($routeParams.flowId);
   }
 
   $scope.flow = flow;
   
-  $scope.onFlowEnd = function() {
-    $location.path('/flow/end');
+  $scope.onFlowEnd = function(err) {
+    if (err) {
+      $location.path('/');
+    } else {
+      $location.path('/flow/end');
+    }
   };
 }]);
 

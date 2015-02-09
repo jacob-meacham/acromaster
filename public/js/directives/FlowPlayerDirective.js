@@ -9,6 +9,11 @@ angular.module('acromaster.directives')
   vm.currentMove = {};
   vm.hasStarted = false;
 
+  if (!vm.flow || !vm.flow.$promise) {
+    // No flow
+    vm.onFlowEnd('no flow specified');
+  }
+
   vm.start = function() {
     vm.hasStarted = true;
     vm.flow.$promise.then(function() {
@@ -20,6 +25,7 @@ angular.module('acromaster.directives')
     });
   };
 
+  // TODO: Refactor the audio playing out into a separate directive
   vm.play = function() {
     audio.play();
   };
@@ -41,6 +47,7 @@ angular.module('acromaster.directives')
  
     if (entryIndex >= vm.flow.moves.length) {
       vm.onFlowEnd();
+      return;
     }
     
     currentEntry = vm.flow.moves[entryIndex];
@@ -66,19 +73,6 @@ angular.module('acromaster.directives')
     scope: {
       flow: '=',
       onFlowEnd: '&'
-    },
-    link: function($scope) {
-     $scope.$on('flow-play', function () {
-        $scope.play();
-      });
-
-      $scope.$on('flow-pause', function () {
-        $scope.pause();
-      });
-
-      $scope.$on('flow-set', function(event, file) {
-        $scope.setAudio(file);
-      });
     },
     templateUrl: 'partials/flow/play/flowplayer.html',
     controller: 'FlowPlayerDirectiveController',
