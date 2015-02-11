@@ -9,6 +9,8 @@ require('../../../server/models/move.js');
 var chai = require('chai');
 chai.should();
 
+var expect = chai.expect;
+
 require('sinon');
 require('mocha-sinon');
 var sinonChai = require('sinon-chai');
@@ -16,7 +18,9 @@ chai.use(sinonChai);
 
 var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
+var User = mongoose.model('User');
 
+var author1, author2;
 var flow1, flow2;
 
 // TODO: this should be mocked
@@ -41,9 +45,17 @@ describe('/api/flow', function() {
     new Move(move1).save();
     new Move(move2).save();
 
+    var _user = {
+      name: 'Zulu',
+      email: 'test.foo@test.com'
+    };
+
+    author1 = new User(_user);
+    author1.save();
+
     var _flow = {
       name: 'Flow',
-      author: 'Zulu',
+      author: author1,
       official: false,
       ratings: [5, 10, 5, 10, 5],
       createdAt: '12/10/2010'
@@ -56,9 +68,17 @@ describe('/api/flow', function() {
     move = {'duration': 20, 'move': move2._id };
     flow1.moves.push(move);
 
+    _user = {
+      name: 'Abigail',
+      email: 'test.bar@test.com'
+    };
+
+    author2 = new User(_user);
+    author2.save();
+
     _flow = {
       name: 'Flow 2',
-      author: 'Abigail',
+      author: author2,
       createdAt: '12/10/1990'
     };
     flow2 = new Flow(_flow);
@@ -93,15 +113,32 @@ describe('/api/flow', function() {
     it('should create with a name', function(done) {
       request(app)
         .post('/api/flow')
-        .send({name: 'My Flow', author: 'Bradley'})
+        .send({name: 'My Flow'})
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
           res.body.should.have.property('name');
           res.body.name.should.equal('My Flow');
-          res.body.author.should.equal('Bradley');
+          expect(res.body.author).to.be.undefined();
         })
         .end(done);
+    });
+
+    it('should use the logged in user as the author', function(done) {
+      /*
+      request(app)
+        .post('/api/flow')
+        .send({name: 'My Flow'})
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          res.body.should.have.property('name');
+          res.body.name.should.equal('My Flow');
+          res.body.author.should.be.null();
+        })
+        .end(done);
+        */
+        done();
     });
   });
 
@@ -126,9 +163,24 @@ describe('/api/flow', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          var _flow = new Flow(res.body);
+          var _flow = res.body;
           _flow.name.should.equal(flow1.name);
-          _flow.author.should.equal(flow1.author);
+          _flow.author.name.should.equal(author1.name);
+        })
+        .end(done);
+    });
+
+    it('should only return the author name and id', function(done) {
+      request(app)
+        .get('/api/flow/' + flow1._id)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          var _flow = res.body;
+          _flow.name.should.equal(flow1.name);
+          _flow.author.name.should.equal(author1.name);
+          expect(_flow.author._id).to.exist();
+          expect(_flow.author.email).to.not.exist();
         })
         .end(done);
     });
@@ -148,9 +200,9 @@ describe('/api/flow', function() {
         .send({})
         .expect(200)
         .expect(function(res) {
-          var _flow = new Flow(res.body);
+          var _flow = res.body;
           _flow.name.should.equal(flow1.name);
-          _flow.author.should.equal(flow1.author);
+          _flow.author.name.should.eql(author1.name);
         })
         .end(done);
     });

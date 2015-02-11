@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
   name: { type: String, required: true },
-  author: String,
+  author: { type: Schema.Types.ObjectId, ref: 'User' },
   moves: [{
     move: { type: Schema.Types.ObjectId, ref: 'Move' },
     duration: Number
@@ -20,6 +20,7 @@ var FlowSchema = new Schema({
 FlowSchema.statics = {
   load: function(id, cb) {
     this.findOne({ _id: id })
+      .populate('author', 'name _id')
       .populate('moves.move')
       .exec(cb);
   },
@@ -32,6 +33,7 @@ FlowSchema.statics = {
     sortBy[options.sortBy || 'createdAt'] = -1;
 
     this.find(criteria)
+      .populate('author')
       .populate('moves.move')
       .sort(sortBy)
       .limit(options.perPage)

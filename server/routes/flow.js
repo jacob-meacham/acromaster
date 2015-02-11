@@ -58,6 +58,9 @@ var list = function(req, res) {
 
 var create = function(req, res) {
   var flow = new Flow(req.body);
+  if (req.user) {
+    flow.user = req.user;
+  }
 
   flow.save(function(err) {
     if (err) {
