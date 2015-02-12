@@ -59,7 +59,7 @@ var list = function(req, res) {
 var create = function(req, res) {
   var flow = new Flow(req.body);
   if (req.user) {
-    flow.user = req.user;
+    flow.author = req.user;
   }
 
   flow.save(function(err) {
@@ -74,8 +74,15 @@ var create = function(req, res) {
 
 var update = function(req, res) {
   var flow = req.flow;
-  flow = _.extend(flow, req.body);
+  if (flow.author) {
+    if (!req.user || req.user._id !== flow.author._id) {
+      res.status(401).send({error: new Error('This flow doesn\'belong to you')});
+      return;
+    }
+  }
 
+  // Only moves can be updated in a flow.
+  flow.moves = req.body.moves;
   flow.save(function() {
     res.jsonp(flow);
   });
