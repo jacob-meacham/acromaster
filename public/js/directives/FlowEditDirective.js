@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('acromaster.directives')
-  .controller('FlowEditDirectiveController', ['_', 'Moves', 'flash', function(_, Moves, flash) {
+  .controller('FlowEditDirectiveController', ['_', 'Moves', 'flash', 'RandomService', function(_, Moves, flash, randomService) {
     var vm = this;
 
     vm.allMoves = Moves.query();
@@ -23,7 +23,7 @@ angular.module('acromaster.directives')
     vm.addMove = function() {
       vm.inserted = {
         move: null,
-        duration: 20
+        duration: Math.floor(randomService.random() * 20.0) + 15
       };
       
       vm.moveList.push(vm.inserted);
