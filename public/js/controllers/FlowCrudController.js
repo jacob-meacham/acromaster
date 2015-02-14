@@ -30,9 +30,6 @@ controllers.controller('FlowEditController', ['$scope', '$routeParams', '$locati
 
 controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', 'FlowService', function($scope, $routeParams, $location, FlowService) {
   var flow = $scope.flow = FlowService.instantiateFlow($routeParams.flowId);
-  flow.$promise.then(function() {
-    console.log(flow);
-  });
 
   $scope.start = function() {
     $location.path('/flow/' + flow._id + '/play');
