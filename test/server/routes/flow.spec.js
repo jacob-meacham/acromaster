@@ -2,6 +2,7 @@
 
 var request = require('supertest');
 var app = require('../../../server');
+var express = require('express');
 var mongoose = require('mongoose');
 require('../../../server/models/flow.js');
 require('../../../server/models/move.js');
@@ -21,12 +22,13 @@ var Move = mongoose.model('Move');
 var User = mongoose.model('User');
 
 var author1, author2;
-var flow1, flow2;
+var flow1, flow2, flow3;
+var move1, move2;
 
 // TODO: this should be mocked
 describe('/api/flow', function() {
   before(function(done) {
-    var move1 = {
+    move1 = {
       name: 'New Move',
       difficulty: 5,
       audioUri: 'foo',
@@ -34,7 +36,7 @@ describe('/api/flow', function() {
       tags: 'tag1,tag2'
     };
 
-    var move2 = {
+    move2 = {
       name: 'New Move 2',
       difficulty: 5,
       audioUri: 'foo',
@@ -83,10 +85,18 @@ describe('/api/flow', function() {
     };
     flow2 = new Flow(_flow);
 
+    _flow = {
+      name: 'Flow 3',
+      createdAt: '12/10/1991'
+    };
+    flow3 = new Flow(_flow);
+
     mongoose.connect('mongodb://localhost/am-test', function() {
       flow1.save(function() {
         flow2.save(function() {
-          done();
+          flow3.save(function() {
+            done();
+          });
         });
       });
     });
@@ -194,29 +204,70 @@ describe('/api/flow', function() {
         .expect(/CastError/, done);
     });
 
-    it('should be a no op with an empty body', function(done) {
+    it('should return an error if there is no session, and the flow has an author', function(done) {
       request(app)
         .put('/api/flow/' + flow1._id)
         .send({})
+        .expect(401)
+        .end(done);
+    });
+
+    it('should update without errors with no flow author', function(done) {
+      request(app)
+        .put('/api/flow/' + flow3._id)
+        .send({moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }]})
         .expect(200)
         .expect(function(res) {
-          var _flow = res.body;
-          _flow.name.should.equal(flow1.name);
-          _flow.author.name.should.eql(author1.name);
+          var _flow = new Flow(res.body);
+          _flow.moves.length.should.equal(2);
         })
         .end(done);
     });
 
-    it('should update without errors', function(done) {
-      request(app)
-        .put('/api/flow/' + flow1._id)
-        .send({official: true})
-        .expect(200)
-        .expect(function(res) {
-          var _flow = new Flow(res.body);
-          _flow.official.should.equal(true);
-        })
-        .end(done);
+    describe('authenticated', function() {
+      var authedApp;
+      beforeEach(function() {
+        authedApp = express();
+        authedApp.all('*', function(req, res, next) {
+          // TODO TODT DGF:SDFK:DSFJ:KLDSJF:LK SDJFLK: JSKLDFChange the object id to be a string
+          req.user = author1;
+          next();
+        });
+        authedApp.use(app);
+      });
+      
+      it('should return an error if the user is not the flow author', function(done) {
+        request(authedApp)
+          .put('/api/flow/' + flow2._id)
+          .send({})
+          .expect(401)
+          .end(done);
+      });
+
+      it('should be a no op with an empty body', function(done) {
+        request(authedApp)
+          .put('/api/flow/' + flow1._id)
+          .send({})
+          .expect(200)
+          .expect(function(res) {
+            var _flow = res.body;
+            _flow.name.should.equal(flow1.name);
+            _flow.author.name.should.eql(author1.name);
+          })
+          .end(done);
+      });
+
+      it('should update without errors', function(done) {
+        request(authedApp)
+          .put('/api/flow/' + flow1._id)
+          .send({moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }]})
+          .expect(200)
+          .expect(function(res) {
+            var _flow = new Flow(res.body);
+            _flow.moves.length.should.equal(2);
+          })
+          .end(done);
+      });
     });
   });
 
@@ -227,7 +278,7 @@ describe('/api/flow', function() {
         .set('Accept', 'application/json')
         .expect(200)
         .expect(function(res) {
-          res.body.flows.should.have.length(3);
+          res.body.flows.should.have.length(4);
           res.body.flows[0].name.should.equal('My Flow');
           res.body.flows[1].name.should.equal('Flow');
         })
