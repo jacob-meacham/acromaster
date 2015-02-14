@@ -4,7 +4,7 @@
 }
 
 /* Links */
-/* line 15, ../sass/common.scss */
+/* line 8, ../sass/common.scss */
 a,
 a:focus,
 a:hover {
@@ -12,7 +12,7 @@ a:hover {
 }
 
 /* Custom default button */
-/* line 22, ../sass/common.scss */
+/* line 15, ../sass/common.scss */
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {
@@ -23,7 +23,7 @@ a:hover {
   border: 1px solid #fff;
 }
 
-/* line 31, ../sass/common.scss */
+/* line 24, ../sass/common.scss */
 html {
   background-color: #333;
   background: url("/img/background.jpg") no-repeat center center fixed;
@@ -33,14 +33,14 @@ html {
 /*
  * Base structure
  */
-/* line 40, ../sass/common.scss */
+/* line 33, ../sass/common.scss */
 html,
 body {
   min-height: 100%;
   height: 100%;
 }
 
-/* line 45, ../sass/common.scss */
+/* line 39, ../sass/common.scss */
 body {
   background-color: transparent;
   overflow-x: hidden;
@@ -50,111 +50,24 @@ body {
   text-align: center;
 }
 
-/* line 55, ../sass/common.scss */
-.navbar {
-  background-color: transparent;
-  border-color: transparent;
+/* Padding for spacing */
+/* line 50, ../sass/common.scss */
+.inner {
+  padding: 30px;
 }
 
-/* line 60, ../sass/common.scss */
-.navbar-nav {
-  float: right;
+/* line 54, ../sass/common.scss */
+span.large-glyphicon {
+  font-size: 5em;
 }
 
-/* line 64, ../sass/common.scss */
-.navbar-nav > li {
-  display: inline-block;
-}
-
-/* line 67, ../sass/common.scss */
-.navbar-nav > li + li {
-  margin-left: 20px;
-}
-
-/* line 70, ../sass/common.scss */
-.navbar-nav > li > a {
-  padding-right: 0;
-  padding-left: 0;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  /* IE8 proofing */
-  color: rgba(255, 255, 255, 0.75);
-  border-bottom: 2px solid transparent;
-}
-
-/* line 79, ../sass/common.scss */
-.navbar-nav > li > a:hover,
-.navbar-nav > li > a:focus {
-  background-color: transparent;
-  border-bottom-color: #fff;
-  /* IE8 proofing */
-  border-bottom-color: rgba(255, 255, 255, 0.25);
-}
-
-/* line 85, ../sass/common.scss */
-.navbar-nav > .active > a,
-.navbar-nav > .active > a:hover,
-.navbar-nav > .active > a:focus {
-  background-color: transparent !important;
-  color: #fff;
-  border-bottom-color: #fff;
-}
-
-/* line 93, ../sass/common.scss */
+/* line 58, ../sass/common.scss */
 .sticky-item {
   margin-left: 18px;
   margin-right: 10px;
 }
 
-/* Padding for spacing */
-/* line 99, ../sass/common.scss */
-.inner {
-  padding: 30px;
-}
-
-/* line 103, ../sass/common.scss */
-.thumbnail {
-  padding-top: 30px;
-  background: #000;
-  /* IE8 proofing */
-  background: rgba(1, 1, 1, 0.7);
-  height: 300px;
-  position: relative;
-  opacity: 0.9;
-}
-
-/* line 112, ../sass/common.scss */
-.thumbnail .caption {
-  opacity: 0.7;
-  color: #fff;
-}
-
-/* line 117, ../sass/common.scss */
-a.divLinker {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  text-decoration: none;
-  z-index: 10;
-}
-
-/* line 127, ../sass/common.scss */
-.washing-machine a:hover {
-  color: #fff;
-  text-shadow: 0 0 4px #999;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-/* line 134, ../sass/common.scss */
-.washing-machine h1 {
-  padding-top: 30px;
-}
-
-/* line 138, ../sass/common.scss */
+/* line 63, ../sass/common.scss */
 .back-button {
   font-size: 4.0em !important;
   padding-top: 40px;
@@ -162,126 +75,7 @@ a.divLinker {
   opacity: 0.5;
 }
 
-/* line 145, ../sass/common.scss */
+/* line 70, ../sass/common.scss */
 .ui-slider {
   background: #777;
-}
-
-/* line 149, ../sass/common.scss */
-.flows {
-  text-align: left;
-}
-
-/* line 153, ../sass/common.scss */
-.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
-  background-color: #333;
-}
-
-/* line 157, ../sass/common.scss */
-.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
-  background-color: #555;
-}
-
-/* line 161, ../sass/common.scss */
-.move-list {
-  padding-bottom: 20px;
-}
-
-/* line 165, ../sass/common.scss */
-.flow-title {
-  margin-bottom: 0;
-}
-
-/* line 169, ../sass/common.scss */
-.btn-login {
-  border: 0;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  border-radius: 3px;
-  color: #fff;
-  border-width: 1px;
-  border-style: solid;
-  margin: 0 0 5px;
-  outline: 0;
-  padding: 0 0 0 15px;
-  text-align: left;
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
-  width: 100%;
-  line-height: 40px;
-}
-
-/* line 184, ../sass/common.scss */
-.login-icon {
-  margin-right: 15px;
-  margin-top: 15px;
-}
-
-/* line 189, ../sass/common.scss */
-.login-twitter {
-  background-color: #55acee;
-  border-color: #55acee;
-}
-
-/* line 194, ../sass/common.scss */
-.login-twitter:hover, .login-twitter:active {
-  background-color: #3ea1ec;
-  color: #fff;
-}
-
-/* line 199, ../sass/common.scss */
-.login-facebook {
-  background-color: #3b5998;
-  border-color: #3b5998;
-}
-
-/* line 204, ../sass/common.scss */
-.login-facebook:hover, .login-facebook:active {
-  background-color: #344e86;
-  color: #fff;
-}
-
-/* line 209, ../sass/common.scss */
-.login-google {
-  background-color: #df4a32;
-  border-color: #df4a32;
-}
-
-/* line 214, ../sass/common.scss */
-.login-google:hover, .login-google:active {
-  background-color: #d63a21;
-  color: #fff;
-}
-
-/* line 219, ../sass/common.scss */
-span.large-glyphicon {
-  font-size: 5em;
-}
-
-/* line 223, ../sass/common.scss */
-.version {
-  color: #666666;
-  margin-top: 10px;
-  margin-left: 180px;
-}
-
-/* line 230, ../sass/common.scss */
-.move-name {
-  font-weight: bold;
-  font-size: 10vw;
-  letter-spacing: 2px;
-}
-
-/* line 236, ../sass/common.scss */
-.flow-start-button {
-  font-size: 18.0em !important;
-  padding-top: 40px;
-}
-
-/* line 241, ../sass/common.scss */
-.flow-start-button:hover {
-  color: #fff;
-  text-shadow: 0 0 4px #999;
-  cursor: pointer;
-  text-decoration: none;
 }
