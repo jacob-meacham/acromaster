@@ -43,8 +43,11 @@ acromasterServices.factory('WashingMachineService', ['Moves', 'RandomService', f
         var washingMachine = {};
         washingMachine.move1 = rand.choose(staticMoves);
         washingMachine.move2 = rand.choose(staticMoves);
-        while (washingMachine.move2 === washingMachine.move1) {
+        var maxIterations = 5;
+        var iterations = 0;
+        while (washingMachine.move2 === washingMachine.move1 && iterations < maxIterations) {
           washingMachine.move2 = rand.choose(staticMoves);
+          iterations++;
         }
         washingMachine.name = generateName();
         return washingMachine;

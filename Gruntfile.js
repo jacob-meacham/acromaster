@@ -5,6 +5,8 @@ var paths = {
   css: ['public/css/*.css', '!public/css/client.min.css']
 };
 
+var testConfig = require('./server/config/config').test;
+
 module.exports = function(grunt) {
     // Project Configuration
     grunt.initConfig({
@@ -64,8 +66,11 @@ module.exports = function(grunt) {
         },
 
         env : {
-            test : {
-              NODE_ENV : 'test'
+            test: {
+              NODE_ENV: 'test'
+            },
+            dev: {
+              NODE_ENV: 'development'
             }
         },
 
@@ -193,11 +198,35 @@ module.exports = function(grunt) {
               browsers: ['PhantomJS'],
               baseUrl: 'http://localhost:3000',
               args: '--ignore-certificate-errors',
+              slow: 4000,
               timeout: 10000,
               suiteTimeout: 90000
             },
             files: ['test/e2e/**/*.spec.js']
         },
+
+        mongoimport: {
+            options: {
+                db : testConfig.dbName,
+                stopOnError : false,
+                collections : [{
+                    name : 'moves',
+                    type :'json',
+                    file : 'test/e2e/db/moves.json',
+                    jsonArray : true,
+                    upsert : true,
+                    drop : true
+                  },
+                  {
+                    name : 'flows',
+                    type : 'json',
+                    file : 'test/e2e/db/flows.json',
+                    jsonArray : true,
+                    upsert : true,
+                    drop : true
+                }]
+            }
+        }
     });
 
     grunt.event.on('coverage', function(lcov, done) {
@@ -213,28 +242,25 @@ module.exports = function(grunt) {
         });
     });
 
-    //Load NPM tasks 
-    grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-csslint');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-open');
-    grunt.loadNpmTasks('grunt-env');
-    grunt.loadNpmTasks('grunt-express-server');
-    grunt.loadNpmTasks('grunt-mocha-test');
-    grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-mocha-istanbul');
-    grunt.loadNpmTasks('grunt-selenium-webdriver');
-    grunt.loadNpmTasks('grunt-mocha-protractor');
-    grunt.loadNpmTasks('grunt-lcov-merge');
+    grunt.registerTask('mongodrop', 'drop the database', function() {
+        var mongoose = require('mongoose');
+        var done = this.async();
+        mongoose.connect(testConfig.dbUrl, function() {
+            mongoose.connection.db.dropDatabase(function(err) {
+                if(err) {
+                    grunt.fail.warn(err);
+                } else {
+                    grunt.log.ok('Successfully dropped db');
+                }
+                mongoose.connection.close(done);
+            });
+        });
+    });
 
-    //Default task(s).
-    grunt.registerTask('default', ['jshint', 'csslint', 'karma:dev', 'express:dev', 'watch', 'open:dev']);
+    // Load NPM tasks
+    require('load-grunt-tasks')(grunt);
 
-    //Test task.
-    grunt.registerTask('test', ['jshint', 'csslint', 'env:test', 'mocha_istanbul:coverage', 'karma:ci', 'selenium_start', 'express:ci', 'mochaProtractor', 'lcovMerge']);
-
+    grunt.registerTask('default', ['jshint', 'csslint', 'env:dev', 'karma:dev', 'express:dev', 'watch', 'open:dev']);
+    grunt.registerTask('test', ['jshint', 'csslint', 'env:test', 'mongodrop', 'mocha_istanbul:coverage', 'karma:ci', 'selenium_start', 'mongoimport:test', 'express:ci', 'mochaProtractor', 'lcovMerge']);
     grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
 };

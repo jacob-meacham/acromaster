@@ -52,6 +52,7 @@ var config = {
             secret: 'acromaster',
             collection: 'sessions'
         },
+        dbName: 'am-test',
         dbUrl: 'mongodb://localhost/am-test',
         root: rootPath,
 
