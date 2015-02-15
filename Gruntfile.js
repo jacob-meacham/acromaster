@@ -260,7 +260,9 @@ module.exports = function(grunt) {
     // Load NPM tasks
     require('load-grunt-tasks')(grunt);
 
-    grunt.registerTask('default', ['jshint', 'csslint', 'env:dev', 'karma:dev', 'express:dev', 'watch', 'open:dev']);
-    grunt.registerTask('test', ['jshint', 'csslint', 'env:test', 'mongodrop', 'mocha_istanbul:coverage', 'karma:ci', 'selenium_start', 'mongoimport:test', 'express:ci', 'mochaProtractor', 'lcovMerge']);
+    grunt.registerTask('lint', ['jshint', 'csslint']);
+    grunt.registerTask('default', ['lint', 'env:dev', 'karma:dev', 'express:dev', 'watch', 'open:dev']);
+    grunt.registerTask('protractor', ['env:test', 'selenium_start', 'mongoimport', 'express:ci', 'mochaProtractor']);
+    grunt.registerTask('test', ['lint', 'env:test', 'mongodrop', 'mocha_istanbul:coverage', 'karma:ci', 'protractor', 'lcovMerge']);
     grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
 };
