@@ -212,7 +212,7 @@ module.exports = function(grunt) {
                 collections : [{
                     name : 'moves',
                     type :'json',
-                    file : 'test/e2e/db/moves.json',
+                    file : 'test/e2e/fixtures/db/moves.json',
                     jsonArray : true,
                     upsert : true,
                     drop : true
@@ -220,7 +220,7 @@ module.exports = function(grunt) {
                   {
                     name : 'flows',
                     type : 'json',
-                    file : 'test/e2e/db/flows.json',
+                    file : 'test/e2e/fixtures/db/flows.json',
                     jsonArray : true,
                     upsert : true,
                     drop : true
