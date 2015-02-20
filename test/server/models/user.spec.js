@@ -62,12 +62,13 @@ describe('User Model', function() {
 
     it('should fail to save an existing user with the same email', function(done) {
       var _user1 = new User(user1);
-      _user1.save();
-
       var _user2 = new User(user1);
-      _user2.save(function(err) {
-        expect(err).to.exist();
-        done();
+
+      _user1.save(function() {
+        _user2.save(function(err) {
+          expect(err).to.exist();
+          done();
+        });
       });
     });
 
