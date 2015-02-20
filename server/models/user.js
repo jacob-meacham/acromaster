@@ -1,9 +1,17 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var shortId = require('shortid');
+var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
+  _id: {
+    type: String,
+    required: true,
+    index: true,
+    unique: true,
+    'default': shortId.generate
+  },
   name: {
     type: String,
     required: true
