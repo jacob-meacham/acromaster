@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
   name: { type: String, required: true },
-  author: { type: Schema.Types.ObjectId, ref: 'User' },
+  author: { type: String, ref: 'User' },
   moves: [{
     move: { type: Schema.Types.ObjectId, ref: 'Move' },
     duration: Number

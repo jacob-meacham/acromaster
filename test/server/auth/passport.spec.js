@@ -104,10 +104,9 @@ var twitterProfile = {
 
 describe('Passport', function() {
   describe('deserializeUser', function() {
-    it('should return an error for an invalid id', function(done) {
-      passport._deserializeUser(0, function(err) {
-        expect(err).to.exist();
-        err.should.have.property('name', 'CastError');
+    it('should not return a user with an invalid id', function(done) {
+      passport._deserializeUser(0, function(user) {
+        expect(user).to.not.exist();
         done();
       });
     });
