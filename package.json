@@ -63,7 +63,7 @@
     "grunt-mongoimport": "^0.1.5",
     "grunt-open": "0.2.3",
     "grunt-selenium-webdriver": "0.2.432",
-    "istanbul": "0.3.5",
+    "istanbul": "0.3.6",
     "jshint-stylish": "1.0.0",
     "karma": "0.12.31",
     "karma-chai": "0.1.0",
