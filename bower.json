@@ -15,7 +15,7 @@
     "json3": "3.3.2",
     "jquery": "2.1.3",
     "fastclick": "1.0.6",
-    "angular-justgage": "1.0.0",
+    "angular-justgage": "245d87df429",
     "angular-flash": "0.1.14"
   },
   "devDependencies": {
