@@ -2,13 +2,21 @@
 
 var _ = require('lodash');
 var mongoose = require('mongoose');
+var shortId = require('shortid');
 var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
+    _id: {
+    type: String,
+    required: true,
+    index: true,
+    unique: true,
+    'default': shortId.generate
+  },
   name: { type: String, required: true },
   author: { type: String, ref: 'User' },
   moves: [{
-    move: { type: Schema.Types.ObjectId, ref: 'Move' },
+    move: { type: String, ref: 'Move' },
     duration: Number
   }],
 
