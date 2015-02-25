@@ -1,6 +1,6 @@
 <section class="flows">
     <h1 class="flow-title">{{flow.name}}</h1>
-    <em>Created by {{flow.author.name}} on {{flow.createdAt | date}}</em>
+    <em>Created by {{flow.author.name || "Anonymous"}} on {{flow.createdAt | date}}</em>
 
     <h3>Moves</h3>
     <ul>
