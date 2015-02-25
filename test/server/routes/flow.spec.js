@@ -156,15 +156,14 @@ describe('/api/flow', function() {
     it('should return an error with an invalid id', function(done) {
       request(app)
         .get('/api/flow/0')
-        .expect(500)
-        .expect(/CastError/, done);
+        .expect(500, done);
     });
 
     it('should return an error when the flow is not found', function(done) {
       request(app)
         .get('/api/flow/54b756f3ccc62d70143fd7ea')
         .expect(500)
-        .expect(/Failed to load move list/, done);
+        .expect(/Failed to load flow/, done);
     });
 
     it('should return the correct flow when asked', function(done) {
@@ -200,8 +199,7 @@ describe('/api/flow', function() {
     it('should return an error with an invalid id', function(done) {
       request(app)
         .put('/api/flow/0')
-        .expect(500)
-        .expect(/CastError/, done);
+        .expect(500, done);
     });
 
     it('should return an error if there is no session, and the flow has an author', function(done) {

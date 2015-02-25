@@ -14,7 +14,7 @@ var loadById = function(req, res, next, id) {
     }
     
     if (!flow) {
-      return next(new Error('Failed to load move list: ' + id));
+      return next(new Error('Failed to load flow: ' + id));
     }
 
     req.flow = flow;
