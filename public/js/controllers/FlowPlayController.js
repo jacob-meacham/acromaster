@@ -61,7 +61,6 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService
     max: 100,
     levelColors: ['#CE1B21'],
   }, commonOptions);
-  console.log($scope.numMovesOptions);
 
   $timeout(function() {
     $scope.numMovesOptions.value = stats.numMoves;
