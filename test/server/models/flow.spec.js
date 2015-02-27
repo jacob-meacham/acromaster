@@ -44,12 +44,12 @@ describe('Flow Model', function() {
     new Move(move1).save();
     new Move(move2).save();
 
-    var userSchema = {
+    var user1 = {
       name: 'Abigail',
       email: 'test.foo@test.com'
     };
 
-    var user = new User(userSchema);
+    var user = new User(user1);
     user.save();
 
     flow1 = {
@@ -91,7 +91,7 @@ describe('Flow Model', function() {
       });
     });
 
-    it('should save a flow without and author without error', function(done) {
+    it('should save a flow without an author without error', function(done) {
       var _flow = new Flow(flow2);
       _flow.save(function(err) {
         expect(err).to.not.exist();
@@ -209,17 +209,18 @@ describe('Flow Model', function() {
         function(result, next) {
           var userSchema = {
             name: 'Charlie',
-            email: 'test.foo@test.com'
+            email: 'charlie_is_gr8@awesome.com'
           };
 
           var user = new User(userSchema);
-          user.save(function() {
-            next(null, user);
+          user.save(function(err, savedUser) {
+            expect(err).to.not.exist();
+            next(null, savedUser);
           });
         },
 
-        function(result, next) {
-          saveFlow(new Flow({name: 'Flow 3', author: result}), next);
+        function(author, next) {
+          saveFlow(new Flow({name: 'Flow 3', author: author, createdAt: '12/10/1900'}), next);
         },
 
         function() {
@@ -227,8 +228,9 @@ describe('Flow Model', function() {
             expect(err).to.not.exist();
             flows.should.have.length(3);
 
-            // TODO!!
-            //flows[1].author.name.should.equal('Charlie');
+            flows[0].author.name.should.equal('Charlie');
+            flows[1].author.name.should.equal('Abigail');
+            expect(flows[2].author).to.not.exist();
             done();
           });
         }
