@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var shortId = require('shortid');
 var Schema = mongoose.Schema;
 
+shortId.characters('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 var UserSchema = new Schema({
   _id: {
     type: String,
