@@ -242,8 +242,8 @@ describe('Flow Model', function() {
             expect(err).to.not.exist();
             flows.should.have.length(3);
 
-            flows[0].author.name.should.equal('Charlie');
-            flows[1].author.name.should.equal('Abigail');
+            flows[0].author.name.should.equal('Abigail');
+            flows[1].author.name.should.equal('Charlie');
             expect(flows[2].author).to.not.exist();
             done();
           });

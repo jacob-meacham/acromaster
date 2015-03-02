@@ -4,6 +4,7 @@ var request = require('supertest');
 var app = require('../../../server');
 var express = require('express');
 var mongoose = require('mongoose');
+var async = require('async');
 require('../../../server/models/flow.js');
 require('../../../server/models/move.js');
 
@@ -28,78 +29,100 @@ var move1, move2;
 // TODO: this should be mocked
 describe('/api/flow', function() {
   before(function(done) {
-    move1 = {
+    var _move = {
       name: 'New Move',
       difficulty: 5,
       audioUri: 'foo',
       aliases: ['a', 'b'],
       tags: 'tag1,tag2'
     };
+    move1 = new Move(_move);
 
-    move2 = {
+    _move = {
       name: 'New Move 2',
       difficulty: 5,
       audioUri: 'foo',
       aliases: ['a', 'b'],
       tags: 'tag1,tag2'
     };
-
-    new Move(move1).save();
-    new Move(move2).save();
+    move2 = new Move(_move);
 
     var _user = {
       name: 'Zulu',
       email: 'test.foo@test.com'
     };
-
     author1 = new User(_user);
-    author1.save();
-
-    var _flow = {
-      name: 'Flow',
-      author: author1,
-      official: false,
-      ratings: [5, 10, 5, 10, 5],
-      createdAt: '12/10/2010'
-    };
-
-    flow1 = new Flow(_flow);
-    var move = { 'duration': 10, 'move': move1._id };
-    flow1.moves.push(move);
-
-    move = {'duration': 20, 'move': move2._id };
-    flow1.moves.push(move);
 
     _user = {
-      name: 'Abigail',
-      email: 'test.bar@test.com'
-    };
-
+        name: 'Abigail',
+        email: 'test.bar@test.com'
+      };
     author2 = new User(_user);
-    author2.save();
 
-    _flow = {
-      name: 'Flow 2',
-      author: author2,
-      createdAt: '12/10/1990'
+    var setupFlows = function() {
+      var _flow = {
+        name: 'Flow',
+        author: author1,
+        official: false,
+        ratings: [5, 10, 5, 10, 5],
+        createdAt: '12/10/2010'
+      };
+
+      flow1 = new Flow(_flow);
+      var move = { 'duration': 10, 'move': move1._id };
+      flow1.moves.push(move);
+
+      move = {'duration': 20, 'move': move2._id };
+      flow1.moves.push(move);
+
+      _flow = {
+        name: 'Flow 2',
+        author: author2,
+        createdAt: '12/10/1990'
+      };
+      flow2 = new Flow(_flow);
+
+      _flow = {
+        name: 'Flow 3',
+        createdAt: '12/10/1991'
+      };
+      flow3 = new Flow(_flow);
     };
-    flow2 = new Flow(_flow);
 
-    _flow = {
-      name: 'Flow 3',
-      createdAt: '12/10/1991'
-    };
-    flow3 = new Flow(_flow);
-
-    mongoose.connect('mongodb://localhost/am-test', function() {
-      flow1.save(function() {
-        flow2.save(function() {
-          flow3.save(function() {
-            done();
-          });
-        });
+    async.waterfall([
+      function(cb) {
+        if (mongoose.connection.db) { return cb(); }
+        mongoose.connect('mongodb://localhost/am-test', cb);
+      },
+      function(cb) {
+        move1.save(cb);
+      },
+      function(res, cb) {
+        move2.save(cb);
+      },
+      function(res, cb) {
+        author1.save(cb);
+      },
+      function(res, cb) {
+        author2.save(cb);
+      },
+      function(res, cb) {
+        setupFlows();
+        cb(null, null);
+      },
+      function(res, cb) {
+        flow1.save(cb);
+      },
+      function(res, cb) {
+        flow2.save(cb);
+      },
+      function(res, cb) {
+        flow3.save(cb);
+      }
+      ], function(err) {
+        expect(err).to.not.exist();
+        done();
       });
-    });
   });
 
   after(function(done) {
@@ -134,21 +157,29 @@ describe('/api/flow', function() {
         .end(done);
     });
 
-    it('should use the logged in user as the author', function(done) {
-      /*
-      request(app)
-        .post('/api/flow')
-        .send({name: 'My Flow'})
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          res.body.should.have.property('name');
-          res.body.name.should.equal('My Flow');
-          res.body.author.should.be.null();
-        })
-        .end(done);
-        */
-        done();
+    describe('authenticated', function() {
+      var authedApp;
+      beforeEach(function() {
+        authedApp = express();
+        authedApp.all('*', function(req, res, next) {
+          req.user = author1;
+          next();
+        });
+        authedApp.use(app);
+      });
+      it('should use the logged in user as the author', function(done) {
+        request(authedApp)
+          .post('/api/flow')
+          .send({name: 'Yet Another Flow'})
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .expect(function(res) {
+            res.body.should.have.property('name');
+            res.body.name.should.equal('Yet Another Flow');
+            res.body.author.should.equal(author1._id);
+          })
+          .end(done);
+      });
     });
   });
 
@@ -227,7 +258,6 @@ describe('/api/flow', function() {
       beforeEach(function() {
         authedApp = express();
         authedApp.all('*', function(req, res, next) {
-          // TODO TODT DGF:SDFK:DSFJ:KLDSJF:LK SDJFLK: JSKLDFChange the object id to be a string
           req.user = author1;
           next();
         });
@@ -276,9 +306,9 @@ describe('/api/flow', function() {
         .set('Accept', 'application/json')
         .expect(200)
         .expect(function(res) {
-          res.body.flows.should.have.length(4);
-          res.body.flows[0].name.should.equal('My Flow');
-          res.body.flows[1].name.should.equal('Flow');
+          res.body.flows.should.have.length(5);
+          res.body.flows[0].name.should.equal('Yet Another Flow');
+          res.body.flows[1].name.should.equal('My Flow');
         })
         .end(done);
     });
