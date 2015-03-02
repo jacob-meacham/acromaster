@@ -6,6 +6,7 @@ var async = require('async');
 require('../../../server/models/flow.js');
 require('../../../server/models/move.js');
 require('../../../server/models/user.js');
+var async = require('async');
 
 chai.should();
 var expect = chai.expect;
@@ -41,16 +42,12 @@ describe('Flow Model', function() {
       tags: 'tag1,tag2'
     };
 
-    new Move(move1).save();
-    new Move(move2).save();
-
     var user1 = {
       name: 'Abigail',
       email: 'test.foo@test.com'
     };
 
     var user = new User(user1);
-    user.save();
 
     flow1 = {
       name: 'Flow 1',
@@ -66,8 +63,25 @@ describe('Flow Model', function() {
       createdAt: '12/10/2010'
     };
 
-    if (mongoose.connection.db) { return done(); }
-    mongoose.connect('mongodb://localhost/am-test', done);
+    var save = function() {
+      async.parallel([
+        function(cb) {
+          new Move(move1).save(cb);
+        },
+        function(cb) {
+          new Move(move2).save(cb);
+        },
+        function(cb) {
+          user.save(cb);
+        }
+      ], function(err) {
+        expect(err).to.not.exist();
+        done();
+      });
+    };
+
+    if (mongoose.connection.db) { return save(); }
+    mongoose.connect('mongodb://localhost/am-test', save);
   });
 
   after(function(done) {
