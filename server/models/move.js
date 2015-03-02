@@ -1,10 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var shortId = require('shortid');
+var ShortId = require('mongoose-shortid');
 var Schema = mongoose.Schema;
 
-shortId.characters('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 var getTags = function(tags) {
   return tags.join(',');
 };
@@ -14,12 +13,9 @@ var setTags = function(tags) {
 };
 
 var MoveSchema = new Schema({
-    _id: {
-    type: String,
-    required: true,
-    index: true,
-    unique: true,
-    'default': shortId.generate
+  _id: {
+    type: ShortId,
+    alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   },
   name: {type: String, required: true },
   audioUri: String,
