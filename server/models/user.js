@@ -1,17 +1,13 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var shortId = require('shortid');
+var ShortId = require('mongoose-shortid');
 var Schema = mongoose.Schema;
 
-shortId.characters('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 var UserSchema = new Schema({
   _id: {
-    type: String,
-    required: true,
-    index: true,
-    unique: true,
-    'default': shortId.generate
+    type: ShortId,
+    alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   },
   name: {
     type: String,

@@ -2,22 +2,18 @@
 
 var _ = require('lodash');
 var mongoose = require('mongoose');
-var shortId = require('shortid');
+var ShortId = require('mongoose-shortid');
 var Schema = mongoose.Schema;
 
-shortId.characters('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 var FlowSchema = new Schema({
     _id: {
-    type: String,
-    required: true,
-    index: true,
-    unique: true,
-    'default': shortId.generate
+    type: ShortId,
+    alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   },
   name: { type: String, required: true },
-  author: { type: String, ref: 'User' },
+  author: { type: ShortId, ref: 'User' },
   moves: [{
-    move: { type: String, ref: 'Move' },
+    move: { type: ShortId, ref: 'Move' },
     duration: Number
   }],
 
