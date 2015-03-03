@@ -129,12 +129,14 @@ describe('Flow Model', function() {
 
     it('should be able to save two flows with the same name', function(done) {
       var _flow1 = new Flow(flow1);
-      _flow1.save();
-
-      var _flow2 = new Flow(flow1);
-      _flow2.save(function(err) {
+      _flow1.save(function(err) {
         expect(err).to.not.exist();
-        done();
+
+        var _flow2 = new Flow(flow1);
+        _flow2.save(function(err) {
+          expect(err).to.not.exist();
+          done();
+        });
       });
     });
   });
@@ -151,14 +153,18 @@ describe('Flow Model', function() {
         move = {'duration': 20, 'move': moves[1] };
         _flow.moves.push(move);
 
-        _flow.save();
-
-        _flow.populate('moves.move', function(err) {
-          expect(err).to.not.exist();
-          _flow.moves.should.have.length(2);
-          _flow.moves[1].move.name.should.equal('New Move 2');
-          done();
-        });
+        async.parallel([
+          function(cb) {
+            _flow.save(cb);
+          },
+          function(cb) {
+            _flow.populate('moves.move', function(err) {
+              expect(err).to.not.exist();
+              _flow.moves.should.have.length(2);
+              _flow.moves[1].move.name.should.equal('New Move 2');
+              cb();
+            });
+          }], done);
       });
     });
 
