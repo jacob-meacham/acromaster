@@ -86,6 +86,13 @@ describe('FlowEditDirective', function() {
       ctrl.moveList[0].move.should.eql('move');
     });
 
+    it('should allow adding a random move', function() {
+      var ctrl = controllerFn();
+      ctrl.randomMove();
+      ctrl.moveList.length.should.eql(1);
+      ['move1', 'move2', 'move3'].should.contain(ctrl.moveList[0].move);
+    });
+
     it('should not allow invalid moves', function() {
       var ctrl = controllerFn();
       var ret = ctrl.checkMove(null);
