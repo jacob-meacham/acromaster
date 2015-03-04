@@ -20,10 +20,14 @@ angular.module('acromaster.directives')
       });
     }
 
+    var randomDuration = function() {
+      return Math.floor(randomService.random() * 20.0) + 15;
+    };
+
     vm.addMove = function() {
       vm.inserted = {
         move: null,
-        duration: Math.floor(randomService.random() * 20.0) + 15
+        duration: randomDuration()
       };
       
       vm.moveList.push(vm.inserted);
@@ -35,6 +39,14 @@ angular.module('acromaster.directives')
 
     vm.removeMove = function(index) {
       vm.moveList.splice(index, 1);
+    };
+
+    vm.randomMove = function() {
+      var moveEntry = {
+        move: randomService.choose(vm.allMoves),
+        duration: randomDuration()
+      };
+      vm.moveList.push(moveEntry);
     };
 
     vm.checkMove = function($data) {
