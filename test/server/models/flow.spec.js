@@ -58,7 +58,7 @@ describe('Flow Model', function() {
     };
 
     flow2 = {
-      name: 'Flow 2',
+      name: 'Yet Another Flow',
       official: false,
       createdAt: '12/10/2010'
     };
@@ -208,7 +208,7 @@ describe('Flow Model', function() {
           Flow.list({}, function(err, flows) {
             expect(err).to.not.exist();
             flows.should.have.length(2);
-            flows[0].name.should.equal('Flow 2');
+            flows[0].name.should.equal('Yet Another Flow');
 
             done();
           });
@@ -240,17 +240,19 @@ describe('Flow Model', function() {
         },
 
         function(author, next) {
-          saveFlow(new Flow({name: 'Flow 3', author: author, createdAt: '12/10/1900'}), next);
+          saveFlow(new Flow({name: 'A Third Flow', author: author, createdAt: '12/10/1900'}), next);
         },
 
         function() {
-          Flow.list({sortBy: 'author'}, function(err, flows) {
+          Flow.list({sortBy: 'name'}, function(err, flows) {
             expect(err).to.not.exist();
             flows.should.have.length(3);
 
-            flows[0].author.name.should.equal('Abigail');
-            flows[1].author.name.should.equal('Charlie');
-            expect(flows[2].author).to.not.exist();
+            flows[0].name.should.equal('Yet Another Flow');
+            flows[1].name.should.equal('Flow 1');
+            flows[2].name.should.equal('A Third Flow');
+            
+            
             done();
           });
         }
@@ -277,7 +279,7 @@ describe('Flow Model', function() {
             expect(err2).to.not.exist();
             flows.should.have.length(2);
             flows[0].name.should.equal('Flow 3');
-            flows[1].name.should.equal('Flow 2');
+            flows[1].name.should.equal('Yet Another Flow');
             next(null, null);
           });
         },
