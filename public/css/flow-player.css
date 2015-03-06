@@ -12,7 +12,12 @@
 }
 
 /* line 12, ../sass/flow-player.scss */
-.flow-start-button:hover {
+.flow-player-button {
+  font-size: 4.0em;
+}
+
+/* line 16, ../sass/flow-player.scss */
+.flow-player-button:hover {
   color: #fff;
   text-shadow: 0 0 4px #999;
   cursor: pointer;
