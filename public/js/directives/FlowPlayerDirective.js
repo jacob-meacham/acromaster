@@ -7,7 +7,10 @@ angular.module('acromaster.directives')
   var audio = vm.audio = new Audio();
   var currentEntry = {};
   vm.currentMove = {};
+  vm.currentMoveIdx = 0;
   vm.hasStarted = false;
+  vm.timeRemaining = 0;
+  vm.paused = false;
 
   if (!vm.flow || !vm.flow.$promise) {
     // No flow
@@ -28,10 +31,14 @@ angular.module('acromaster.directives')
   // TODO: Refactor the audio playing out into a separate directive
   vm.play = function() {
     audio.play();
+    startTimer(1000);
+    vm.paused = false;
   };
 
   vm.pause = function() {
+    cancelTimer();
     audio.pause();
+    vm.paused = true;
   };
 
   vm.setAudio = function(file) {
@@ -40,6 +47,24 @@ angular.module('acromaster.directives')
   };
 
   var intervalPromise;
+  var startTimer = function(delay) {
+    intervalPromise = $interval(function() {
+      if (vm.timeRemaining > 0) {
+        vm.timeRemaining -= delay;
+        startTimer(delay);
+      } else {
+        nextMove(vm.currentMoveIdx + 1);
+      }
+    }, delay, 1);
+  };
+
+  var cancelTimer = function() {
+    if (angular.isDefined(intervalPromise)) {
+      $interval.cancel(intervalPromise);
+      intervalPromise = undefined;
+    }
+  };
+
   var nextMove = function(entryIndex) {
     if (currentEntry) {
       currentEntry.visible = false;
@@ -54,17 +79,15 @@ angular.module('acromaster.directives')
     currentEntry.visible = true;
     
     vm.currentMove = currentEntry.move;
+    vm.currentMoveIdx = entryIndex;
     vm.setAudio(currentEntry.move.audioUri);
  
-    intervalPromise = $interval(function() {
-      nextMove(entryIndex+1); }, currentEntry.duration * 1000, 1);
+    vm.timeRemaining = currentEntry.duration * 1000;
+    startTimer(1000);
   };
 
   $scope.$on('$destroy', function() {
-    if (angular.isDefined(intervalPromise)) {
-      $interval.cancel(intervalPromise);
-      intervalPromise = undefined;
-    }
+    cancelTimer();
   });
 }])
 .directive('flowplayer', function() {
