@@ -93,6 +93,12 @@ describe('FlowPlayerDirective', function() {
       audioSpy.should.have.been.calledWith('audio1');
     });
 
+    var advanceMove = function(delay) {
+      for(var i = delay; i > 0; i -= 1000) {
+        $interval.flush(1001);
+      }
+    };
+
     it('should play the flow', function() {
       ctrl.start();
 
@@ -100,9 +106,9 @@ describe('FlowPlayerDirective', function() {
       $rootScope.$apply();
 
       ctrl.currentMove.should.eql(flowDef[0].move);
-      $interval.flush(11000);
+      advanceMove(11000);
       ctrl.currentMove.should.eql(flowDef[1].move);
-      $interval.flush(21000);
+      advanceMove(21000);
       ctrl.currentMove.should.eql(flowDef[2].move);
     });
 
@@ -113,11 +119,11 @@ describe('FlowPlayerDirective', function() {
       $rootScope.$apply();
 
       ctrl.currentMove.should.eql(flowDef[0].move);
-      $interval.flush(11000);
+      advanceMove(11000);
       ctrl.currentMove.should.eql(flowDef[1].move);
-      $interval.flush(21000);
+      advanceMove(21000);
       ctrl.currentMove.should.eql(flowDef[2].move);
-      $interval.flush(31000);
+      advanceMove(31000);
 
       endSpy.should.have.callCount(1);
     });
