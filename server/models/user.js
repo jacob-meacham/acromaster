@@ -24,7 +24,9 @@ var UserSchema = new Schema({
   
   facebook: {},
   twitter: {},
-  google: {}
+  google: {},
+
+  flows: [{ type: ShortId, ref: 'Flow' }],
 });
 
 mongoose.model('User', UserSchema);
