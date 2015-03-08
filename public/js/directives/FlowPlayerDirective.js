@@ -49,20 +49,29 @@ angular.module('acromaster.directives')
     audio.play();
   };
 
-  $scope.$watch('vm.speedMultiplier', function() {
-    if (vm.speedMultiplier <= 0) {
-      vm.speedMultiplier = 1;
+  var getScaledDuration = function(duration, multiplier) {
+    if (multiplier <= 0) {
+      multiplier = 1;
     }
-    var newScaledDuration = currentEntry.duration * (1/vm.speedMultiplier);
+
+    return duration * (1.0/multiplier);
+  };
+
+  vm.updateDuration = function() {
+    if (vm.timeRemaining < 4000) {
+      // Too close to the end of the move - don't update the duration.
+      return;
+    }
+
+    var newScaledDuration = getScaledDuration(currentEntry.duration, vm.speedMultiplier);
     vm.timeRemaining = newScaledDuration * vm.timeRemaining / scaledDuration;
     scaledDuration = newScaledDuration;
-  });
+  };
 
   var intervalPromise;
   var startTimer = function(delay) {
     intervalPromise = $interval(function() {
       if (vm.timeRemaining > 0) {
-        console.log(vm.timeRemaining);
         vm.timeRemaining -= delay;
         startTimer(delay);
       } else {
@@ -95,7 +104,7 @@ angular.module('acromaster.directives')
     vm.currentMoveIdx = entryIndex;
     vm.setAudio(currentEntry.move.audioUri);
  
-    var scaledDuration = currentEntry.duration * vm.speedMultiplier;
+    var scaledDuration = getScaledDuration(currentEntry.duration, vm.speedMultiplier);
     vm.timeRemaining = scaledDuration * 1000;
     startTimer(1000);
   };
