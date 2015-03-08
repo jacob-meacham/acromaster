@@ -7,5 +7,5 @@
     </div>
     <span class="glyphicon glyphicon-pause flow-player-button" ng-show="vm.hasStarted && !vm.paused" ng-click="vm.pause()"></span>
     <span class="glyphicon glyphicon-play flow-player-button" ng-show="vm.hasStarted && vm.paused" ng-click="vm.play()"></span>
-    <slider floor="0.25" ceiling="4" ng-model="vm.speedMultiplier"></slider>
+    <slider floor="0.25" ceiling="4" precision="2" ng-change="vm.updateDuration()" ng-model="vm.speedMultiplier"></slider>
 </div>

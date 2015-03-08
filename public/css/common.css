@@ -79,3 +79,66 @@ span.large-glyphicon {
 .ui-slider {
   background: #777;
 }
+
+/* line 75, ../sass/common.scss */
+slider, [slider] {
+  display: inline-block;
+  position: relative;
+  height: 7px;
+  width: 100%;
+  margin: 25px 5px 25px 5px;
+  vertical-align: middle;
+}
+/* line 83, ../sass/common.scss */
+slider span, [slider] span {
+  white-space: nowrap;
+  position: absolute;
+}
+/* line 87, ../sass/common.scss */
+slider span.bar, [slider] span.bar {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  background: #444;
+  overflow: hidden;
+}
+/* line 94, ../sass/common.scss */
+slider span.bar .selection, [slider] span.bar .selection {
+  width: 0%;
+  height: 100%;
+  background: #13b6ff;
+}
+/* line 101, ../sass/common.scss */
+slider span.pointer, [slider] span.pointer {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  top: -8px;
+  background-color: #fff;
+  border: 1px solid #000;
+  z-index: 2;
+  border-radius: 100%;
+}
+/* line 111, ../sass/common.scss */
+slider span.pointer:after, [slider] span.pointer:after {
+  content: '';
+  background-color: #777;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  border-radius: 100%;
+}
+/* line 121, ../sass/common.scss */
+slider span.pointer:after:hover, [slider] span.pointer:after:hover {
+  background-color: #000;
+}
+/* line 126, ../sass/common.scss */
+slider span.pointer.active:after, [slider] span.pointer.active:after {
+  background-color: #f00;
+}
+/* line 131, ../sass/common.scss */
+slider span.bubble, [slider] span.bubble {
+  display: none !important;
+}
