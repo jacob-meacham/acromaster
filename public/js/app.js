@@ -8,7 +8,7 @@ var app = angular.module('acromaster', [
   'acromaster.controllers',
   'acromaster.directives',
   'xeditable',
-  'ui.slider',
+  'vr.directives.slider',
   'ui.bootstrap',
   'ui.sortable',
   'ngJustGage',

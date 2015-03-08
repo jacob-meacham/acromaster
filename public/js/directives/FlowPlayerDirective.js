@@ -9,8 +9,11 @@ angular.module('acromaster.directives')
   vm.currentMove = {};
   vm.currentMoveIdx = 0;
   vm.hasStarted = false;
-  vm.timeRemaining = 0;
   vm.paused = false;
+
+  var scaledDuration;
+  vm.timeRemaining = 0;
+  vm.speedMultiplier = 1;
 
   if (!vm.flow || !vm.flow.$promise) {
     // No flow
@@ -46,10 +49,20 @@ angular.module('acromaster.directives')
     audio.play();
   };
 
+  $scope.$watch('vm.speedMultiplier', function() {
+    if (vm.speedMultiplier <= 0) {
+      vm.speedMultiplier = 1;
+    }
+    var newScaledDuration = currentEntry.duration * (1/vm.speedMultiplier);
+    vm.timeRemaining = newScaledDuration * vm.timeRemaining / scaledDuration;
+    scaledDuration = newScaledDuration;
+  });
+
   var intervalPromise;
   var startTimer = function(delay) {
     intervalPromise = $interval(function() {
       if (vm.timeRemaining > 0) {
+        console.log(vm.timeRemaining);
         vm.timeRemaining -= delay;
         startTimer(delay);
       } else {
@@ -82,7 +95,8 @@ angular.module('acromaster.directives')
     vm.currentMoveIdx = entryIndex;
     vm.setAudio(currentEntry.move.audioUri);
  
-    vm.timeRemaining = currentEntry.duration * 1000;
+    var scaledDuration = currentEntry.duration * vm.speedMultiplier;
+    vm.timeRemaining = scaledDuration * 1000;
     startTimer(1000);
   };
 
