@@ -3,7 +3,6 @@
     "css": {
         "public/lib/bootstrap/dist/css/bootstrap.min.css": "public/lib/bootstrap/dist/css/bootstrap.css",
         "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css": "public/lib/jquery-ui/themes/base/minified/jquery-ui.css",
-        "public/lib/angular-slider/slider.css": "public/lib/angular-slider/slider.css",
         "public/lib/angular-xeditable/dist/css/xeditable.css": "public/lib/angular-xeditable/dist/css/xeditable.css",
         "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css": "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
     },
@@ -17,7 +16,8 @@
         "public/lib/angular-resource/angular-resource.min.js": "public/lib/angular-resource/angular-resource.js",
         "public/lib/angular-animate/angular-animate.min.js": "public/lib/angular-animate/angular-animate.js",
         "public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js": "public/lib/angular-bootstrap/ui-bootstrap-tpls.js",
-        "public/lib/angular-slider/slider.js": "public/lib/angular-slider/slider.js",
+        "public/lib/angular-touch/angular-touch.min.js": "public/lib/angular-touch/angular-touch.js",
+        "public/lib/venturocket-angular-slider/build/angular-slider.min.js": "public/lib/venturocket-angular-slider/build/angular-slider.min.js",
         "public/lib/raphael/raphael-min.js": "public/lib/raphael/raphael.js",
         "public/lib/justgage-toorshia/justgage.js": "public/lib/justgage-toorshia/justgage.js",
         "public/lib/angular-justgage/ng-justgage.js": "public/lib/angular-justgage/ng-justgage.js",
