@@ -24,6 +24,7 @@ var version = process.env.VERSION || 'Development version';
 // Hook up routes
 require('./server/routes/auth')(app, passport);
 require('./server/routes/flow')(app);
+require('./server/routes/sounds')(app, config);
 require('./server/routes/index')(app, version, env);
 
 // Needs to happen after routes are added
