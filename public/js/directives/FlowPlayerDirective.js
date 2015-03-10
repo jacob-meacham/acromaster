@@ -109,7 +109,7 @@ angular.module('acromaster.directives')
   };
 
   var finishFlow = function() {
-    sounds.getDoneSound.then(function(doneSound) {
+    sounds.getDoneSound().success(function(doneSound) {
       vm.setAudio(doneSound);
     });
 
