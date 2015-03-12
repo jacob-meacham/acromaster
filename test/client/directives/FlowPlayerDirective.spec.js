@@ -34,6 +34,7 @@ describe('FlowPlayerDirective', function() {
     var ctrl;
     var $interval;
     var $rootScope;
+    var $httpBackend;
     var deferred;
     var endSpy;
     var flowDef;
@@ -46,9 +47,10 @@ describe('FlowPlayerDirective', function() {
       ];
     });
 
-    beforeEach(inject(function($controller, _$rootScope_, _$interval_, $q, Flow) {
+    beforeEach(inject(function($controller, _$rootScope_, _$interval_, _$httpBackend_, $q, Flow) {
       $rootScope = _$rootScope_;
       $interval = _$interval_;
+      $httpBackend = _$httpBackend_;
       var controllerFn = $controller('FlowPlayerDirectiveController', {$scope: $rootScope, $interval: $interval}, true);
       controllerFn.instance.flow = new Flow({moves: flowDef});
       endSpy = controllerFn.instance.onFlowEnd = sandbox.spy();
@@ -113,6 +115,7 @@ describe('FlowPlayerDirective', function() {
     });
 
     it('should end the flow when it is finished', function() {
+      $httpBackend.expectGET('/api/sounds/done').respond('flowFinished.mp3');
       ctrl.start();
 
       deferred.resolve();
@@ -125,7 +128,12 @@ describe('FlowPlayerDirective', function() {
       ctrl.currentMove.should.eql(flowDef[2].move);
       advanceMove(31000);
 
+      $httpBackend.flush();
+      $interval.flush(3001);
       endSpy.should.have.callCount(1);
+
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('should cancel the playing flow on $destroy', function() {
