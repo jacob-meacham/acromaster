@@ -57,6 +57,13 @@ var list = function(req, res) {
 
 var create = function(req, res) {
   var flow = new Flow(req.body);
+  if (flow.author) {
+    if (!req.user || req.user._id !== flow.author._id) {
+      res.status(401).send({error: new Error('This flow doesn\'belong to you')});
+      return;
+    }
+  }
+  
   if (req.user) {
     flow.author = req.user;
   }
