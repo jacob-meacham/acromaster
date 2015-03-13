@@ -20,7 +20,7 @@ controllers.controller('FlowPlayController', ['$scope', '$location', '$routePara
 }]);
 
 controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService', 'FlowStatsService', '$timeout', '_', function($scope, $location, flowService, flowStats, $timeout, _) {
-  var flow = flowService.getCurrentFlow();
+  var flow = $scope.flow = flowService.getCurrentFlow();
   if (!flow || !flow.moves || flow.moves.length === 0) {
     // No flow defined, so redirect back to home.
     $location.path('/');
@@ -61,6 +61,18 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService
     max: 100,
     levelColors: ['#CE1B21'],
   }, commonOptions);
+
+  $scope.isNewFlow = function() {
+    if ($scope.flow._id) return false;
+    return true;
+  };
+
+  $scope.saveFlow = function() {
+    // TODO: Actually do something better on save.
+    $scope.flow.$save(function(savedFlow) {
+      $location.path('/flow/' + savedFlow._id);
+    });
+  };
 
   $timeout(function() {
     $scope.numMovesOptions.value = stats.numMoves;
