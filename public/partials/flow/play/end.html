@@ -12,4 +12,7 @@
         <just-gage id="difficulty-gauge" value="difficultyOptions.value" options="difficultyOptions"></just-gage>
       </div>
     </div>
+    <div ng-show="isNewFlow()">
+      <a ng-click="saveFlow()">Save this flow!</a>
+    </div>
 </section>
