@@ -36,8 +36,7 @@ var userCallback = function(profile, idProp, userCreator, done) {
 var twitterCallback = function(token, tokenSecret, profile, done) {
     var userCreator = function(profile) {
         return new User({
-            name: profile.displayName,
-            username: profile.username,
+            name: profile.username,
             provider: 'twitter',
             twitter: profile._json
         });
@@ -50,7 +49,6 @@ var facebookCallback = function(accessToken, refreshToken, profile, done) {
         return new User({
             name: profile.displayName,
             email: profile.emails[0].value,
-            username: profile.username || profile.emails[0].value.split('@')[0],
             provider: 'facebook',
             facebook: profile._json
         });

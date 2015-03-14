@@ -1,5 +1,6 @@
 'use strict';
 
+var async = require('async');
 var mongoose = require('mongoose');
 var chai = require('chai');
 require('../../../server/models/user.js');
@@ -80,6 +81,51 @@ describe('User Model', function() {
         expect(err).to.exist();
         done();
       });
+    });
+  });
+
+  describe('loadPublicProfile()', function() {
+    it('should load a user by name', function(done) {
+      var _user = new User(user1);
+      async.waterfall([
+        function(next) {
+          _user.save(next);
+        },
+
+        function() {
+          User.loadPublicProfile(_user.name, function(err, loaded_user) {
+            console.log('user: ' + loaded_user);
+            expect(err).to.not.exist();
+            loaded_user.name.should.equal(_user.name);
+            done();
+          });
+        }
+      ]);
+    });
+
+    it('should not load a nonexistent user', function(done) {
+      User.loadPublicProfile('JohnnyBoy11', function(err) {
+        expect(err).to.exist();
+        done();
+      });
+    });
+
+    it('should load only public information', function(done) {
+      var _user = new User(user1);
+      async.waterfall([
+        function(next) {
+          _user.save(next);
+        },
+
+        function() {
+          User.loadPublicProfile(_user.name, function(err, loaded_user) {
+            expect(err).to.not.exist();
+            loaded_user.should.include.keys('name', 'createdAt', 'flows');
+            loaded_user.should.not.include.keys('_id', 'email', 'provider');
+            done();
+          });
+        }
+      ]);
     });
   });
 
