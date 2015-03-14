@@ -92,7 +92,6 @@ var googleProfile = {
 var facebookProfile = {
   displayName: 'jemonjam',
   emails: [{value: 'a@b.com'}, {value:'c@d.com'}],
-  username: 'jemonjam',
   _json: extraJson
 };
 
@@ -120,7 +119,6 @@ describe('Passport', function() {
     it('should create a user with a facebook provider', function(done) {
       testCreateUser(this.sinon, facebookProfile, passport._facebookCallback, function(user) {
         user.email.should.equal('a@b.com');
-        user.username.should.equal('jemonjam');
         user.name.should.equal('jemonjam');
         user.provider.should.equal('facebook');
         user.facebook.should.equal(extraJson);
@@ -144,7 +142,6 @@ describe('Passport', function() {
 
     it('should create a user with a twitter provider', function(done) {
       testCreateUser(this.sinon, twitterProfile, passport._twitterCallback, function(user) {
-        user.username.should.equal('jemonjam');
         user.name.should.equal('jemonjam');
         user.provider.should.equal('twitter');
         user.twitter.should.equal(extraJson);

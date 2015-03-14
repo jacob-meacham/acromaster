@@ -11,9 +11,9 @@ var UserSchema = new Schema({
   },
   name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
-  username: String,
   email: {
     type: String,
     unique: true,
@@ -28,5 +28,14 @@ var UserSchema = new Schema({
 
   flows: [{ type: ShortId, ref: 'Flow' }],
 });
+
+UserSchema.statics = {
+  loadPublicProfile: function(name, cb) {
+    this.findOne({ name: name })
+      .populate('name createdAt')
+      .populate('flows')
+      .exec(cb);
+  }
+};
 
 mongoose.model('User', UserSchema);
