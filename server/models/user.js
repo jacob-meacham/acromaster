@@ -32,9 +32,24 @@ var UserSchema = new Schema({
 UserSchema.statics = {
   loadPublicProfile: function(name, cb) {
     this.findOne({ name: name })
-      .populate('name createdAt')
       .populate('flows')
-      .exec(cb);
+      .exec(function(err, user) {
+        if (err) {
+          return cb(err);
+        }
+
+        if (!user) {
+          return cb(null, null);
+        }
+
+        var profile = {
+          name: user.name,
+          createdAt: user.createdAt,
+          flows: user.flows // TODO: Get flows from the DB instead of storing them with the user.
+        };
+
+        cb(null, profile);
+      });
   }
 };
 
