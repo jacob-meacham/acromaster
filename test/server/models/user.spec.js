@@ -94,7 +94,6 @@ describe('User Model', function() {
 
         function() {
           User.loadPublicProfile(_user.name, function(err, loaded_user) {
-            console.log('user: ' + loaded_user);
             expect(err).to.not.exist();
             loaded_user.name.should.equal(_user.name);
             done();
@@ -104,8 +103,9 @@ describe('User Model', function() {
     });
 
     it('should not load a nonexistent user', function(done) {
-      User.loadPublicProfile('JohnnyBoy11', function(err) {
-        expect(err).to.exist();
+      User.loadPublicProfile('JohnnyBoy11', function(err, user) {
+        expect(err).to.not.exist();
+        expect(user).to.not.exist();
         done();
       });
     });
