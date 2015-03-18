@@ -9,6 +9,7 @@ var UserSchema = new Schema({
     type: ShortId,
     alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   },
+  // TODO: Remove spaces in usernames?
   name: {
     type: String,
     required: true,
@@ -25,32 +26,32 @@ var UserSchema = new Schema({
   facebook: {},
   twitter: {},
   google: {},
-
-  flows: [{ type: ShortId, ref: 'Flow' }],
 });
 
 UserSchema.statics = {
   loadPublicProfile: function(name, cb) {
+    console.log('loading profile for ' + name);
     this.findOne({ name: name })
-      .populate('flows')
       .exec(function(err, user) {
         if (err) {
           return cb(err);
         }
 
         if (!user) {
-          return cb(null, null);
+          return cb();
         }
 
         var profile = {
+          _id: user._id,
           name: user.name,
           createdAt: user.createdAt,
-          flows: user.flows // TODO: Get flows from the DB instead of storing them with the user.
         };
 
         cb(null, profile);
       });
   }
 };
+
+
 
 mongoose.model('User', UserSchema);

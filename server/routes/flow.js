@@ -27,6 +27,7 @@ var show = function(req, res) {
 };
 
 var list = function(req, res) {
+  console.log('LIST');
   var page = (req.query.page > 0 ? req.query.page : 1) - 1;
   var perPage = 100;
   var options = {

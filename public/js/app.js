@@ -73,6 +73,10 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       templateUrl: '/partials/flow/play/play.html',
       controller: 'FlowPlayController'
     })
+    .when('/profile/:user', {
+      templateUrl: '/partials/profile.html',
+      controller: 'ProfileController'
+    })
     .otherwise({
       redirectTo: '/'
     });
