@@ -3,6 +3,18 @@
 require('../models/user.js');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Flow = mongoose.model('Flow');
+
+var loadFlows = function(user, cb) {
+  Flow.listByUser(user._id, function(err, flows) {
+    if (err) {
+      return cb(err);
+    }
+
+    user.flows = flows;
+    cb();
+  });
+};
 
 var loadByName = function(req, res, next, name) {
   User.loadPublicProfile(name, function(err, profile) {
@@ -15,7 +27,7 @@ var loadByName = function(req, res, next, name) {
     }
 
     req.profile = profile;
-    next();
+    loadFlows(req.profile, next);
   });
 };
 

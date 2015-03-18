@@ -44,6 +44,13 @@ FlowSchema.statics = {
       .limit(options.perPage)
       .skip(options.perPage * options.page)
       .exec(cb);
+  },
+
+  listByUser : function(author_id, cb) {
+    this.find({author: author_id}, '_id name author createdAt ratings')
+      .sort('createdAt')
+      .limit(1000)
+      .exec(cb);
   }
 };
 
