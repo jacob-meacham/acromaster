@@ -74,7 +74,18 @@ module.exports = {
 
     addErrorHandlers: function(app) {
         if (process.env.NODE_ENV === 'development') {
-            app.use(errorhandler({log: false}));
+            // Dev error handler
+            app.use(errorhandler({log: true}));
+        } else if (process.env.NODE_ENV === 'production') {
+            app.use(function(err, req, res, next) {
+                console.error(err.stack);
+                next(err);
+            });
         }
+
+        app.use(function(err, req, res) {
+            // Return 500 to the client.
+            res.status(500).send({ error: err });
+        });
     }
 };
