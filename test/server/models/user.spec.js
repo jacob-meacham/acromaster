@@ -120,8 +120,8 @@ describe('User Model', function() {
         function() {
           User.loadPublicProfile(_user.name, function(err, loaded_user) {
             expect(err).to.not.exist();
-            loaded_user.should.include.keys('name', 'createdAt', 'flows');
-            loaded_user.should.not.include.keys('_id', 'email', 'provider');
+            loaded_user.should.include.keys('name', 'createdAt', '_id');
+            loaded_user.should.not.include.keys('email', 'provider');
             done();
           });
         }
