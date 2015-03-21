@@ -1,13 +1,24 @@
 'use strict';
 
-angular.module('acromaster.controllers').controller('NavbarController', ['$scope', 'AuthService', function($scope, AuthService) {
+angular.module('acromaster.controllers').controller('NavbarController', ['$scope', '$modal', 'AuthService', function($scope, $modal, authService) {
   var resetAuth = function() {
-    $scope.user = AuthService.getUser();
-    $scope.authenticated = AuthService.isAuthenticated();
+    $scope.user = authService.getUser();
+    $scope.authenticated = authService.isAuthenticated();
   };
 
   $scope.logout = function() {
-    AuthService.logout(resetAuth);
+    authService.logout(resetAuth);
+  };
+
+  $scope.about = function() {
+    $modal.open({
+      templateUrl: 'partials/about.html',
+      controller: 'AboutController',
+      size: 'lg',
+      backdrop: true,
+      backdropClass: 'about-backdrop',
+      windowClass: 'about-modal-window'
+    });
   };
 
   resetAuth();
