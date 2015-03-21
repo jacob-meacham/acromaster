@@ -4,3 +4,9 @@
   margin-top: 10px;
   margin-left: 180px;
 }
+
+/* line 7, ../sass/about.scss */
+.about-backdrop {
+  bottom: 0;
+  position: fixed;
+}
