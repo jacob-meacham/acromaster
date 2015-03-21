@@ -183,6 +183,7 @@ module.exports = function(grunt) {
             coverage: {
                 src: 'test/server/**/*.spec.js',
                 options: {
+                    timeout: 3000,
                     coverageFolder: 'build/coverage/server',
                     reportFormats: ['lcov'],
                     check: {
