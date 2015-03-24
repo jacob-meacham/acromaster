@@ -18,6 +18,7 @@ var loadFlows = function(user, cb) {
 
 var loadByName = function(req, res, next, name) {
   User.loadPublicProfile(name, function(err, profile) {
+    console.log('Loading user by name');
     if (err) {
       return next(err);
     }

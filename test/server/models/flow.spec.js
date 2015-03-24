@@ -75,6 +75,7 @@ describe('Flow Model', function() {
           user.save(cb);
         }
       ], function(err) {
+        console.log(err);
         expect(err).to.not.exist();
         done();
       });

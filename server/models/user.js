@@ -3,13 +3,19 @@
 var mongoose = require('mongoose');
 var ShortId = require('mongoose-shortid');
 var Schema = mongoose.Schema;
+var slugify = require('slugify');
 
 var UserSchema = new Schema({
   _id: {
     type: ShortId,
     alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   },
-  // TODO: Remove spaces in usernames?
+  username: {
+    // username is a url-safe version of the display name
+    // and is required (added by the pre-save middleware)
+    type: String,
+    unique: true
+  },
   name: {
     type: String,
     required: true,
@@ -21,6 +27,7 @@ var UserSchema = new Schema({
     match: [/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please enter a valid email'], //"
   },
   createdAt: { type: Date, 'default': Date.now },
+  profilePictureUrl: String,
   provider: String,
   
   facebook: {},
@@ -28,10 +35,17 @@ var UserSchema = new Schema({
   google: {},
 });
 
+UserSchema.pre('save', function(next) {
+  var self = this;
+  if (!self.username) {
+    self.username = slugify(self.name.toLowerCase());
+  }
+  next();
+});
+
 UserSchema.statics = {
   loadPublicProfile: function(name, cb) {
-    console.log('loading profile for ' + name);
-    this.findOne({ name: name })
+    this.findOne({ username: name })
       .exec(function(err, user) {
         if (err) {
           return cb(err);
@@ -44,6 +58,8 @@ UserSchema.statics = {
         var profile = {
           _id: user._id,
           name: user.name,
+          username: user.username,
+          profilePictureUrl: user.profilePictureUrl,
           createdAt: user.createdAt,
         };
 
