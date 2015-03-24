@@ -15,16 +15,14 @@ var user1, user2;
 describe('User Model', function() {
   before(function(done) {
     user1 = {
-      name: 'Full name',
+      name: 'Full Name',
       email: 'test.foo@test.com',
-      username: 'foo',
       provider: 'twitter'
     };
 
     user2 = {
-      name: 'Full name',
+      name: 'Full Name 2',
       email: 'test.bar@test.com',
-      username: 'bar',
       provider: 'google'
     };
 
@@ -52,10 +50,10 @@ describe('User Model', function() {
       _user.save(function(err) {
         expect(err).to.not.exist();
 
-        _user.name = 'Full name2';
-        _user.save(function(err) {
+        _user.name = 'Bodhi Man';
+        _user.save(function(err, result) {
           expect(err).to.not.exist();
-          _user.name.should.equal('Full name2');
+          result.name.should.equal('Bodhi Man');
           done();
         });
       });
@@ -77,8 +75,17 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.name = '';
 
-      return _user.save(function(err) {
+      _user.save(function(err) {
         expect(err).to.exist();
+        done();
+      });
+    });
+
+    it('should save a slugified version of the name', function(done) {
+      var _user = new User(user2);
+      _user.save(function(err, result) {
+        expect(err).to.not.exist();
+        result.username.should.equal('full-name-2');
         done();
       });
     });
@@ -93,7 +100,7 @@ describe('User Model', function() {
         },
 
         function() {
-          User.loadPublicProfile(_user.name, function(err, loaded_user) {
+          User.loadPublicProfile(_user.username, function(err, loaded_user) {
             expect(err).to.not.exist();
             loaded_user.name.should.equal(_user.name);
             done();
@@ -103,7 +110,7 @@ describe('User Model', function() {
     });
 
     it('should not load a nonexistent user', function(done) {
-      User.loadPublicProfile('JohnnyBoy11', function(err, user) {
+      User.loadPublicProfile('johnny-boy-11', function(err, user) {
         expect(err).to.not.exist();
         expect(user).to.not.exist();
         done();
@@ -118,10 +125,9 @@ describe('User Model', function() {
         },
 
         function() {
-          User.loadPublicProfile(_user.name, function(err, loaded_user) {
+          User.loadPublicProfile(_user.username, function(err, loaded_user) {
             expect(err).to.not.exist();
-            loaded_user.should.include.keys('name', 'createdAt', '_id');
-            loaded_user.should.not.include.keys('email', 'provider');
+            expect(loaded_user).to.have.keys('name', 'username', 'createdAt', '_id', 'profilePictureUrl');
             done();
           });
         }
