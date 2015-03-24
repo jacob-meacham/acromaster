@@ -56,7 +56,6 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       templateUrl: '/partials/flow/play/play.html',
       controller: 'FlowPlayController'
     })
-    // TODO: It's own controller?
     .when('/flow/end', {
       templateUrl: '/partials/flow/play/end.html',
       controller: 'FlowEndController'
