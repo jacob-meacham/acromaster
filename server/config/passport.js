@@ -26,7 +26,6 @@ var userCallback = function(profile, idProp, userCreator, done) {
             // Create the user and then set properties common to all providers
             user = userCreator(profile);
             user.email = profile.emails ? profile.emails[0].value : null;
-            user.profilePictureUrl = profile.photos ? profile.photos[0].value : null;
             user.save(function(err) {
                 return done(err, user);
             });
@@ -40,6 +39,7 @@ var twitterCallback = function(token, tokenSecret, profile, done) {
     var userCreator = function(profile) {
         return new User({
             name: profile.username,
+            profilePictureUrl: profile.photos ? profile.photos[0].value : null,
             provider: 'twitter',
             twitter: profile._json
         });
@@ -49,8 +49,10 @@ var twitterCallback = function(token, tokenSecret, profile, done) {
 
 var facebookCallback = function(accessToken, refreshToken, profile, done) {
     var userCreator = function(profile) {
+        console.log('Profile: ' + profile);
         return new User({
             name: profile.displayName,
+            profilePictureUrl: profile.photos ? profile.photos[0].value : null,
             provider: 'facebook',
             facebook: profile._json
         });
@@ -62,6 +64,7 @@ var googleCallback = function(accessToken, refreshToken, profile, done) {
     var userCreator = function(profile) {
         return new User({
             name: profile.displayName,
+            profilePictureUrl: profile._json.picture,
             provider: 'google',
             google: profile._json
         });
@@ -89,7 +92,8 @@ module.exports = {
         passport.use(new FacebookStrategy({
                 clientID: config.auth.facebook.clientID,
                 clientSecret: config.auth.facebook.clientSecret,
-                callbackURL: config.auth.facebook.callbackUrl
+                callbackURL: config.auth.facebook.callbackUrl,
+                profileFields: ['id', 'name', 'displayName', 'photos']
             }, facebookCallback));
 
         //Use google strategy

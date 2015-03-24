@@ -1,1 +1,14 @@
-{{ profile }}
+<h1>{{ profile.name }}</h1>
+<img ng-src="{{profile.profilePictureUrl}}"></img>
+<em>User since {{profile.createdAt | date}}</em>
+
+<h2>Recent Flows</h2>
+TODO RECENT FLOWS
+
+<h2>Flows I've Created</h2>
+<ul ng-repeat='flow in profile.flows'>
+    <li><a href="/flow/{{flow._id}}">{{flow.name}}</li>
+</ul>
+
+<h2>My Stats</h2>
+TODO STATS
