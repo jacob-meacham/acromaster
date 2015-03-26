@@ -24,6 +24,7 @@
         "public/lib/angular-ui-sortable/sortable.min.js": "public/lib/angular-ui-sortable/sortable.js",
         "public/lib/angular-xeditable/dist/js/xeditable.min.js": "public/lib/angular-xeditable/dist/js/xeditable.js",
         "public/lib/angular-flash/dist/angular-flash.min.js": "public/lib/angular-flash/dist/angular-flash.js",
+        "public/lib/nsPopover/src/nsPopover.js": "public/lib/nsPopover/src/nsPopover.js",
         "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"
     }
   },
