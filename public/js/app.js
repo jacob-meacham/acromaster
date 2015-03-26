@@ -12,6 +12,7 @@ var app = angular.module('acromaster', [
   'ui.bootstrap',
   'ui.sortable',
   'ngJustGage',
+  'nsPopover',
   'angular-flash.service',
   'angular-flash.flash-alert-directive'
 ])
