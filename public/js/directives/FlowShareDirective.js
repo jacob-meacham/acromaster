@@ -37,7 +37,7 @@ directives.directive('flowShare', ['$document', '$timeout', function($document, 
   return {
     restrict: 'E',
     link: link,
-    template: '<a href="#" ns-popover ns-popover-template="partials/flow/flowpopover.html" ns-popover-theme="ns-popover-tooltip-theme" ns-popover-placement="top">Share this flow</a>',
+    template: '<a href="#" ns-popover ns-popover-template="partials/flow/share_popover.html" ns-popover-theme="ns-popover-tooltip-theme" ns-popover-placement="top">Share this flow</a>',
     controller: 'FlowShareDirectiveController',
     controllerAs: 'vm',
     bindToController: true,
