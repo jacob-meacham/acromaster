@@ -29,7 +29,6 @@ controllers.controller('FlowEditController', ['$scope', '$routeParams', '$locati
 }]);
 
 controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', 'FlowService', function($scope, $routeParams, $location, FlowService) {
-  console.log($location);
   var flow = $scope.flow = FlowService.instantiateFlow($routeParams.flowId);
 
   $scope.url = $location.absUrl - $location.path + '/flow';
