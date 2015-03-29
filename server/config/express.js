@@ -73,12 +73,12 @@ module.exports = {
 
     addErrorHandlers: function(app) {
         app.use(function(err, req, res, next) {
-            //console.error(err.stack);
+            console.error(err.stack);
             next(err);
         });
 
-        app.use(function(err, req, res) {
-            console.log('Sending jsonp error');
+        // jshint unused:false
+        app.use(function(err, req, res, next) {
             // Return 500 to the client.
             res.status(500).jsonp({ error: err.stack });
         });
