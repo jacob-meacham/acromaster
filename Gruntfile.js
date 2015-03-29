@@ -153,7 +153,8 @@ module.exports = function(grunt) {
             options: {
                 globals: [
                     'should',
-                    'sinon'
+                    'sinon',
+                    'fieldName' /* Spurious mockgoose issue */
                 ],
                 timeout: 3000,
                 ignoreLeaks: false,

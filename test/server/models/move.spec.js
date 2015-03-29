@@ -15,6 +15,7 @@ var Move = mongoose.model('Move');
 describe('Moves', function() {
   before(function() {
     globalMove = {
+      _id: 'dogPzIze',
       name: 'New Move',
       difficulty: 5,
       audioUri: 'foo',
