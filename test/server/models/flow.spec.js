@@ -18,10 +18,18 @@ var Move = mongoose.model('Move');
 var User = mongoose.model('User');
 
 var saveFlow = function(flow, next) {
-   flow.save(function(err) {
-      expect(err).to.not.exist();
-      next(null, null);
+  flow.save(function(err) {
+    expect(err).to.not.exist();
+    next(null, null);
+  });
+};
+
+var resetDb = function(cb) {
+  Flow.remove({}, function() {
+    User.remove({}, function() {
+      cb();
     });
+  });
 };
 
 describe('Flow Model', function() {
@@ -75,7 +83,6 @@ describe('Flow Model', function() {
           user.save(cb);
         }
       ], function(err) {
-        console.log(err);
         expect(err).to.not.exist();
         done();
       });
@@ -86,15 +93,15 @@ describe('Flow Model', function() {
   });
 
   after(function(done) {
-    Move.remove({}, function() {
-      done();
+    resetDb(function() {
+      Move.remove({}, function() {
+        done();
+      });
     });
   });
 
   beforeEach(function(done) {
-    Flow.remove({}, function() {
-      done();
-    });
+    resetDb(done);
   });
   
   describe('save()', function() {
@@ -303,20 +310,6 @@ describe('Flow Model', function() {
           });
         }
       ]);
-    });
-  });
-
-  describe('getRating', function()  {
-    it('should return -1 if no ratings exist', function(done) {
-      var _flow = new Flow(flow2);
-      _flow.getRating().should.equal(-1);
-      done();
-    });
-
-    it('should return mean of existing ratings', function(done) {
-      var _flow = new Flow(flow1);
-      _flow.getRating().should.equal(7);
-      done();
     });
   });
 });

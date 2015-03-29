@@ -26,11 +26,9 @@ var FlowSchema = new Schema({
   players: [{type: ShortId, ref: 'User'}]
 });
 
-FlowSchema.plugin(likesPlugin);
-
 FlowSchema.statics = {
   load: function(id, cb) {
-    this.findOne({ _id: id })
+    return this.findOne({ _id: id })
       .populate('author', 'name _id')
       .populate('moves.move')
       .exec(cb);
@@ -43,7 +41,7 @@ FlowSchema.statics = {
     var sortBy = {};
     sortBy[options.sortBy || 'createdAt'] = -1;
 
-    this.find(criteria)
+    return this.find(criteria)
       .populate('author')
       .populate('moves.move')
       .sort(sortBy)
@@ -53,11 +51,32 @@ FlowSchema.statics = {
   },
 
   listByUser : function(author_id, cb) {
-    this.find({author: author_id}, '_id name author createdAt ratings')
+    return this.find({author: author_id}, '_id name author createdAt ratings')
       .sort('createdAt')
       .limit(1000)
       .exec(cb);
   }
 };
+
+FlowSchema.methods = {
+  recordPlayed: function(userId, cb) {
+    var update = {
+      $addToSet: {
+        players: userId
+      },
+      $inc: {
+        plays: 1
+      }
+    };
+
+    return this.model('Flow').findByIdAndUpdate(this._id, update, cb);
+  }
+};
+
+FlowSchema.plugin(likesPlugin, {
+  disableDislikes: true,
+  likerIdType: ShortId,
+  indexed: true
+});
 
 mongoose.model('Flow', FlowSchema);
