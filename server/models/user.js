@@ -13,7 +13,8 @@ var UserSchema = new Schema({
   username: {
     // username is a url-safe version of the display name
     // and is required (added by the pre-save middleware)
-    type: String
+    type: String,
+    unique: true
   },
   name: {
     type: String,

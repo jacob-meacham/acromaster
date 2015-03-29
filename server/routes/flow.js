@@ -7,7 +7,6 @@ var async = require('async');
 var mongoose = require('mongoose');
 var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
-var User = mongoose.model('User');
 
 var loadById = function(req, res, next, id) {
   Flow.load(id, function(err, flow) {
@@ -16,7 +15,7 @@ var loadById = function(req, res, next, id) {
     }
     
     if (!flow) {
-      return next(new Error('Failed to load flow: ' + id));
+      return next(new Error('Failed to load flow with id ' + id));
     }
 
     req.flow = flow;
