@@ -49,7 +49,6 @@ var twitterCallback = function(token, tokenSecret, profile, done) {
 
 var facebookCallback = function(accessToken, refreshToken, profile, done) {
     var userCreator = function(profile) {
-        console.log('Profile: ' + profile);
         return new User({
             name: profile.displayName,
             profilePictureUrl: profile.photos ? profile.photos[0].value : null,

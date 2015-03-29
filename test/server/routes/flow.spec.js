@@ -4,9 +4,12 @@ var request = require('supertest');
 var app = require('../../../server');
 var express = require('express');
 var mongoose = require('mongoose');
+var mockgoose = require('mockgoose');
 var async = require('async');
 require('../../../server/models/flow.js');
 require('../../../server/models/move.js');
+
+mockgoose(mongoose);
 
 var chai = require('chai');
 chai.should();
@@ -91,10 +94,6 @@ describe('/api/flow', function() {
 
     async.waterfall([
       function(cb) {
-        if (mongoose.connection.db) { return cb(); }
-        mongoose.connect('mongodb://localhost/am-test', cb);
-      },
-      function(cb) {
         move1.save(cb);
       },
       function(res, cb) {
@@ -123,14 +122,6 @@ describe('/api/flow', function() {
         expect(err).to.not.exist();
         done();
       });
-  });
-
-  after(function(done) {
-    Flow.remove({}, function() {
-      Move.remove({}, function() {
-        done();
-      });
-    });
   });
 
   describe('POST /api/flow', function() {
@@ -194,7 +185,10 @@ describe('/api/flow', function() {
       request(app)
         .get('/api/flow/54b756f3ccc62d70143fd7ea')
         .expect(500)
-        .expect(/Failed to load flow/, done);
+        .expect(function(res) {
+          res.body.error.should.match(/Failed to load flow/);
+        })
+        .end(done);
     });
 
     it('should return the correct flow when asked', function(done) {
@@ -340,7 +334,7 @@ describe('/api/flow', function() {
 
     it('should return an error if list fails', function(done) {
       var stub = this.sinon.stub(Flow, 'list', function(options, callback) {
-        callback('Stub error', null);
+        callback('Stub error');
       });
 
       request(app)
@@ -401,7 +395,7 @@ describe('/api/flow', function() {
         .expect(500)
         .expect(function(res) {
           stub.should.have.been.callCount(1);
-          res.body.error.should.equal('An error occurred: Stub error');
+          res.body.error.should.equal('Stub error');
         })
         .end(done);
     });

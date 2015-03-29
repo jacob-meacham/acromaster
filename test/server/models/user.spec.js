@@ -2,8 +2,11 @@
 
 var async = require('async');
 var mongoose = require('mongoose');
+var mockgoose = require('mockgoose');
 var chai = require('chai');
 require('../../../server/models/user.js');
+
+mockgoose(mongoose);
 
 chai.should();
 var expect = chai.expect;
@@ -13,27 +16,24 @@ var User = mongoose.model('User');
 var user1, user2;
 
 describe('User Model', function() {
-  before(function(done) {
+  before(function() {
     user1 = {
+      _id: 'eWEKaVNO',
       name: 'Full Name',
       email: 'test.foo@test.com',
       provider: 'twitter'
     };
 
     user2 = {
+      _id: 'boetLdeZ',
       name: 'Full Name 2',
       email: 'test.bar@test.com',
       provider: 'google'
     };
-
-    if (mongoose.connection.db) { return done(); }
-    mongoose.connect('mongodb://localhost/am-test', done);
   });
 
-  beforeEach(function(done) {
-    User.remove({}, function() {
-      done();
-    });
+  beforeEach(function() {
+    mockgoose.reset();
   });
 
   describe('save()', function() {

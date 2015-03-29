@@ -1,8 +1,8 @@
 'use strict';
 
-var _ = require('lodash');
 var mongoose = require('mongoose');
 var ShortId = require('mongoose-shortid');
+var likesPlugin = require('mongoose-likes');
 var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
@@ -12,6 +12,8 @@ var FlowSchema = new Schema({
   },
   name: { type: String, required: true },
   author: { type: ShortId, ref: 'User' },
+
+  // TODO: Should just be in here, since moves are static?
   moves: [{
     move: { type: ShortId, ref: 'Move' },
     duration: Number
@@ -19,12 +21,14 @@ var FlowSchema = new Schema({
 
   createdAt: { type : Date, default : Date.now },
   official: Boolean,
-  ratings: [Number]
+
+  plays: Number,
+  players: [{type: ShortId, ref: 'User'}]
 });
 
 FlowSchema.statics = {
   load: function(id, cb) {
-    this.findOne({ _id: id })
+    return this.findOne({ _id: id })
       .populate('author', 'name _id')
       .populate('moves.move')
       .exec(cb);
@@ -37,7 +41,7 @@ FlowSchema.statics = {
     var sortBy = {};
     sortBy[options.sortBy || 'createdAt'] = -1;
 
-    this.find(criteria)
+    return this.find(criteria)
       .populate('author')
       .populate('moves.move')
       .sort(sortBy)
@@ -47,7 +51,7 @@ FlowSchema.statics = {
   },
 
   listByUser : function(author_id, cb) {
-    this.find({author: author_id}, '_id name author createdAt ratings')
+    return this.find({author: author_id}, '_id name author createdAt ratings')
       .sort('createdAt')
       .limit(1000)
       .exec(cb);
@@ -55,17 +59,24 @@ FlowSchema.statics = {
 };
 
 FlowSchema.methods = {
-  getRating: function() {
-    if (this.ratings.length === 0) {
-      return -1;
-    }
+  recordPlayed: function(userId, cb) {
+    var update = {
+      $addToSet: {
+        players: userId
+      },
+      $inc: {
+        plays: 1
+      }
+    };
 
-    var sum = _.reduce(this.ratings, function(memo, num) {
-      return memo + num;
-    });
-
-    return sum/this.ratings.length;
+    return this.model('Flow').findByIdAndUpdate(this._id, update, cb);
   }
 };
+
+FlowSchema.plugin(likesPlugin, {
+  disableDislikes: true,
+  likerIdType: ShortId,
+  indexed: true
+});
 
 mongoose.model('Flow', FlowSchema);

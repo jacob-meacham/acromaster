@@ -2,6 +2,7 @@
 
 require('../models/flow.js');
 require('../models/move.js');
+require('../models/user.js');
 var async = require('async');
 var mongoose = require('mongoose');
 var Flow = mongoose.model('Flow');
@@ -14,7 +15,7 @@ var loadById = function(req, res, next, id) {
     }
     
     if (!flow) {
-      return next(new Error('Failed to load flow: ' + id));
+      return next(new Error('Failed to load flow with id ' + id));
     }
 
     req.flow = flow;
@@ -22,12 +23,11 @@ var loadById = function(req, res, next, id) {
   });
 };
 
-var show = function(req, res) {
+var getFlow = function(req, res) {
   res.jsonp(req.flow);
 };
 
-var list = function(req, res) {
-  console.log('LIST');
+var list = function(req, res, next) {
   var page = (req.query.page > 0 ? req.query.page : 1) - 1;
   var perPage = 100;
   var options = {
@@ -37,14 +37,12 @@ var list = function(req, res) {
 
   Flow.list(options, function(err, flows) {
     if (err) {
-      res.status(500).send({error: err});
-      return;
+      return next(err);
     }
     
     Flow.count().exec(function(err, count) {
       if (err) {
-        res.status(500).send({error: err});
-        return;
+        return next(err);
       }
 
       res.jsonp({
@@ -56,7 +54,7 @@ var list = function(req, res) {
   });
 };
 
-var create = function(req, res) {
+var create = function(req, res, next) {
   var flow = new Flow(req.body);
   if (flow.author) {
     if (!req.user || req.user._id !== flow.author._id) {
@@ -71,8 +69,7 @@ var create = function(req, res) {
 
   flow.save(function(err) {
     if (err) {
-      res.status(500).send({error: err});
-      return;
+      return next(err);
     }
 
     res.jsonp(flow);
@@ -95,6 +92,56 @@ var update = function(req, res) {
   });
 };
 
+var requireUser = function(req, res, next) {
+  if (!req.user) {
+    return res.status(401).send({error: new Error('No user')});
+  }
+  
+  next();
+};
+
+var like = function(req, res, next) {
+  var flow = req.flow;
+  flow.like(req.user._id, function(err) {
+    if (err) {
+      return next(err);
+    }
+
+    res.send(200);
+  });
+};
+
+var removeLike = function(req, res, next) {
+  var flow = req.flow;
+  flow.cancelLike(req.user._id, function(err) {
+    if (err) {
+      return next(err);
+    }
+
+    res.send(200);
+  });
+};
+
+var hasLiked = function(req, res, next) {
+  Flow.findLikes(req.user._id, {_id:req.flow._id}, function(err, likes) {
+    if (err) {
+      return next(err);
+    }
+
+    res.jsonp(!!likes.length);
+  });
+};
+
+var recordPlayed = function(req, res, next) {
+  req.flow.recordPlayed(req.user._id, function(err) {
+    if (err) {
+      return next(err);
+    }
+
+    return req.flow.plays;
+  });
+};
+
 // {
 //   'totalTime' : 3600,
 //   'difficulty' : 3,
@@ -103,7 +150,7 @@ var update = function(req, res) {
 //   'transitionMoves' : true,
 //   'style' : 'Training' // or whatever
 // }
-var generate = function(req, res) {
+var generate = function(req, res, routeNext) {
   if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
     res.status(400).send({error: 'totalTime and timePerMove required'});
     return;
@@ -155,14 +202,14 @@ var generate = function(req, res) {
   ],
   function(err, result) {
     if (err) {
-      res.status(500).send({error: 'An error occurred: ' + err});
-    } else {
-      res.jsonp(result);
+      return routeNext(err);
     }
+    
+    res.jsonp(result);
   });
 };
 
-var getMoves = function(req, res) {
+var getMoves = function(req, res, next) {
   var query = {};
   if (req.query !== null) {
     query = req.query;
@@ -170,8 +217,7 @@ var getMoves = function(req, res) {
   
   Move.find(query, function(err, moves) {
     if (err) {
-      res.status(500).send({error: err});
-      return;
+      return next(err);
     }
 
     res.jsonp(moves);
@@ -181,9 +227,13 @@ var getMoves = function(req, res) {
 module.exports = function(app) {
   app.get('/api/flow/generate', generate);
   app.get('/api/flow', list);
-  app.get('/api/flow/:flowId', show);
+  app.get('/api/flow/:flowId', getFlow);
   app.post('/api/flow', create);
   app.put('/api/flow/:flowId', update);
+  app.post('/api/flow/:flowId/likes', requireUser, like);
+  app.delete('/api/flow/:flowId/likes', requireUser, removeLike);
+  app.get('/api/flow/:flowId/likes', requireUser, hasLiked);
+  app.post('/api/flow/:flowId/plays', requireUser, recordPlayed);
   app.get('/api/moves', getMoves);
 
   app.param('flowId', loadById);

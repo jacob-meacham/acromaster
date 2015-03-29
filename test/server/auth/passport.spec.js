@@ -1,7 +1,10 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var mockgoose = require('mockgoose');
 require('../../../server/models/user.js');
+
+mockgoose(mongoose);
 
 var chai = require('chai');
 chai.should();

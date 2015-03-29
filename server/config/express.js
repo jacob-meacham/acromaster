@@ -8,7 +8,6 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     expressValidator = require('express-validator'),
-    errorhandler = require('errorhandler'),
     favicon = require('static-favicon'),
     flash = require('connect-flash'),
     assetmanager = require('assetmanager'),
@@ -73,19 +72,18 @@ module.exports = {
     },
 
     addErrorHandlers: function(app) {
-        if (process.env.NODE_ENV === 'development') {
-            // Dev error handler
-            app.use(errorhandler({log: true}));
-        } else if (process.env.NODE_ENV === 'production') {
-            app.use(function(err, req, res, next) {
+        app.use(function(err, req, res, next) {
+            if (process.env.NODE_ENV !== 'test') {
                 console.error(err.stack);
-                next(err);
-            });
-        }
+            }
+            next(err);
+        });
 
-        app.use(function(err, req, res) {
+        // jshint unused:false
+        app.use(function(err, req, res, next) {
             // Return 500 to the client.
-            res.status(500).send({ error: err });
+            // Use toString because instances of Error don't JSON.stringify well.
+            res.status(500).send({ error: err.toString() });
         });
     }
 };
