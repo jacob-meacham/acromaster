@@ -8,7 +8,6 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     expressValidator = require('express-validator'),
-    errorhandler = require('errorhandler'),
     favicon = require('static-favicon'),
     flash = require('connect-flash'),
     assetmanager = require('assetmanager'),
@@ -73,19 +72,15 @@ module.exports = {
     },
 
     addErrorHandlers: function(app) {
-        if (process.env.NODE_ENV === 'development') {
-            // Dev error handler
-            app.use(errorhandler({log: true}));
-        } else if (process.env.NODE_ENV === 'production') {
-            app.use(function(err, req, res, next) {
-                console.error(err.stack);
-                next(err);
-            });
-        }
+        app.use(function(err, req, res, next) {
+            //console.error(err.stack);
+            next(err);
+        });
 
         app.use(function(err, req, res) {
+            console.log('Sending jsonp error');
             // Return 500 to the client.
-            res.status(500).send({ error: err });
+            res.status(500).jsonp({ error: err.stack });
         });
     }
 };
