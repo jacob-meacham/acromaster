@@ -73,14 +73,17 @@ module.exports = {
 
     addErrorHandlers: function(app) {
         app.use(function(err, req, res, next) {
-            console.error(err.stack);
+            if (process.env.NODE_ENV !== 'test') {
+                console.error(err.stack);
+            }
             next(err);
         });
 
         // jshint unused:false
         app.use(function(err, req, res, next) {
             // Return 500 to the client.
-            res.status(500).jsonp({ error: err.stack });
+            // Use toString because instances of Error don't JSON.stringify well.
+            res.status(500).send({ error: err.toString() });
         });
     }
 };
