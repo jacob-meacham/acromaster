@@ -13,8 +13,7 @@ var UserSchema = new Schema({
   username: {
     // username is a url-safe version of the display name
     // and is required (added by the pre-save middleware)
-    type: String,
-    unique: true
+    type: String
   },
   name: {
     type: String,
@@ -35,7 +34,7 @@ var UserSchema = new Schema({
   google: {},
 
   favorites: [{
-    flow: ShortId, ref: 'Flow',
+    flow: { type: ShortId, ref: 'Flow'},
     favoritedAt: { type: Date, 'default': Date.now }
   }]
 });
