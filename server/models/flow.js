@@ -1,8 +1,8 @@
 'use strict';
 
-var _ = require('lodash');
 var mongoose = require('mongoose');
 var ShortId = require('mongoose-shortid');
+var likesPlugin = require('mongoose-likes');
 var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
@@ -12,6 +12,8 @@ var FlowSchema = new Schema({
   },
   name: { type: String, required: true },
   author: { type: ShortId, ref: 'User' },
+
+  // TODO: Should just be in here, since moves are static?
   moves: [{
     move: { type: ShortId, ref: 'Move' },
     duration: Number
@@ -19,8 +21,12 @@ var FlowSchema = new Schema({
 
   createdAt: { type : Date, default : Date.now },
   official: Boolean,
-  ratings: [Number]
+
+  plays: Number,
+  players: [{type: ShortId, ref: 'User'}]
 });
+
+FlowSchema.plugin(likesPlugin);
 
 FlowSchema.statics = {
   load: function(id, cb) {
@@ -51,20 +57,6 @@ FlowSchema.statics = {
       .sort('createdAt')
       .limit(1000)
       .exec(cb);
-  }
-};
-
-FlowSchema.methods = {
-  getRating: function() {
-    if (this.ratings.length === 0) {
-      return -1;
-    }
-
-    var sum = _.reduce(this.ratings, function(memo, num) {
-      return memo + num;
-    });
-
-    return sum/this.ratings.length;
   }
 };
 

@@ -30,6 +30,7 @@
     "lodash": "2.4.1",
     "method-override": "2.3.x",
     "mongoose": "3.8.23",
+    "mongoose-likes": "^0.1.0",
     "mongoose-shortid": "git://github.com/VocativLabs/mongoose-shortid.git#b6e7f73fbd41e3dc5617c5cf979f0740716d931d",
     "morgan": "1.5.1",
     "passport": "0.2.1",

@@ -33,6 +33,11 @@ var UserSchema = new Schema({
   facebook: {},
   twitter: {},
   google: {},
+
+  favorites: [{
+    flow: ShortId, ref: 'Flow',
+    favoritedAt: { type: Date, 'default': Date.now }
+  }]
 });
 
 UserSchema.pre('save', function(next) {
@@ -68,6 +73,17 @@ UserSchema.statics = {
   }
 };
 
+UserSchema.methods = {
+  addFavorite: function(flowId) {
+    // TODO, add favorite
+    console.log(flowId);
+  },
+
+  removeFavorite: function(flowId) {
+    // Remove favorite
+    console.log(flowId);
+  }
+};
 
 
 mongoose.model('User', UserSchema);
