@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var mockgoose = require('mockgoose');
 var chai = require('chai');
 var async = require('async');
 require('../../../server/models/flow.js');
@@ -11,8 +12,11 @@ var async = require('async');
 chai.should();
 var expect = chai.expect;
 
+mockgoose(mongoose);
+
 var flow1, flow2;
 var move1, move2;
+var user;
 var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
 var User = mongoose.model('User');
@@ -24,17 +28,10 @@ var saveFlow = function(flow, next) {
   });
 };
 
-var resetDb = function(cb) {
-  Flow.remove({}, function() {
-    User.remove({}, function() {
-      cb();
-    });
-  });
-};
-
 describe('Flow Model', function() {
-  before(function (done) {
+  before(function () {
     move1 = {
+      _id: 'eWRhpRVa',
       name: 'New Move',
       difficulty: 5,
       audioUri: 'foo',
@@ -43,6 +40,7 @@ describe('Flow Model', function() {
     };
 
     move2 = {
+      _id: 'ADTplPdS',
       name: 'New Move 2',
       difficulty: 5,
       audioUri: 'foo',
@@ -51,13 +49,15 @@ describe('Flow Model', function() {
     };
 
     var user1 = {
+      _id: 'GgJuzcyx',
       name: 'Abigail',
       email: 'test.foo@test.com'
     };
 
-    var user = new User(user1);
+    user = new User(user1);
 
     flow1 = {
+      _id: 'dBvJIhSH',
       name: 'Flow 1',
       author: user,
       official: false,
@@ -66,42 +66,30 @@ describe('Flow Model', function() {
     };
 
     flow2 = {
+      _id: 'eWEKaVNO',
       name: 'Yet Another Flow',
       official: false,
       createdAt: '12/10/2010'
     };
-
-    var save = function() {
-      async.parallel([
-        function(cb) {
-          new Move(move1).save(cb);
-        },
-        function(cb) {
-          new Move(move2).save(cb);
-        },
-        function(cb) {
-          user.save(cb);
-        }
-      ], function(err) {
-        expect(err).to.not.exist();
-        done();
-      });
-    };
-
-    if (mongoose.connection.db) { return save(); }
-    mongoose.connect('mongodb://localhost/am-test', save);
-  });
-
-  after(function(done) {
-    resetDb(function() {
-      Move.remove({}, function() {
-        done();
-      });
-    });
   });
 
   beforeEach(function(done) {
-    resetDb(done);
+    mockgoose.reset();
+
+    async.parallel([
+      function(cb) {
+        new Move(move1).save(cb);
+      },
+      function(cb) {
+        new Move(move2).save(cb);
+      },
+      function(cb) {
+        user.save(cb);
+      }
+    ], function(err) {
+      expect(err).to.not.exist();
+      done();
+    });
   });
   
   describe('save()', function() {
