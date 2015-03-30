@@ -19,7 +19,6 @@ describe('/auth', function() {
   before(function(done) {
     user = new User({
       name: 'jemonjam',
-      username: 'jemonjam',
       email: 'jemonjam@jemonjam.com',
     });
 
@@ -48,7 +47,7 @@ describe('/auth', function() {
         .expect(200)
         .expect(function(res) {
           res.body.name.should.equal(_user.name);
-          res.body.username.should.equal(_user.username);
+          res.body.email.should.equal(_user.email);
         })
         .end(done);
     });
@@ -70,7 +69,7 @@ describe('/auth', function() {
         .expect(200)
         .expect(function(res) {
           res.body.name.should.equal(_user.name);
-          res.body.username.should.equal(_user.username);
+          res.body.email.should.equal(_user.email);
         })
         .end(done);
     });

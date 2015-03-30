@@ -8,10 +8,11 @@ var app = angular.module('acromaster', [
   'acromaster.controllers',
   'acromaster.directives',
   'xeditable',
-  'ui.slider',
+  'vr.directives.slider',
   'ui.bootstrap',
   'ui.sortable',
   'ngJustGage',
+  'nsPopover',
   'angular-flash.service',
   'angular-flash.flash-alert-directive'
 ])
@@ -56,7 +57,6 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       templateUrl: '/partials/flow/play/play.html',
       controller: 'FlowPlayController'
     })
-    // TODO: It's own controller?
     .when('/flow/end', {
       templateUrl: '/partials/flow/play/end.html',
       controller: 'FlowEndController'
@@ -72,6 +72,10 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
     .when('/flow/:flowId/play', {
       templateUrl: '/partials/flow/play/play.html',
       controller: 'FlowPlayController'
+    })
+    .when('/profile/:user', {
+      templateUrl: '/partials/profile.html',
+      controller: 'ProfileController'
     })
     .otherwise({
       redirectTo: '/'

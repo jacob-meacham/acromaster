@@ -14,5 +14,4 @@
     HTML5, CSS3
     jQuery, Modernizr
     Mongoose.js, MongoDB,
-    Angular.js, Require.js, Binary.js,
-    socket.IO, express.js, SASS
+    Angular.js, express.js, SASS

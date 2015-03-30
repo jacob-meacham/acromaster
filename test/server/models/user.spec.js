@@ -1,8 +1,12 @@
 'use strict';
 
+var async = require('async');
 var mongoose = require('mongoose');
+var mockgoose = require('mockgoose');
 var chai = require('chai');
 require('../../../server/models/user.js');
+
+mockgoose(mongoose);
 
 chai.should();
 var expect = chai.expect;
@@ -12,28 +16,24 @@ var User = mongoose.model('User');
 var user1, user2;
 
 describe('User Model', function() {
-  before(function(done) {
+  before(function() {
     user1 = {
-      name: 'Full name',
+      _id: 'eWEKaVNO',
+      name: 'Full Name',
       email: 'test.foo@test.com',
-      username: 'foo',
       provider: 'twitter'
     };
 
     user2 = {
-      name: 'Full name',
+      _id: 'boetLdeZ',
+      name: 'Full Name 2',
       email: 'test.bar@test.com',
-      username: 'bar',
       provider: 'google'
     };
-
-    done();
   });
 
-  beforeEach(function(done) {
-    User.remove({}, function() {
-      done();
-    });
+  beforeEach(function() {
+    mockgoose.reset();
   });
 
   describe('save()', function() {
@@ -50,10 +50,10 @@ describe('User Model', function() {
       _user.save(function(err) {
         expect(err).to.not.exist();
 
-        _user.name = 'Full name2';
-        _user.save(function(err) {
+        _user.name = 'Bodhi Man';
+        _user.save(function(err, result) {
           expect(err).to.not.exist();
-          _user.name.should.equal('Full name2');
+          result.name.should.equal('Bodhi Man');
           done();
         });
       });
@@ -61,12 +61,13 @@ describe('User Model', function() {
 
     it('should fail to save an existing user with the same email', function(done) {
       var _user1 = new User(user1);
-      _user1.save();
-
       var _user2 = new User(user1);
-      _user2.save(function(err) {
-        expect(err).to.exist();
-        done();
+
+      _user1.save(function() {
+        _user2.save(function(err) {
+          expect(err).to.exist();
+          done();
+        });
       });
     });
 
@@ -74,10 +75,63 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.name = '';
 
-      return _user.save(function(err) {
+      _user.save(function(err) {
         expect(err).to.exist();
         done();
       });
+    });
+
+    it('should save a slugified version of the name', function(done) {
+      var _user = new User(user2);
+      _user.save(function(err, result) {
+        expect(err).to.not.exist();
+        result.username.should.equal('full-name-2');
+        done();
+      });
+    });
+  });
+
+  describe('loadPublicProfile()', function() {
+    it('should load a user by name', function(done) {
+      var _user = new User(user1);
+      async.waterfall([
+        function(next) {
+          _user.save(next);
+        },
+
+        function() {
+          User.loadPublicProfile(_user.username, function(err, loaded_user) {
+            expect(err).to.not.exist();
+            loaded_user.name.should.equal(_user.name);
+            done();
+          });
+        }
+      ]);
+    });
+
+    it('should not load a nonexistent user', function(done) {
+      User.loadPublicProfile('johnny-boy-11', function(err, user) {
+        expect(err).to.not.exist();
+        expect(user).to.not.exist();
+        done();
+      });
+    });
+
+    it('should load only public information', function(done) {
+      var _user = new User(user1);
+      async.waterfall([
+        function(next) {
+          _user.save(next);
+        },
+
+        function() {
+          User.loadPublicProfile(_user.username, function(err, loaded_user) {
+            expect(err).to.not.exist();
+            expect(loaded_user).to.have.keys('name', 'username', 'createdAt', '_id', 'profilePictureUrl');
+            done();
+          });
+        }
+      ]);
     });
   });
 

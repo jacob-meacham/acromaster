@@ -1,7 +1,10 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var mockgoose = require('mockgoose');
 require('../../../server/models/user.js');
+
+mockgoose(mongoose);
 
 var chai = require('chai');
 chai.should();
@@ -84,15 +87,14 @@ var extraJson = {
 };
 
 var googleProfile = {
-  name: 'jemonjam',
-  email: 'a@b.com',
+  displayName: 'jemonjam',
+  emails: [{value: 'a@b.com'}, {value:'c@d.com'}],
   _json: extraJson
 };
 
 var facebookProfile = {
   displayName: 'jemonjam',
   emails: [{value: 'a@b.com'}, {value:'c@d.com'}],
-  username: 'jemonjam',
   _json: extraJson
 };
 
@@ -104,10 +106,9 @@ var twitterProfile = {
 
 describe('Passport', function() {
   describe('deserializeUser', function() {
-    it('should return an error for an invalid id', function(done) {
-      passport._deserializeUser(0, function(err) {
-        expect(err).to.exist();
-        err.should.have.property('name', 'CastError');
+    it('should not return a user with an invalid id', function(done) {
+      passport._deserializeUser(0, function(user) {
+        expect(user).to.not.exist();
         done();
       });
     });
@@ -121,7 +122,6 @@ describe('Passport', function() {
     it('should create a user with a facebook provider', function(done) {
       testCreateUser(this.sinon, facebookProfile, passport._facebookCallback, function(user) {
         user.email.should.equal('a@b.com');
-        user.username.should.equal('jemonjam');
         user.name.should.equal('jemonjam');
         user.provider.should.equal('facebook');
         user.facebook.should.equal(extraJson);
@@ -145,7 +145,6 @@ describe('Passport', function() {
 
     it('should create a user with a twitter provider', function(done) {
       testCreateUser(this.sinon, twitterProfile, passport._twitterCallback, function(user) {
-        user.username.should.equal('jemonjam');
         user.name.should.equal('jemonjam');
         user.provider.should.equal('twitter');
         user.twitter.should.equal(extraJson);

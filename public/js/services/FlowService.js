@@ -17,11 +17,30 @@ acromasterServices.factory('Moves', ['$resource', function($resource) {
   return $resource('/api/moves');
 }]);
 
-acromasterServices.factory('flowService', function() {
+acromasterServices.factory('FlowService', ['Flow', function(Flow) {
   var flow = null;
   return {
-    setCurrentFlow: function(_flow) { flow = _flow; },
+    instantiateFlow: function(id, callback) {
+      var returnedFlow = Flow.get({flowId: id}, function() {
+        flow = returnedFlow;
+        if (callback) {
+          callback(returnedFlow);
+        }
+      });
+
+      return returnedFlow;
+    },
+    generateFlow: function(params, callback) {
+      var returnedFlow = Flow.generate(params, function() {
+        flow = returnedFlow;
+        if (callback) {
+          callback(flow);
+        }
+      });
+
+      return returnedFlow;
+    },
     getCurrentFlow: function() { return flow; },
     clearCurrentFlow: function() { flow = null; }
   };
-});
+}]);

@@ -7,17 +7,17 @@ var config = {
     common: {
         auth: {
             facebook: {
-                clientID: '1571422493085485',
+                clientID: process.env.FACEBOOK_ID,
                 clientSecret: process.env.FACEBOOK_SECRET,
                 callbackUrl: 'http://localhost:3000/auth/facebook/callback'
             },
             twitter: {
-                clientID: '45DXHdEozkOykBCzEgmfrTmRL',
+                clientID: process.env.TWITTER_ID,
                 clientSecret: process.env.TWITTER_SECRET,
                 callbackUrl: 'http://localhost:3000/auth/twitter/callback'
             },
             google: {
-                clientID: '670350064075-frr7h9tvc0php8lf1c9jtc90674e4vk0.apps.googleusercontent.com',
+                clientID: process.env.GOOGLE_ID,
                 clientSecret: process.env.GOOGLE_SECRET,
                 callbackUrl: 'http://localhost:3000/auth/google/callback'
             }
@@ -37,7 +37,7 @@ var config = {
         root: rootPath,
 
         s3: {
-            url: 'acromaster.s3.amazonaws.com',
+            url: 'localhost:10001',
             key: 's3key',
             secret: 's3secret'
         }
@@ -52,6 +52,7 @@ var config = {
             secret: 'acromaster',
             collection: 'sessions'
         },
+        dbName: 'am-test',
         dbUrl: 'mongodb://localhost/am-test',
         root: rootPath,
 

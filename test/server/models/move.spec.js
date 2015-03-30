@@ -1,8 +1,11 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var mockgoose = require('mockgoose');
 var chai = require('chai');
 require('../../../server/models/move.js');
+
+mockgoose(mongoose);
 
 chai.should();
 var expect = chai.expect;
@@ -10,19 +13,21 @@ var expect = chai.expect;
 var globalMove;
 var Move = mongoose.model('Move');
 describe('Moves', function() {
-  before(function (done) {
+  before(function() {
     globalMove = {
+      _id: 'dogPzIze',
       name: 'New Move',
       difficulty: 5,
       audioUri: 'foo',
       aliases: ['a', 'b'],
       tags: 'tag1,tag2'
     };
-
-    Move.remove({}, function() {
-      done();
-    });
   });
+
+  beforeEach(function() {
+    mockgoose.reset();
+  });
+
   describe('save()', function() {
     it('should save without error', function(done) {
       var _move = new Move(globalMove);

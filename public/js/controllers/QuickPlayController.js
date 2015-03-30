@@ -1,12 +1,11 @@
 'use strict';
 
-angular.module('acromaster.controllers').controller('QuickPlayCreateController', ['$scope', '$location', 'Flow', 'flowService', function($scope, $location, Flow, flowService) {
+angular.module('acromaster.controllers').controller('QuickPlayCreateController', ['$scope', '$location', 'FlowService', function($scope, $location, FlowService) {
   var flowParams = $scope.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};
 
   $scope.generateFlow = function() {
     flowParams.totalTime = flowParams.totalMinutes * 60;
-    Flow.generate(flowParams, function(newFlow) {
-      flowService.setCurrentFlow(newFlow);
+    FlowService.generateFlow(flowParams, function() {
       $location.path('/flow/quick/play');
     });
   };

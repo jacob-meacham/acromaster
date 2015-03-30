@@ -1,11 +1,11 @@
 'use strict';
 
 require('../models/user.js');
-var mongoose = require('mongoose'),
-    TwitterStrategy = require('passport-twitter').Strategy,
-    FacebookStrategy = require('passport-facebook').Strategy,
-    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
-    User = mongoose.model('User');
+var mongoose = require('mongoose');
+var TwitterStrategy = require('passport-twitter').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var User = mongoose.model('User');
 
 var deserializeUser = function(id, done) {
     User.findOne({
@@ -23,7 +23,9 @@ var userCallback = function(profile, idProp, userCreator, done) {
             return done(err);
         }
         if (!user) {
+            // Create the user and then set properties common to all providers
             user = userCreator(profile);
+            user.email = profile.emails ? profile.emails[0].value : null;
             user.save(function(err) {
                 return done(err, user);
             });
@@ -36,8 +38,8 @@ var userCallback = function(profile, idProp, userCreator, done) {
 var twitterCallback = function(token, tokenSecret, profile, done) {
     var userCreator = function(profile) {
         return new User({
-            name: profile.displayName,
-            username: profile.username,
+            name: profile.username,
+            profilePictureUrl: profile.photos ? profile.photos[0].value : null,
             provider: 'twitter',
             twitter: profile._json
         });
@@ -49,8 +51,7 @@ var facebookCallback = function(accessToken, refreshToken, profile, done) {
     var userCreator = function(profile) {
         return new User({
             name: profile.displayName,
-            email: profile.emails[0].value,
-            username: profile.username,
+            profilePictureUrl: profile.photos ? profile.photos[0].value : null,
             provider: 'facebook',
             facebook: profile._json
         });
@@ -61,8 +62,8 @@ var facebookCallback = function(accessToken, refreshToken, profile, done) {
 var googleCallback = function(accessToken, refreshToken, profile, done) {
     var userCreator = function(profile) {
         return new User({
-            name: profile.name,
-            email: profile.email,
+            name: profile.displayName,
+            profilePictureUrl: profile._json.picture,
             provider: 'google',
             google: profile._json
         });
@@ -90,7 +91,8 @@ module.exports = {
         passport.use(new FacebookStrategy({
                 clientID: config.auth.facebook.clientID,
                 clientSecret: config.auth.facebook.clientSecret,
-                callbackURL: config.auth.facebook.callbackUrl
+                callbackURL: config.auth.facebook.callbackUrl,
+                profileFields: ['id', 'name', 'displayName', 'photos']
             }, facebookCallback));
 
         //Use google strategy

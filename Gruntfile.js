@@ -5,6 +5,8 @@ var paths = {
   css: ['public/css/*.css', '!public/css/client.min.css']
 };
 
+var testConfig = require('./server/config/config').test;
+
 module.exports = function(grunt) {
     // Project Configuration
     grunt.initConfig({
@@ -45,27 +47,37 @@ module.exports = function(grunt) {
                     livereload: true
                 }
             },
+            express: {
+                files: ['server.js', 'server/**/*.js'],
+                tasks: ['express:dev', 'env:test', 'mochaTest:dev'],
+                options: {
+                    spawn: false
+                }
+            },
             mocha: {
                 files: ['test/server/**/*.js', 'server/**/*.js'],
                 tasks: ['env:test', 'mochaTest:dev']
+            },
+            
+            karma: {
+                files: ['test/client/**/*.spec.js', 'public/js/**/*.js'],
+                tasks: ['karma:dev:run']
             }
         },
 
         env : {
-            test : {
-              NODE_ENV : 'test'
+            test: {
+              NODE_ENV: 'test'
+            },
+            dev: {
+              NODE_ENV: 'development'
             }
-        },
-
-        open: {
-          server: {
-            url: 'http://localhost:3000'
-          }
         },
 
         jshint: {
             files: paths.js,
             options: {
+                reporter: require('jshint-stylish'),
                 jshintrc: true
             }
         },
@@ -106,44 +118,32 @@ module.exports = function(grunt) {
             },
             src: paths.css
         },
-        
-        nodemon: {
-            dev: {
-                script: 'server.js',
-                options: {
-                    ignore: ['README.md', 'node_modules/**', 'test/**'],
-                    debug: true,
-                    delay: 1,
-                }
-            }
-        },
 
-        concurrent: {
-            tasks: ['nodemon:dev', 'watch'],
-            options: {
-                logConcurrentOutput: true
+        express: {
+            dev: {
+                options: {
+                    script: 'server.js',
+                    debug: true
+                }
+            },
+
+            ci: {
+                options: {
+                    script: 'server.js',
+                    debug: false
+                }
             }
         },
 
         karma: {
             options: {
-                files: ['test/client/**/*.js'],
+                configFile: 'karma.conf.js'
             },
             dev: {
                 background: true,
-                browsers: ['PhantomJS'],
-                reporters: ['dots, coverage'],
-                coverageReporter: {
-                    type: 'html',
-                    dir: 'build/coverage/client'
-                },
-                preprocessors: {
-                    'public/js/**/*.js' : 'coverage'
-                }
+                singleRun: false
             },
             ci: {
-                reporters: ['dots'],
-                browsers: ['PhantomJS'],
                 background: false,
                 singleRun: true
             }
@@ -153,7 +153,8 @@ module.exports = function(grunt) {
             options: {
                 globals: [
                     'should',
-                    'sinon'
+                    'sinon',
+                    'fieldName' /* Spurious mockgoose issue */
                 ],
                 timeout: 3000,
                 ignoreLeaks: false,
@@ -165,24 +166,71 @@ module.exports = function(grunt) {
             }
         },
 
+        lcovMerge: {
+            options: {
+                emitters: ['file', 'event'],
+                outputFile: 'build/coverage/merged/lcov-merged.info'
+            },
+            files: ['build/coverage/client/**/*.info', 'build/coverage/server/**/*.info']
+        },
+
         mocha_istanbul: {
             coverage: {
                 src: 'test/server/**/*.spec.js',
                 options: {
-                    coverageFolder: 'build/coverage',
-                    coverage: true,
+                    timeout: 3000,
+                    coverageFolder: 'build/coverage/server',
                     reportFormats: ['lcov'],
                     check: {
-                        lines: 59,
-                        statements: 58
+                        lines: 80,
+                        statements: 80
                     }
                 }
             }
         },
+
+        mochaProtractor: {
+            options: {
+              browsers: ['PhantomJS'],
+              baseUrl: 'http://localhost:3000',
+              args: '--ignore-certificate-errors',
+              slow: 4000,
+              timeout: 10000,
+              suiteTimeout: 90000
+            },
+            files: ['test/e2e/**/*.spec.js']
+        },
+
+        mongoimport: {
+            options: {
+                db : testConfig.dbName,
+                stopOnError : false,
+                collections : [{
+                    name : 'moves',
+                    type :'json',
+                    file : 'test/e2e/fixtures/db/moves.json',
+                    jsonArray : true,
+                    upsert : true,
+                    drop : true
+                  },
+                  {
+                    name : 'flows',
+                    type : 'json',
+                    file : 'test/e2e/fixtures/db/flows.json',
+                    jsonArray : true,
+                    upsert : true,
+                    drop : true
+                }]
+            }
+        }
     });
 
-    grunt.event.on('coverage', function(lcov, done){
+    grunt.event.on('coverage', function(lcov, done) {
+        // Coveralls uses argv to set the basePath
+        var oldArgv = process.argv[2];
+        process.argv[2] = '';
         require('coveralls').handleInput(lcov, function(err) {
+            process.argv[2] = oldArgv;
             if (err) {
                 return done(err);
             }
@@ -190,26 +238,27 @@ module.exports = function(grunt) {
         });
     });
 
-    //Load NPM tasks 
-    grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-csslint');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-concurrent');
-    grunt.loadNpmTasks('grunt-open');
-    grunt.loadNpmTasks('grunt-env');
-    grunt.loadNpmTasks('grunt-nodemon');
-    grunt.loadNpmTasks('grunt-mocha-test');
-    grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-mocha-istanbul');
+    grunt.registerTask('mongodrop', 'drop the database', function() {
+        var mongoose = require('mongoose');
+        var done = this.async();
+        mongoose.connect(testConfig.dbUrl, function() {
+            mongoose.connection.db.dropDatabase(function(err) {
+                if(err) {
+                    grunt.fail.warn(err);
+                } else {
+                    grunt.log.ok('Successfully dropped db');
+                }
+                mongoose.connection.close(done);
+            });
+        });
+    });
 
-    //Default task(s).
-    grunt.registerTask('default', ['jshint', 'csslint', 'compass:dev', 'karma:dev', 'concurrent']);
+    // Load NPM tasks
+    require('load-grunt-tasks')(grunt);
 
-    //Test task.
-    grunt.registerTask('test', ['env:test', 'mocha_istanbul:coverage'/*, 'karma:ci'*/]);
-
+    grunt.registerTask('lint', ['jshint', 'csslint']);
+    grunt.registerTask('default', ['lint', 'env:dev', 'karma:dev', 'express:dev', 'watch']);
+    grunt.registerTask('protractor', ['env:test', 'selenium_start', 'mongoimport', 'express:ci', 'mochaProtractor']);
+    grunt.registerTask('test', ['lint', 'env:test', 'mongodrop', 'mocha_istanbul:coverage', 'karma:ci', 'protractor', 'lcovMerge']);
     grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
 };

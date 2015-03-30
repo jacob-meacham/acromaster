@@ -99,6 +99,7 @@
 }
 
 .play-move.ng-hide-add {
+  position: absolute;
   -webkit-animation:fade-out 0.5s both ease-in-out;
   -moz-animation:fade-out 0.5s both ease-in-out;
   animation:fade-out 0.5s both ease-in-out;

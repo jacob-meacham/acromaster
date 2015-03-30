@@ -1,29 +1,37 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var mockgoose = require('mockgoose');
 var chai = require('chai');
 var async = require('async');
 require('../../../server/models/flow.js');
 require('../../../server/models/move.js');
+require('../../../server/models/user.js');
+var async = require('async');
 
 chai.should();
 var expect = chai.expect;
 
+mockgoose(mongoose);
+
 var flow1, flow2;
 var move1, move2;
+var user;
 var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
+var User = mongoose.model('User');
 
 var saveFlow = function(flow, next) {
-   flow.save(function(err) {
-      expect(err).to.not.exist();
-      next(null, null);
-    });
+  flow.save(function(err) {
+    expect(err).to.not.exist();
+    next(null, null);
+  });
 };
 
 describe('Flow Model', function() {
-  before(function (done) {
+  before(function () {
     move1 = {
+      _id: 'eWRhpRVa',
       name: 'New Move',
       difficulty: 5,
       audioUri: 'foo',
@@ -32,6 +40,7 @@ describe('Flow Model', function() {
     };
 
     move2 = {
+      _id: 'ADTplPdS',
       name: 'New Move 2',
       difficulty: 5,
       audioUri: 'foo',
@@ -39,35 +48,46 @@ describe('Flow Model', function() {
       tags: 'tag1,tag2'
     };
 
-    new Move(move1).save();
-    new Move(move2).save();
+    var user1 = {
+      _id: 'GgJuzcyx',
+      name: 'Abigail',
+      email: 'test.foo@test.com'
+    };
+
+    user = new User(user1);
 
     flow1 = {
-      name: 'Flow',
-      author: 'Zulu',
+      _id: 'dBvJIhSH',
+      name: 'Flow 1',
+      author: user,
       official: false,
       ratings: [5,10,5,10,5],
       createdAt: '12/10/1990'
     };
 
     flow2 = {
-      name: 'Flow 2',
-      author: 'Abigail',
+      _id: 'eWEKaVNO',
+      name: 'Yet Another Flow',
       official: false,
       createdAt: '12/10/2010'
     };
-
-    done();
-  });
-
-  after(function(done) {
-    Move.remove({}, function() {
-      done();
-    });
   });
 
   beforeEach(function(done) {
-    Flow.remove({}, function() {
+    mockgoose.reset();
+
+    async.parallel([
+      function(cb) {
+        new Move(move1).save(cb);
+      },
+      function(cb) {
+        new Move(move2).save(cb);
+      },
+      function(cb) {
+        user.save(cb);
+      }
+    ], function(err) {
+      expect(err).to.not.exist();
       done();
     });
   });
@@ -75,6 +95,14 @@ describe('Flow Model', function() {
   describe('save()', function() {
     it('should save without error', function(done) {
       var _flow = new Flow(flow1);
+      _flow.save(function(err) {
+        expect(err).to.not.exist();
+        done();
+      });
+    });
+
+    it('should save a flow without an author without error', function(done) {
+      var _flow = new Flow(flow2);
       _flow.save(function(err) {
         expect(err).to.not.exist();
         done();
@@ -97,12 +125,14 @@ describe('Flow Model', function() {
 
     it('should be able to save two flows with the same name', function(done) {
       var _flow1 = new Flow(flow1);
-      _flow1.save();
-
-      var _flow2 = new Flow(flow1);
-      _flow2.save(function(err) {
+      _flow1.save(function(err) {
         expect(err).to.not.exist();
-        done();
+
+        var _flow2 = new Flow(flow1);
+        _flow2.save(function(err) {
+          expect(err).to.not.exist();
+          done();
+        });
       });
     });
   });
@@ -119,14 +149,18 @@ describe('Flow Model', function() {
         move = {'duration': 20, 'move': moves[1] };
         _flow.moves.push(move);
 
-        _flow.save();
-
-        _flow.populate('moves.move', function(err) {
-          expect(err).to.not.exist();
-          _flow.moves.should.have.length(2);
-          _flow.moves[1].move.name.should.equal('New Move 2');
-          done();
-        });
+        async.parallel([
+          function(cb) {
+            _flow.save(cb);
+          },
+          function(cb) {
+            _flow.populate('moves.move', function(err) {
+              expect(err).to.not.exist();
+              _flow.moves.should.have.length(2);
+              _flow.moves[1].move.name.should.equal('New Move 2');
+              cb();
+            });
+          }], done);
       });
     });
 
@@ -170,7 +204,7 @@ describe('Flow Model', function() {
           Flow.list({}, function(err, flows) {
             expect(err).to.not.exist();
             flows.should.have.length(2);
-            flows[0].name.should.equal('Flow 2');
+            flows[0].name.should.equal('Yet Another Flow');
 
             done();
           });
@@ -189,14 +223,32 @@ describe('Flow Model', function() {
         },
 
         function(result, next) {
-          saveFlow(new Flow({name: 'Flow 3', author: 'Charlie'}), next);
+          var userSchema = {
+            name: 'Charlie',
+            email: 'charlie_is_gr8@awesome.com'
+          };
+
+          var user = new User(userSchema);
+          user.save(function(err, savedUser) {
+            expect(err).to.not.exist();
+            next(null, savedUser);
+          });
+        },
+
+        function(author, next) {
+          saveFlow(new Flow({name: 'A Third Flow', author: author, createdAt: '12/10/1900'}), next);
         },
 
         function() {
-          Flow.list({sortBy: 'author'}, function(err, flows) {
+          Flow.list({sortBy: 'name'}, function(err, flows) {
             expect(err).to.not.exist();
             flows.should.have.length(3);
-            flows[1].author.should.equal('Charlie');
+
+            flows[0].name.should.equal('Yet Another Flow');
+            flows[1].name.should.equal('Flow 1');
+            flows[2].name.should.equal('A Third Flow');
+            
+            
             done();
           });
         }
@@ -214,7 +266,7 @@ describe('Flow Model', function() {
         },
 
         function(result, next) {
-          saveFlow(new Flow({name: 'Flow 3', author: 'Charlie'}), next);
+          saveFlow(new Flow({name: 'Flow 3'}), next);
         },
         
         function(err, next) {
@@ -222,8 +274,8 @@ describe('Flow Model', function() {
           Flow.list({perPage: 2, page: 0}, function(err2, flows) {
             expect(err2).to.not.exist();
             flows.should.have.length(2);
-            flows[0].author.should.equal('Charlie');
-            flows[1].author.should.equal('Abigail');
+            flows[0].name.should.equal('Flow 3');
+            flows[1].name.should.equal('Yet Another Flow');
             next(null, null);
           });
         },
@@ -233,7 +285,7 @@ describe('Flow Model', function() {
           Flow.list({perPage: 2, page: 1}, function(err2, flows) {
             expect(err2).to.not.exist();
             flows.should.have.length(1);
-            flows[0].author.should.equal('Zulu');
+            flows[0].name.should.equal('Flow 1');
             next(null, null);
           });
         },
@@ -246,20 +298,6 @@ describe('Flow Model', function() {
           });
         }
       ]);
-    });
-  });
-
-  describe('getRating', function()  {
-    it('should return -1 if no ratings exist', function(done) {
-      var _flow = new Flow(flow2);
-      _flow.getRating().should.equal(-1);
-      done();
-    });
-
-    it('should return mean of existing ratings', function(done) {
-      var _flow = new Flow(flow1);
-      _flow.getRating().should.equal(7);
-      done();
     });
   });
 });
