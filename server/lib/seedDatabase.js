@@ -57,10 +57,6 @@ var writeAudioToS3 = function(callback, results) {
 
         uploader.on('end', function() {
           console.log('Successfully uploaded ' + item.audioUri);
-
-          // Also fix the URI to point to where we actually uploaded it:
-          item.audioUri = 'http://' + config.s3.url + '/' + bucket + '/audio/' + item.audioUri;
-
           each_callback(null);
         });
       }, Math.random() * 1000);
@@ -86,6 +82,7 @@ var writeToMongo = function(callback, results) {
     var moves = results.read_file;
     async.each(moves,
       function(move, each_callback) {
+        move.audioUri = 'http://' + config.s3.url + '/' + move.audioUri;
         if (args[4] === '--upsert') {
           Move.update({ name: move.name }, move, { upsert: true }, each_callback);
         } else {
