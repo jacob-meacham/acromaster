@@ -15,7 +15,7 @@ var Move = mongoose.model('Move');
 var args = process.argv.splice(2);
 var audioDir = args[1];
 
-var config = require('../config/config').development;
+var config = require('../config/config')[args[2] || 'development'];
 var bucket = 'acromaster';
 var s3Client = s3.createClient({
   s3Options: {
@@ -42,6 +42,9 @@ var readMovesFile = function(callback) {
 
 // Write audio files to s3, from config
 var writeAudioToS3 = function(callback, results) {
+  if (args[3] === '--no-s3') {
+    return callback(null);
+  }
   async.each(results.read_file,
     function(item, each_callback) {
       setTimeout(function() {
@@ -80,17 +83,23 @@ var writeToMongo = function(callback, results) {
       callback(err);
     }
 
-    var errorHandler = function(err) {
-      if (err) callback(err);
-    };
-
     var moves = results.read_file;
-    for (var i = 0; i < moves.length; i++) {
-      var move = moves[i];
-      Move.update({ name: move.name }, move, { upsert: true }, errorHandler);
-    }
-
-    callback(null);
+    async.each(moves,
+      function(move, each_callback) {
+        if (args[4] === '--upsert') {
+          Move.update({ name: move.name }, move, { upsert: true }, each_callback);
+        } else {
+          var newMove = new Move(move);
+          newMove.save(each_callback);
+        }
+      },
+      function(err) {
+        if (err) {
+          callback(err);
+        } else {
+          callback(null);
+        }
+    });
   });
 };
 
