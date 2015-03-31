@@ -47,6 +47,9 @@
 <button class="btn btn-default" ng-click="vm.randomMove()"><span class="glyphicon glyphicon-random"></button>
 
 <div class="inner">
+    <div class="alert alert-warning" role="alert" ng-hide="vm.authenticated">
+        <strong>Warning:</strong> Because you're not logged in, you won't be able to edit this flow after saving it. <a href="/login" class="alert-link">Login here</a>
+    </div>
     <form ng-submit="vm.save()">
         <div class="form-group">
             <div flash-alert="error" active-class="in alert alert-danger" role="alert" class="fade" duration="0">

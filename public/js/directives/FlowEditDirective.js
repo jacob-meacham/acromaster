@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('acromaster.directives')
-  .controller('FlowEditDirectiveController', ['_', 'Moves', 'flash', 'RandomService', function(_, Moves, flash, randomService) {
+  .controller('FlowEditDirectiveController', ['_', 'Moves', 'flash', 'RandomService', 'AuthService', function(_, Moves, flash, randomService, authService) {
     var vm = this;
 
     vm.allMoves = Moves.query();
     vm.moveList = [];
+    vm.authenticated = authService.isAuthenticated();
 
     if (vm.flow.$promise) {
       // TODO: :(
