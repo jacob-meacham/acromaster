@@ -439,4 +439,53 @@ describe('/api/flow', function() {
         .end(done);
     });
   });
+
+  describe('POST /api/flow/likes', function() {
+    it('should return success when liking a flow that exists', function(done) {
+      request(app)
+      .post('/api/flow/' + flow1._id + '/likes')
+      .expect(200)
+      .end(done);  
+    });
+
+    it('should fail when the flow is not known', function(done) {
+      request(app)
+      .post('/api/flow/noFlowHere/likes')
+      .expect(500)
+      .end(done);
+    });
+
+    it('should fail if no user is logged in', function(done) {
+      request(app)
+      .post('/api/flow/' + flow1._id + '/likes')
+      .expect(500)
+      .end(done);
+    });
+  });
+  
+  describe('GET /api/flow/likes', function() {
+    it('should return true if the user has liked the flow', function(done) {
+      // TODO Stub
+      done();
+    });
+
+    it('should return false if the user hasn not liked the flow', function(done) {
+      // TODO Stub
+      done();
+    });
+
+    it('should fail when the flow is not known', function(done) {
+      request(app)
+      .get('/api/flow/noFlowHere/likes')
+      .expect(500)
+      .end(done);
+    });
+
+    it('should fail if no user is logged in', function(done) {
+      request(app)
+      .get('/api/flow/' + flow1._id + '/likes')
+      .expect(500)
+      .end(done);
+    });
+  });
 });
