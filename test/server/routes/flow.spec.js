@@ -171,6 +171,11 @@ describe('/api/flow', function() {
           })
           .end(done);
       });
+
+      it('should not allow overwriting a flow with an author', function(done) {
+        // TODO: Stub
+        done();
+      });
     });
   });
 
@@ -438,6 +443,11 @@ describe('/api/flow', function() {
         })
         .end(done);
     });
+
+    it('should return an error if there is an error connecting to the backing store', function(done) { 
+      // TODO: Stub
+      done();
+    });
   });
 
   describe('POST /api/flow/likes', function() {
@@ -446,6 +456,18 @@ describe('/api/flow', function() {
       .post('/api/flow/' + flow1._id + '/likes')
       .expect(200)
       .end(done);  
+    });
+
+    it('should not error if liking twice', function(done) {
+      request(app)
+      .post('/api/flow/' + flow1._id + '/likes')
+      .expect(200)
+      .end(done);
+
+      request(app)
+      .post('/api/flow/' + flow1._id + '/likes')
+      .expect(200)
+      .end(done);
     });
 
     it('should fail when the flow is not known', function(done) {
@@ -486,6 +508,54 @@ describe('/api/flow', function() {
       .get('/api/flow/' + flow1._id + '/likes')
       .expect(500)
       .end(done);
+    });
+  });
+
+  describe('DELETE /api/flow/likes', function() {
+    it('should remove a like', function(done) {
+      // TODO: Add flow like
+      request(app)
+        .delete('/api/flow/' + flow1._id + '/likes')
+        .expect(200)
+        .end(done);
+    });
+
+    it('should do nothing if the flow does not have a like from that user', function(done) {
+      request(app)
+        .delete('/api/flow/' + flow1._id + '/likes')
+        .expect(200)
+        .end(done);
+    });
+
+    it('should fail when the flow is not known', function(done) {
+      request(app)
+      .get('/api/flow/noFlowHere/likes')
+      .expect(500)
+      .end(done);
+    });
+
+    it('should fail if no user is logged in', function(done) {
+      request(app)
+      .get('/api/flow/' + flow1._id + '/likes')
+      .expect(500)
+      .end(done);
+    });
+  });
+
+  describe('POST /api/flow/plays', function() {
+    it('should add a play and a player', function(done) {
+      // TODO: Stub
+      done();
+    });
+
+    it('should not hold duplicate players', function(done) {
+      // TODO: Stub
+      done();
+    });
+
+    it('should not fail when no user is logged in', function(done) {
+      // TODO: Stub
+      done();
     });
   });
 });
