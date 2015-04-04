@@ -2,12 +2,11 @@
 
 var request = require('supertest');
 var app = require('../../../server');
-var express = require('express');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
 var async = require('async');
-require('../../../server/models/flow.js');
-require('../../../server/models/move.js');
+require('../../../server/models/flow');
+require('../../../server/models/move');
 
 mockgoose(mongoose);
 
@@ -56,6 +55,7 @@ describe('/api/flow', function() {
       email: 'test.foo@test.com'
     };
     author1 = new User(_user);
+    authedApp = require('utils/authedApp')(app).withUser(author1);
 
     _user = {
         name: 'Abigail',
@@ -123,15 +123,6 @@ describe('/api/flow', function() {
         expect(err).to.not.exist();
         done();
       });
-  });
-
-  beforeEach(function() {
-    authedApp = express();
-    authedApp.all('*', function(req, res, next) {
-      req.user = author1;
-      next();
-    });
-    authedApp.use(app);
   });
 
   describe('POST /api/flow', function() {
