@@ -25,6 +25,7 @@ var Flow = mongoose.model('Flow');
 var Move = mongoose.model('Move');
 var User = mongoose.model('User');
 
+var authedApp;
 var author1, author2;
 var flow1, flow2, flow3;
 var move1, move2;
@@ -124,6 +125,15 @@ describe('/api/flow', function() {
       });
   });
 
+  beforeEach(function() {
+    authedApp = express();
+    authedApp.all('*', function(req, res, next) {
+      req.user = author1;
+      next();
+    });
+    authedApp.use(app);
+  });
+
   describe('POST /api/flow', function() {
     it('should not create with an empty body', function(done) {
       request(app)
@@ -148,34 +158,23 @@ describe('/api/flow', function() {
         .end(done);
     });
 
-    describe('authenticated', function() {
-      var authedApp;
-      beforeEach(function() {
-        authedApp = express();
-        authedApp.all('*', function(req, res, next) {
-          req.user = author1;
-          next();
-        });
-        authedApp.use(app);
-      });
-      it('should use the logged in user as the author', function(done) {
-        request(authedApp)
-          .post('/api/flow')
-          .send({name: 'Yet Another Flow'})
-          .expect(200)
-          .expect('Content-Type', /json/)
-          .expect(function(res) {
-            res.body.should.have.property('name');
-            res.body.name.should.equal('Yet Another Flow');
-            res.body.author.should.equal(author1._id);
-          })
-          .end(done);
-      });
+    it('should use the logged in user as the author', function(done) {
+      request(authedApp)
+        .post('/api/flow')
+        .send({name: 'Yet Another Flow'})
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          res.body.should.have.property('name');
+          res.body.name.should.equal('Yet Another Flow');
+          res.body.author.should.equal(author1._id);
+        })
+        .end(done);
+    });
 
-      it('should not allow overwriting a flow with an author', function(done) {
-        // TODO: Stub
-        done();
-      });
+    it('should not allow overwriting a flow with an author', function(done) {
+      // TODO: Stub
+      done();
     });
   });
 
@@ -252,49 +251,37 @@ describe('/api/flow', function() {
         .end(done);
     });
 
-    describe('authenticated', function() {
-      var authedApp;
-      beforeEach(function() {
-        authedApp = express();
-        authedApp.all('*', function(req, res, next) {
-          req.user = author1;
-          next();
-        });
-        authedApp.use(app);
-      });
-      
-      it('should return an error if the user is not the flow author', function(done) {
-        request(authedApp)
-          .put('/api/flow/' + flow2._id)
-          .send({})
-          .expect(401)
-          .end(done);
-      });
+    it('should return an error if the user is not the flow author', function(done) {
+      request(authedApp)
+        .put('/api/flow/' + flow2._id)
+        .send({})
+        .expect(401)
+        .end(done);
+    });
 
-      it('should be a no op with an empty body', function(done) {
-        request(authedApp)
-          .put('/api/flow/' + flow1._id)
-          .send({})
-          .expect(200)
-          .expect(function(res) {
-            var _flow = res.body;
-            _flow.name.should.equal(flow1.name);
-            _flow.author.name.should.eql(author1.name);
-          })
-          .end(done);
-      });
+    it('should be a no op with an empty body', function(done) {
+      request(authedApp)
+        .put('/api/flow/' + flow1._id)
+        .send({})
+        .expect(200)
+        .expect(function(res) {
+          var _flow = res.body;
+          _flow.name.should.equal(flow1.name);
+          _flow.author.name.should.eql(author1.name);
+        })
+        .end(done);
+    });
 
-      it('should update without errors', function(done) {
-        request(authedApp)
-          .put('/api/flow/' + flow1._id)
-          .send({moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }]})
-          .expect(200)
-          .expect(function(res) {
-            var _flow = new Flow(res.body);
-            _flow.moves.length.should.equal(2);
-          })
-          .end(done);
-      });
+    it('should update without errors', function(done) {
+      request(authedApp)
+        .put('/api/flow/' + flow1._id)
+        .send({moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }]})
+        .expect(200)
+        .expect(function(res) {
+          var _flow = new Flow(res.body);
+          _flow.moves.length.should.equal(2);
+        })
+        .end(done);
     });
   });
 
@@ -452,26 +439,26 @@ describe('/api/flow', function() {
 
   describe('POST /api/flow/likes', function() {
     it('should return success when liking a flow that exists', function(done) {
-      request(app)
+      request(authedApp)
       .post('/api/flow/' + flow1._id + '/likes')
       .expect(200)
       .end(done);  
     });
 
     it('should not error if liking twice', function(done) {
-      request(app)
+      request(authedApp)
       .post('/api/flow/' + flow1._id + '/likes')
       .expect(200)
       .end(done);
 
-      request(app)
+      request(authedApp)
       .post('/api/flow/' + flow1._id + '/likes')
       .expect(200)
       .end(done);
     });
 
     it('should fail when the flow is not known', function(done) {
-      request(app)
+      request(authedApp)
       .post('/api/flow/noFlowHere/likes')
       .expect(500)
       .end(done);
@@ -480,7 +467,7 @@ describe('/api/flow', function() {
     it('should fail if no user is logged in', function(done) {
       request(app)
       .post('/api/flow/' + flow1._id + '/likes')
-      .expect(500)
+      .expect(401)
       .end(done);
     });
   });
