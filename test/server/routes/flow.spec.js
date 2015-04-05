@@ -5,24 +5,18 @@ var app = require('../../../server');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
 var async = require('async');
-require('../../../server/models/flow');
-require('../../../server/models/move');
+var Flow = require('../../../server/models/flow');
+var Move = require('../../../server/models/move');
+var User = require('../../../server/models/user');
 
 mockgoose(mongoose);
 
-var chai = require('chai');
-chai.should();
-
-var expect = chai.expect;
-
 require('sinon');
 require('mocha-sinon');
-var sinonChai = require('sinon-chai');
-chai.use(sinonChai);
-
-var Flow = mongoose.model('Flow');
-var Move = mongoose.model('Move');
-var User = mongoose.model('User');
+var chai = require('chai');
+var expect = chai.expect;
+chai.should();
+chai.use(require('sinon-chai'));
 
 var authedApp;
 var author1, author2;
@@ -381,50 +375,6 @@ describe('/api/flow', function() {
           res.body.error.should.equal('Stub error');
         })
         .end(done);
-    });
-  });
-
-  describe('GET /api/moves', function() {
-    it('should return the set of moves with an empty', function(done) {
-      request(app)
-        .get('/api/moves')
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .expect(function(res) {
-          res.body.should.have.length(2);
-          res.body[0].name.should.equal('New Move');
-        })
-        .end(done);
-    });
-
-    it('should return a particular move with a query', function(done) {
-      request(app)
-        .get('/api/moves')
-        .query({name: 'New Move'})
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .expect(function(res) {
-          res.body.should.have.length(1);
-          res.body[0].name.should.equal('New Move');
-        })
-        .end(done);
-    });
-
-    it('should return nothing with an invalid query', function(done) {
-      request(app)
-        .get('/api/moves')
-        .query({foo: 'New Move'})
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .expect(function(res) {
-          res.body.should.have.length(0);
-        })
-        .end(done);
-    });
-
-    it('should return an error if there is an error connecting to the backing store', function(done) { 
-      // TODO: Stub
-      done();
     });
   });
 
