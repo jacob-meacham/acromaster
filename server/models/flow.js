@@ -79,4 +79,4 @@ FlowSchema.plugin(likesPlugin, {
   indexed: true
 });
 
-mongoose.model('Flow', FlowSchema);
+module.exports = mongoose.model('Flow', FlowSchema);

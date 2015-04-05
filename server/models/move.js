@@ -39,4 +39,4 @@ MoveSchema.statics = {
   }
 };
 
-mongoose.model('Move', MoveSchema);
+module.exports = mongoose.model('Move', MoveSchema);

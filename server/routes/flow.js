@@ -1,12 +1,8 @@
 'use strict';
 
-require('../models/flow.js');
-require('../models/move.js');
-require('../models/user.js');
 var async = require('async');
-var mongoose = require('mongoose');
-var Flow = mongoose.model('Flow');
-var Move = mongoose.model('Move');
+var Flow = require('../models/flow.js');
+var Move = require('../models/user.js');
 
 var loadById = function(req, res, next, id) {
   Flow.load(id, function(err, flow) {
@@ -209,21 +205,6 @@ var generate = function(req, res, routeNext) {
   });
 };
 
-var getMoves = function(req, res, next) {
-  var query = {};
-  if (req.query !== null) {
-    query = req.query;
-  }
-  
-  Move.find(query, function(err, moves) {
-    if (err) {
-      return next(err);
-    }
-
-    res.jsonp(moves);
-  });
-};
-
 module.exports = function(app) {
   app.get('/api/flow/generate', generate);
   app.get('/api/flow', list);
@@ -234,7 +215,6 @@ module.exports = function(app) {
   app.delete('/api/flow/:flowId/likes', requireUser, removeLike);
   app.get('/api/flow/:flowId/likes', requireUser, hasLiked);
   app.post('/api/flow/:flowId/plays', requireUser, recordPlayed);
-  app.get('/api/moves', getMoves);
 
   app.param('flowId', loadById);
 };

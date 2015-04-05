@@ -75,15 +75,15 @@ UserSchema.statics = {
 
 UserSchema.methods = {
   addFavorite: function(flowId) {
-    // TODO, add favorite
-    console.log(flowId);
+    // TODO: add favorite
+    console.log('TODO: add favorite ' + flowId);
   },
 
   removeFavorite: function(flowId) {
-    // Remove favorite
-    console.log(flowId);
+    // TODO: Remove favorite
+    console.log('TODO: remove favorite ' + flowId);
   }
 };
 
 
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
