@@ -8,7 +8,6 @@ var User = require('../../../server/models/user.js');
 
 var chai = require('chai');
 chai.should();
-var expect = chai.expect;
 
 var sinon = require('sinon');
 require('mocha-sinon');
