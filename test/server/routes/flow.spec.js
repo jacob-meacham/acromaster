@@ -472,18 +472,27 @@ describe('/api/flow', function() {
 
   describe('POST /api/flow/plays', function() {
     it('should add a play and a player', function(done) {
-      // TODO: Stub
-      done();
+      // TODO: STUB
+      request(app)
+      .get('/api/flow/' + flow1._id + '/play')
+      .expect(500)
+      .end(done);
     });
 
     it('should not hold duplicate players', function(done) {
-      // TODO: Stub
-      done();
+      // TODO: STUB
+      request(app)
+      .get('/api/flow/' + flow1._id + '/play')
+      .expect(500)
+      .end(done);
     });
 
     it('should not fail when no user is logged in', function(done) {
       // TODO: Stub
-      done();
+      request(app)
+      .get('/api/flow/' + flow1._id + '/play')
+      .expect(500)
+      .end(done);
     });
   });
 });
