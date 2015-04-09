@@ -11,3 +11,4 @@ moves/
 fileeditor
 server/config/secrets.sh
 phantomjsdriver.log
+npm-debug.log
