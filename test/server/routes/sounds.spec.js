@@ -9,7 +9,7 @@ chai.should();
 describe('/api/sounds', function() {
   it('GET /api/sounds should return the sound root', function(done) {
     var env = process.env.NODE_ENV || 'development';
-    var config = require('./server/config/config')[env];
+    var config = require('../../../server/config/config')[env];
 
     request(app)
         .get('/api/sounds')

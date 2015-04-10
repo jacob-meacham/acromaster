@@ -49,7 +49,7 @@ describe('/api/flow', function() {
       email: 'test.foo@test.com'
     };
     author1 = new User(_user);
-    authedApp = require('utils/authedApp')(app).withUser(author1);
+    authedApp = require('./utils/authedApp')(app).withUser(author1);
 
     _user = {
         name: 'Abigail',

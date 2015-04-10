@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express');
-var User = require('../../../server/models/user.js');
+var User = require('../../../../server/models/user.js');
 
 module.exports = function(app, _user) {
 	var user = _user;
