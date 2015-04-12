@@ -5,13 +5,12 @@ describe('AboutController', function() {
 
   var $controller;
   var $httpBackend;
-  var 
 
   // TODO: How to inject routeParams
   beforeEach(inject(function(_$controller_, _$httpBackend_, $routeParams) {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
-    $routParams.user = 'someUser';
+    $routeParams.user = 'someUser';
   }));
 
   it('should set the profile from the server', function() {
