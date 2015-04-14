@@ -153,9 +153,16 @@ var generate = function(req, res, routeNext) {
     return;
   }
 
+  Move.list({}, function() {
+    console.log('move list finished');
+  });
+
   async.waterfall([
     function(next) {
+      //console.log(res);
+      console.log(next);
       console.log('move list');
+      //return next(null, {});
       Move.list({}, function(err, moves) {
         console.log('move list finished');
         if (err) {

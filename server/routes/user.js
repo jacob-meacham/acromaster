@@ -14,7 +14,8 @@ var loadFlows = function(req, cb) {
     }
 
     console.log('calling next ' + flows);
-    req.profile.flows = flows;
+    req.profile.flows = {};
+    console.log(req.profile);
     cb();
   });
 };

@@ -442,14 +442,16 @@ describe('/api/flow', function() {
   });
 
   describe('DELETE /api/flow/likes', function() {
-    it('should remove a like', function(done) {
+    it('should remove a like', function() {
       // TODO: Get flow like and verify delete
-      request(authedApp)
+      return request(authedApp)
         .post('/api/flow/' + flow1._id + '/likes')
         .expect(200)
-        .delete('/api/flow/' + flow1._id + '/likes')
-        .expect(200)
-        .end(done);
+        .then(function() {
+          request(authedApp)
+          .delete('/api/flow/' + flow1._id + '/likes')
+          .expect(200);
+        });
     });
 
     it('should do nothing if the flow does not have a like from that user', function(done) {
@@ -480,7 +482,7 @@ describe('/api/flow', function() {
       // TODO: STUB
       request(app)
       .get('/api/flow/' + flow1._id + '/play')
-      .expect(500)
+      .expect(200)
       .end(done);
     });
 
@@ -488,7 +490,7 @@ describe('/api/flow', function() {
       // TODO: STUB
       request(app)
       .get('/api/flow/' + flow1._id + '/play')
-      .expect(500)
+      .expect(200)
       .end(done);
     });
 
@@ -496,7 +498,7 @@ describe('/api/flow', function() {
       // TODO: Stub
       request(app)
       .get('/api/flow/' + flow1._id + '/play')
-      .expect(500)
+      .expect(200)
       .end(done);
     });
   });

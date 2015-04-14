@@ -33,7 +33,7 @@ describe('/api/profile', function() {
       });
 
       sandbox.stub(Flow, 'listByUser', function(user, callback) {
-        return callback(null, {});
+        return callback(null, [{name: 'Flow1'}, {name: 'Flow2'}]);
       });
 
       request(app)
@@ -43,13 +43,15 @@ describe('/api/profile', function() {
         .expect(function(res) {
           console.log(res.body);
           res.body.name.should.equal(user.name);
-          res.body.flows.should.be.empty();
+          res.body.flows.should.have.length(2);
         })
         .end(done);
     });
 
     it('should return an error with a nonexistent user', function(done) {
-      sandbox.stub(User, 'loadPublicProfile').returns(null);
+      sandbox.stub(User, 'loadPublicProfile', function(name, callback) {
+        return callback(null, null);
+      });
 
       request(app)
         .get('/api/profile/name')
@@ -68,28 +70,6 @@ describe('/api/profile', function() {
         .expect(500)
         .expect(function(res) {
           res.body.error.should.equal(error.toString());
-        })
-        .end(done);
-    });
-
-    it('should fill out the flows', function(done) {
-      // TODO: Add flows
-      var user = new User({name: 'Amelie', email: 'amelia.badelia@test.com'});
-      sandbox.stub(User, 'loadPublicProfile', function(name, callback) {
-        return callback(null, user);
-      });
-
-      sandbox.stub(Flow, 'listByUser', function(name, callback) {
-        return callback(null, {});
-      });
-
-      request(app)
-        .get('/api/profile/name')
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          res.body.user.name.should.equal(user.name);
-          res.body.user.flows.should.be.empty();
         })
         .end(done);
     });
