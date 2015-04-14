@@ -84,6 +84,7 @@
     "protractor": "1.7.0",
     "sinon": "1.12.2",
     "sinon-chai": "2.7.0",
-    "supertest": "0.15.0"
+    "supertest": "0.15.0",
+    "supertest-as-promised": "^2.0.0"
   }
 }
