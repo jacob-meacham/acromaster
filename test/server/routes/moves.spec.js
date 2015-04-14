@@ -49,6 +49,10 @@ describe('/api/flow', function() {
       });
   });
 
+  after(function() {
+    mockgoose.reset();
+  });
+
   describe('GET /api/moves', function() {
     it('should return all moves with an empty query', function(done) {
       request(app)

@@ -10,6 +10,7 @@ var getMoves = function(req, res, next) {
   }
   
   Move.find(query, function(err, moves) {
+    console.log('returning moves: ' + moves);
     if (err) {
       return next(err);
     }

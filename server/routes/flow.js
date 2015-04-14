@@ -103,7 +103,7 @@ var like = function(req, res, next) {
       return next(err);
     }
 
-    res.send(200);
+    res.sendStatus(200);
   });
 };
 
@@ -114,7 +114,7 @@ var removeLike = function(req, res, next) {
       return next(err);
     }
 
-    res.send(200);
+    res.sendStatus(200);
   });
 };
 
@@ -147,6 +147,7 @@ var recordPlayed = function(req, res, next) {
 //   'style' : 'Training' // or whatever
 // }
 var generate = function(req, res, routeNext) {
+  console.log('Generate has been called');
   if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
     res.status(400).send({error: 'totalTime and timePerMove required'});
     return;
@@ -154,7 +155,9 @@ var generate = function(req, res, routeNext) {
 
   async.waterfall([
     function(next) {
+      console.log('move list');
       Move.list({}, function(err, moves) {
+        console.log('move list finished');
         if (err) {
           next(err, null);
         } else {
@@ -164,6 +167,7 @@ var generate = function(req, res, routeNext) {
     },
 
     function(all_moves, next) {
+      console.log('construct');
       var parse = function(num) {
         var parsed = parseFloat(num);
         return isNaN(parsed) ? 0 : parsed;
@@ -191,12 +195,15 @@ var generate = function(req, res, routeNext) {
         numIterations++;
       }
 
+      console.log('populating moves');
       flow.populate('moves.move', function(err) {
+        console.log('final next');
         next(err, flow);
       });
     }
   ],
   function(err, result) {
+    console.log('end of generate');
     if (err) {
       return routeNext(err);
     }

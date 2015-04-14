@@ -1,6 +1,6 @@
 'use strict';
 
-var request = require('supertest');
+var request = require('supertest-as-promised');
 var app = require('../../../server');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
@@ -117,6 +117,10 @@ describe('/api/flow', function() {
         expect(err).to.not.exist();
         done();
       });
+  });
+
+  after(function() {
+    mockgoose.reset();
   });
 
   describe('POST /api/flow', function() {
@@ -360,7 +364,7 @@ describe('/api/flow', function() {
         .expect({error: 'totalTime and timePerMove required'}, done);
     });
 
-    it('should fail if the Move find fails', function(done) {
+    it('should fail if querying fails', function(done) {
       var stub = this.sinon.stub(Move, 'list', function(query, callback) {
         callback('Stub error', null);
       });
@@ -386,16 +390,14 @@ describe('/api/flow', function() {
       .end(done);  
     });
 
-    it('should not error if liking twice', function(done) {
-      request(authedApp)
+    it('should not error if liking twice', function() {
+      return request(authedApp)
       .post('/api/flow/' + flow1._id + '/likes')
       .expect(200)
-      .end(done);
-
-      request(authedApp)
-      .post('/api/flow/' + flow1._id + '/likes')
-      .expect(200)
-      .end(done);
+      .then(function() {
+        request(authedApp).post('/api/flow/' + flow1._id + '/likes')
+        .expect(200);
+      });
     });
 
     it('should fail when the flow is not known', function(done) {
@@ -419,7 +421,7 @@ describe('/api/flow', function() {
       done();
     });
 
-    it('should return false if the user hasn not liked the flow', function(done) {
+    it('should return false if the user has not liked the flow', function(done) {
       // TODO Stub
       done();
     });
@@ -434,22 +436,25 @@ describe('/api/flow', function() {
     it('should fail if no user is logged in', function(done) {
       request(app)
       .get('/api/flow/' + flow1._id + '/likes')
-      .expect(500)
+      .expect(401)
       .end(done);
     });
   });
 
   describe('DELETE /api/flow/likes', function() {
     it('should remove a like', function(done) {
-      // TODO: Add flow like
-      request(app)
+      // TODO: Get flow like and verify delete
+      request(authedApp)
+        .post('/api/flow/' + flow1._id + '/likes')
+        .expect(200)
         .delete('/api/flow/' + flow1._id + '/likes')
         .expect(200)
         .end(done);
     });
 
     it('should do nothing if the flow does not have a like from that user', function(done) {
-      request(app)
+      // TODO: Verify before and after state is the same (use another user with .withUser)
+      request(authedApp)
         .delete('/api/flow/' + flow1._id + '/likes')
         .expect(200)
         .end(done);
@@ -465,7 +470,7 @@ describe('/api/flow', function() {
     it('should fail if no user is logged in', function(done) {
       request(app)
       .get('/api/flow/' + flow1._id + '/likes')
-      .expect(500)
+      .expect(401)
       .end(done);
     });
   });

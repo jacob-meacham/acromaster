@@ -32,15 +32,18 @@ describe('/api/profile', function() {
         return callback(null, user);
       });
 
-      sandbox.stub(Flow, 'listByUser').returns({});
+      sandbox.stub(Flow, 'listByUser', function(user, callback) {
+        return callback(null, {});
+      });
 
       request(app)
         .get('/api/profile/amelia')
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          res.body.user.name.should.equal(user.name);
-          res.body.user.flows.should.be.empty();
+          console.log(res.body);
+          res.body.name.should.equal(user.name);
+          res.body.flows.should.be.empty();
         })
         .end(done);
     });
@@ -64,7 +67,7 @@ describe('/api/profile', function() {
         .get('/api/profile/name')
         .expect(500)
         .expect(function(res) {
-          res.body.error.should.equal(error);
+          res.body.error.should.equal(error.toString());
         })
         .end(done);
     });
@@ -76,7 +79,9 @@ describe('/api/profile', function() {
         return callback(null, user);
       });
 
-      sandbox.stub(Flow, 'listByUser').returns({});
+      sandbox.stub(Flow, 'listByUser', function(name, callback) {
+        return callback(null, {});
+      });
 
       request(app)
         .get('/api/profile/name')
@@ -96,6 +101,7 @@ describe('/api/profile', function() {
       });
 
       var error = new Error('foo');
+      console.log(error);
       sandbox.stub(Flow, 'listByUser', function(user, callback) {
         callback(error, null);
       });
@@ -104,7 +110,7 @@ describe('/api/profile', function() {
         .get('/api/profile/name')
         .expect(500)
         .expect(function(res) {
-          res.body.error.should.equal(error);
+          res.body.error.should.equal(error.toString());
         })
         .end(done);
     });
