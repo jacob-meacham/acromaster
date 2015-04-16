@@ -12,7 +12,6 @@ acromasterServices.factory('SoundService', ['$http', function($http) {
 
     getDoneSound: function() {
       return $http.get('/api/sounds/done').success(function(doneSound) {
-        console.log('done: ' + doneSound);
         return doneSound;
       });
     }
