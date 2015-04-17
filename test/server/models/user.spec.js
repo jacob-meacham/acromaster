@@ -40,7 +40,7 @@ describe('User Model', function() {
     it('should save without error', function(done) {
       var _user = new User(user1);
       _user.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         _user.remove(done());
       });
     });
@@ -48,11 +48,11 @@ describe('User Model', function() {
     it('should be able to update user without error', function(done) {
       var _user = new User(user1);
       _user.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
 
         _user.name = 'Bodhi Man';
         _user.save(function(err, result) {
-          expect(err).to.not.exist();
+          expect(err).to.not.exist;
           result.name.should.equal('Bodhi Man');
           done();
         });
@@ -65,7 +65,7 @@ describe('User Model', function() {
 
       _user1.save(function() {
         _user2.save(function(err) {
-          expect(err).to.exist();
+          expect(err).to.exist;
           done();
         });
       });
@@ -76,7 +76,7 @@ describe('User Model', function() {
       _user.name = '';
 
       _user.save(function(err) {
-        expect(err).to.exist();
+        expect(err).to.exist;
         done();
       });
     });
@@ -84,7 +84,7 @@ describe('User Model', function() {
     it('should save a slugified version of the name', function(done) {
       var _user = new User(user2);
       _user.save(function(err, result) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         result.username.should.equal('full-name-2');
         done();
       });
@@ -101,7 +101,7 @@ describe('User Model', function() {
 
         function() {
           User.loadPublicProfile(_user.username, function(err, loaded_user) {
-            expect(err).to.not.exist();
+            expect(err).to.not.exist;
             loaded_user.name.should.equal(_user.name);
             done();
           });
@@ -111,8 +111,8 @@ describe('User Model', function() {
 
     it('should not load a nonexistent user', function(done) {
       User.loadPublicProfile('johnny-boy-11', function(err, user) {
-        expect(err).to.not.exist();
-        expect(user).to.not.exist();
+        expect(err).to.not.exist;
+        expect(user).to.not.exist;
         done();
       });
     });
@@ -126,7 +126,7 @@ describe('User Model', function() {
 
         function() {
           User.loadPublicProfile(_user.username, function(err, loaded_user) {
-            expect(err).to.not.exist();
+            expect(err).to.not.exist;
             expect(loaded_user).to.have.keys('name', 'username', 'createdAt', 'id', 'profilePictureUrl');
             done();
           });
@@ -141,7 +141,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'Abc.example.com';
       _user.save(function(err) {
-        expect(err).to.exist();
+        expect(err).to.exist;
         done();
       });
     });
@@ -150,7 +150,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'A@b@c@example.com';
       _user.save(function(err) {
-        expect(err).to.exist();
+        expect(err).to.exist;
         done();
       });
     });
@@ -159,7 +159,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'a"b(c)d,e:f;g<h>i[j\\k]l@example.com';
       _user.save(function(err) {
-        expect(err).to.exist();
+        expect(err).to.exist;
         done();
       });
     });
@@ -168,7 +168,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'just"not"right@example.com';
       _user.save(function(err) {
-        expect(err).to.exist();
+        expect(err).to.exist;
         done();
       });
     });
@@ -177,7 +177,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'this is"not\\allowed@example.com';
       _user.save(function(err) {
-        expect(err).to.exist();
+        expect(err).to.exist;
         done();
       });
     });
@@ -186,7 +186,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'this\\ still\\"not\\allowed@example.com';
       _user.save(function(err) {
-        expect(err).to.exist();
+        expect(err).to.exist;
         done();
       });
     });
@@ -195,7 +195,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'john..doe@example.com';
       _user.save(function(err) {
-        expect(err).to.exist();
+        expect(err).to.exist;
         done();
       });
     });
@@ -204,7 +204,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'john.doe@example..com';
       _user.save(function(err) {
-        expect(err).to.exist();
+        expect(err).to.exist;
         done();
       });
     });
@@ -213,7 +213,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'john.doe@example.com';
       _user.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         done();
       });
     });
@@ -222,7 +222,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'disposable.style.email.with+symbol@example.com';
       _user.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         done();
       });
     });
@@ -231,7 +231,7 @@ describe('User Model', function() {
       var _user = new User(user1);
       _user.email = 'other.email-with-dash@example.com';
       _user.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         done();
       });
     });

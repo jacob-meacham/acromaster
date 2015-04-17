@@ -113,7 +113,7 @@ describe('/api/flow', function() {
         flow3.save(cb);
       }
       ], function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         done();
       });
   });
@@ -150,7 +150,7 @@ describe('/api/flow', function() {
         .expect(function(res) {
           res.body.should.have.property('name');
           res.body.name.should.equal('My Flow');
-          expect(res.body.author).to.be.undefined();
+          expect(res.body.author).to.be.undefined;
         })
         .end(done);
     });
@@ -214,8 +214,8 @@ describe('/api/flow', function() {
           var _flow = res.body;
           _flow.name.should.equal(flow1.name);
           _flow.author.name.should.equal(author1.name);
-          expect(_flow.author.id).to.exist();
-          expect(_flow.author.email).to.not.exist();
+          expect(_flow.author.id).to.exist;
+          expect(_flow.author.email).to.not.exist;
         })
         .end(done);
     });

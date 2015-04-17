@@ -22,22 +22,22 @@ describe('AuthService', function() {
     }));
 
     it('should get the user set on the $window', function() {
-      expect(AuthService.getUser()).to.exist();
+      expect(AuthService.getUser()).to.exist;
       AuthService.getUser().should.eql(user);
     });
 
     it('should be authenticated with a user', function() {
-      AuthService.isAuthenticated().should.be.true();
+      AuthService.isAuthenticated().should.be.true;
     });
 
     it('should be able to clear the user', function() {
       AuthService.clearUser();
-      expect(AuthService.getUser()).to.be.null();
+      expect(AuthService.getUser()).to.be.null;
     });
 
     it('should not be authenticated if the user is cleared', function() {
       AuthService.clearUser();
-      AuthService.isAuthenticated().should.not.be.true();
+      AuthService.isAuthenticated().should.not.be.true;
     });
 
     describe('logout', function() {
@@ -67,7 +67,7 @@ describe('AuthService', function() {
       });
 
       var logoutExpectations = function() {
-        expect($window.user).to.be.null();
+        expect($window.user).to.be.null;
         clearSpy.should.have.callCount(1);
 
         routeStub.should.have.callCount(1);
@@ -105,15 +105,15 @@ describe('AuthService', function() {
 
 
     it('should start with no user', function() {
-      expect(AuthService.getUser()).to.be.null();
+      expect(AuthService.getUser()).to.be.null;
     });
 
     it('should not start authenticated', function() {
-      AuthService.isAuthenticated().should.not.be.true();
+      AuthService.isAuthenticated().should.not.be.true;
     });
 
     it('should allow setting a user', function() {
-      expect(AuthService.getUser()).to.be.null();
+      expect(AuthService.getUser()).to.be.null;
       AuthService.setUser(user);
       AuthService.getUser().should.eql(user);
     });
@@ -131,8 +131,8 @@ describe('AuthService', function() {
 
 
     it('should not be authenticated', function() {
-      expect(AuthService.getUser()).to.not.be.null();
-      AuthService.isAuthenticated().should.not.be.true();
+      expect(AuthService.getUser()).to.not.be.null;
+      AuthService.isAuthenticated().should.not.be.true;
     });
   });
 });

@@ -26,7 +26,7 @@ describe('AboutController', function() {
 
   it('should show an error if the user does not exist', function() {
     // TODO
-    expect(true).to.be.true();
+    expect(true).to.be.true;
   });
 
   afterEach(function() {

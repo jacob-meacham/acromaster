@@ -80,7 +80,7 @@ describe('/auth', function() {
       request(app)
         .get('/logout')
         .end(function(err, res) {
-          expect(err).to.not.exist();
+          expect(err).to.not.exist;
           res.header.location.should.equal('/');
           done();
         });
@@ -99,7 +99,7 @@ describe('/auth', function() {
       request(app)
         .get('/logout')
         .end(function(err, res) {
-          expect(err).to.not.exist();
+          expect(err).to.not.exist;
           res.header.location.should.equal('/');
         });
 

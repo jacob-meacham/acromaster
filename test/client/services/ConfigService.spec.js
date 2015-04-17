@@ -28,12 +28,12 @@ describe('ConfigService', function() {
     describe('isDebug', function() {
       it('should return true when env is development', function() {
         $window.env = 'development';
-        environment.isDebug().should.be.true();
+        environment.isDebug().should.be.true;
       });
 
       it('should return false when env is not development', function() {
         $window.env = null;
-        environment.isDebug().should.not.be.true();
+        environment.isDebug().should.not.be.true;
       });
     });
   });

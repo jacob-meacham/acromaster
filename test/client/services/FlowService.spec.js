@@ -40,7 +40,7 @@ describe('FlowService', function() {
     };
 
     it('should start with no current flow', function() {
-      expect(FlowService.getCurrentFlow()).to.be.null();
+      expect(FlowService.getCurrentFlow()).to.be.null;
     });
 
     it('should get a flow with the specified id', function() {
@@ -56,7 +56,7 @@ describe('FlowService', function() {
     it('should generate a flow', function() {
       $httpBackend.expectGET('/api/flow/generate').respond(flow);
       FlowService.generateFlow({}, function(returnedFlow) {
-        expect(returnedFlow).to.not.be.null();
+        expect(returnedFlow).to.not.be.null;
       });
       $httpBackend.flush();
       
@@ -64,7 +64,7 @@ describe('FlowService', function() {
     });
 
     it('should allow clearing the current flow', function() {
-      expect(FlowService.getCurrentFlow()).to.be.null();
+      expect(FlowService.getCurrentFlow()).to.be.null;
 
       $httpBackend.expectGET('/api/flow/test').respond(flow);
       FlowService.instantiateFlow('test');
@@ -73,7 +73,7 @@ describe('FlowService', function() {
       assertEqualFlows(FlowService.getCurrentFlow(), flow);
 
       FlowService.clearCurrentFlow();
-      expect(FlowService.getCurrentFlow()).to.be.null();
+      expect(FlowService.getCurrentFlow()).to.be.null;
     });
 
     afterEach(function() {

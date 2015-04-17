@@ -50,7 +50,7 @@ describe('NavbarController', function() {
     $scope.logout();
 
     logoutStub.should.have.callCount(1);
-    expect($scope.user).to.be.null();
-    $scope.authenticated.should.be.false();
+    expect($scope.user).to.be.null;
+    $scope.authenticated.should.be.false;
   });
 });

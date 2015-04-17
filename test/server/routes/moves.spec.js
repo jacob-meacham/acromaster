@@ -44,7 +44,7 @@ describe('/api/flow', function() {
       function(res, cb) {
         move2.save(cb);
       }], function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         done();
       });
   });

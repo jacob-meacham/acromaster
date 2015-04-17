@@ -61,7 +61,7 @@ describe('FlowEditDirective', function() {
 
       ctrl.addMove();
       ctrl.moveList.length.should.eql(1);
-      expect(ctrl.moveList[0].move).to.be.null();
+      expect(ctrl.moveList[0].move).to.be.null;
     });
 
     it('should allow removing a move', function() {
@@ -105,7 +105,7 @@ describe('FlowEditDirective', function() {
       ret.should.eql('Not a valid move');
 
       ret = ctrl.checkMove('move1');
-      ret.should.be.true();
+      ret.should.be.true;
     });
 
     it('should not allow invalid durations', function() {
@@ -120,7 +120,7 @@ describe('FlowEditDirective', function() {
       ret.should.eql('Duration must be a valid number');
 
       ret = ctrl.checkDuration(10);
-      ret.should.be.true();
+      ret.should.be.true;
     });
 
     it('should save a new flow', function() {
@@ -177,7 +177,7 @@ describe('FlowEditDirective', function() {
       $rootScope.$digest();
 
       var ctrl = element.isolateScope().vm;
-      ctrl.moveList.should.be.empty();
+      ctrl.moveList.should.be.empty;
 
       element.find('tbody').children().size().should.eql(0);
     });
