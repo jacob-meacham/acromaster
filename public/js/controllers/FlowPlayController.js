@@ -98,7 +98,7 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService
   // TODO: Move to service?
   $scope.isNewFlow = function() {
     // TODO: Need to actually check backend?
-    if ($scope.flow._id) return false;
+    if ($scope.flow.id) return false;
     return true;
   };
 
@@ -107,7 +107,7 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService
     // TODO: Move name generation to service
     $scope.flow.name = generateName();
     $scope.flow.$save(function(savedFlow) {
-      $location.path('/flow/' + savedFlow._id);
+      $location.path('/flow/' + savedFlow.id);
     });
   };
 

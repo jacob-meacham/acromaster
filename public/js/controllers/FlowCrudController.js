@@ -16,7 +16,7 @@ controllers.controller('FlowCreateController', ['$scope', '$location', 'Flow', f
   $scope.flow = new Flow({moves: []});
   
   $scope.saveSuccess = function(savedFlow) {
-    $location.path('/flow/' + savedFlow._id);
+    $location.path('/flow/' + savedFlow.id);
   };
 }]);
 
@@ -24,7 +24,7 @@ controllers.controller('FlowEditController', ['$scope', '$routeParams', '$locati
   $scope.flow = FlowService.instantiateFlow($routeParams.flowId);
 
   $scope.saveSuccess = function(savedFlow) {
-    $location.path('/flow/' + savedFlow._id);
+    $location.path('/flow/' + savedFlow.id);
   };
 }]);
 
@@ -34,6 +34,6 @@ controllers.controller('FlowViewController', ['$scope', '$routeParams', '$locati
   $scope.url = $location.absUrl - $location.path + '/flow';
 
   $scope.start = function() {
-    $location.path('/flow/' + flow._id + '/play');
+    $location.path('/flow/' + flow.id + '/play');
   };
 }]);
