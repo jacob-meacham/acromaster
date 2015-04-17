@@ -11,11 +11,14 @@ describe('FlowEditDirective', function() {
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
 
-    inject(function(_$rootScope_, _Moves_, _$q_) {
+    inject(function(_$rootScope_, _Moves_, _$q_, $httpBackend) {
       $rootScope = _$rootScope_;
       Moves = _Moves_;
       $q = _$q_;
       sandbox.stub(Moves, 'query').returns(['move1', 'move2', 'move3']);
+
+      // TODO: This should not be necessary. Remove.
+      $httpBackend.expectGET('/partials/index.html').respond(200, '');
     });
   });
 
@@ -125,7 +128,7 @@ describe('FlowEditDirective', function() {
       ctrl.saveSuccess = 'expected-success';
       var saveStub = sandbox.stub(ctrl.flow, '$save');
 
-      var moves = [{move: {_id: 0}, duration: 30}, {move: {_id: 3}, duration: 100}];
+      var moves = [{move: {id: 0}, duration: 30}, {move: {id: 3}, duration: 100}];
       ctrl.moveList = moves;
 
       ctrl.save();
@@ -137,7 +140,7 @@ describe('FlowEditDirective', function() {
     });
 
     it('should update an existing flow', function() {
-      controllerFn.instance.flow._id = 10;
+      controllerFn.instance.flow.id = 10;
 
       var ctrl = controllerFn();
       ctrl.saveSuccess = 'expected-success';

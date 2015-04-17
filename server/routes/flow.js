@@ -2,7 +2,7 @@
 
 var async = require('async');
 var Flow = require('../models/flow.js');
-var Move = require('../models/user.js');
+var Move = require('../models/move.js');
 
 var loadById = function(req, res, next, id) {
   Flow.load(id, function(err, flow) {
@@ -147,24 +147,14 @@ var recordPlayed = function(req, res, next) {
 //   'style' : 'Training' // or whatever
 // }
 var generate = function(req, res, routeNext) {
-  console.log('Generate has been called');
   if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
     res.status(400).send({error: 'totalTime and timePerMove required'});
     return;
   }
 
-  Move.list({}, function() {
-    console.log('move list finished');
-  });
-
   async.waterfall([
     function(next) {
-      //console.log(res);
-      console.log(next);
-      console.log('move list');
-      //return next(null, {});
       Move.list({}, function(err, moves) {
-        console.log('move list finished');
         if (err) {
           next(err, null);
         } else {
@@ -174,7 +164,6 @@ var generate = function(req, res, routeNext) {
     },
 
     function(all_moves, next) {
-      console.log('construct');
       var parse = function(num) {
         var parsed = parseFloat(num);
         return isNaN(parsed) ? 0 : parsed;
@@ -202,15 +191,12 @@ var generate = function(req, res, routeNext) {
         numIterations++;
       }
 
-      console.log('populating moves');
       flow.populate('moves.move', function(err) {
-        console.log('final next');
         next(err, flow);
       });
     }
   ],
   function(err, result) {
-    console.log('end of generate');
     if (err) {
       return routeNext(err);
     }

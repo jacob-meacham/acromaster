@@ -74,7 +74,7 @@ describe('FlowCrudController', function() {
       $controller('FlowCreateController', {$scope: $scope, $location: $location, Flow: Flow});
 
       var flow = new Flow();
-      flow._id = '10';
+      flow.id = '10';
       $scope.saveSuccess(flow);
       pathSpy.should.have.been.calledWith('/flow/10');
     });
@@ -87,7 +87,7 @@ describe('FlowCrudController', function() {
 
     beforeEach(inject(function(Flow, _FlowService_, _$location_) {
       flow = new Flow({moves: []});
-      flow._id = '10';
+      flow.id = '10';
 
       FlowService = _FlowService_;
       $location = _$location_;
@@ -116,7 +116,7 @@ describe('FlowCrudController', function() {
 
     beforeEach(inject(function(Flow, _FlowService_, _$location_) {
       flow = new Flow({moves: []});
-      flow._id = '10';
+      flow.id = '10';
 
       FlowService = _FlowService_;
       $location = _$location_;

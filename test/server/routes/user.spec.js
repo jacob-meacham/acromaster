@@ -25,13 +25,28 @@ describe('/api/profile', function() {
   });
 
   describe('GET /api/profile/:userId', function() {
-    it('should return an existing user', function(done) {
-      var user = new User({name: 'Amelie', email: 'amelia.badelia@test.com'});
+
+    var stubLoadUserProfile = function() {
+      var user = new User({name: 'Amelia', email: 'amelia.badelia@test.com'});
+
+      var profile = {
+        id: user._id,
+        name: user.name,
+        username: user.username,
+        profilePictureUrl: user.profilePictureUrl,
+        createdAt: user.createdAt
+      };
+
       sandbox.stub(User, 'loadPublicProfile', function(name, callback) {
         name.should.equal('amelia');
-        return callback(null, user);
+        return callback(null, profile);
       });
 
+      return profile;
+    };
+
+    it('should return an existing user', function(done) {
+      var profile = stubLoadUserProfile();
       sandbox.stub(Flow, 'listByUser', function(user, callback) {
         return callback(null, [{name: 'Flow1'}, {name: 'Flow2'}]);
       });
@@ -41,8 +56,7 @@ describe('/api/profile', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          console.log(res.body);
-          res.body.name.should.equal(user.name);
+          res.body.name.should.equal(profile.name);
           res.body.flows.should.have.length(2);
         })
         .end(done);
@@ -75,19 +89,15 @@ describe('/api/profile', function() {
     });
 
     it('should return an error if filling out the flows errors', function(done) {
-      var user = new User({name: 'Amelie', email: 'amelia.badelia@test.com'});
-      sandbox.stub(User, 'loadPublicProfile', function(name, callback) {
-        return callback(null, user);
-      });
+      stubLoadUserProfile();
 
       var error = new Error('foo');
-      console.log(error);
       sandbox.stub(Flow, 'listByUser', function(user, callback) {
         callback(error, null);
       });
       
       request(app)
-        .get('/api/profile/name')
+        .get('/api/profile/amelia')
         .expect(500)
         .expect(function(res) {
           res.body.error.should.equal(error.toString());

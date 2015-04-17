@@ -5,37 +5,29 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Flow = mongoose.model('Flow');
 
-var loadFlows = function(req, cb) {
-  Flow.listByUser(req.profile._id, function(err, flows) {
-    console.log('listed flows');
+var loadFlows = function(profile, next) {
+  Flow.listByUser(profile.id, function(err, flows) {
     if (err) {
-      console.log('err');
-      return cb(err);
+      return next(err);
     }
 
-    console.log('calling next ' + flows);
-    req.profile.flows = {};
-    console.log(req.profile);
-    cb();
+    profile.flows = flows;
+    next();
   });
 };
 
 var loadByName = function(req, res, next, name) {
   User.loadPublicProfile(name, function(err, profile) {
-    console.log('Loaded public profile');
     if (err) {
-      console.log('err' + err);
       return next(err);
     }
     
     if (!profile) {
-      console.log('no profile');
       return next(new Error('User with name ' + name + ' does not exist'));
     }
 
     req.profile = profile;
-    console.log('loading flows');
-    loadFlows(req, next);
+    loadFlows(req.profile, next);
   });
 };
 
