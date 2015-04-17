@@ -13,7 +13,6 @@ var FlowSchema = new Schema({
   name: { type: String, required: true },
   author: { type: ShortId, ref: 'User' },
 
-  // TODO: Should just be in here, since moves are static?
   moves: [{
     move: { type: ShortId, ref: 'Move' },
     duration: Number
