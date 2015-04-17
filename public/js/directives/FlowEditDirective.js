@@ -79,7 +79,7 @@ angular.module('acromaster.directives')
       vm.flow.moves = [];
       angular.forEach(vm.moveList, function(entry) {
         vm.flow.moves.push({
-          move: entry.move._id,
+          move: entry.move.id,
           duration: entry.duration
         });
       });
@@ -88,7 +88,7 @@ angular.module('acromaster.directives')
         flash.error = 'There was an issue saving your flow. Correct any issues and re-submit';
       };
 
-      if (vm.flow._id) {
+      if (vm.flow.id) {
         // Update an existing flow
         vm.flow.$update(vm.saveSuccess, saveFailure);
       } else {
