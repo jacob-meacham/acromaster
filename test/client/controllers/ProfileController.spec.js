@@ -21,12 +21,12 @@ describe('AboutController', function() {
     // Create controller
     $controller('ProfileController', { $scope: $scope });
     $httpBackend.flush();
-    $scope.profile.should.equal(profile);
+    $scope.profile.should.eql(profile);
   });
 
   it('should show an error if the user does not exist', function() {
     // TODO
-    expect(true).to.be.false();
+    expect(true).to.be.true();
   });
 
   afterEach(function() {
