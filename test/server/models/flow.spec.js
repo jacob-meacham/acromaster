@@ -23,7 +23,7 @@ var User = mongoose.model('User');
 
 var saveFlow = function(flow, next) {
   flow.save(function(err) {
-    expect(err).to.not.exist();
+    expect(err).to.not.exist;
     next(null, null);
   });
 };
@@ -87,7 +87,7 @@ describe('Flow Model', function() {
         user.save(cb);
       }
     ], function(err) {
-      expect(err).to.not.exist();
+      expect(err).to.not.exist;
       done();
     });
   });
@@ -96,7 +96,7 @@ describe('Flow Model', function() {
     it('should save without error', function(done) {
       var _flow = new Flow(flow1);
       _flow.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         done();
       });
     });
@@ -104,7 +104,7 @@ describe('Flow Model', function() {
     it('should save a flow without an author without error', function(done) {
       var _flow = new Flow(flow2);
       _flow.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         done();
       });
     });
@@ -112,11 +112,11 @@ describe('Flow Model', function() {
     it('should be able to update flow without error', function(done) {
       var _flow = new Flow(flow1);
       _flow.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
 
         _flow.name = 'NewFlow';
         _flow.save(function(err) {
-          expect(err).to.not.exist();
+          expect(err).to.not.exist;
           _flow.name.should.equal('NewFlow');
           done();
         });
@@ -126,11 +126,11 @@ describe('Flow Model', function() {
     it('should be able to save two flows with the same name', function(done) {
       var _flow1 = new Flow(flow1);
       _flow1.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
 
         var _flow2 = new Flow(flow1);
         _flow2.save(function(err) {
-          expect(err).to.not.exist();
+          expect(err).to.not.exist;
           done();
         });
       });
@@ -140,7 +140,7 @@ describe('Flow Model', function() {
   describe('load()', function() {
     it('should load with all moves intact', function(done) {
       Move.list({}, function(err, moves) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         var _flow = new Flow(flow1);
 
         var move = { 'duration': 10, 'move': moves[0] };
@@ -155,7 +155,7 @@ describe('Flow Model', function() {
           },
           function(cb) {
             _flow.populate('moves.move', function(err) {
-              expect(err).to.not.exist();
+              expect(err).to.not.exist;
               _flow.moves.should.have.length(2);
               _flow.moves[1].move.name.should.equal('New Move 2');
               cb();
@@ -173,7 +173,7 @@ describe('Flow Model', function() {
 
         function() {
           Flow.load(_flow._id, function(err, loaded_flow) {
-            expect(err).to.not.exist();
+            expect(err).to.not.exist;
             loaded_flow.name.should.equal(_flow.name);
             done();
           });
@@ -202,7 +202,7 @@ describe('Flow Model', function() {
 
         function() {
           Flow.list({}, function(err, flows) {
-            expect(err).to.not.exist();
+            expect(err).to.not.exist;
             flows.should.have.length(2);
             flows[0].name.should.equal('Yet Another Flow');
 
@@ -230,7 +230,7 @@ describe('Flow Model', function() {
 
           var user = new User(userSchema);
           user.save(function(err, savedUser) {
-            expect(err).to.not.exist();
+            expect(err).to.not.exist;
             next(null, savedUser);
           });
         },
@@ -241,7 +241,7 @@ describe('Flow Model', function() {
 
         function() {
           Flow.list({sortBy: 'name'}, function(err, flows) {
-            expect(err).to.not.exist();
+            expect(err).to.not.exist;
             flows.should.have.length(3);
 
             flows[0].name.should.equal('Yet Another Flow');
@@ -270,9 +270,9 @@ describe('Flow Model', function() {
         },
         
         function(err, next) {
-          expect(err).to.not.exist();
+          expect(err).to.not.exist;
           Flow.list({perPage: 2, page: 0}, function(err2, flows) {
-            expect(err2).to.not.exist();
+            expect(err2).to.not.exist;
             flows.should.have.length(2);
             flows[0].name.should.equal('Flow 3');
             flows[1].name.should.equal('Yet Another Flow');
@@ -281,9 +281,9 @@ describe('Flow Model', function() {
         },
 
         function(err, next) {
-          expect(err).to.not.exist();
+          expect(err).to.not.exist;
           Flow.list({perPage: 2, page: 1}, function(err2, flows) {
-            expect(err2).to.not.exist();
+            expect(err2).to.not.exist;
             flows.should.have.length(1);
             flows[0].name.should.equal('Flow 1');
             next(null, null);
@@ -292,7 +292,7 @@ describe('Flow Model', function() {
 
         function() {
           Flow.list({perPage: 2, page: 2}, function(err, flows) {
-            expect(err).to.not.exist();
+            expect(err).to.not.exist;
             flows.should.have.length(0);
             done();
           });

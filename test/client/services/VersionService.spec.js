@@ -18,7 +18,7 @@ describe('VersionService', function() {
       versionNum = ver;
     });
 
-    expect(versionNum).to.be.null();
+    expect(versionNum).to.be.null;
     $httpBackend.flush();
     versionNum.should.eql('myversion');
   });

@@ -107,9 +107,9 @@ describe('Flow Controllers', function() {
       sandbox.stub(flowService, 'getCurrentFlow').returns(flow);
       $controller('FlowEndController', locals);
 
-      expect($scope.totalTimeOptions).to.exist();
-      expect($scope.difficultyOptions).to.exist();
-      expect($scope.numMovesOptions).to.exist();
+      expect($scope.totalTimeOptions).to.exist;
+      expect($scope.difficultyOptions).to.exist;
+      expect($scope.numMovesOptions).to.exist;
     });
 
     it('should delay setting the stats value', function() {

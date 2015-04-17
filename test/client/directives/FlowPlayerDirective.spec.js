@@ -62,34 +62,34 @@ describe('FlowPlayerDirective', function() {
     }));
 
     it('should allow setting audio on the audio element', function() {
-      ctrl.audio.paused.should.be.true();
+      ctrl.audio.paused.should.be.true;
 
       ctrl.setAudio('testAudio');
       ctrl.audio.src.should.eql('testAudio');
-      ctrl.audio.paused.should.be.false();
+      ctrl.audio.paused.should.be.false;
     });
 
     it('should allow playing the audio element', function() {
       ctrl.play();
-      ctrl.audio.paused.should.be.false();
+      ctrl.audio.paused.should.be.false;
     });
 
     it('should allow pausing the audio element', function() {
       ctrl.play();
-      ctrl.audio.paused.should.be.false();
+      ctrl.audio.paused.should.be.false;
       ctrl.pause();
-      ctrl.audio.paused.should.be.true();
+      ctrl.audio.paused.should.be.true;
     });
 
     it('should start the flow', function() {
       var audioSpy = sandbox.spy(ctrl, 'setAudio');
-      ctrl.hasStarted.should.be.false();
+      ctrl.hasStarted.should.be.false;
       ctrl.start();
 
       deferred.resolve();
       $rootScope.$apply();
       
-      ctrl.hasStarted.should.be.true();
+      ctrl.hasStarted.should.be.true;
 
       ctrl.currentMove.should.eql(flowDef[0].move);
       audioSpy.should.have.been.calledWith('audio1');

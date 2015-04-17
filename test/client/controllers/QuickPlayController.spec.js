@@ -29,10 +29,10 @@ describe('QuickPlayController', function() {
   });
 
   it('should initialize the scope with appropriate params', function() {
-    expect($scope.flowParams).to.not.be.null();
+    expect($scope.flowParams).to.not.be.null;
     $scope.flowParams.totalMinutes.should.eql(30);
 
-    expect($scope.generateFlow).to.not.be.null();
+    expect($scope.generateFlow).to.not.be.null;
   });
 
   it('should generate the flow with the appropriate params', function() {

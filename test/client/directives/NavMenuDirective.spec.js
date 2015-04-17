@@ -38,7 +38,7 @@ describe('FlowEditDirective', function() {
     $rootScope.$apply();
 
     var links = compiled.find('li');
-    angular.element(links[0]).hasClass('active').should.be.true();
+    angular.element(links[0]).hasClass('active').should.be.true;
   });
 
   it('should use the specified class as the active class', function() {
@@ -47,8 +47,8 @@ describe('FlowEditDirective', function() {
     $rootScope.$apply();
 
     var links = compiled.find('li');
-    angular.element(links[0]).hasClass('active').should.be.false();
-    angular.element(links[0]).hasClass('newActive').should.be.true();
+    angular.element(links[0]).hasClass('active').should.be.false;
+    angular.element(links[0]).hasClass('newActive').should.be.true;
   });
 
   it('should select a new link on route change', function() {
@@ -59,8 +59,8 @@ describe('FlowEditDirective', function() {
     $rootScope.$emit('$routeChangeStart');
 
     var links = compiled.find('li');
-    angular.element(links[0]).hasClass('active').should.be.false();
-    angular.element(links[1]).hasClass('active').should.be.true();
+    angular.element(links[0]).hasClass('active').should.be.false;
+    angular.element(links[1]).hasClass('active').should.be.true;
   });
 
   it('should not error if an unknown path is selected', function() {
@@ -68,11 +68,11 @@ describe('FlowEditDirective', function() {
     $rootScope.$apply();
 
     var links = compiled.find('li');
-    angular.element(links[0]).hasClass('active').should.be.true();
+    angular.element(links[0]).hasClass('active').should.be.true;
 
     sinon.stub($location, 'path').returns('/unknown');
     $rootScope.$emit('$routeChangeStart');
 
-    angular.element(links[0]).hasClass('active').should.be.true();
+    angular.element(links[0]).hasClass('active').should.be.true;
   });
 });

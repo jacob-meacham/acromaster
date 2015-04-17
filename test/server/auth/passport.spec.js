@@ -108,7 +108,7 @@ describe('Passport', function() {
   describe('deserializeUser', function() {
     it('should not return a user with an invalid id', function(done) {
       passport._deserializeUser(0, function(user) {
-        expect(user).to.not.exist();
+        expect(user).to.not.exist;
         done();
       });
     });
