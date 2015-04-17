@@ -4,22 +4,18 @@
 }
 
 /* line 5, ../sass/animations.scss */
-.view-frame {
+.view-frame.ng-leave {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-}
-
-/* line 12, ../sass/animations.scss */
-.view-frame.ng-leave {
   -webkit-animation: viewExit 0.5s both ease-in-out;
   -moz-animation: viewExit 0.5s both ease-in-out;
   animation: viewExit 0.5s both ease-in-out;
   z-index: 99;
 }
 
-/* line 18, ../sass/animations.scss */
+/* line 15, ../sass/animations.scss */
 .view-frame.ng-enter {
   -webkit-animation: viewEnter 0.5s both ease-in-out;
   -moz-animation: viewEnter 0.5s both ease-in-out;
@@ -27,7 +23,7 @@
   z-index: 100;
 }
 
-/* line 25, ../sass/animations.scss */
+/* line 22, ../sass/animations.scss */
 .view-frame.ng-leave .back-button {
   opacity: 0;
 }
@@ -98,7 +94,7 @@
     transform: translateX(0);
   }
 }
-/* line 101, ../sass/animations.scss */
+/* line 98, ../sass/animations.scss */
 .play-move.ng-hide-add {
   position: absolute;
   -webkit-animation: fade-out 0.5s both ease-in-out;
@@ -106,7 +102,7 @@
   animation: fade-out 0.5s both ease-in-out;
 }
 
-/* line 107, ../sass/animations.scss */
+/* line 104, ../sass/animations.scss */
 .play-move.ng-hide-remove {
   -webkit-animation: fade-in 0.5s both ease-in-out;
   -moz-animation: fade-in 0.5s both ease-in-out;
@@ -161,7 +157,7 @@
     opacity: 0;
   }
 }
-/* line 146, ../sass/animations.scss */
+/* line 143, ../sass/animations.scss */
 .thumbnail:hover,
 .thumbnail:focus {
   -webkit-transition: 0.3s ease-in-out;
@@ -172,7 +168,7 @@
   opacity: 1;
 }
 
-/* line 153, ../sass/animations.scss */
+/* line 150, ../sass/animations.scss */
 .back-button:hover,
 .back-button:focus,
 .back-button:active {
@@ -183,7 +179,7 @@
   opacity: 1;
 }
 
-/* line 160, ../sass/animations.scss */
+/* line 157, ../sass/animations.scss */
 .login-twitter:hover,
 .login-twitter:focus,
 .login-twitter:active {
@@ -194,7 +190,7 @@
   background-color: #3ea1ec;
 }
 
-/* line 167, ../sass/animations.scss */
+/* line 164, ../sass/animations.scss */
 .login-facebook:hover,
 .login-facebook:focus,
 .login-facebook:active {

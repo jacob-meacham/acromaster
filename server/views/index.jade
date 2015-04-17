@@ -2,11 +2,16 @@ doctype html
 html(lang='en', ng-app='acromaster')
   include includes/head
   body
-
-    div(role='navigator', ng-include="'partials/navbar.html'" ng-controller="NavbarController").navbar.navbar-inverse
-    div.container.inner
-        div.view-container
-            section(data-ng-view).view-frame
+    div.footer-wrapper
+        div(role='navigator', ng-include="'partials/navbar.html'" ng-controller="NavbarController").navbar.navbar-inverse
+        div.container.inner
+            div.view-container
+                section(data-ng-view).view-frame
+        footer.footer
+            div.container
+                p.text-muted 
+                    | Created with love by <a href="www.jemonjam.com">Jacob Meacham</a> and Jessica Goodburn ----
+                    a(href="mailto:feedback@acromaster.com") Feedback
     script(type='text/javascript').
         window.user = !{JSON.stringify(user).replace(/<\//g, "<\\/")};
         window.env = "!{env}";

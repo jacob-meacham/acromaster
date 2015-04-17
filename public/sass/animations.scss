@@ -2,20 +2,17 @@
   position: relative;
 }
 
-.view-frame {
+.view-frame.ng-leave {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-}
-
-.view-frame.ng-leave        {
   -webkit-animation:viewExit 0.5s both ease-in-out;
   -moz-animation:viewExit 0.5s both ease-in-out;
   animation:viewExit 0.5s both ease-in-out;
   z-index:99;
 }
-.view-frame.ng-enter    {  
+.view-frame.ng-enter {  
   -webkit-animation:viewEnter 0.5s both ease-in-out;
   -moz-animation:viewEnter 0.5s both ease-in-out;
   animation:viewEnter 0.5s both ease-in-out;
