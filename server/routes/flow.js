@@ -138,14 +138,6 @@ var recordPlayed = function(req, res, next) {
   });
 };
 
-// {
-//   'totalTime' : 3600,
-//   'difficulty' : 3,
-//   'timePerMove' : 15,
-//   'timeVariance' : 10,
-//   'transitionMoves' : true,
-//   'style' : 'Training' // or whatever
-// }
 var generate = function(req, res, routeNext) {
   if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
     res.status(400).send({error: 'totalTime and timePerMove required'});
