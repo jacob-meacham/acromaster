@@ -60,14 +60,7 @@ UserSchema.statics = {
           return cb();
         }
 
-        var profile = {
-          _id: user._id,
-          name: user.name,
-          username: user.username,
-          profilePictureUrl: user.profilePictureUrl,
-          createdAt: user.createdAt,
-        };
-
+        var profile = user.toPublic();
         cb(null, profile);
       });
   }
@@ -82,8 +75,27 @@ UserSchema.methods = {
   removeFavorite: function(flowId) {
     // TODO: Remove favorite
     console.log('TODO: remove favorite ' + flowId);
+  },
+
+  toPublic: function() {
+    return {
+      id: this._id,
+      name: this.name,
+      username: this.username,
+      profilePictureUrl: this.profilePictureUrl,
+      createdAt: this.createdAt
+    };
   }
 };
 
+
+UserSchema.options.toJSON = {
+  transform: function(doc, ret) {
+    ret.id = ret._id;
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  }
+};
 
 module.exports = mongoose.model('User', UserSchema);

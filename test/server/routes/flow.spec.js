@@ -11,20 +11,19 @@ var User = require('../../../server/models/user');
 
 mockgoose(mongoose);
 
-require('sinon');
+var sinon = require('sinon');
 require('mocha-sinon');
 var chai = require('chai');
 var expect = chai.expect;
 chai.should();
 chai.use(require('sinon-chai'));
 
-var authedApp;
-var author1, author2;
-var flow1, flow2, flow3;
-var move1, move2;
-
-// TODO: this should be mocked
 describe('/api/flow', function() {
+  var authedApp;
+  var author1, author2;
+  var flow1, flow2, flow3;
+  var move1, move2;
+
   before(function(done) {
     var _move = {
       name: 'New Move',
@@ -123,6 +122,15 @@ describe('/api/flow', function() {
     mockgoose.reset();
   });
 
+  var sandbox;
+  beforeEach(function() {
+    sandbox = sinon.sandbox.create();
+  });
+
+  afterEach(function() {
+    sandbox.restore();
+  });
+
   describe('POST /api/flow', function() {
     it('should not create with an empty body', function(done) {
       request(app)
@@ -206,7 +214,7 @@ describe('/api/flow', function() {
           var _flow = res.body;
           _flow.name.should.equal(flow1.name);
           _flow.author.name.should.equal(author1.name);
-          expect(_flow.author._id).to.exist();
+          expect(_flow.author.id).to.exist();
           expect(_flow.author.email).to.not.exist();
         })
         .end(done);
@@ -314,7 +322,7 @@ describe('/api/flow', function() {
     });
 
     it('should return an error if list fails', function(done) {
-      var stub = this.sinon.stub(Flow, 'list', function(options, callback) {
+      var stub = sandbox.stub(Flow, 'list', function(options, callback) {
         callback('Stub error');
       });
 
@@ -365,7 +373,7 @@ describe('/api/flow', function() {
     });
 
     it('should fail if querying fails', function(done) {
-      var stub = this.sinon.stub(Move, 'list', function(query, callback) {
+      var stub = sandbox.stub(Move, 'list', function(query, callback) {
         callback('Stub error', null);
       });
 

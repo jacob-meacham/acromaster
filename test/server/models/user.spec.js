@@ -127,7 +127,7 @@ describe('User Model', function() {
         function() {
           User.loadPublicProfile(_user.username, function(err, loaded_user) {
             expect(err).to.not.exist();
-            expect(loaded_user).to.have.keys('name', 'username', 'createdAt', '_id', 'profilePictureUrl');
+            expect(loaded_user).to.have.keys('name', 'username', 'createdAt', 'id', 'profilePictureUrl');
             done();
           });
         }
