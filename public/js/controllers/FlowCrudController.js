@@ -13,10 +13,8 @@ controllers.controller('FlowHomeController', ['$scope', '$location', 'Flow', fun
   };
 }]);
 
-controllers.controller('FlowSearchResultsController', ['$scope', '$routeParams', 'Flow', function($scope, $routeParams, Flow) {
-  Flow.get({search_query: $routeParams.search_query, max: $routeParams.max, page: $routeParams.page}).success(function(response) {
-    $scope.flows = response.flows;
-  });
+controllers.controller('FlowSearchResultsController', ['$scope', 'flows', function($scope, flows) {
+  $scope.flows = flows;
 }]);
 
 controllers.controller('FlowCreateController', ['$scope', '$location', 'Flow', function($scope, $location, Flow) {

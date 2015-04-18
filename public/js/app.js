@@ -47,7 +47,12 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
     })
     .when('/flows/results', {
       templateUrl: '/partials/flow/search_results.html',
-      controller: 'FlowSearchResultsController'
+      controller: 'FlowSearchResultsController',
+      resolve: {
+        flows: function(flowSearchInitialData) {
+          return flowSearchInitialData.performSearch();
+        }
+      }
     })
     .when('/flow/create', {
       templateUrl: '/partials/flow/create.html',
