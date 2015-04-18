@@ -12,6 +12,8 @@ var FlowSchema = new Schema({
     alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   },
   name: { type: String, required: true },
+  description: { type: String },
+  authorName: { type: String },
   author: { type: ShortId, ref: 'User' },
 
   moves: [{
@@ -22,9 +24,11 @@ var FlowSchema = new Schema({
   createdAt: { type : Date, default : Date.now },
   official: Boolean,
 
-  plays: Number,
+  plays: { type: Number, default : 0 },
   players: [{type: ShortId, ref: 'User'}]
 });
+
+FlowSchema.index({ name: 'text', description: 'text', authorName: 'text' });
 
 FlowSchema.statics = {
   load: function(id, cb) {
@@ -41,7 +45,7 @@ FlowSchema.statics = {
     var sortBy = {};
     sortBy[options.sortBy || 'createdAt'] = -1;
 
-    return this.find(searchQuery)
+    return this.find(searchQuery, options.score)
       .populate('author')
       .populate('moves.move')
       .sort(sortBy)

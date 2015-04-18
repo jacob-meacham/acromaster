@@ -3,9 +3,11 @@
 var controllers = angular.module('acromaster.controllers');
 
 controllers.controller('FlowHomeController', ['$scope', '$location', 'Flow', function($scope, $location, Flow) {
-  Flow.get({random: true, max: 11}).success(function(response) {
+  Flow.get({random: true, max: 11}, function(response) {
+    console.log(response.total);
     $scope.randomFlow = response.flows[0];
-    $scope.featuredList = response.flows.slice(1, response.count-1);
+    $scope.featuredFlows = response.flows.slice(1, response.total-1);
+    console.log($scope.featuredFlows);
   });
 
   $scope.find = function(query) {
@@ -13,8 +15,9 @@ controllers.controller('FlowHomeController', ['$scope', '$location', 'Flow', fun
   };
 }]);
 
-controllers.controller('FlowSearchResultsController', ['$scope', 'flows', function($scope, flows) {
-  $scope.flows = flows;
+controllers.controller('FlowSearchResultsController', ['$scope', 'flows', function($scope, flowsPromise) {
+  console.log(flowsPromise);
+  $scope.flows = flowsPromise.flows;
 }]);
 
 controllers.controller('FlowCreateController', ['$scope', '$location', 'Flow', function($scope, $location, Flow) {

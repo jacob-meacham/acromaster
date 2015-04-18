@@ -49,8 +49,8 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       templateUrl: '/partials/flow/search_results.html',
       controller: 'FlowSearchResultsController',
       resolve: {
-        flows: function(flowSearchInitialData) {
-          return flowSearchInitialData.performSearch();
+        flows: function(FlowSearchInitialData) {
+          return FlowSearchInitialData.performSearch();
         }
       }
     })

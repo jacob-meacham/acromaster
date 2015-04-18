@@ -24,18 +24,11 @@ var getFlow = function(req, res) {
 };
 
 var list = function(req, res, next) {
-  var search_query = req.query.search_query;
   var page = (req.query.page > 0 ? req.query.page : 1) - 1;
   var max = req.query.max;
   if (!max || max > 100) {
     max = 100;
   }
-
-  var options = {
-    page: page,
-    max: max,
-    searchQuery: search_query
-  };
 
   if (req.query.random) {
     Flow.findRandom().limit(max).exec(function(err, flows) {
@@ -49,6 +42,17 @@ var list = function(req, res, next) {
       });
     });
   } else {
+    var options = {
+      page: page,
+      max: max,
+    };
+
+    if (req.query.search_query) {
+      options.searchQuery = { $text: { $search : req.query.search_query } };
+      options.score = { $meta: 'textScore' };
+      options.sortBy = { score: options.score };
+    }
+
     Flow.list(options, function(err, flows) {
       if (err) {
         return next(err);
@@ -80,6 +84,7 @@ var create = function(req, res, next) {
   
   if (req.user) {
     flow.author = req.user;
+    flow.authorName = req.user.name;
   }
 
   flow.save(function(err) {
