@@ -42,8 +42,12 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       controller: 'WashingMachineViewController'
     })
     .when('/flows', {
-      templateUrl: '/partials/flow/list.html',
-      controller: 'FlowListController'
+      templateUrl: '/partials/flow/home.html',
+      controller: 'FlowHomeController'
+    })
+    .when('/flows/results', {
+      templateUrl: '/partials/flow/results.html',
+      controller: 'FlowSearchResultsController'
     })
     .when('/flow/create', {
       templateUrl: '/partials/flow/create.html',
