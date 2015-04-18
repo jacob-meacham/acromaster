@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var ShortId = require('mongoose-shortid');
 var likesPlugin = require('mongoose-likes');
+var randomPlugin = require('mongoose-random');
 var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
@@ -34,18 +35,18 @@ FlowSchema.statics = {
   },
 
   list: function(options, cb) {
-    var criteria = options.criteria || {};
+    var searchQuery = options.searchQuery || {};
 
     // Sory by creation time by default
     var sortBy = {};
     sortBy[options.sortBy || 'createdAt'] = -1;
 
-    return this.find(criteria)
+    return this.find(searchQuery)
       .populate('author')
       .populate('moves.move')
       .sort(sortBy)
-      .limit(options.perPage)
-      .skip(options.perPage * options.page)
+      .limit(options.max)
+      .skip(options.max * options.page)
       .exec(cb);
   },
 
@@ -78,11 +79,14 @@ FlowSchema.plugin(likesPlugin, {
   indexed: true
 });
 
+FlowSchema.plugin(randomPlugin, { path: '__random'});
+
 
 FlowSchema.options.toJSON = {
   transform: function(doc, ret) {
     ret.id = ret._id;
     delete ret._id;
+    delete ret.__random;
     delete ret.__v;
     return ret;
   }

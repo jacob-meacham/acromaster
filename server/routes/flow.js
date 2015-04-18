@@ -24,30 +24,49 @@ var getFlow = function(req, res) {
 };
 
 var list = function(req, res, next) {
+  var search_query = req.query.search_query;
   var page = (req.query.page > 0 ? req.query.page : 1) - 1;
-  var perPage = 100;
+  var max = req.query.max;
+  if (!max || max > 100) {
+    max = 100;
+  }
+
   var options = {
     page: page,
-    perPage: perPage
+    max: max,
+    searchQuery: search_query
   };
 
-  Flow.list(options, function(err, flows) {
-    if (err) {
-      return next(err);
-    }
-    
-    Flow.count().exec(function(err, count) {
+  if (req.query.random) {
+    Flow.findRandom().limit(max).exec(function(err, flows) {
       if (err) {
         return next(err);
       }
 
       res.jsonp({
         flows: flows,
-        page: page+1,
-        pages: Math.ceil(count/perPage)
+        total: max
       });
     });
-  });
+  } else {
+    Flow.list(options, function(err, flows) {
+      if (err) {
+        return next(err);
+      }
+      
+      Flow.count().exec(function(err, count) {
+        if (err) {
+          return next(err);
+        }
+
+        res.jsonp({
+          flows: flows,
+          page: page+1,
+          total: count
+        });
+      });
+    });
+  }
 };
 
 var create = function(req, res, next) {
