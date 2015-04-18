@@ -46,18 +46,18 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       controller: 'FlowHomeController'
     })
     .when('/flows/results', {
-      templateUrl: '/partials/flow/results.html',
+      templateUrl: '/partials/flow/search_results.html',
       controller: 'FlowSearchResultsController'
     })
     .when('/flow/create', {
       templateUrl: '/partials/flow/create.html',
       controller: 'FlowCreateController'
     })
-    .when('/flow/quick', {
-      templateUrl: '/partials/flow/play/quick.html',
-      controller: 'QuickPlayCreateController'
+    .when('/flow/workout', {
+      templateUrl: '/partials/flow/play/workout.html',
+      controller: 'WorkoutCreateController'
     })
-    .when('/flow/quick/play', {
+    .when('/flow/workout/play', {
       templateUrl: '/partials/flow/play/play.html',
       controller: 'FlowPlayController'
     })

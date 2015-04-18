@@ -2,17 +2,21 @@
 
 var controllers = angular.module('acromaster.controllers');
 
-controllers.controller('FlowListController', ['$scope', '$location', '$Flow', function($scope, $location, Flow) {
+controllers.controller('FlowHomeController', ['$scope', '$location', 'Flow', function($scope, $location, Flow) {
   Flow.get({random: true, max: 11}).success(function(response) {
     $scope.randomFlow = response.flows[0];
     $scope.featuredList = response.flows.slice(1, response.count-1);
   });
 
-  var find = $scope.find = function(query) {
+  $scope.find = function(query) {
     $location.path('/flows/results?search_query=' + query);
   };
+}]);
 
-  find();
+controllers.controller('FlowSearchResultsController', ['$scope', '$routeParams', 'Flow', function($scope, $routeParams, Flow) {
+  Flow.get({search_query: $routeParams.search_query, max: $routeParams.max, page: $routeParams.page}).success(function(response) {
+    $scope.flows = response.flows;
+  });
 }]);
 
 controllers.controller('FlowCreateController', ['$scope', '$location', 'Flow', function($scope, $location, Flow) {
