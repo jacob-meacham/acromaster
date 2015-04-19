@@ -43,7 +43,7 @@ controllers.controller('FlowEditController', ['$scope', '$routeParams', '$locati
   };
 }]);
 
-controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', 'FlowService', 'AuthService', function($scope, $routeParams, $location, flowService, authService) {
+controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', '$modal', 'FlowService', 'AuthService', function($scope, $routeParams, $location, $modal, flowService, authService) {
   var flow = $scope.flow = flowService.instantiateFlow($routeParams.flowId, function() {
     $scope.canEdit = authService.canEdit(flow);
   });
@@ -53,8 +53,14 @@ controllers.controller('FlowViewController', ['$scope', '$routeParams', '$locati
   };
 
   $scope.delete = function() {
-    // TODO: Popup first
-    flow.$delete();
-    $location.path('/flows/');
+    var modalInstance = $modal.open({
+      templateUrl: 'partials/flow/delete_modal.html',
+      backdrop: true,
+    });
+
+    modalInstance.result.then(function() {
+      flow.$delete();
+      $location.path('/flows/');
+    });
   };
 }]);
