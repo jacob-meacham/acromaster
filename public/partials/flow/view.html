@@ -8,7 +8,8 @@
             {{moveEntry.move.name}} - {{moveEntry.duration}} seconds
         </li>
     </ul>
+    <a ng-href="/flow/{{flow.id}}/edit" ng-show="canEdit">Edit Your Flow</a>
     <button ng-click="start()" class="btn btn-default">Start Flow</button>
-    <flow-share flow-id="{{flow._id}}" url="{{url}}"></flow-share>
+    <flow-share flow-id="{{flow.id}}"></flow-share>
     <back-button url="/flows"></back-button>
 </section>

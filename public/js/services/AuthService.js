@@ -30,6 +30,14 @@ angular.module('acromaster.services').factory('AuthService', ['$window', '$http'
       },
     };
 
+    service.canEdit = function(flow) {
+      if (!flow) { return false; }
+      if (!flow.author) { return false; }
+      if (!service.isAuthenticated()) { return false; }
+
+      return currentUser.id === flow.author.id;
+    };
+
     service.logout = function(callback) {
       $http.get('/logout').success(function() {
         $window.user = null;
