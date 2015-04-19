@@ -4,7 +4,6 @@ var controllers = angular.module('acromaster.controllers');
 
 controllers.controller('FlowHomeController', ['$scope', '$location', 'Flow', function($scope, $location, Flow) {
   Flow.get({random: true, max: 11}, function(response) {
-    console.log(response);
     $scope.randomFlow = response.flows[0];
     $scope.featuredFlows = response.flows.slice(1, response.total);
   });
@@ -38,10 +37,6 @@ controllers.controller('FlowEditController', ['$scope', '$routeParams', '$locati
     // Done this way to let the directive watch the top-level variable.
     $scope.flow = flow;
   });
-
-  $scope.reset = function() {
-    $scope.flow = 'haha clearly not';
-  };
 
   $scope.saveSuccess = function(savedFlow) {
     $location.path('/flow/' + savedFlow.id);
