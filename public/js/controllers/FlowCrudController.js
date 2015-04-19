@@ -42,4 +42,10 @@ controllers.controller('FlowViewController', ['$scope', '$routeParams', '$locati
   $scope.start = function() {
     $location.path('/flow/' + flow.id + '/play');
   };
+
+  $scope.delete = function() {
+    // TODO: Popup first
+    flow.$delete();
+    $location.path('/flows/');
+  };
 }]);

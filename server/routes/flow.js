@@ -73,13 +73,20 @@ var list = function(req, res, next) {
   }
 };
 
-var create = function(req, res, next) {
-  var flow = new Flow(req.body);
+var doesAuthorMatch = function(req, flow) {
   if (flow.author) {
     if (!req.user || req.user._id !== flow.author._id) {
-      res.status(401).send({error: new Error('This flow doesn\'belong to you')});
-      return;
+      return false;
     }
+  }
+  return true;
+};
+
+var create = function(req, res, next) {
+  var flow = new Flow(req.body);
+  if (!doesAuthorMatch(req, flow)) {
+    res.status(401).send({error: new Error('This flow doesn\'t belong to you')});
+    return;
   }
   
   if (req.user) {
@@ -101,9 +108,9 @@ var update = function(req, res) {
   if (!flow.author) {
     res.status(401).send({error: new Error('This flow doesn\'belong to you')});
     return;
-  } else if (!req.user || req.user._id !== flow.author._id) {
-      res.status(401).send({error: new Error('This flow doesn\'belong to you')});
-      return;
+  } else if (!doesAuthorMatch(req, flow)) {
+    res.status(401).send({error: new Error('This flow doesn\'t belong to you')});
+    return;
   }
 
   // Only allow changes to moves, name, and description.
@@ -113,6 +120,23 @@ var update = function(req, res) {
 
   flow.save(function() {
     res.jsonp(flow);
+  });
+};
+
+var deleteFlow = function(req, res, next) {
+  // TODO: DRY
+  var flow = req.flow;
+  if (!doesAuthorMatch(req, flow)) {
+    res.status(401).send({error: new Error('This flow doesn\'t belong to you')});
+    return;
+  }
+
+  flow.remove(function(err) {
+    if (err) {
+      return next(err);
+    }
+
+    res.status(200);
   });
 };
 
@@ -231,6 +255,7 @@ module.exports = function(app) {
   app.get('/api/flow/:flowId', getFlow);
   app.post('/api/flow', create);
   app.put('/api/flow/:flowId', update);
+  app.delete('/api/flow/:flowId', deleteFlow);
   app.post('/api/flow/:flowId/likes', requireUser, like);
   app.delete('/api/flow/:flowId/likes', requireUser, removeLike);
   app.get('/api/flow/:flowId/likes', requireUser, hasLiked);
