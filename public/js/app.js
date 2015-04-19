@@ -58,6 +58,10 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       templateUrl: '/partials/flow/create.html',
       controller: 'FlowCreateController'
     })
+    .when('/flow/:flowId/remix', {
+      templateUrl: '/partials/flow/create.html',
+      controller: 'FlowCreateController'
+    })
     .when('/flow/workout', {
       templateUrl: '/partials/flow/play/workout.html',
       controller: 'WorkoutCreateController'
