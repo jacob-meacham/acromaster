@@ -105,8 +105,11 @@ var update = function(req, res) {
     }
   }
 
-  // Only moves can be updated in a flow.
+  // Only allow changes to moves, name, and description.
   flow.moves = req.body.moves;
+  flow.name = req.body.name;
+  flow.description = req.body.description;
+
   flow.save(function() {
     res.jsonp(flow);
   });
