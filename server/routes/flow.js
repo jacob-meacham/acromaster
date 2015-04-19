@@ -98,11 +98,12 @@ var create = function(req, res, next) {
 
 var update = function(req, res) {
   var flow = req.flow;
-  if (flow.author) {
-    if (!req.user || req.user._id !== flow.author._id) {
+  if (!flow.author) {
+    res.status(401).send({error: new Error('This flow doesn\'belong to you')});
+    return;
+  } else if (!req.user || req.user._id !== flow.author._id) {
       res.status(401).send({error: new Error('This flow doesn\'belong to you')});
       return;
-    }
   }
 
   // Only allow changes to moves, name, and description.
