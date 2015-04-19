@@ -92,6 +92,7 @@ FlowSchema.options.toJSON = {
     delete ret._id;
     delete ret.__random;
     delete ret.__v;
+    delete ret.authorName; // Not required in return
     return ret;
   }
 };
