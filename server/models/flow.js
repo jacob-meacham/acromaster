@@ -85,6 +85,14 @@ FlowSchema.plugin(likesPlugin, {
 
 FlowSchema.plugin(randomPlugin, { path: '__random'});
 
+// TODO: Need to test this
+FlowSchema.pre('remove', function(next) {
+  this.model('User').update(
+      { 'favorites.flow': this._id },
+      { $pull: { 'favorites.flow': this._id} },
+      { multi: true },
+      next);
+});
 
 FlowSchema.options.toJSON = {
   transform: function(doc, ret) {
