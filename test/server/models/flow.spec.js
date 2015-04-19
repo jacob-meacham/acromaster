@@ -271,7 +271,7 @@ describe('Flow Model', function() {
         
         function(err, next) {
           expect(err).to.not.exist;
-          Flow.list({perPage: 2, page: 0}, function(err2, flows) {
+          Flow.list({max: 2, page: 0}, function(err2, flows) {
             expect(err2).to.not.exist;
             flows.should.have.length(2);
             flows[0].name.should.equal('Flow 3');
@@ -282,7 +282,7 @@ describe('Flow Model', function() {
 
         function(err, next) {
           expect(err).to.not.exist;
-          Flow.list({perPage: 2, page: 1}, function(err2, flows) {
+          Flow.list({max: 2, page: 1}, function(err2, flows) {
             expect(err2).to.not.exist;
             flows.should.have.length(1);
             flows[0].name.should.equal('Flow 1');
@@ -291,7 +291,7 @@ describe('Flow Model', function() {
         },
 
         function() {
-          Flow.list({perPage: 2, page: 2}, function(err, flows) {
+          Flow.list({max: 2, page: 2}, function(err, flows) {
             expect(err).to.not.exist;
             flows.should.have.length(0);
             done();

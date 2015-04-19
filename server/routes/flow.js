@@ -114,9 +114,9 @@ var update = function(req, res) {
   }
 
   // Only allow changes to moves, name, and description.
-  flow.moves = req.body.moves;
-  flow.name = req.body.name;
-  flow.description = req.body.description;
+  if (req.body.moves) { flow.moves = req.body.moves; }
+  if (req.body.name) { flow.name = req.body.name; }
+  if (req.body.description) { flow.description = req.body.description; }
 
   flow.save(function() {
     res.jsonp(flow);

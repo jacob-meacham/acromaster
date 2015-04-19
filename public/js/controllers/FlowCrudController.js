@@ -4,9 +4,9 @@ var controllers = angular.module('acromaster.controllers');
 
 controllers.controller('FlowHomeController', ['$scope', '$location', 'Flow', function($scope, $location, Flow) {
   Flow.get({random: true, max: 11}, function(response) {
+    console.log(response);
     $scope.randomFlow = response.flows[0];
-    $scope.featuredFlows = response.flows.slice(1, response.total-1);
-    console.log($scope.featuredFlows);
+    $scope.featuredFlows = response.flows.slice(1, response.total);
   });
 
   $scope.find = function(query) {

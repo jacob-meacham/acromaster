@@ -236,15 +236,11 @@ describe('/api/flow', function() {
         .end(done);
     });
 
-    it('should update without errors with no flow author', function(done) {
+    it('should not update with no flow author', function(done) {
       request(app)
         .put('/api/flow/' + flow3._id)
         .send({moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }]})
-        .expect(200)
-        .expect(function(res) {
-          var _flow = new Flow(res.body);
-          _flow.moves.length.should.equal(2);
-        })
+        .expect(401)
         .end(done);
     });
 
@@ -263,7 +259,8 @@ describe('/api/flow', function() {
         .expect(200)
         .expect(function(res) {
           var _flow = res.body;
-          _flow.name.should.equal(flow1.name);
+          _flow.moves.length.should.eql(flow1.moves.length);
+          _flow.name.should.eql(flow1.name);
           _flow.author.name.should.eql(author1.name);
         })
         .end(done);
@@ -296,29 +293,29 @@ describe('/api/flow', function() {
         .end(done);
     });
 
-    it('should list by pages', function(done) {
-      request(app)
+    it('should list by pages', function() {
+      return request(app)
         .get('/api/flow')
         .query({page: 1})
         .set('Accept', 'application/json')
         .expect(200)
         .expect(function(res) {
-          res.body.flows.should.have.length(3);
+          res.body.flows.should.have.length(5);
           res.body.page.should.equal(1);
-          res.body.pages.should.equal(1);
+          res.body.total.should.equal(5);
+        }).then(function() {
+          request(app)
+            .get('/api/flow')
+            .query({page: 2})
+            .set('Accept', 'application/json')
+            .expect(200)
+            .expect(function(res) {
+              console.log(res.body);
+              res.body.flows.should.have.length(0);
+              res.body.page.should.equal(2);
+              res.body.total.should.equal(5);
+            });
         });
-
-      request(app)
-        .get('/api/flow')
-        .query({page: 2})
-        .set('Accept', 'application/json')
-        .expect(200)
-        .expect(function(res) {
-          res.body.flows.should.have.length(0);
-          res.body.page.should.equal(2);
-          res.body.pages.should.equal(1);
-        })
-        .end(done);
     });
 
     it('should return an error if list fails', function(done) {
