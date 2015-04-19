@@ -2,14 +2,20 @@
 
 var controllers = angular.module('acromaster.controllers');
 
-controllers.controller('FlowListController', ['$scope', 'Flow', function($scope, Flow) {
-  var find = $scope.find = function(query) {
-    var flowResponse = Flow.get(query, function() {
-      $scope.flows = flowResponse.flows;
-    });
-  };
+controllers.controller('FlowHomeController', ['$scope', '$location', 'Flow', function($scope, $location, Flow) {
+  Flow.get({random: true, max: 11}, function(response) {
+    $scope.randomFlow = response.flows[0];
+    $scope.featuredFlows = response.flows.slice(1, response.total-1);
+    console.log($scope.featuredFlows);
+  });
 
-  find();
+  $scope.find = function(query) {
+    $location.path('/flows/results?search_query=' + query);
+  };
+}]);
+
+controllers.controller('FlowSearchResultsController', ['$scope', 'flows', function($scope, flowsPromise) {
+  $scope.flows = flowsPromise.flows;
 }]);
 
 controllers.controller('FlowCreateController', ['$scope', '$location', 'Flow', function($scope, $location, Flow) {
@@ -28,10 +34,10 @@ controllers.controller('FlowEditController', ['$scope', '$routeParams', '$locati
   };
 }]);
 
-controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', 'FlowService', function($scope, $routeParams, $location, FlowService) {
-  var flow = $scope.flow = FlowService.instantiateFlow($routeParams.flowId);
-
-  $scope.url = $location.absUrl - $location.path + '/flow';
+controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', 'FlowService', 'AuthService', function($scope, $routeParams, $location, flowService, authService) {
+  var flow = $scope.flow = flowService.instantiateFlow($routeParams.flowId, function() {
+    $scope.canEdit = authService.canEdit(flow);
+  });
 
   $scope.start = function() {
     $location.path('/flow/' + flow.id + '/play');

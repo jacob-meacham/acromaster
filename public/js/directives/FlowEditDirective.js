@@ -8,6 +8,8 @@ angular.module('acromaster.directives')
     vm.moveList = [];
     vm.authenticated = authService.isAuthenticated();
 
+    console.log('isCreating' + vm.isCreating);
+
     if (vm.flow.$promise) {
       // TODO: :(
       // Wait for the promise to be fulfilled before instantiating the move list
@@ -101,7 +103,8 @@ angular.module('acromaster.directives')
       restrict: 'E',
       scope: {
         flow: '=',
-        saveSuccess: '&onSaveSuccess'
+        saveSuccess: '&onSaveSuccess',
+        isCreating: '='
       },
       templateUrl: 'partials/flow/floweditor.html',
       controller: 'FlowEditDirectiveController',

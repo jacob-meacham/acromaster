@@ -13,6 +13,15 @@ acromasterServices.factory('Flow', ['$resource',
   }]
 );
 
+acromasterServices.factory('FlowSearchInitialData', ['Flow', '$route', function(Flow, $route) {
+  return {
+    performSearch: function() {
+      var params = $route.current.params;
+      return Flow.get({search_query: params.search_query, max: params.max, page: params.page}).$promise;
+    }
+  };
+}]);
+
 acromasterServices.factory('Moves', ['$resource', function($resource) {
   return $resource('/api/moves');
 }]);

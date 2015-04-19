@@ -25,29 +25,52 @@ var getFlow = function(req, res) {
 
 var list = function(req, res, next) {
   var page = (req.query.page > 0 ? req.query.page : 1) - 1;
-  var perPage = 100;
-  var options = {
-    page: page,
-    perPage: perPage
-  };
+  var max = req.query.max;
+  if (!max || max > 100) {
+    max = 100;
+  }
 
-  Flow.list(options, function(err, flows) {
-    if (err) {
-      return next(err);
-    }
-    
-    Flow.count().exec(function(err, count) {
+  if (req.query.random) {
+    Flow.findRandom().limit(max).exec(function(err, flows) {
       if (err) {
         return next(err);
       }
 
       res.jsonp({
         flows: flows,
-        page: page+1,
-        pages: Math.ceil(count/perPage)
+        total: max
       });
     });
-  });
+  } else {
+    var options = {
+      page: page,
+      max: max,
+    };
+
+    if (req.query.search_query) {
+      options.searchQuery = { $text: { $search : req.query.search_query } };
+      options.score = { $meta: 'textScore' };
+      options.sortBy = { score: options.score };
+    }
+
+    Flow.list(options, function(err, flows) {
+      if (err) {
+        return next(err);
+      }
+      
+      Flow.count().exec(function(err, count) {
+        if (err) {
+          return next(err);
+        }
+
+        res.jsonp({
+          flows: flows,
+          page: page+1,
+          total: count
+        });
+      });
+    });
+  }
 };
 
 var create = function(req, res, next) {
@@ -61,6 +84,7 @@ var create = function(req, res, next) {
   
   if (req.user) {
     flow.author = req.user;
+    flow.authorName = req.user.name;
   }
 
   flow.save(function(err) {
@@ -74,15 +98,19 @@ var create = function(req, res, next) {
 
 var update = function(req, res) {
   var flow = req.flow;
-  if (flow.author) {
-    if (!req.user || req.user._id !== flow.author._id) {
+  if (!flow.author) {
+    res.status(401).send({error: new Error('This flow doesn\'belong to you')});
+    return;
+  } else if (!req.user || req.user._id !== flow.author._id) {
       res.status(401).send({error: new Error('This flow doesn\'belong to you')});
       return;
-    }
   }
 
-  // Only moves can be updated in a flow.
+  // Only allow changes to moves, name, and description.
   flow.moves = req.body.moves;
+  flow.name = req.body.name;
+  flow.description = req.body.description;
+
   flow.save(function() {
     res.jsonp(flow);
   });
