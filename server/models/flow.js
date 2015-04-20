@@ -45,7 +45,7 @@ FlowSchema.statics = {
     var sortBy = {};
     sortBy[options.sortBy || 'createdAt'] = -1;
 
-    return this.find(searchQuery, options.score)
+    return this.find(searchQuery, null, options.score)
       .populate('author')
       .populate('moves.move')
       .sort(sortBy)

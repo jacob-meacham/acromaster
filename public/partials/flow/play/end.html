@@ -15,4 +15,9 @@
     <div ng-show="isNewFlow()">
       <a ng-click="saveFlow()">Save this flow!</a>
     </div>
+    <div ng-hide="isNewFlow()">
+      <a ng-href="/flow/{{flow.id}}/remix">Remix This Flow</a>
+      <flow-share flow-id="{{flow.id}}"></flow-share>
+      <flow-like flow="flow"></flow-like>
+    </div>
 </section>

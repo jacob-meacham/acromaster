@@ -1,14 +1,17 @@
 'use strict';
 var acromasterServices = angular.module('acromaster.services');
 
-acromasterServices.factory('Flow', ['$resource',
+acromasterServices.factory('Flow', ['$resource', '$http',
   function($resource) {
     return $resource('/api/flow/:flowId', {
       flowId: '@id'
     },
     {
       update: { method: 'PUT' },
-      generate: { method:'GET', url:'/api/flow/generate' }
+      generate: { method:'GET', url:'/api/flow/generate' },
+      like: { method: 'POST', url: '/api/flow/:flowId/likes' },
+      unlike: { method: 'DELETE', url: '/api/flow/:flowId/likes' },
+      hasLiked: { method: 'GET', url: '/api/flow/:flowId/likes' },
     });
   }]
 );

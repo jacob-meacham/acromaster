@@ -24,6 +24,7 @@ var getFlow = function(req, res) {
 };
 
 var list = function(req, res, next) {
+  // TODO: Breakup
   var page = (req.query.page > 0 ? req.query.page : 1) - 1;
   var max = req.query.max;
   if (!max || max > 100) {
@@ -53,6 +54,7 @@ var list = function(req, res, next) {
       options.sortBy = { score: options.score };
     }
 
+    // TODO: Promises instead of nesting
     Flow.list(options, function(err, flows) {
       if (err) {
         return next(err);
@@ -171,12 +173,13 @@ var removeLike = function(req, res, next) {
 };
 
 var hasLiked = function(req, res, next) {
+  console.log('calling hasLiked');
   Flow.findLikes(req.user._id, {_id:req.flow._id}, function(err, likes) {
     if (err) {
       return next(err);
     }
 
-    res.jsonp(!!likes.length);
+    res.jsonp({hasLiked: !!likes.length});
   });
 };
 
