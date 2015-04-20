@@ -36,7 +36,7 @@ var getUserProfile = function(req, res) {
 };
 
 var userMatch = function(req, res, next) {
-  if (!req.user || req.query.userId !== req.user._id) {
+  if (!req.user || req.params.userId !== req.user._id) {
     return res.status(401).send({error: new Error('Not logged in or not authorized')});
   }
 
@@ -57,6 +57,10 @@ var getFavorites = function(req, res, next) {
   User.findOne({_id: req.params.userId}, function(err, user) {
     if (err) {
       return next(err);
+    }
+
+    if (!user) {
+      return next(new Error('No user with id ' + req.params.userId + ' found'));
     }
 
     res.jsonp({favorites: user.favorites});

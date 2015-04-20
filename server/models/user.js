@@ -52,6 +52,7 @@ UserSchema.pre('save', function(next) {
 UserSchema.statics = {
   loadPublicProfile: function(name, cb) {
     this.findOne({ username: name })
+      .populate('favorites.flow', 'name _id')
       .exec(function(err, user) {
         if (err) {
           return cb(err);
@@ -73,7 +74,7 @@ UserSchema.methods = {
       return favorite.flow === flowId;
     }) !== -1;
     
-    if (found) {
+    if (!found) {
       // TODO: Not atomic, not sure if $addToSet is atomic either
       this.favorites.push({flow: flowId});
     }
@@ -105,7 +106,8 @@ UserSchema.methods = {
       name: this.name,
       username: this.username,
       profilePictureUrl: this.profilePictureUrl,
-      createdAt: this.createdAt
+      createdAt: this.createdAt,
+      favorites: this.favorites
     };
   }
 };

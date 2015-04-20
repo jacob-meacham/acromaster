@@ -43,13 +43,41 @@ controllers.controller('FlowEditController', ['$scope', '$routeParams', '$locati
   };
 }]);
 
-controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', '$modal', 'FlowService', 'AuthService', function($scope, $routeParams, $location, $modal, flowService, authService) {
-  var flow = $scope.flow = flowService.instantiateFlow($routeParams.flowId, function() {
+controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', '$modal', 'FlowService', 'AuthService', 'User', function($scope, $routeParams, $location, $modal, flowService, authService, User) {
+  var flowId = $routeParams.flowId;
+  // TODO: Promise instead?
+  var flow = $scope.flow = flowService.instantiateFlow(flowId, function() {
     $scope.canEdit = authService.canEdit(flow);
   });
 
   $scope.start = function() {
     $location.path('/flow/' + flow.id + '/play');
+  };
+
+  // TODO: DRY with LikeDirective
+  var getAction = function() {
+    if ($scope.hasFavorited) {
+      return 'Unfavorite';
+    } else {
+      return 'Favorite';
+    }
+  };
+
+  // TODO: fix if a user isn't logged in
+  User.hasFavorited({ flowId: flowId, userId: authService.getUser().id }, function(response) {
+    $scope.hasFavorited = response.hasFavorited;
+    $scope.action = getAction();
+  });
+
+  $scope.toggleFavorite = function() {
+    if ($scope.hasFavorited) {
+      User.unfavorite({ flowId: flowId, userId: authService.getUser().id});
+    } else {
+      User.favorite({ flowId: flowId, userId: authService.getUser().id});
+    }
+
+    $scope.hasFavorited = !$scope.hasFavorited;
+    $scope.action = getAction();
   };
 
   $scope.delete = function() {
