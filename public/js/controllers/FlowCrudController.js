@@ -8,8 +8,8 @@ controllers.controller('FlowHomeController', ['$scope', '$location', 'Flow', fun
     $scope.featuredFlows = response.flows.slice(1, response.total);
   });
 
-  $scope.find = function(query) {
-    $location.path('/flows/results?search_query=' + query);
+  $scope.search = function() {
+    $location.path('/flows/results').search({search_query: $scope.searchQuery});
   };
 }]);
 
