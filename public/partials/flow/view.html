@@ -8,6 +8,7 @@
             {{moveEntry.move.name}} - {{moveEntry.duration}} seconds
         </li>
     </ul>
+    <flow-like flow="flow"></flow-like>
     <a ng-href="/flow/{{flow.id}}/edit" ng-show="canEdit">Edit Your Flow</a>
     <a ng-href="/flow/{{flow.id}}/remix">Remix This Flow</a>
     <button ng-click="delete()" class="btn btn-default" ng-show="canEdit">Delete Your Flow</button>
