@@ -94,7 +94,9 @@ describe('FlowCrudController', function() {
     }));
 
     it('should start with a flow from the FlowService', function() {
-      sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
+      sandbox.stub(FlowService, 'instantiateFlow', function(id, cb) {
+        cb(flow);
+      });
       $controller('FlowEditController', {$scope: $scope, $location: $location, FlowService: FlowService});
 
       $scope.flow.should.eql(flow);

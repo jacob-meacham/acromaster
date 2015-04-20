@@ -32,7 +32,7 @@ describe('FlowEditDirective', function() {
 
     beforeEach(inject(function($controller, _, _flash_, Flow) {
       flash = _flash_;
-      controllerFn = $controller('FlowEditDirectiveController', {_: _, Moves: Moves, flash: flash}, true);
+      controllerFn = $controller('FlowEditDirectiveController', {_: _, Moves: Moves, flash: flash, $scope: $rootScope.$new()}, true);
       controllerFn.instance.flow = new Flow();
     }));
 
