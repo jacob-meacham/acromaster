@@ -12,6 +12,7 @@ acromasterServices.factory('Flow', ['$resource', '$http',
       like: { method: 'POST', url: '/api/flow/:flowId/likes' },
       unlike: { method: 'DELETE', url: '/api/flow/:flowId/likes' },
       hasLiked: { method: 'GET', url: '/api/flow/:flowId/likes' },
+      recordPlay: { method: 'POST', url: '/api/flow/:flowId/plays' }
     });
   }]
 );
