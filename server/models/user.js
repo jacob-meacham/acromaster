@@ -69,13 +69,12 @@ UserSchema.statics = {
 
 UserSchema.methods = {
   addFavorite: function(flowId, cb) {
-
-    // TODO: Not atomic, not sure if $addToSet is atomic either
     var found = _.findIndex(this.favorites, function(favorite) {
       return favorite.flow === flowId;
     }) !== -1;
     
     if (found) {
+      // TODO: Not atomic, not sure if $addToSet is atomic either
       this.favorites.push({flow: flowId});
     }
     this.save(cb);

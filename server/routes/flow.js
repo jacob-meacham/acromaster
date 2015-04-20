@@ -2,7 +2,6 @@
 
 var async = require('async');
 var Flow = require('../models/flow.js');
-var User = require('../models/user.js');
 var Move = require('../models/move.js');
 
 var loadById = function(req, res, next, id) {
@@ -145,10 +144,6 @@ var deleteFlow = function(req, res, next) {
 
 var requireUser = function(req, res, next) {
   if (!req.user) {
-    // User.findOne({_id: 'aiMpTNQ'}, function(err, user) {
-    //   req.user = user;
-    //   next();
-    // });
     return res.status(401).send({error: new Error('No user')});
   }
   
@@ -178,7 +173,6 @@ var removeLike = function(req, res, next) {
 };
 
 var hasLiked = function(req, res, next) {
-  console.log('calling hasLiked');
   Flow.findLikes(req.user._id, {_id:req.flow._id}, function(err, likes) {
     if (err) {
       return next(err);
@@ -195,48 +189,6 @@ var recordPlayed = function(req, res, next) {
     }
 
     return req.flow.plays;
-  });
-};
-
-// TODO: Move to user
-var hasFavorited = function(req, res, next) {
-  User.find({_id: req.user._id, 'favorites.flow': req.flow._id}, function(err, flows) {
-    if(err) {
-      return next(err);
-    }
-
-    res.jsonp({hasFavorited: !!flows.length});
-  });
-};
-
-var getFavorites = function(req, res, next) {
-  // TODO: Paged, move to model
-  Flow.find({_id: req.flow._id, 'players.flow': req.query.user_id}, function(err, flows) {
-    if(err) {
-      return next(err);
-    }
-
-    res.jsonp(flows);
-  });
-};
-
-var addFavorite = function(req, res, next) {
-  req.user.addFavorite(req.flow._id, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-
-    return res.jsonp(user);
-  });
-};
-
-var removeFavorite = function(req, res, next) {
-  req.user.removeFavorite(req.flow._id, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-
-    return res.jsonp(user);
   });
 };
 
@@ -310,10 +262,6 @@ module.exports = function(app) {
   app.delete('/api/flow/:flowId/likes', requireUser, removeLike);
   app.get('/api/flow/:flowId/likes', requireUser, hasLiked);
   app.post('/api/flow/:flowId/plays', requireUser, recordPlayed);
-  app.get('/api/flow/:flowId/favorites', requireUser, hasFavorited); // TODO: This is kind of a weird semantic
-  app.get('/api/flow/:flowId/favorites/:userId', getFavorites);
-  app.post('/api/flow/:flowId/favorites', requireUser, addFavorite);
-  app.delete('/api/flow/:flowId/favorites', requireUser, removeFavorite);
 
   app.param('flowId', loadById);
 };
