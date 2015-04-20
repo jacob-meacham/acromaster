@@ -63,6 +63,7 @@ FlowSchema.statics = {
 };
 
 FlowSchema.methods = {
+  // TODO: Make static?
   recordPlayed: function(userId, cb) {
     var update = {
       $addToSet: {
@@ -73,7 +74,7 @@ FlowSchema.methods = {
       }
     };
 
-    return this.model('Flow').findByIdAndUpdate(this._id, update, cb);
+    return this.update(update, cb);
   }
 };
 

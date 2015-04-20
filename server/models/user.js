@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var ShortId = require('mongoose-shortid');
 var Schema = mongoose.Schema;
 var slugify = require('slugify');
+var _ = require('lodash');
 
 var UserSchema = new Schema({
   _id: {
@@ -51,6 +52,7 @@ UserSchema.pre('save', function(next) {
 UserSchema.statics = {
   loadPublicProfile: function(name, cb) {
     this.findOne({ username: name })
+      .populate('favorites.flow', 'name _id')
       .exec(function(err, user) {
         if (err) {
           return cb(err);
@@ -67,14 +69,35 @@ UserSchema.statics = {
 };
 
 UserSchema.methods = {
-  addFavorite: function(flowId) {
-    // TODO: add favorite
-    console.log('TODO: add favorite ' + flowId);
+  addFavorite: function(flowId, cb) {
+    var found = _.findIndex(this.favorites, function(favorite) {
+      return favorite.flow === flowId;
+    }) !== -1;
+    
+    if (!found) {
+      // TODO: Not atomic, not sure if $addToSet is atomic either
+      this.favorites.push({flow: flowId});
+    }
+    this.save(cb);
   },
 
-  removeFavorite: function(flowId) {
-    // TODO: Remove favorite
-    console.log('TODO: remove favorite ' + flowId);
+  removeFavorite: function(flowId, cb) {
+    var filteredFavorites = _.filter(this.favorites, function(favorite) {
+      return favorite.flow !== flowId;
+    });
+
+    this.favorites = filteredFavorites;
+    this.save(cb);
+
+    // TODO: Is this better? this.favorites.pull doesn't work, requires an actual update call.
+    // this.update({$pull: { favorites: { flow: flowId}}}, function(err) {
+    //   if (err) {
+    //     return cb(err);
+    //   }
+
+         // This is not correct, want the actual object
+    //   return cb(null, this);
+    // });
   },
 
   toPublic: function() {
@@ -83,7 +106,8 @@ UserSchema.methods = {
       name: this.name,
       username: this.username,
       profilePictureUrl: this.profilePictureUrl,
-      createdAt: this.createdAt
+      createdAt: this.createdAt,
+      favorites: this.favorites
     };
   }
 };
@@ -99,3 +123,4 @@ UserSchema.options.toJSON = {
 };
 
 module.exports = mongoose.model('User', UserSchema);
+ 

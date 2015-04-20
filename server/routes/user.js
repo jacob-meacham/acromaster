@@ -35,7 +35,63 @@ var getUserProfile = function(req, res) {
   res.jsonp(req.profile);
 };
 
+var userMatch = function(req, res, next) {
+  if (!req.user || req.params.userId !== req.user._id) {
+    return res.status(401).send({error: new Error('Not logged in or not authorized')});
+  }
+
+  next();
+};
+
+var hasFavorited = function(req, res, next) {
+  User.find({_id: req.params.userId, 'favorites.flow': req.params.flowId}, function(err, flows) {
+    if(err) {
+      return next(err);
+    }
+
+    res.jsonp({hasFavorited: !!flows.length});
+  });
+};
+
+var getFavorites = function(req, res, next) {
+  User.findOne({_id: req.params.userId}, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+
+    if (!user) {
+      return next(new Error('No user with id ' + req.params.userId + ' found'));
+    }
+
+    res.jsonp({favorites: user.favorites});
+  });
+};
+
+var addFavorite = function(req, res, next) {
+  req.user.addFavorite(req.params.flowId, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+
+    return res.jsonp(user);
+  });
+};
+
+var removeFavorite = function(req, res, next) {
+  req.user.removeFavorite(req.params.flowId, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+
+    return res.jsonp(user);
+  });
+};
+
 module.exports = function(app) {
   app.get('/api/profile/:user', getUserProfile);
+  app.get('/api/profile/:userId/favorites', getFavorites);
+  app.get('/api/profile/:userId/favorites/:flowId', hasFavorited);
+  app.post('/api/profile/:userId/favorites/:flowId', userMatch, addFavorite);
+  app.delete('/api/profile/:userId/favorites/:flowId', userMatch, removeFavorite);
   app.param('user', loadByName);
 };

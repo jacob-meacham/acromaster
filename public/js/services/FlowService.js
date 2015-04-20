@@ -1,8 +1,7 @@
 'use strict';
 var acromasterServices = angular.module('acromaster.services');
 
-acromasterServices.factory('Flow', ['$resource', '$http',
-  function($resource) {
+acromasterServices.factory('Flow', ['$resource', function($resource) {
     return $resource('/api/flow/:flowId', {
       flowId: '@id'
     },

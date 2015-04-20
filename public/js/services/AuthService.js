@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('acromaster.services').factory('AuthService', ['$window', '$http', '$location', '$route', function($window, $http, $location, $route) {
+var acromasterServices = angular.module('acromaster.services');
+
+acromasterServices.factory('AuthService', ['$window', '$http', '$location', '$route', function($window, $http, $location, $route) {
     function isEmpty(obj) {
       for(var prop in obj) {
           if(obj.hasOwnProperty(prop)) {
@@ -53,5 +55,19 @@ angular.module('acromaster.services').factory('AuthService', ['$window', '$http'
     };
 
     return service;
+  }
+]);
+
+acromasterServices.factory('User', ['$resource', function($resource) {
+    return $resource('/api/profile/:userId', {
+      flowId: '@flowId',
+      userId: '@userId'
+    },
+    {
+      favorite: { method: 'POST', url: '/api/profile/:userId/favorites/:flowId' },
+      unfavorite: { method: 'DELETE', url: '/api/profile/:userId/favorites/:flowId' },
+      getFavorites: { method: 'GET', url: '/api/profile/:userId/favorites' },
+      hasFavorited: { method: 'GET', url: '/api/profile/:userId/favorites/:flowId' }
+    });
   }
 ]);

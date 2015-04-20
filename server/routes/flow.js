@@ -157,7 +157,7 @@ var like = function(req, res, next) {
       return next(err);
     }
 
-    res.sendStatus(200);
+    res.jsonp(flow);
   });
 };
 
@@ -168,12 +168,11 @@ var removeLike = function(req, res, next) {
       return next(err);
     }
 
-    res.sendStatus(200);
+    res.jsonp(flow);
   });
 };
 
 var hasLiked = function(req, res, next) {
-  console.log('calling hasLiked');
   Flow.findLikes(req.user._id, {_id:req.flow._id}, function(err, likes) {
     if (err) {
       return next(err);
