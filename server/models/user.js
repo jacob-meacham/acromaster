@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var ShortId = require('mongoose-shortid');
 var Schema = mongoose.Schema;
 var slugify = require('slugify');
+var _ = require('lodash');
 
 var UserSchema = new Schema({
   _id: {
@@ -37,7 +38,14 @@ var UserSchema = new Schema({
   favorites: [{
     flow: { type: ShortId, ref: 'Flow'},
     favoritedAt: { type: Date, 'default': Date.now }
-  }]
+  }],
+
+  stats: {
+    flowsPlayed: Number,
+    minutesPlayed: Number,
+    flowsWritten: Number,
+    moves: Number
+  }
 });
 
 UserSchema.pre('save', function(next) {
@@ -77,13 +85,22 @@ UserSchema.methods = {
     console.log('TODO: remove favorite ' + flowId);
   },
 
+  recordPlay: function(moves, minutes, cb) {
+    this.stats.flowsPlayed.$inc();
+    this.stats.minutesPlayed += minutes;
+    this.stats.movesPlayed += moves;
+
+    this.save(cb);
+  },
+
   toPublic: function() {
     return {
       id: this._id,
       name: this.name,
       username: this.username,
       profilePictureUrl: this.profilePictureUrl,
-      createdAt: this.createdAt
+      createdAt: this.createdAt,
+      stats: this.stats
     };
   }
 };
@@ -94,6 +111,9 @@ UserSchema.options.toJSON = {
     ret.id = ret._id;
     delete ret._id;
     delete ret.__v;
+    _.forEach(ret.favorites, function(favorite) {
+      delete favorite._id;
+    });
     return ret;
   }
 };
