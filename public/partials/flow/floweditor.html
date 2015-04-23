@@ -1,10 +1,26 @@
 <div>
-    <form>
-        <div class="form-group">
-            <label for="name">Flow Name</label>
-            <input type="text" class="form-control" ng-model="vm.flow.name" id="name" placeholder="Flow Name">
+    <div class="flow-basic-info">
+        <div ng-show="vm.isCreating">
+             <div class="form-group">
+                <label for="name">Flow Name</label>
+                <input type="text" class="form-control" ng-model="vm.flow.name" id="name" placeholder="Flow Name"></input>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" ng-model="vm.flow.description" id="description" placeholder="Description"></textarea>
+            </div>
         </div>
-    </form>
+        <div ng-show="!vm.isCreating">
+            <div class="form-group">
+                <label for="name">Flow Name</label>
+                <span editable-text="vm.flow.name" e-autocomplete="off" e-name="name" e-class="form-control" e-required>{{ vm.flow.name }}</span>
+            </div>
+            <div class="form-group">
+                <label for="name">Description</label>
+                <span editable-textarea="vm.flow.description" e-name="description" e-class="form-control">{{ vm.flow.description || "Description" }}</span>
+            </div>
+        </div>
+    </div>
     <h3>Moves</h3>
     <table class="table table-striped">
         <thead>
@@ -57,7 +73,7 @@
                     <strong class="alert-heading">Error</strong>
                     <span class="alert-message">{{flash.message}}</span>
                 </div>
-                <button type="submit" class="btn btn-default">Create Flow</button>
+                <button type="submit" class="btn btn-default">{{ vm.isCreating ? "Create Flow" : "Update Flow" }}</button>
             </div>
         </form>
     </div>

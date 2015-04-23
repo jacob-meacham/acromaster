@@ -20,36 +20,36 @@ describe('FlowCrudController', function() {
     sandbox.restore();
   });
 
-  describe('FlowListController', function() {
+  describe('FlowHomeController', function() {
     var Flow;
+    var $location;
 
-    beforeEach(inject(function(_Flow_) {
+    beforeEach(inject(function(_Flow_, _$location_) {
       Flow = _Flow_;
+      $location = _$location_;
     }));
 
-    it('should start with all flows', function() {
+    it('should start with a random flow and feature flows', function() {
       var flows = [{name: 'foo'}, {name: 'bar'}, {name: 'baz'}];
-      var getCallback;
       sandbox.stub(Flow, 'get', function(query, callback) {
-        getCallback = callback;
-        return {flows: flows};
+        callback({flows: flows, total: 3});
       });
 
-      $controller('FlowListController', {$scope: $scope, Flow: Flow});
-      getCallback();
-
-      $scope.flows.should.eql(flows);
+      $controller('FlowHomeController', {$scope: $scope, Flow: Flow});
+      flows.should.contain($scope.randomFlow);
+      $scope.featuredFlows.should.have.length(2);
+      $scope.featuredFlows[0].should.eql(flows[1]);
+      $scope.featuredFlows[1].should.eql(flows[2]);
     });
 
     it('should expose find', function() {
-      var query = {name: 'foo', tags: ['static']};
-      var flowStub = sandbox.stub(Flow, 'get').returns({});
+      var locationSpy = sandbox.spy($location, 'path');
 
-      $controller('FlowListController', {$scope: $scope, Flow: Flow});
-      $scope.find(query);
+      $controller('FlowHomeController', {$scope: $scope, Flow: Flow});
+      $scope.find('beginner');
 
-      flowStub.should.have.callCount(2);
-      flowStub.should.have.been.calledWith(query);
+      locationSpy.should.have.callCount(1);
+      locationSpy.should.have.been.calledWith('/flows/results?search_query=beginner');
     });
   });
 
@@ -94,7 +94,9 @@ describe('FlowCrudController', function() {
     }));
 
     it('should start with a flow from the FlowService', function() {
-      sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
+      sandbox.stub(FlowService, 'instantiateFlow', function(id, cb) {
+        cb(flow);
+      });
       $controller('FlowEditController', {$scope: $scope, $location: $location, FlowService: FlowService});
 
       $scope.flow.should.eql(flow);

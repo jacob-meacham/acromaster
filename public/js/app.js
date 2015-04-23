@@ -42,18 +42,31 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       controller: 'WashingMachineViewController'
     })
     .when('/flows', {
-      templateUrl: '/partials/flow/list.html',
-      controller: 'FlowListController'
+      templateUrl: '/partials/flow/home.html',
+      controller: 'FlowHomeController'
+    })
+    .when('/flows/results', {
+      templateUrl: '/partials/flow/search_results.html',
+      controller: 'FlowSearchResultsController',
+      resolve: {
+        flows: function(FlowSearchInitialData) {
+          return FlowSearchInitialData.performSearch();
+        }
+      }
     })
     .when('/flow/create', {
       templateUrl: '/partials/flow/create.html',
       controller: 'FlowCreateController'
     })
-    .when('/flow/quick', {
-      templateUrl: '/partials/flow/play/quick.html',
-      controller: 'QuickPlayCreateController'
+    .when('/flow/:flowId/remix', {
+      templateUrl: '/partials/flow/create.html',
+      controller: 'FlowCreateController'
     })
-    .when('/flow/quick/play', {
+    .when('/flow/workout', {
+      templateUrl: '/partials/flow/play/workout.html',
+      controller: 'WorkoutCreateController'
+    })
+    .when('/flow/workout/play', {
       templateUrl: '/partials/flow/play/play.html',
       controller: 'FlowPlayController'
     })

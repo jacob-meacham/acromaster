@@ -24,43 +24,76 @@ var getFlow = function(req, res) {
 };
 
 var list = function(req, res, next) {
+  // TODO: Breakup
   var page = (req.query.page > 0 ? req.query.page : 1) - 1;
-  var perPage = 100;
-  var options = {
-    page: page,
-    perPage: perPage
-  };
+  var max = req.query.max;
+  if (!max || max > 100) {
+    max = 100;
+  }
 
-  Flow.list(options, function(err, flows) {
-    if (err) {
-      return next(err);
-    }
-    
-    Flow.count().exec(function(err, count) {
+  if (req.query.random) {
+    Flow.findRandom().limit(max).exec(function(err, flows) {
       if (err) {
         return next(err);
       }
 
       res.jsonp({
         flows: flows,
-        page: page+1,
-        pages: Math.ceil(count/perPage)
+        total: max
       });
     });
-  });
+  } else {
+    var options = {
+      page: page,
+      max: max,
+    };
+
+    if (req.query.search_query) {
+      options.searchQuery = { $text: { $search : req.query.search_query } };
+      options.score = { $meta: 'textScore' };
+      options.sortBy = { score: options.score };
+    }
+
+    // TODO: Promises instead of nesting
+    Flow.list(options, function(err, flows) {
+      if (err) {
+        return next(err);
+      }
+      
+      Flow.count().exec(function(err, count) {
+        if (err) {
+          return next(err);
+        }
+
+        res.jsonp({
+          flows: flows,
+          page: page+1,
+          total: count
+        });
+      });
+    });
+  }
+};
+
+var doesAuthorMatch = function(req, flow) {
+  if (flow.author) {
+    if (!req.user || req.user._id !== flow.author._id) {
+      return false;
+    }
+  }
+  return true;
 };
 
 var create = function(req, res, next) {
   var flow = new Flow(req.body);
-  if (flow.author) {
-    if (!req.user || req.user._id !== flow.author._id) {
-      res.status(401).send({error: new Error('This flow doesn\'belong to you')});
-      return;
-    }
+  if (!doesAuthorMatch(req, flow)) {
+    res.status(401).send({error: new Error('This flow doesn\'t belong to you')});
+    return;
   }
   
   if (req.user) {
     flow.author = req.user;
+    flow.authorName = req.user.name;
   }
 
   flow.save(function(err) {
@@ -74,17 +107,38 @@ var create = function(req, res, next) {
 
 var update = function(req, res) {
   var flow = req.flow;
-  if (flow.author) {
-    if (!req.user || req.user._id !== flow.author._id) {
-      res.status(401).send({error: new Error('This flow doesn\'belong to you')});
-      return;
-    }
+  if (!flow.author) {
+    res.status(401).send({error: new Error('This flow doesn\'belong to you')});
+    return;
+  } else if (!doesAuthorMatch(req, flow)) {
+    res.status(401).send({error: new Error('This flow doesn\'t belong to you')});
+    return;
   }
 
-  // Only moves can be updated in a flow.
-  flow.moves = req.body.moves;
+  // Only allow changes to moves, name, and description.
+  if (req.body.moves) { flow.moves = req.body.moves; }
+  if (req.body.name) { flow.name = req.body.name; }
+  if (req.body.description) { flow.description = req.body.description; }
+
   flow.save(function() {
     res.jsonp(flow);
+  });
+};
+
+var deleteFlow = function(req, res, next) {
+  // TODO: DRY
+  var flow = req.flow;
+  if (!doesAuthorMatch(req, flow)) {
+    res.status(401).send({error: new Error('This flow doesn\'t belong to you')});
+    return;
+  }
+
+  flow.remove(function(err) {
+    if (err) {
+      return next(err);
+    }
+
+    res.status(200);
   });
 };
 
@@ -103,7 +157,7 @@ var like = function(req, res, next) {
       return next(err);
     }
 
-    res.sendStatus(200);
+    res.jsonp(flow);
   });
 };
 
@@ -114,7 +168,7 @@ var removeLike = function(req, res, next) {
       return next(err);
     }
 
-    res.sendStatus(200);
+    res.jsonp(flow);
   });
 };
 
@@ -124,7 +178,7 @@ var hasLiked = function(req, res, next) {
       return next(err);
     }
 
-    res.jsonp(!!likes.length);
+    res.jsonp({hasLiked: !!likes.length});
   });
 };
 
@@ -203,6 +257,7 @@ module.exports = function(app) {
   app.get('/api/flow/:flowId', getFlow);
   app.post('/api/flow', create);
   app.put('/api/flow/:flowId', update);
+  app.delete('/api/flow/:flowId', deleteFlow);
   app.post('/api/flow/:flowId/likes', requireUser, like);
   app.delete('/api/flow/:flowId/likes', requireUser, removeLike);
   app.get('/api/flow/:flowId/likes', requireUser, hasLiked);

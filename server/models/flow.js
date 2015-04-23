@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var ShortId = require('mongoose-shortid');
 var likesPlugin = require('mongoose-likes');
+var randomPlugin = require('mongoose-random');
 var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
@@ -11,6 +12,8 @@ var FlowSchema = new Schema({
     alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   },
   name: { type: String, required: true },
+  description: { type: String },
+  authorName: { type: String },
   author: { type: ShortId, ref: 'User' },
 
   moves: [{
@@ -21,9 +24,11 @@ var FlowSchema = new Schema({
   createdAt: { type : Date, default : Date.now },
   official: Boolean,
 
-  plays: Number,
+  plays: { type: Number, default : 0 },
   players: [{type: ShortId, ref: 'User'}]
 });
+
+FlowSchema.index({ name: 'text', description: 'text', authorName: 'text' });
 
 FlowSchema.statics = {
   load: function(id, cb) {
@@ -34,18 +39,18 @@ FlowSchema.statics = {
   },
 
   list: function(options, cb) {
-    var criteria = options.criteria || {};
+    var searchQuery = options.searchQuery || {};
 
     // Sory by creation time by default
     var sortBy = {};
     sortBy[options.sortBy || 'createdAt'] = -1;
 
-    return this.find(criteria)
+    return this.find(searchQuery, null, options.score)
       .populate('author')
       .populate('moves.move')
       .sort(sortBy)
-      .limit(options.perPage)
-      .skip(options.perPage * options.page)
+      .limit(options.max)
+      .skip(options.max * options.page)
       .exec(cb);
   },
 
@@ -58,6 +63,7 @@ FlowSchema.statics = {
 };
 
 FlowSchema.methods = {
+  // TODO: Make static?
   recordPlayed: function(userId, cb) {
     var update = {
       $addToSet: {
@@ -68,7 +74,7 @@ FlowSchema.methods = {
       }
     };
 
-    return this.model('Flow').findByIdAndUpdate(this._id, update, cb);
+    return this.update(update, cb);
   }
 };
 
@@ -78,12 +84,24 @@ FlowSchema.plugin(likesPlugin, {
   indexed: true
 });
 
+FlowSchema.plugin(randomPlugin, { path: '__random'});
+
+// TODO: Need to test this
+FlowSchema.pre('remove', function(next) {
+  this.model('User').update(
+      { 'favorites.flow': this._id },
+      { $pull: { 'favorites.flow': this._id} },
+      { multi: true },
+      next);
+});
 
 FlowSchema.options.toJSON = {
   transform: function(doc, ret) {
     ret.id = ret._id;
     delete ret._id;
+    delete ret.__random;
     delete ret.__v;
+    delete ret.authorName; // Not required in return
     return ret;
   }
 };

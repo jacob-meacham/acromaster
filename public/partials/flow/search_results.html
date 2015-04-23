@@ -9,19 +9,21 @@
             <tr>
                 <th>Flow</th>
                 <th>Author</th>
-                <th>Rating</th>
-                <th>Edit</th>
+                <th>Length</th>
+                <th>Created At</th>
+                <th>Likes</th>
+                <th>Plays</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat='flow in flows | filter:query'>
-                <td><a href="/flow/{{flow._id}}">{{flow.name}}</a></td>
+                <td><a ng-href="/flow/{{flow.id}}">{{flow.name}}</a></td>
                 <td>{{flow.author.name||"Anonymous"}}</td>
-                <td>100</td>
-                <td><a href="/flow/{{flow._id}}/edit">Edit</a></td>
+                <td>TODO Calculate Length {{flow.moves.length}}</td>
+                <td>{{flow.createdAt}}</td>
+                <td>{{flow.likes}}</td>
+                <td>{{flow.plays}}</td>
             </tr>
         </tbody>
     </table>
-    <h3><a href="/flow/create">Create your own</a></h3>
-    <back-button url="/"></back-button>
 </section>

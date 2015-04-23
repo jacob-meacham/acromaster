@@ -7,7 +7,12 @@ TODO RECENT FLOWS
 
 <h2>Flows I've Created</h2>
 <ul ng-repeat='flow in profile.flows'>
-    <li><a href="/flow/{{flow._id}}">{{flow.name}}</li>
+    <li><a href="/flow/{{flow.id}}">{{flow.name}}</li>
+</ul>
+
+<h2>Flows I've Favorited</h2>
+<ul ng-repeat='favorite in profile.favorites'>
+    <li><a href="/flow/{{favorite.flow.id}}">{{favorite.flow.name}}</li>
 </ul>
 
 <h2>My Stats</h2>

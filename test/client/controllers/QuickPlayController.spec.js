@@ -21,7 +21,7 @@ describe('QuickPlayController', function() {
     sandbox = sinon.sandbox.create();
 
     $scope = {};
-    $controller('QuickPlayCreateController', { $scope: $scope, $location: $location, FlowService: FlowService });
+    $controller('WorkoutCreateController', { $scope: $scope, $location: $location, FlowService: FlowService });
   }));
 
   afterEach(function() {
@@ -61,7 +61,7 @@ describe('QuickPlayController', function() {
     });
 
     sandbox.stub($location, 'path', function(path) {
-      path.should.eql('/flow/quick/play');
+      path.should.eql('/flow/workout/play');
     });
 
     $scope.generateFlow();

@@ -8,7 +8,12 @@
             {{moveEntry.move.name}} - {{moveEntry.duration}} seconds
         </li>
     </ul>
+    <a ng-click='toggleFavorite()'>{{action}}</a>
+    <flow-like flow="flow"></flow-like>
+    <a ng-href="/flow/{{flow.id}}/edit" ng-show="canEdit">Edit Your Flow</a>
+    <a ng-href="/flow/{{flow.id}}/remix">Remix This Flow</a>
+    <button ng-click="delete()" class="btn btn-default" ng-show="canEdit">Delete Your Flow</button>
     <button ng-click="start()" class="btn btn-default">Start Flow</button>
-    <flow-share flow-id="{{flow._id}}" url="{{url}}"></flow-share>
+    <flow-share flow-id="{{flow.id}}"></flow-share>
     <back-button url="/flows"></back-button>
 </section>

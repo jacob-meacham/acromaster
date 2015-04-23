@@ -19,12 +19,14 @@ controllers.controller('FlowPlayController', ['$scope', '$location', '$routePara
   };
 }]);
 
-controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService', 'FlowStatsService', '$timeout', '_', 'RandomService', function($scope, $location, flowService, flowStats, $timeout, _, rand) {
+controllers.controller('FlowEndController', ['$scope', '$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', 'RandomService', function($scope, $location, Flow, flowService, flowStats, $timeout, _, rand) {
   var flow = $scope.flow = flowService.getCurrentFlow();
   if (!flow || !flow.moves || flow.moves.length === 0) {
     // No flow defined, so redirect back to home.
-    $location.path('/');
+    return $location.path('/');
   }
+
+  Flow.recordPlay({flowId: flow.id}, {});
 
   var stats = flowStats.getStats(flow);
 
@@ -97,7 +99,6 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'FlowService
 
   // TODO: Move to service?
   $scope.isNewFlow = function() {
-    // TODO: Need to actually check backend?
     if ($scope.flow.id) return false;
     return true;
   };

@@ -1,25 +1,28 @@
 'use strict';
 
 angular.module('acromaster.directives')
-  .controller('FlowEditDirectiveController', ['_', 'Moves', 'flash', 'RandomService', 'AuthService', function(_, Moves, flash, randomService, authService) {
+  .controller('FlowEditDirectiveController', ['$scope','_', 'Moves', 'flash', 'RandomService', 'AuthService', function($scope, _, Moves, flash, randomService, authService) {
     var vm = this;
 
-    vm.allMoves = Moves.query();
     vm.moveList = [];
+    vm.allMoves = Moves.query();
     vm.authenticated = authService.isAuthenticated();
 
-    if (vm.flow.$promise) {
-      // TODO: :(
-      // Wait for the promise to be fulfilled before instantiating the move list
-      vm.flow.$promise.then(function() {
-        angular.forEach(vm.flow.moves, function(entry) {
-          vm.moveList.push({
-            move: entry.move,
-            duration: entry.duration
-          });
+    $scope.$watch(function() {
+      return vm.flow;
+    }, function() {
+      vm.moveList = [];
+      if (!vm.flow || !vm.flow.moves) {
+        return;
+      }
+
+      angular.forEach(vm.flow.moves, function(entry) {
+        vm.moveList.push({
+          move: entry.move,
+          duration: entry.duration
         });
       });
-    }
+    });
 
     var randomDuration = function() {
       return Math.floor(randomService.random() * 20.0) + 15;
@@ -101,7 +104,8 @@ angular.module('acromaster.directives')
       restrict: 'E',
       scope: {
         flow: '=',
-        saveSuccess: '&onSaveSuccess'
+        saveSuccess: '&onSaveSuccess',
+        isCreating: '='
       },
       templateUrl: 'partials/flow/floweditor.html',
       controller: 'FlowEditDirectiveController',
