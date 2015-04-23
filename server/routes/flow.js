@@ -183,12 +183,15 @@ var hasLiked = function(req, res, next) {
 };
 
 var recordPlayed = function(req, res, next) {
-  req.flow.recordPlayed(req.user._id, function(err) {
-    if (err) {
-      return next(err);
+  req.flow.recordPlayed(req.user._id).then(function() {
+    if (req.user) {
+      // TODO: Anon flows won't work in this case.
+      return req.user.recordPlay(0, 0);
     }
-
-    return req.flow.plays;
+  }).then(function() {
+    res.jsonp({plays: req.flow.plays});
+  }).catch(function(err) {
+    return next(err);
   });
 };
 

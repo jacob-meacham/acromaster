@@ -112,7 +112,11 @@ UserSchema.methods = {
     this.stats.minutesPlayed += minutes;
     this.stats.movesPlayed += moves;
 
-    this.save(cb);
+    if (cb) {
+      return this.save(cb);
+    }
+
+    return this.save().exec();
   },
 
   toPublic: function() {
