@@ -87,8 +87,20 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       controller: 'FlowPlayController'
     })
     .when('/profile/:user', {
-      templateUrl: '/partials/profile.html',
-      controller: 'ProfileController'
+      templateUrl: '/partials/profile/home.html',
+      controller: 'ProfileHomeController'
+    })
+    .when('/profile/:user/likes', {
+      templateUrl: '/partials/profile/likes.html',
+      controller: 'ProfileLikedFlowsController'
+    })
+    .when('/profile/:user/flows', {
+      templateUrl: '/partials/profile/flows.html',
+      controller: 'ProfileMyFlowsController'
+    })
+    .when('/profile/:user/achievements', {
+      templateUrl: '/partials/profile/achievement.html',
+      controller: 'ProfileAchievementsController'
     })
     .otherwise({
       redirectTo: '/'

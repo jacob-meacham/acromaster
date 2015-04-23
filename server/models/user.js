@@ -38,7 +38,14 @@ var UserSchema = new Schema({
   favorites: [{
     flow: { type: ShortId, ref: 'Flow'},
     favoritedAt: { type: Date, 'default': Date.now }
-  }]
+  }],
+
+  stats: {
+    flowsPlayed: Number,
+    minutesPlayed: Number,
+    flowsWritten: Number,
+    moves: Number
+  }
 });
 
 UserSchema.pre('save', function(next) {
@@ -100,6 +107,18 @@ UserSchema.methods = {
     // });
   },
 
+  recordPlay: function(moves, minutes, cb) {
+    this.stats.flowsPlayed.$inc();
+    this.stats.minutesPlayed += minutes;
+    this.stats.movesPlayed += moves;
+
+    if (cb) {
+      return this.save(cb);
+    }
+
+    return this.save().exec();
+  },
+
   toPublic: function() {
     return {
       id: this._id,
@@ -107,6 +126,7 @@ UserSchema.methods = {
       username: this.username,
       profilePictureUrl: this.profilePictureUrl,
       createdAt: this.createdAt,
+      stats: this.stats,
       favorites: this.favorites
     };
   }
@@ -118,6 +138,9 @@ UserSchema.options.toJSON = {
     ret.id = ret._id;
     delete ret._id;
     delete ret.__v;
+    _.forEach(ret.favorites, function(favorite) {
+      delete favorite._id;
+    });
     return ret;
   }
 };
