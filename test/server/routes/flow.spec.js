@@ -12,6 +12,7 @@ var User = require('../../../server/models/user');
 mockgoose(mongoose);
 
 var sinon = require('sinon');
+require('sinon-as-promised');
 require('mocha-sinon');
 var chai = require('chai');
 var expect = chai.expect;
@@ -319,9 +320,8 @@ describe('/api/flow', function() {
     });
 
     it('should return an error if list fails', function(done) {
-      var stub = sandbox.stub(Flow, 'list', function(options, callback) {
-        callback('Stub error');
-      });
+      var stub = sandbox.stub(Flow, 'list');
+      stub.rejects('Stub error');
 
       request(app)
         .get('/api/flow')
@@ -329,7 +329,7 @@ describe('/api/flow', function() {
         .expect(500)
         .expect(function(res) {
           stub.should.have.been.callCount(1);
-          res.body.error.should.equal('Stub error');
+          res.body.error.should.equal('Error: Stub error');
         })
         .end(done);
     });
@@ -359,20 +359,19 @@ describe('/api/flow', function() {
         .expect({error: 'totalTime and timePerMove required'}, done);
     });
 
-    it('should fail without time per move', function(done) {
+    it('should fail without time per move', function() {
       request(app)
         .get('/api/flow/generate')
         .set('Accept', 'application/json')
         .query({totalTime:'10'})
         .expect('Content-Type', /json/)
         .expect(400)
-        .expect({error: 'totalTime and timePerMove required'}, done);
+        .expect({error: 'totalTime and timePerMove required'});
     });
 
-    it('should fail if querying fails', function(done) {
-      var stub = sandbox.stub(Move, 'list', function(query, callback) {
-        callback('Stub error', null);
-      });
+    it('should fail if querying fails', function() {
+      var stub = sandbox.stub(Move, 'list');
+      stub.rejects('Stub error');
 
       request(app)
         .get('/api/flow/generate')
@@ -381,9 +380,8 @@ describe('/api/flow', function() {
         .expect(500)
         .expect(function(res) {
           stub.should.have.been.callCount(1);
-          res.body.error.should.equal('Stub error');
-        })
-        .end(done);
+          res.body.error.should.equal('Error: Stub error');
+        });
     });
   });
 
@@ -392,7 +390,7 @@ describe('/api/flow', function() {
       request(authedApp)
       .post('/api/flow/' + flow1._id + '/likes')
       .expect(200)
-      .end(done);  
+      .end(done);
     });
 
     it('should not error if liking twice', function() {

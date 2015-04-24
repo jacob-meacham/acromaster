@@ -74,11 +74,7 @@ FlowSchema.methods = {
       }
     };
 
-    if (cb) {
-      return this.update(update, cb);
-    }
-
-    return this.update(update).exec();
+    return this.update(update).exec(cb);
   }
 };
 
