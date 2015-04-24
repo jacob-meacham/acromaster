@@ -83,12 +83,14 @@ describe('Flow Controllers', function() {
     var locals;
     var $location;
     var $timeout;
+    var $httpBackend;
     var flowService;
 
-    beforeEach(inject(function($rootScope, _$location_, FlowService, FlowStatsService, _$timeout_) {
+    beforeEach(inject(function($rootScope, _$location_, FlowService, FlowStatsService, _$timeout_, _$httpBackend_) {
       $scope = $rootScope.$new();
       $location = _$location_;
       $timeout = _$timeout_;
+      $httpBackend = _$httpBackend_;
       flowService = FlowService;
 
       locals = { $scope: $scope };
@@ -114,6 +116,8 @@ describe('Flow Controllers', function() {
 
     it('should delay setting the stats value', function() {
       sandbox.stub(flowService, 'getCurrentFlow').returns(flow);
+      $httpBackend.expectPOST('/api/flow/plays').respond({});
+
       $controller('FlowEndController', locals);
 
       $timeout.flush(700);

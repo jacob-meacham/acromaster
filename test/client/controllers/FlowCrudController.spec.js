@@ -46,10 +46,12 @@ describe('FlowCrudController', function() {
       var locationSpy = sandbox.spy($location, 'path');
 
       $controller('FlowHomeController', {$scope: $scope, Flow: Flow});
-      $scope.find('beginner');
+      $scope.searchQuery = 'beginner';
+      $scope.search();
 
+      // Ensure that the location is set correctly, with the query param.
       locationSpy.should.have.callCount(1);
-      locationSpy.should.have.been.calledWith('/flows/results?search_query=beginner');
+      locationSpy.returnValues[0].$$url.should.eql('/flows/results?search_query=beginner');
     });
   });
 
@@ -114,27 +116,34 @@ describe('FlowCrudController', function() {
   describe('FlowViewController', function() {
     var flow;
     var FlowService;
+    var AuthService;
     var $location;
 
-    beforeEach(inject(function(Flow, _FlowService_, _$location_) {
+    beforeEach(inject(function(Flow, _FlowService_, _$location_, _AuthService_) {
       flow = new Flow({moves: []});
       flow.id = '10';
 
       FlowService = _FlowService_;
+      AuthService = _AuthService_;
       $location = _$location_;
     }));
 
     it('should start with a flow from the FlowService', function() {
-      sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
-      $controller('FlowViewController', {$scope: $scope, $location: $location, FlowService: FlowService});
+      var flowStub = sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
+      var userStub = sandbox.stub(AuthService, 'getUser').returns({id: 'userId'});
+      $controller('FlowViewController', {$scope: $scope, $location: $location, FlowService: FlowService, AuthService: AuthService });
 
       $scope.flow.should.eql(flow);
+      flowStub.should.have.callCount(1);
+      userStub.should.have.callCount(1);
     });
 
     it('should redirect on save success', function() {
       var pathSpy = sandbox.spy($location, 'path');
       sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
-      $controller('FlowViewController', {$scope: $scope, $location: $location, FlowService: FlowService});
+      sandbox.stub(AuthService, 'getUser').returns({id: 'userId'});
+
+      $controller('FlowViewController', {$scope: $scope, $location: $location, FlowService: FlowService, AuthService: AuthService });
 
       $scope.start();
       pathSpy.should.have.been.calledWith('/flow/10/play');
