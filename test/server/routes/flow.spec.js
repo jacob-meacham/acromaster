@@ -12,6 +12,7 @@ var User = require('../../../server/models/user');
 mockgoose(mongoose);
 
 var sinon = require('sinon');
+require('sinon-as-promised');
 require('mocha-sinon');
 var chai = require('chai');
 var expect = chai.expect;
@@ -132,17 +133,17 @@ describe('/api/flow', function() {
   });
 
   describe('POST /api/flow', function() {
-    it('should not create with an empty body', function(done) {
-      request(app)
+    it('should not create with an empty body', function() {
+      return request(app)
         .post('/api/flow')
         .send({})
         .expect(500)
         .expect('Content-Type', /json/)
-        .expect(/ValidationError/, done);
+        .expect(/ValidationError/);
     });
 
-    it('should create with a name', function(done) {
-      request(app)
+    it('should create with a name', function() {
+      return request(app)
         .post('/api/flow')
         .send({name: 'My Flow'})
         .expect(200)
@@ -151,12 +152,11 @@ describe('/api/flow', function() {
           res.body.should.have.property('name');
           res.body.name.should.equal('My Flow');
           expect(res.body.author).to.be.undefined;
-        })
-        .end(done);
+        });
     });
 
-    it('should use the logged in user as the author', function(done) {
-      request(authedApp)
+    it('should use the logged in user as the author', function() {
+      return request(authedApp)
         .post('/api/flow')
         .send({name: 'Yet Another Flow'})
         .expect(200)
@@ -165,8 +165,7 @@ describe('/api/flow', function() {
           res.body.should.have.property('name');
           res.body.name.should.equal('Yet Another Flow');
           res.body.author.should.equal(author1._id);
-        })
-        .end(done);
+        });
     });
 
     it('should not allow overwriting a flow with an author', function(done) {
@@ -176,24 +175,23 @@ describe('/api/flow', function() {
   });
 
   describe('GET /api/flow/:flowId', function() {
-    it('should return an error with an invalid id', function(done) {
-      request(app)
+    it('should return an error with an invalid id', function() {
+      return request(app)
         .get('/api/flow/0')
-        .expect(500, done);
+        .expect(500);
     });
 
-    it('should return an error when the flow is not found', function(done) {
-      request(app)
+    it('should return an error when the flow is not found', function() {
+      return request(app)
         .get('/api/flow/54b756f3ccc62d70143fd7ea')
         .expect(500)
         .expect(function(res) {
           res.body.error.should.match(/Failed to load flow/);
-        })
-        .end(done);
+        });
     });
 
-    it('should return the correct flow when asked', function(done) {
-      request(app)
+    it('should return the correct flow when asked', function() {
+      return request(app)
         .get('/api/flow/' + flow1._id)
         .expect(200)
         .expect('Content-Type', /json/)
@@ -201,59 +199,55 @@ describe('/api/flow', function() {
           var _flow = res.body;
           _flow.name.should.equal(flow1.name);
           _flow.author.name.should.equal(author1.name);
-        })
-        .end(done);
+        });
     });
 
-    it('should only return the author name and id', function(done) {
-      request(app)
+    it('should only return the author name and id', function() {
+      return request(app)
         .get('/api/flow/' + flow1._id)
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
+          console.log('doing it right');
           var _flow = res.body;
           _flow.name.should.equal(flow1.name);
           _flow.author.name.should.equal(author1.name);
           expect(_flow.author.id).to.exist;
           expect(_flow.author.email).to.not.exist;
-        })
-        .end(done);
+        });
     });
   });
   
   describe('PUT /api/flow/:flowId', function() {
-    it('should return an error with an invalid id', function(done) {
-      request(app)
+    it('should return an error with an invalid id', function() {
+      return request(app)
         .put('/api/flow/0')
-        .expect(500, done);
+        .expect(500);
     });
 
-    it('should return an error if there is no session, and the flow has an author', function(done) {
-      request(app)
+    it('should return an error if there is no session, and the flow has an author', function() {
+      return request(app)
         .put('/api/flow/' + flow1._id)
         .send({})
-        .expect(401)
-        .end(done);
+        .expect(401);
     });
 
-    it('should not update with no flow author', function(done) {
-      request(app)
+    it('should not update with no flow author', function() {
+      return request(app)
         .put('/api/flow/' + flow3._id)
         .send({moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }]})
-        .expect(401)
-        .end(done);
+        .expect(401);
     });
 
-    it('should return an error if the user is not the flow author', function(done) {
-      request(authedApp)
+    it('should return an error if the user is not the flow author', function() {
+      return request(authedApp)
         .put('/api/flow/' + flow2._id)
         .send({})
-        .expect(401)
-        .end(done);
+        .expect(401);
     });
 
-    it('should be a no op with an empty body', function(done) {
-      request(authedApp)
+    it('should be a no op with an empty body', function() {
+      return request(authedApp)
         .put('/api/flow/' + flow1._id)
         .send({})
         .expect(200)
@@ -262,26 +256,24 @@ describe('/api/flow', function() {
           _flow.moves.length.should.eql(flow1.moves.length);
           _flow.name.should.eql(flow1.name);
           _flow.author.name.should.eql(author1.name);
-        })
-        .end(done);
+        });
     });
 
-    it('should update without errors', function(done) {
-      request(authedApp)
+    it('should update without errors', function() {
+      return request(authedApp)
         .put('/api/flow/' + flow1._id)
         .send({moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }]})
         .expect(200)
         .expect(function(res) {
           var _flow = new Flow(res.body);
           _flow.moves.length.should.equal(2);
-        })
-        .end(done);
+        });
     });
   });
 
   describe('GET /api/flow', function() {
-    it('should list all flows', function(done) {
-      request(app)
+    it('should list all flows', function() {
+      return request(app)
         .get('/api/flow')
         .set('Accept', 'application/json')
         .expect(200)
@@ -289,8 +281,7 @@ describe('/api/flow', function() {
           res.body.flows.should.have.length(5);
           res.body.flows[0].name.should.equal('Yet Another Flow');
           res.body.flows[1].name.should.equal('My Flow');
-        })
-        .end(done);
+        });
     });
 
     it('should list by pages', function() {
@@ -318,26 +309,24 @@ describe('/api/flow', function() {
         });
     });
 
-    it('should return an error if list fails', function(done) {
-      var stub = sandbox.stub(Flow, 'list', function(options, callback) {
-        callback('Stub error');
-      });
+    it('should return an error if list fails', function() {
+      var stub = sandbox.stub(Flow, 'list');
+      stub.rejects('Stub error');
 
-      request(app)
+      return request(app)
         .get('/api/flow')
         .set('Accept', 'application/json')
         .expect(500)
         .expect(function(res) {
           stub.should.have.been.callCount(1);
-          res.body.error.should.equal('Stub error');
-        })
-        .end(done);
+          res.body.error.should.equal('Error: Stub error');
+        });
     });
   });
 
   describe('GET /api/flow/generate', function() {
-    it('should return JSON', function(done) {
-      request(app)
+    it('should return JSON', function() {
+      return request(app)
         .get('/api/flow/generate')
         .set('Accept', 'application/json')
         .query({totalTime:'10', timePerMove:'10'})
@@ -346,53 +335,50 @@ describe('/api/flow', function() {
           res.body.should.have.property('name');
           res.body.should.have.property('moves');
         })
-        .expect(200, done);
+        .expect(200);
     });
 
-    it('should fail without total time', function(done) {
-      request(app)
+    it('should fail without total time', function() {
+      return request(app)
         .get('/api/flow/generate')
         .set('Accept', 'application/json')
         .query({timePerMove:'10'})
         .expect('Content-Type', /json/)
         .expect(400)
-        .expect({error: 'totalTime and timePerMove required'}, done);
+        .expect({error: 'totalTime and timePerMove required'});
     });
 
-    it('should fail without time per move', function(done) {
-      request(app)
+    it('should fail without time per move', function() {
+      return request(app)
         .get('/api/flow/generate')
         .set('Accept', 'application/json')
         .query({totalTime:'10'})
         .expect('Content-Type', /json/)
         .expect(400)
-        .expect({error: 'totalTime and timePerMove required'}, done);
+        .expect({error: 'totalTime and timePerMove required'});
     });
 
-    it('should fail if querying fails', function(done) {
-      var stub = sandbox.stub(Move, 'list', function(query, callback) {
-        callback('Stub error', null);
-      });
+    it('should fail if querying fails', function() {
+      var stub = sandbox.stub(Move, 'list');
+      stub.rejects('Stub error');
 
-      request(app)
+      return request(app)
         .get('/api/flow/generate')
         .set('Accept', 'application/json')
         .query({totalTime:'10', timePerMove:'10'})
         .expect(500)
         .expect(function(res) {
           stub.should.have.been.callCount(1);
-          res.body.error.should.equal('Stub error');
-        })
-        .end(done);
+          res.body.error.should.equal('Error: Stub error');
+        });
     });
   });
 
   describe('POST /api/flow/likes', function() {
-    it('should return success when liking a flow that exists', function(done) {
-      request(authedApp)
+    it('should return success when liking a flow that exists', function() {
+      return request(authedApp)
       .post('/api/flow/' + flow1._id + '/likes')
-      .expect(200)
-      .end(done);  
+      .expect(200);
     });
 
     it('should not error if liking twice', function() {
@@ -405,18 +391,16 @@ describe('/api/flow', function() {
       });
     });
 
-    it('should fail when the flow is not known', function(done) {
-      request(authedApp)
+    it('should fail when the flow is not known', function() {
+      return request(authedApp)
       .post('/api/flow/noFlowHere/likes')
-      .expect(500)
-      .end(done);
+      .expect(500);
     });
 
-    it('should fail if no user is logged in', function(done) {
-      request(app)
+    it('should fail if no user is logged in', function() {
+      return request(app)
       .post('/api/flow/' + flow1._id + '/likes')
-      .expect(401)
-      .end(done);
+      .expect(401);
     });
   });
   
@@ -431,18 +415,16 @@ describe('/api/flow', function() {
       done();
     });
 
-    it('should fail when the flow is not known', function(done) {
-      request(app)
+    it('should fail when the flow is not known', function() {
+      return request(app)
       .get('/api/flow/noFlowHere/likes')
-      .expect(500)
-      .end(done);
+      .expect(500);
     });
 
-    it('should fail if no user is logged in', function(done) {
-      request(app)
+    it('should fail if no user is logged in', function() {
+      return request(app)
       .get('/api/flow/' + flow1._id + '/likes')
-      .expect(401)
-      .end(done);
+      .expect(401);
     });
   });
 
@@ -453,58 +435,52 @@ describe('/api/flow', function() {
         .post('/api/flow/' + flow1._id + '/likes')
         .expect(200)
         .then(function() {
-          request(authedApp)
+          return request(authedApp)
           .delete('/api/flow/' + flow1._id + '/likes')
           .expect(200);
         });
     });
 
-    it('should do nothing if the flow does not have a like from that user', function(done) {
+    it('should do nothing if the flow does not have a like from that user', function() {
       // TODO: Verify before and after state is the same (use another user with .withUser)
-      request(authedApp)
+      return request(authedApp)
         .delete('/api/flow/' + flow1._id + '/likes')
-        .expect(200)
-        .end(done);
+        .expect(200);
     });
 
-    it('should fail when the flow is not known', function(done) {
-      request(app)
+    it('should fail when the flow is not known', function() {
+      return request(app)
       .get('/api/flow/noFlowHere/likes')
-      .expect(500)
-      .end(done);
+      .expect(500);
     });
 
-    it('should fail if no user is logged in', function(done) {
-      request(app)
+    it('should fail if no user is logged in', function() {
+      return request(app)
       .get('/api/flow/' + flow1._id + '/likes')
-      .expect(401)
-      .end(done);
+      .expect(401);
     });
   });
 
   describe('POST /api/flow/plays', function() {
-    it('should add a play and a player', function(done) {
+    it('should add a play and a player', function() {
       // TODO: STUB
-      request(app)
+      return request(app)
       .get('/api/flow/' + flow1._id + '/play')
-      .expect(200)
-      .end(done);
+      .expect(200);
     });
 
-    it('should not hold duplicate players', function(done) {
+    it('should not hold duplicate players', function() {
       // TODO: STUB
-      request(app)
+      return request(app)
       .get('/api/flow/' + flow1._id + '/play')
-      .expect(200)
-      .end(done);
+      .expect(200);
     });
 
-    it('should not fail when no user is logged in', function(done) {
+    it('should not fail when no user is logged in', function() {
       // TODO: Stub
-      request(app)
+      return request(app)
       .get('/api/flow/' + flow1._id + '/play')
-      .expect(200)
-      .end(done);
+      .expect(200);
     });
   });
 });

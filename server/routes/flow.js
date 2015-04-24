@@ -1,6 +1,5 @@
 'use strict';
 
-var async = require('async');
 var Flow = require('../models/flow.js');
 var Move = require('../models/move.js');
 
@@ -23,55 +22,57 @@ var getFlow = function(req, res) {
   res.jsonp(req.flow);
 };
 
-var list = function(req, res, next) {
-  // TODO: Breakup
-  var page = (req.query.page > 0 ? req.query.page : 1) - 1;
+var _getMax = function(req) {
   var max = req.query.max;
   if (!max || max > 100) {
     max = 100;
   }
 
+  return max;
+};
+
+var _listRandom = function(max, res, next) {
+  Flow.findRandom().limit(max).exec().then(function(flows) {
+    res.jsonp({
+      flows: flows,
+      total: max
+    });
+  }).then(null, next);
+};
+
+var _listInternal = function(req, res, next) {
+  var page = (req.query.page > 0 ? req.query.page : 1) - 1;
+  var max = _getMax(req);
+
+  var options = {
+    page: page,
+    max: max,
+  };
+
+  if (req.query.search_query) {
+    options.searchQuery = { $text: { $search : req.query.search_query } };
+    options.score = { $meta: 'textScore' };
+    options.sortBy = { score: options.score };
+  }
+
+  var flows = null;
+  Flow.list(options).then(function(_flows) {
+    flows = _flows;
+    return Flow.count().exec();
+  }).then(function(count) {
+    res.jsonp({
+      flows: flows,
+      page: page+1,
+      total: count
+    });
+  }).then(null, next);
+};
+
+var list = function(req, res, next) {
   if (req.query.random) {
-    Flow.findRandom().limit(max).exec(function(err, flows) {
-      if (err) {
-        return next(err);
-      }
-
-      res.jsonp({
-        flows: flows,
-        total: max
-      });
-    });
+    _listRandom(req, res, next);
   } else {
-    var options = {
-      page: page,
-      max: max,
-    };
-
-    if (req.query.search_query) {
-      options.searchQuery = { $text: { $search : req.query.search_query } };
-      options.score = { $meta: 'textScore' };
-      options.sortBy = { score: options.score };
-    }
-
-    // TODO: Promises instead of nesting
-    Flow.list(options, function(err, flows) {
-      if (err) {
-        return next(err);
-      }
-      
-      Flow.count().exec(function(err, count) {
-        if (err) {
-          return next(err);
-        }
-
-        res.jsonp({
-          flows: flows,
-          page: page+1,
-          total: count
-        });
-      });
-    });
+    _listInternal(req, res, next);
   }
 };
 
@@ -173,13 +174,9 @@ var removeLike = function(req, res, next) {
 };
 
 var hasLiked = function(req, res, next) {
-  Flow.findLikes(req.user._id, {_id:req.flow._id}, function(err, likes) {
-    if (err) {
-      return next(err);
-    }
-
+  Flow.findLikes(req.user._id, {_id:req.flow._id}).then(function(likes) {
     res.jsonp({hasLiked: !!likes.length});
-  });
+  }).then(null, next);
 };
 
 var recordPlayed = function(req, res, next) {
@@ -190,68 +187,52 @@ var recordPlayed = function(req, res, next) {
     }
   }).then(function() {
     res.jsonp({plays: req.flow.plays});
-  }).catch(function(err) {
-    return next(err);
-  });
+  }).then(null, next);
 };
 
-var generate = function(req, res, routeNext) {
+var generate = function(req, res, next) {
   if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
     res.status(400).send({error: 'totalTime and timePerMove required'});
     return;
   }
 
-  async.waterfall([
-    function(next) {
-      Move.list({}, function(err, moves) {
-        if (err) {
-          next(err, null);
-        } else {
-          next(null, moves);
-        }
-      });
-    },
-
-    function(all_moves, next) {
-      var parse = function(num) {
+  var generateFlow = function(all_moves) {
+    var parse = function(num) {
         var parsed = parseFloat(num);
         return isNaN(parsed) ? 0 : parsed;
       };
 
-      // Construct a new list using the passed parameters
-      var flow = new Flow();
-      flow.name = 'Quick Flow';
+    // Construct a new list using the passed parameters
+    var flow = new Flow();
+    flow.name = 'Quick Flow';
 
-      var timeSoFar = 0;
-      var totalTime = parse(req.query.totalTime);
-      var timePerMove = parse(req.query.timePerMove);
-      var timeVariance = parse(req.query.timeVariance);
-      var numIterations = 0;
-      while (numIterations < 100) {
-        var moveDuration = timePerMove + Math.random() * timeVariance;
-        timeSoFar += moveDuration;
+    var timeSoFar = 0;
+    var totalTime = parse(req.query.totalTime);
+    var timePerMove = parse(req.query.timePerMove);
+    var timeVariance = parse(req.query.timeVariance);
+    var numIterations = 0;
+    while (numIterations < 100) {
+      var moveDuration = timePerMove + Math.random() * timeVariance;
+      timeSoFar += moveDuration;
 
-        var move = { 'duration': moveDuration, 'move': all_moves[Math.floor(Math.random() * all_moves.length)] };
-        flow.moves.push(move);
+      var move = { 'duration': moveDuration, 'move': all_moves[Math.floor(Math.random() * all_moves.length)] };
+      flow.moves.push(move);
 
-        if (timeSoFar > totalTime) {
-          break;
-        }
-        numIterations++;
+      if (timeSoFar > totalTime) {
+        break;
       }
+      numIterations++;
+    }
 
-      flow.populate('moves.move', function(err) {
-        next(err, flow);
-      });
-    }
-  ],
-  function(err, result) {
-    if (err) {
-      return routeNext(err);
-    }
-    
+    return flow;
+  };
+
+  Move.list({}).then(function(moves) {
+    var flow = generateFlow(moves);
+    return Flow.populate(flow, 'moves.moves');
+  }).then(function(result) {
     res.jsonp(result);
-  });
+  }).then(null, next);
 };
 
 module.exports = function(app) {

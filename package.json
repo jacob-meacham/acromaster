@@ -83,6 +83,7 @@
     "passport-stub": "1.0.x",
     "protractor": "2.0.0",
     "sinon": "1.14.1",
+    "sinon-as-promised": "^3.0.0",
     "sinon-chai": "2.7.0",
     "supertest": "0.15.0",
     "supertest-as-promised": "^2.0.0"

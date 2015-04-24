@@ -138,9 +138,8 @@ describe('Flow Model', function() {
   });
 
   describe('load()', function() {
-    it('should load with all moves intact', function(done) {
-      Move.list({}, function(err, moves) {
-        expect(err).to.not.exist;
+    it('should load with all moves intact', function() {
+      Move.list({}).then(function(moves) {
         var _flow = new Flow(flow1);
 
         var move = { 'duration': 10, 'move': moves[0] };
@@ -149,22 +148,20 @@ describe('Flow Model', function() {
         move = {'duration': 20, 'move': moves[1] };
         _flow.moves.push(move);
 
-        async.parallel([
-          function(cb) {
-            _flow.save(cb);
-          },
-          function(cb) {
-            _flow.populate('moves.move', function(err) {
-              expect(err).to.not.exist;
-              _flow.moves.should.have.length(2);
-              _flow.moves[1].move.name.should.equal('New Move 2');
-              cb();
-            });
-          }], done);
+        return _flow.save.exec();
+      }).then(function(_flow) {
+        return _flow.populate('moves.move').exec();
+      }).then(function(_flow) {
+        _flow.moves.should.have.length(2);
+        _flow.moves[1].move.name.should.equal('New Move 2');
+        return _flow;
+      }).then(null, function(err) {
+        expect(err).to.not.exist;
       });
     });
 
     it('should load by id', function(done) {
+      // TODO: Change this to promises
       var _flow = new Flow(flow1);
       async.waterfall([
         function(next) {
@@ -183,10 +180,9 @@ describe('Flow Model', function() {
   });
 
   describe('list()', function() {
-    it('should start with an empty list', function(done) {
-      Flow.find({}, function(err, flows) {
+    it('should start with an empty list', function() {
+      Flow.find({}).exec().then(function(flows) {
         flows.should.have.length(0);
-        done();
       });
     });
 
