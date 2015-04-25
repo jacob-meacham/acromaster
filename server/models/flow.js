@@ -55,6 +55,7 @@ FlowSchema.statics = {
   },
 
   listByUser : function(author_id, cb) {
+    // TODO: Paging?
     return this.find({author: author_id}, '_id name author createdAt ratings')
       .sort('createdAt')
       .limit(1000)
