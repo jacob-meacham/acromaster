@@ -180,9 +180,14 @@ var hasLiked = function(req, res, next) {
 };
 
 var recordPlayed = function(req, res, next) {
-  req.flow.recordPlayed(req.user._id).then(function() {
+  var userId = 0;
+  if (req.user) {
+    userId = req.user._id;
+  }
+
+  // If there is no user, just record with a dummy player.
+  req.flow.recordPlayed(userId).then(function() {
     if (req.user) {
-      // TODO: Anon flows won't work in this case.
       return req.user.recordPlay(0, 0);
     }
   }).then(function() {
@@ -205,6 +210,15 @@ var generate = function(req, res, next) {
     // Construct a new list using the passed parameters
     var flow = new Flow();
     flow.name = 'Quick Flow';
+
+    if (req.query.flowName) {
+      flow.name = req.query.flowName;
+    }
+
+    if (req.user) {
+      flow.author = req.user;
+      flow.authorName = req.user.name;
+    }
 
     var timeSoFar = 0;
     var totalTime = parse(req.query.totalTime);
@@ -230,8 +244,15 @@ var generate = function(req, res, next) {
   Move.list({}).then(function(moves) {
     var flow = generateFlow(moves);
     return Flow.populate(flow, 'moves.moves');
-  }).then(function(result) {
-    res.jsonp(result);
+  }).then(function(flow) {
+    flow.save(function(err) {
+      // TODO: wrap in a promise...
+      if (err) {
+        next(err);
+      }
+
+      res.jsonp(flow);
+    });
   }).then(null, next);
 };
 

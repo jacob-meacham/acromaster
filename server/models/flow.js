@@ -24,8 +24,12 @@ var FlowSchema = new Schema({
   createdAt: { type : Date, default : Date.now },
   official: Boolean,
 
-  plays: { type: Number, default : 0 },
-  players: [{type: ShortId, ref: 'User'}]
+  playCount: { type: Number, default : 0 },
+
+  plays: [{
+    player: {type: ShortId, ref: 'User'},
+    date: { type: Date, 'default': Date.now }
+  }]
 });
 
 FlowSchema.index({ name: 'text', description: 'text', authorName: 'text' });
@@ -55,6 +59,7 @@ FlowSchema.statics = {
   },
 
   listByUser : function(author_id, cb) {
+    // TODO: Paging?
     return this.find({author: author_id}, '_id name author createdAt ratings')
       .sort('createdAt')
       .limit(1000)
@@ -67,10 +72,10 @@ FlowSchema.methods = {
   recordPlayed: function(userId, cb) {
     var update = {
       $addToSet: {
-        players: userId
+        plays: { player: userId }
       },
       $inc: {
-        plays: 1
+        playCount: 1
       }
     };
 
@@ -102,6 +107,7 @@ FlowSchema.options.toJSON = {
     delete ret.__random;
     delete ret.__v;
     delete ret.authorName; // Not required in return
+    delete ret.plays; // TODO: Pull these out on return, unless explicitly asking for them
     return ret;
   }
 };

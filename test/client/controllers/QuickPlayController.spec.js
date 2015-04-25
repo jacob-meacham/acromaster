@@ -56,12 +56,13 @@ describe('QuickPlayController', function() {
   });
 
   it('should set the location to quick play', function() {
+    var flowId = 'flowId';
     sandbox.stub(FlowService, 'generateFlow', function(params, callback) {
-      callback();
+      callback({id: flowId});
     });
 
     sandbox.stub($location, 'path', function(path) {
-      path.should.eql('/flow/workout/play');
+      path.should.eql('/flow/flowId/play');
     });
 
     $scope.generateFlow();

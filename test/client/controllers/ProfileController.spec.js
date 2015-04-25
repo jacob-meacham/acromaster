@@ -1,36 +1,38 @@
 'use strict';
 
-describe('AboutController', function() {
+describe('Profile*Controllers', function() {
   beforeEach(module('acromaster'));
 
   var $controller;
-  var $httpBackend;
+  var User;
+  var sandbox;
 
-  // TODO: How to inject routeParams
-  beforeEach(inject(function(_$controller_, _$httpBackend_, $routeParams) {
+  beforeEach(inject(function(_$controller_, _User_, $routeParams) {
     $controller = _$controller_;
-    $httpBackend = _$httpBackend_;
+    User = _User_;
     $routeParams.user = 'someUser';
+
+    sandbox = sinon.sandbox.create();
   }));
 
-  it('should set the profile from the server', function() {
-    var $scope = {};
-    var profile = {name: 'foo', flows: ['a', 'b']};
-    $httpBackend.expectGET('/api/profile/someUser').respond(200, profile);
-    
-    // Create controller
-    $controller('ProfileController', { $scope: $scope });
-    $httpBackend.flush();
-    $scope.profile.should.eql(profile);
-  });
-
-  it('should show an error if the user does not exist', function() {
-    // TODO
-    expect(true).to.be.true;
-  });
-
   afterEach(function() {
-    $httpBackend.verifyNoOutstandingExpectation();
-    $httpBackend.verifyNoOutstandingRequest();
+    sandbox.restore();
+  });
+
+  describe('ProfileHomeController', function() {
+    it('should set the profile from the server', function() {
+      var profile = {name: 'foo', flows: ['a', 'b']};
+      sandbox.stub(User, 'get').returns(profile);
+      var $scope = {};
+      
+      // Create controller
+      $controller('ProfileHomeController', { $scope: $scope });
+      $scope.profile.should.eql(profile);
+    });
+
+    it('should show an error if the user does not exist', function() {
+      // TODO
+      expect(true).to.be.true;
+    });
   });
 });

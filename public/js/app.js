@@ -66,10 +66,6 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       templateUrl: '/partials/flow/play/workout.html',
       controller: 'WorkoutCreateController'
     })
-    .when('/flow/workout/play', {
-      templateUrl: '/partials/flow/play/play.html',
-      controller: 'FlowPlayController'
-    })
     .when('/flow/end', {
       templateUrl: '/partials/flow/play/end.html',
       controller: 'FlowEndController'
@@ -90,13 +86,13 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       templateUrl: '/partials/profile/home.html',
       controller: 'ProfileHomeController'
     })
-    .when('/profile/:user/likes', {
-      templateUrl: '/partials/profile/likes.html',
-      controller: 'ProfileLikedFlowsController'
+    .when('/profile/:user/favorites', {
+      templateUrl: '/partials/profile/favorites.html',
+      controller: 'ProfileFavoritesController'
     })
     .when('/profile/:user/flows', {
       templateUrl: '/partials/profile/flows.html',
-      controller: 'ProfileMyFlowsController'
+      controller: 'ProfileFlowsController'
     })
     .when('/profile/:user/achievements', {
       templateUrl: '/partials/profile/achievement.html',

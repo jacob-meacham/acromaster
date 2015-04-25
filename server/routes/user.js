@@ -53,18 +53,14 @@ var hasFavorited = function(req, res, next) {
   });
 };
 
-var getFavorites = function(req, res, next) {
-  User.findOne({_id: req.params.userId}, function(err, user) {
-    if (err) {
-      return next(err);
-    }
+var getFavorites = function(req, res) {
+  res.jsonp({favorites: req.profile.favorites});
+};
 
-    if (!user) {
-      return next(new Error('No user with id ' + req.params.userId + ' found'));
-    }
-
-    res.jsonp({favorites: user.favorites});
-  });
+var getFlows = function(req, res, next) {
+  Flow.listByUser(req.params.userId).then(function(flows) {
+    res.jsonp({flows: flows});
+  }).then(null, next); // Pass any errors along to next.
 };
 
 var addFavorite = function(req, res, next) {
@@ -89,7 +85,8 @@ var removeFavorite = function(req, res, next) {
 
 module.exports = function(app) {
   app.get('/api/profile/:user', getUserProfile);
-  app.get('/api/profile/:userId/favorites', getFavorites);
+  app.get('/api/profile/:user/favorites', getFavorites);
+  app.get('/api/profile/:userId/flows', getFlows);
   app.get('/api/profile/:userId/favorites/:flowId', hasFavorited);
   app.post('/api/profile/:userId/favorites/:flowId', userMatch, addFavorite);
   app.delete('/api/profile/:userId/favorites/:flowId', userMatch, removeFavorite);

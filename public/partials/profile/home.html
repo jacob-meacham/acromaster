@@ -1,0 +1,14 @@
+<h1>{{ profile.name }}</h1>
+<img ng-src="{{profile.profilePictureUrl}}"></img>
+<em>User since {{profile.createdAt | date}}</em>
+
+<h2>Recent Flows</h2>
+<ul ng-repeat='entry in profile.recentlyPlayed'>
+    <li><a href="/flow/{{entry.flow.id}}">{{entry.flow.name}}</li>
+</ul>
+
+<h2>My Stats</h2>
+Flows Played - {{profile.stats.flowsPlayed}}
+Minutes Played - {{profile.stats.minutesPlayed}}
+Flows Written - {{profile.stats.flowsWritten}}
+Moves - {{profile.stats.moves}}

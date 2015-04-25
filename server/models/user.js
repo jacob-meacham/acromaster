@@ -35,9 +35,16 @@ var UserSchema = new Schema({
   twitter: {},
   google: {},
 
+  // TODO: This might take a long time to return all of these...
   favorites: [{
     flow: { type: ShortId, ref: 'Flow'},
     favoritedAt: { type: Date, 'default': Date.now }
+  }],
+
+  // TODO: This might take a long time to return all of these...
+  recentlyPlayed: [{
+    flow: { type: ShortId, ref: 'Flow'},
+    date: { type: Date, 'default': Date.now }
   }],
 
   stats: {
@@ -60,6 +67,7 @@ UserSchema.statics = {
   loadPublicProfile: function(name, cb) {
     this.findOne({ username: name })
       .populate('favorites.flow', 'name _id')
+      .populate('recentlyPlayed.flow', 'name _id')
       .exec(function(err, user) {
         if (err) {
           return cb(err);
@@ -107,10 +115,24 @@ UserSchema.methods = {
     // });
   },
 
-  recordPlay: function(moves, minutes, cb) {
+  recordPlay: function(moves, minutes, flowId, cb) {
     this.stats.flowsPlayed.$inc();
     this.stats.minutesPlayed += minutes;
     this.stats.movesPlayed += moves;
+
+    var found = _.findIndex(this.recentlyPlayed, function(entry) {
+      return entry.flow === flowId;
+    }) !== -1;
+    
+    if (!found) {
+      // TODO: Not atomic, not sure if $addToSet is atomic either
+      this.recentlyPlayed.push({flow: flowId});
+    }
+
+    // TODO: Sort?
+    if (this.recentlyPlayed.length > 10) {
+      this.recentlyPlayed = this.recentlyPlayed.slice(1, this.recentlyPlayed.length);
+    }
 
     if (cb) {
       return this.save(cb);
