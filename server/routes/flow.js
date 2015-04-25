@@ -180,9 +180,14 @@ var hasLiked = function(req, res, next) {
 };
 
 var recordPlayed = function(req, res, next) {
-  req.flow.recordPlayed(req.user._id).then(function() {
+  var userId = 0;
+  if (req.user) {
+    userId = req.user._id;
+  }
+
+  // If there is no user, just record with a dummy player.
+  req.flow.recordPlayed(userId).then(function() {
     if (req.user) {
-      // TODO: Anon flows won't work in this case.
       return req.user.recordPlay(0, 0);
     }
   }).then(function() {
