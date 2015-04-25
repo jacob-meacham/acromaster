@@ -3,17 +3,12 @@
 <em>User since {{profile.createdAt | date}}</em>
 
 <h2>Recent Flows</h2>
-TODO RECENT FLOWS
-
-<h2>Flows I've Created</h2>
-<ul ng-repeat='flow in profile.flows'>
-    <li><a href="/flow/{{flow.id}}">{{flow.name}}</li>
-</ul>
-
-<h2>Flows I've Favorited</h2>
-<ul ng-repeat='favorite in profile.favorites'>
-    <li><a href="/flow/{{favorite.flow.id}}">{{favorite.flow.name}}</li>
+<ul ng-repeat='entry in profile.recentlyPlayed'>
+    <li><a href="/flow/{{entry.flow.id}}">{{entry.flow.name}}</li>
 </ul>
 
 <h2>My Stats</h2>
-TODO STATS
+Flows Played - {{profile.stats.flowsPlayed}}
+Minutes Played - {{profile.stats.minutesPlayed}}
+Flows Written - {{profile.stats.flowsWritten}}
+Moves - {{profile.stats.moves}}

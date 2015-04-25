@@ -1,8 +1,35 @@
 'use strict';
 
-angular.module('acromaster.controllers').controller('ProfileController', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-  // TODO: Use service instead of http
-  $http.get('/api/profile/' + $routeParams.user).success(function(profile) {
-    $scope.profile = profile;
-  });
+// TODO: Caching of profile?
+var acromasterControllers = angular.module('acromaster.controllers');
+
+acromasterControllers.controller('ProfileHomeController', ['$scope', '$routeParams', 'User', function($scope, $routeParams, User) {
+  $scope.profile = User.get($routeParams.user);
+}]);
+
+acromasterControllers.controller('ProfileStatsController', ['$scope', '$routeParams', 'User', function($scope, $routeParams, User) {
+  $scope.profile = User.get($routeParams.user);
+}]);
+
+var setupPagination = function($scope, $http, type, userid) {
+  // TODO: Into a service we go!
+  $scope.flows = $http.get('/api/profile/' + userid + '/' + type);
+  $scope.perPage = 25;
+};
+
+acromasterControllers.controller('ProfileFlowsController', ['$scope', '$routeParams', 'User', '$http', function($scope, $routeParams, User, $http) {
+  $scope.profile = User.get($routeParams.user);
+
+  setupPagination($scope, $http, 'flows', $routeParams.user);
+  
+}]);
+
+acromasterControllers.controller('ProfileFavoritesController', ['$scope', '$routeParams', 'User', '$http', function($scope, $routeParams, User, $http) {
+  $scope.profile = User.get($routeParams.user);
+
+  setupPagination($scope, $http, 'favorites', $routeParams.user);
+}]);
+
+acromasterControllers.controller('ProfileAchievementsController', ['$scope', '$routeParams', 'User', function($scope, $routeParams, User) {
+  $scope.profile = User.get($routeParams.user);
 }]);

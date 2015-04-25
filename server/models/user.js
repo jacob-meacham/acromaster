@@ -67,6 +67,7 @@ UserSchema.statics = {
   loadPublicProfile: function(name, cb) {
     this.findOne({ username: name })
       .populate('favorites.flow', 'name _id')
+      .populate('recentlyPlayed.flow', 'name _id')
       .exec(function(err, user) {
         if (err) {
           return cb(err);

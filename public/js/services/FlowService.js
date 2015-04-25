@@ -45,6 +45,7 @@ acromasterServices.factory('FlowService', ['Flow', function(Flow) {
     generateFlow: function(params, callback) {
       var returnedFlow = Flow.generate(params, function() {
         flow = returnedFlow;
+        // TODO: No need for this, just return the promise
         if (callback) {
           callback(flow);
         }
