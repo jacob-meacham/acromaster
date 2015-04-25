@@ -206,6 +206,15 @@ var generate = function(req, res, next) {
     var flow = new Flow();
     flow.name = 'Quick Flow';
 
+    if (req.query.flowName) {
+      flow.name = req.query.flowName;
+    }
+
+    if (req.user) {
+      flow.author = req.user;
+      flow.authorName = req.user.name;
+    }
+
     var timeSoFar = 0;
     var totalTime = parse(req.query.totalTime);
     var timePerMove = parse(req.query.timePerMove);
@@ -230,8 +239,15 @@ var generate = function(req, res, next) {
   Move.list({}).then(function(moves) {
     var flow = generateFlow(moves);
     return Flow.populate(flow, 'moves.moves');
-  }).then(function(result) {
-    res.jsonp(result);
+  }).then(function(flow) {
+    flow.save(function(err) {
+      // TODO: wrap in a promise...
+      if (err) {
+        next(err);
+      }
+
+      res.jsonp(flow);
+    });
   }).then(null, next);
 };
 

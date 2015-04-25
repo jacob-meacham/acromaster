@@ -19,7 +19,7 @@ controllers.controller('FlowPlayController', ['$scope', '$location', '$routePara
   };
 }]);
 
-controllers.controller('FlowEndController', ['$scope', '$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', 'RandomService', function($scope, $location, Flow, flowService, flowStats, $timeout, _, rand) {
+controllers.controller('FlowEndController', ['$scope', '$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', function($scope, $location, Flow, flowService, flowStats, $timeout, _) {
   var flow = $scope.flow = flowService.getCurrentFlow();
   if (!flow || !flow.moves || flow.moves.length === 0) {
     // No flow defined, so redirect back to home.
@@ -63,54 +63,6 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'Flow', 'Flo
     max: 100,
     levelColors: ['#CE1B21'],
   }, commonOptions);
-
-  var generateName = function() {
-    var adjective = '';
-    var type_add = '';
-    var type = '';
-    if (rand.random() < 0.95) {
-      adjective = rand.choose(['Funky', 'Spiffy', 'Tiny', 'Huge', 'Spiritual', 'Melodic', 'Supreme', 'Steadfast', 'Urban', 'Greasy']);
-    }
-
-    if (rand.random() < 0.3) {
-      type_add = rand.choose(['Masters', 'Riders', 'Warriors', 'Lovers', 'Fighters']);
-    }
-
-    type = rand.choose(['Dragon', 'Unicorn', 'Centaur', 'Basilisk', 'Demon', 'Samurai', 'Ninja', 'Bunny']);
-
-    // TODO: Use handlebars to generate this
-    var name = '';
-    if (rand.random() < 0.3) {
-      name = 'Flow of the ' + adjective + ' ' + type;
-      if (type_add !== '') {
-        name += ' ' + type_add;
-      }
-    } else {
-      if (adjective !== '') { adjective = 'The'; }
-      name = adjective + ' ' + type;
-      if (type_add !== '') {
-        name += ' ' + type_add;
-      }
-      name += ' Flow';
-    }
-
-    return name;
-  };
-
-  // TODO: Move to service?
-  $scope.isNewFlow = function() {
-    if ($scope.flow.id) return false;
-    return true;
-  };
-
-  $scope.saveFlow = function() {
-    // TODO: Actually do something better on save.
-    // TODO: Move name generation to service
-    $scope.flow.name = generateName();
-    $scope.flow.$save(function(savedFlow) {
-      $location.path('/flow/' + savedFlow.id);
-    });
-  };
 
   $timeout(function() {
     $scope.numMovesOptions.value = stats.numMoves;

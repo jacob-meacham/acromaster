@@ -66,10 +66,6 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       templateUrl: '/partials/flow/play/workout.html',
       controller: 'WorkoutCreateController'
     })
-    .when('/flow/workout/play', {
-      templateUrl: '/partials/flow/play/play.html',
-      controller: 'FlowPlayController'
-    })
     .when('/flow/end', {
       templateUrl: '/partials/flow/play/end.html',
       controller: 'FlowEndController'
