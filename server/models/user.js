@@ -48,10 +48,10 @@ var UserSchema = new Schema({
   }],
 
   stats: {
-    flowsPlayed: Number,
-    minutesPlayed: Number,
-    flowsWritten: Number,
-    moves: Number
+    flowsPlayed: { type: Number, 'default': 0 },
+    minutesPlayed: { type: Number, 'default': 0 },
+    flowsWritten: { type: Number, 'default': 0 },
+    moves: { type: Number, 'default': 0 }
   }
 });
 
