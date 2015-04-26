@@ -95,7 +95,7 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       controller: 'ProfileFlowsController'
     })
     .when('/profile/:user/achievements', {
-      templateUrl: '/partials/profile/achievement.html',
+      templateUrl: '/partials/profile/achievements.html',
       controller: 'ProfileAchievementsController'
     })
     .otherwise({
