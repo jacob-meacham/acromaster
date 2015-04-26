@@ -4,11 +4,11 @@
 var acromasterControllers = angular.module('acromaster.controllers');
 
 acromasterControllers.controller('ProfileHomeController', ['$scope', '$routeParams', 'User', function($scope, $routeParams, User) {
-  $scope.profile = User.get($routeParams.user);
+  $scope.profile = User.get({userId: $routeParams.user});
 }]);
 
 acromasterControllers.controller('ProfileStatsController', ['$scope', '$routeParams', 'User', function($scope, $routeParams, User) {
-  $scope.profile = User.get($routeParams.user);
+  $scope.profile = User.get({userId: $routeParams.user});
 }]);
 
 var setupPagination = function($scope, $http, type, userid) {
@@ -18,18 +18,18 @@ var setupPagination = function($scope, $http, type, userid) {
 };
 
 acromasterControllers.controller('ProfileFlowsController', ['$scope', '$routeParams', 'User', '$http', function($scope, $routeParams, User, $http) {
-  $scope.profile = User.get($routeParams.user);
+  $scope.profile = User.get({userId: $routeParams.user});
 
   setupPagination($scope, $http, 'flows', $routeParams.user);
   
 }]);
 
 acromasterControllers.controller('ProfileFavoritesController', ['$scope', '$routeParams', 'User', '$http', function($scope, $routeParams, User, $http) {
-  $scope.profile = User.get($routeParams.user);
+  $scope.profile = User.get({userId: $routeParams.user});
 
   setupPagination($scope, $http, 'favorites', $routeParams.user);
 }]);
 
 acromasterControllers.controller('ProfileAchievementsController', ['$scope', '$routeParams', 'User', function($scope, $routeParams, User) {
-  $scope.profile = User.get($routeParams.user);
+  $scope.profile = User.get({userId: $routeParams.user});
 }]);
