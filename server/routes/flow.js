@@ -31,13 +31,14 @@ var _getMax = function(req) {
   return max;
 };
 
-var _listRandom = function(max, res, next) {
+var _listRandom = function(req, res, next) {
+  var max = _getMax(req);
   Flow.findRandom().limit(max).exec().then(function(flows) {
     res.jsonp({
       flows: flows,
       total: max
     });
-  }).then(null, next);
+  }).then(null, next); // Pass errors directly to next
 };
 
 var _listInternal = function(req, res, next) {
@@ -65,7 +66,7 @@ var _listInternal = function(req, res, next) {
       page: page+1,
       total: count
     });
-  }).then(null, next);
+  }).then(null, next); // Pass errors directly to next
 };
 
 var list = function(req, res, next) {
