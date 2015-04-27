@@ -152,9 +152,24 @@ var requireUser = function(req, res, next) {
   next();
 };
 
+var requireUserOrAnonId = function(req, res, next) {
+  if (!req.user) {
+    console.log(req.query);
+    if (!req.query.anonId || req.query.anonId.indexOf('__anon_') !== 0) {
+      return res.status(401).send({error: new Error('Need to be logged in or have a valid anon id')});
+    }
+
+    req.userId = req.query.anonId;
+  } else {
+    req.userId = req.user.id;
+  }
+
+  next();
+};
+
 var like = function(req, res, next) {
   var flow = req.flow;
-  flow.like(req.user._id, function(err) {
+  flow.like(req.userId, function(err) {
     if (err) {
       return next(err);
     }
@@ -165,7 +180,7 @@ var like = function(req, res, next) {
 
 var removeLike = function(req, res, next) {
   var flow = req.flow;
-  flow.cancelLike(req.user._id, function(err) {
+  flow.cancelLike(req.userId, function(err) {
     if (err) {
       return next(err);
     }
@@ -175,9 +190,13 @@ var removeLike = function(req, res, next) {
 };
 
 var hasLiked = function(req, res, next) {
-  Flow.findLikes(req.user._id, {_id:req.flow._id}).then(function(likes) {
+  Flow.findLikes(req.userId, {_id:req.flow._id}, function(err, likes) {
+    if (err) {
+      return next(err);
+    }
+
     res.jsonp({hasLiked: !!likes.length});
-  }).then(null, next);
+  });
 };
 
 var recordPlayed = function(req, res, next) {
@@ -264,9 +283,9 @@ module.exports = function(app) {
   app.post('/api/flow', create);
   app.put('/api/flow/:flowId', update);
   app.delete('/api/flow/:flowId', deleteFlow);
-  app.post('/api/flow/:flowId/likes', requireUser, like);
-  app.delete('/api/flow/:flowId/likes', requireUser, removeLike);
-  app.get('/api/flow/:flowId/likes', requireUser, hasLiked);
+  app.post('/api/flow/:flowId/likes', requireUserOrAnonId, like);
+  app.delete('/api/flow/:flowId/likes', requireUserOrAnonId, removeLike);
+  app.get('/api/flow/:flowId/likes', requireUserOrAnonId, hasLiked);
   app.post('/api/flow/:flowId/plays', requireUser, recordPlayed);
 
   app.param('flowId', loadById);
