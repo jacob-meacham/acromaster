@@ -115,18 +115,29 @@ UserSchema.methods = {
     // });
   },
 
-  recordPlay: function(moves, minutes, flowId, cb) {
+  // TODO: Change this to just search the Flows instead?
+  recordFlowWritten: function(cb) {
+    this.stats.flowsWritten.$inc();
+    return this.save().exec(cb);
+  },
+
+  recordPlay: function(flow, cb) {
     this.stats.flowsPlayed.$inc();
-    this.stats.minutesPlayed += minutes;
-    this.stats.movesPlayed += moves;
+    this.stats.movesPlayed += flow.moves.length;
+
+    var minutesPlayed = _.foldl(flow.moves, function(total, current) {
+      return total + current.duration;
+    }, 0);
+
+    this.stats.minutesPlayed += minutesPlayed;
 
     var found = _.findIndex(this.recentlyPlayed, function(entry) {
-      return entry.flow === flowId;
+      return entry.flow === flow._id;
     }) !== -1;
     
     if (!found) {
       // TODO: Not atomic, not sure if $addToSet is atomic either
-      this.recentlyPlayed.push({flow: flowId});
+      this.recentlyPlayed.push({flow: flow._id});
     }
 
     // TODO: Sort?
@@ -134,11 +145,7 @@ UserSchema.methods = {
       this.recentlyPlayed = this.recentlyPlayed.slice(1, this.recentlyPlayed.length);
     }
 
-    if (cb) {
-      return this.save(cb);
-    }
-
-    return this.save().exec();
+    return this.save().exec(cb);
   },
 
   toPublic: function() {

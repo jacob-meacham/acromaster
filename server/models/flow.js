@@ -23,6 +23,7 @@ var FlowSchema = new Schema({
 
   createdAt: { type : Date, default : Date.now },
   official: Boolean,
+  workout: {type: Boolean, default: false },
 
   playCount: { type: Number, default : 0 },
 

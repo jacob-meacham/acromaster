@@ -96,6 +96,9 @@ var create = function(req, res, next) {
   if (req.user) {
     flow.author = req.user;
     flow.authorName = req.user.name;
+
+    // We actually created this, so lets write it down
+    req.user.recordFlowWritten(); // Async is totally fine
   }
 
   flow.save(function(err) {
@@ -202,13 +205,13 @@ var hasLiked = function(req, res, next) {
 var recordPlayed = function(req, res, next) {
   var userId = 0;
   if (req.user) {
+    // If there is no user, just record with a dummy player.
     userId = req.user._id;
   }
 
-  // If there is no user, just record with a dummy player.
   req.flow.recordPlayed(userId).then(function() {
     if (req.user) {
-      return req.user.recordPlay(0, 0);
+      return req.user.recordPlay(req.flow);
     }
   }).then(function() {
     res.jsonp({plays: req.flow.plays});
@@ -230,6 +233,7 @@ var generate = function(req, res, next) {
     // Construct a new list using the passed parameters
     var flow = new Flow();
     flow.name = 'Quick Flow';
+    flow.workout = true;
 
     if (req.query.flowName) {
       flow.name = req.query.flowName;
