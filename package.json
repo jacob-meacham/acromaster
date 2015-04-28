@@ -31,7 +31,7 @@
     "method-override": "2.3.x",
     "mongoose": "3.8.9",
     "mongoose-likes": "0.1.0",
-    "mongoose-random": "^0.1.1",
+    "mongoose-random": "0.1.1",
     "mongoose-shortid": "git://github.com/VocativLabs/mongoose-shortid.git#b6e7f73fbd41e3dc5617c5cf979f0740716d931d",
     "morgan": "1.5.2",
     "passport": "0.2.1",
@@ -76,16 +76,16 @@
     "karma-phantomjs-launcher": "0.1.4",
     "karma-sinon": "1.0.4",
     "karma-sinon-chai": "0.3.0",
-    "load-grunt-tasks": "^3.1.0",
+    "load-grunt-tasks": "3.1.0",
     "mocha": "2.2.4",
     "mocha-sinon": "1.1.4",
     "mockgoose": "1.10.7",
     "passport-stub": "1.0.x",
     "protractor": "2.0.0",
     "sinon": "1.14.1",
-    "sinon-as-promised": "^3.0.0",
+    "sinon-as-promised": "3.0.0",
     "sinon-chai": "2.7.0",
     "supertest": "0.15.0",
-    "supertest-as-promised": "^2.0.0"
+    "supertest-as-promised": "2.0.0"
   }
 }

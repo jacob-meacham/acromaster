@@ -31,13 +31,14 @@ var _getMax = function(req) {
   return max;
 };
 
-var _listRandom = function(max, res, next) {
+var _listRandom = function(req, res, next) {
+  var max = _getMax(req);
   Flow.findRandom().limit(max).exec().then(function(flows) {
     res.jsonp({
       flows: flows,
       total: max
     });
-  }).then(null, next);
+  }).then(null, next); // Pass errors directly to next
 };
 
 var _listInternal = function(req, res, next) {
@@ -65,7 +66,7 @@ var _listInternal = function(req, res, next) {
       page: page+1,
       total: count
     });
-  }).then(null, next);
+  }).then(null, next); // Pass errors directly to next
 };
 
 var list = function(req, res, next) {
@@ -95,6 +96,9 @@ var create = function(req, res, next) {
   if (req.user) {
     flow.author = req.user;
     flow.authorName = req.user.name;
+
+    // We actually created this, so lets write it down
+    req.user.recordFlowWritten(); // Async is totally fine
   }
 
   flow.save(function(err) {
@@ -151,9 +155,23 @@ var requireUser = function(req, res, next) {
   next();
 };
 
+var requireUserOrAnonId = function(req, res, next) {
+  if (!req.user) {
+    if (!req.query.anonId || req.query.anonId.indexOf('__anon_') !== 0) {
+      return res.status(401).send({error: new Error('Need to be logged in or have a valid anon id')});
+    }
+
+    req.userId = req.query.anonId;
+  } else {
+    req.userId = req.user.id;
+  }
+
+  next();
+};
+
 var like = function(req, res, next) {
   var flow = req.flow;
-  flow.like(req.user._id, function(err) {
+  flow.like(req.userId, function(err) {
     if (err) {
       return next(err);
     }
@@ -164,7 +182,7 @@ var like = function(req, res, next) {
 
 var removeLike = function(req, res, next) {
   var flow = req.flow;
-  flow.cancelLike(req.user._id, function(err) {
+  flow.cancelLike(req.userId, function(err) {
     if (err) {
       return next(err);
     }
@@ -174,21 +192,25 @@ var removeLike = function(req, res, next) {
 };
 
 var hasLiked = function(req, res, next) {
-  Flow.findLikes(req.user._id, {_id:req.flow._id}).then(function(likes) {
+  Flow.findLikes(req.userId, {_id:req.flow._id}, function(err, likes) {
+    if (err) {
+      return next(err);
+    }
+
     res.jsonp({hasLiked: !!likes.length});
-  }).then(null, next);
+  });
 };
 
 var recordPlayed = function(req, res, next) {
   var userId = 0;
   if (req.user) {
+    // If there is no user, just record with a dummy player.
     userId = req.user._id;
   }
 
-  // If there is no user, just record with a dummy player.
   req.flow.recordPlayed(userId).then(function() {
     if (req.user) {
-      return req.user.recordPlay(0, 0);
+      return req.user.recordPlay(req.flow);
     }
   }).then(function() {
     res.jsonp({plays: req.flow.plays});
@@ -210,6 +232,7 @@ var generate = function(req, res, next) {
     // Construct a new list using the passed parameters
     var flow = new Flow();
     flow.name = 'Quick Flow';
+    flow.workout = true;
 
     if (req.query.flowName) {
       flow.name = req.query.flowName;
@@ -263,9 +286,9 @@ module.exports = function(app) {
   app.post('/api/flow', create);
   app.put('/api/flow/:flowId', update);
   app.delete('/api/flow/:flowId', deleteFlow);
-  app.post('/api/flow/:flowId/likes', requireUser, like);
-  app.delete('/api/flow/:flowId/likes', requireUser, removeLike);
-  app.get('/api/flow/:flowId/likes', requireUser, hasLiked);
+  app.post('/api/flow/:flowId/likes', requireUserOrAnonId, like);
+  app.delete('/api/flow/:flowId/likes', requireUserOrAnonId, removeLike);
+  app.get('/api/flow/:flowId/likes', requireUserOrAnonId, hasLiked);
   app.post('/api/flow/:flowId/plays', requireUser, recordPlayed);
 
   app.param('flowId', loadById);

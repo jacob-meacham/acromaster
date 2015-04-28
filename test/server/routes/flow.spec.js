@@ -208,7 +208,6 @@ describe('/api/flow', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          console.log('doing it right');
           var _flow = res.body;
           _flow.name.should.equal(flow1.name);
           _flow.author.name.should.equal(author1.name);
@@ -301,7 +300,6 @@ describe('/api/flow', function() {
             .set('Accept', 'application/json')
             .expect(200)
             .expect(function(res) {
-              console.log(res.body);
               res.body.flows.should.have.length(0);
               res.body.page.should.equal(2);
               res.body.total.should.equal(5);
