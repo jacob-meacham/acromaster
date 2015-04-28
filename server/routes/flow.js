@@ -157,7 +157,6 @@ var requireUser = function(req, res, next) {
 
 var requireUserOrAnonId = function(req, res, next) {
   if (!req.user) {
-    console.log(req.query);
     if (!req.query.anonId || req.query.anonId.indexOf('__anon_') !== 0) {
       return res.status(401).send({error: new Error('Need to be logged in or have a valid anon id')});
     }
