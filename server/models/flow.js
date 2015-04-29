@@ -1,6 +1,8 @@
 'use strict';
 
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
+Promise.promisifyAll(mongoose);
 var ShortId = require('mongoose-shortid');
 var likesPlugin = require('mongoose-likes');
 var randomPlugin = require('mongoose-random');

@@ -1,6 +1,8 @@
 'use strict';
 
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
+Promise.promisifyAll(mongoose);
 var ShortId = require('mongoose-shortid');
 var Schema = mongoose.Schema;
 var slugify = require('slugify');
@@ -93,7 +95,8 @@ UserSchema.methods = {
       // TODO: Not atomic, not sure if $addToSet is atomic either
       this.favorites.push({flow: flowId});
     }
-    this.save(cb);
+
+    return this.saveAsync(cb);
   },
 
   removeFavorite: function(flowId, cb) {
@@ -102,7 +105,7 @@ UserSchema.methods = {
     });
 
     this.favorites = filteredFavorites;
-    this.save(cb);
+    return this.saveAsync(cb);
 
     // TODO: Is this better? this.favorites.pull doesn't work, requires an actual update call.
     // this.update({$pull: { favorites: { flow: flowId}}}, function(err) {
@@ -116,15 +119,14 @@ UserSchema.methods = {
   },
 
   // TODO: Change this to just search the Flows instead?
-  recordFlowWritten: function(cb) {
+  recordFlowWritten: function() {
     // TODO: No $inc?
     this.stats.flowsWritten += 1;
 
-    // TODO: Return promise
-    this.save(cb);
+    return this.saveAsync();
   },
 
-  recordPlay: function(flow, cb) {
+  recordPlay: function(flow) {
     this.stats.flowsPlayed += 1;
     this.stats.movesPlayed += flow.moves.length;
 
@@ -148,8 +150,7 @@ UserSchema.methods = {
       this.recentlyPlayed = this.recentlyPlayed.slice(1, this.recentlyPlayed.length);
     }
 
-    // TODO: Return promise
-    this.save(cb);
+    return this.saveAsync();
   },
 
   toPublic: function() {
@@ -179,4 +180,3 @@ UserSchema.options.toJSON = {
 };
 
 module.exports = mongoose.model('User', UserSchema);
- 
