@@ -1,6 +1,8 @@
 'use strict';
 
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
+Promise.promisifyAll(mongoose);
 var ShortId = require('mongoose-shortid');
 var Schema = mongoose.Schema;
 var slugify = require('slugify');
@@ -48,10 +50,10 @@ var UserSchema = new Schema({
   }],
 
   stats: {
-    flowsPlayed: { type: Number, 'default': 0 },
-    minutesPlayed: { type: Number, 'default': 0 },
-    flowsWritten: { type: Number, 'default': 0 },
-    moves: { type: Number, 'default': 0 }
+    flowsPlayed: { type: Number, 'default': '0' },
+    minutesPlayed: { type: Number, 'default': '0' },
+    flowsWritten: { type: Number, 'default': '0' },
+    moves: { type: Number, 'default': '0' }
   }
 });
 
@@ -93,7 +95,8 @@ UserSchema.methods = {
       // TODO: Not atomic, not sure if $addToSet is atomic either
       this.favorites.push({flow: flowId});
     }
-    this.save(cb);
+
+    return this.saveAsync(cb);
   },
 
   removeFavorite: function(flowId, cb) {
@@ -102,7 +105,7 @@ UserSchema.methods = {
     });
 
     this.favorites = filteredFavorites;
-    this.save(cb);
+    return this.saveAsync(cb);
 
     // TODO: Is this better? this.favorites.pull doesn't work, requires an actual update call.
     // this.update({$pull: { favorites: { flow: flowId}}}, function(err) {
@@ -116,13 +119,15 @@ UserSchema.methods = {
   },
 
   // TODO: Change this to just search the Flows instead?
-  recordFlowWritten: function(cb) {
-    this.stats.flowsWritten.$inc();
-    return this.save().exec(cb);
+  recordFlowWritten: function() {
+    // TODO: No $inc?
+    this.stats.flowsWritten += 1;
+
+    return this.saveAsync();
   },
 
-  recordPlay: function(flow, cb) {
-    this.stats.flowsPlayed.$inc();
+  recordPlay: function(flow) {
+    this.stats.flowsPlayed += 1;
     this.stats.movesPlayed += flow.moves.length;
 
     var minutesPlayed = _.foldl(flow.moves, function(total, current) {
@@ -145,7 +150,7 @@ UserSchema.methods = {
       this.recentlyPlayed = this.recentlyPlayed.slice(1, this.recentlyPlayed.length);
     }
 
-    return this.save().exec(cb);
+    return this.saveAsync();
   },
 
   toPublic: function() {
@@ -175,4 +180,3 @@ UserSchema.options.toJSON = {
 };
 
 module.exports = mongoose.model('User', UserSchema);
- 
