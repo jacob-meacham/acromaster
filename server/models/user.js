@@ -48,10 +48,10 @@ var UserSchema = new Schema({
   }],
 
   stats: {
-    flowsPlayed: { type: Number, 'default': 0 },
-    minutesPlayed: { type: Number, 'default': 0 },
-    flowsWritten: { type: Number, 'default': 0 },
-    moves: { type: Number, 'default': 0 }
+    flowsPlayed: { type: Number, 'default': '0' },
+    minutesPlayed: { type: Number, 'default': '0' },
+    flowsWritten: { type: Number, 'default': '0' },
+    moves: { type: Number, 'default': '0' }
   }
 });
 
@@ -117,12 +117,15 @@ UserSchema.methods = {
 
   // TODO: Change this to just search the Flows instead?
   recordFlowWritten: function(cb) {
-    this.stats.flowsWritten.$inc();
-    return this.save().exec(cb);
+    // TODO: No $inc?
+    this.stats.flowsWritten += 1;
+
+    // TODO: Return promise
+    this.save(cb);
   },
 
   recordPlay: function(flow, cb) {
-    this.stats.flowsPlayed.$inc();
+    this.stats.flowsPlayed += 1;
     this.stats.movesPlayed += flow.moves.length;
 
     var minutesPlayed = _.foldl(flow.moves, function(total, current) {
@@ -145,7 +148,8 @@ UserSchema.methods = {
       this.recentlyPlayed = this.recentlyPlayed.slice(1, this.recentlyPlayed.length);
     }
 
-    return this.save().exec(cb);
+    // TODO: Return promise
+    this.save(cb);
   },
 
   toPublic: function() {
