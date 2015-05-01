@@ -64,23 +64,15 @@ var getFlows = function(req, res, next) {
 };
 
 var addFavorite = function(req, res, next) {
-  req.user.addFavorite(req.params.flowId, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-
+  req.user.addFavorite(req.params.flowId).spread(function(user) {
     return res.jsonp(user);
-  });
+  }).catch(next);
 };
 
 var removeFavorite = function(req, res, next) {
-  req.user.removeFavorite(req.params.flowId, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-
+  req.user.removeFavorite(req.params.flowId).spread(function(user) {
     return res.jsonp(user);
-  });
+  }).catch(next);
 };
 
 module.exports = function(app) {

@@ -43,7 +43,6 @@ var UserSchema = new Schema({
     favoritedAt: { type: Date, 'default': Date.now }
   }],
 
-  // TODO: This might take a long time to return all of these...
   recentlyPlayed: [{
     flow: { type: ShortId, ref: 'Flow'},
     date: { type: Date, 'default': Date.now }
@@ -86,7 +85,7 @@ UserSchema.statics = {
 };
 
 UserSchema.methods = {
-  addFavorite: function(flowId, cb) {
+  addFavorite: function(flowId) {
     var found = _.findIndex(this.favorites, function(favorite) {
       return favorite.flow === flowId;
     }) !== -1;
@@ -96,16 +95,16 @@ UserSchema.methods = {
       this.favorites.push({flow: flowId});
     }
 
-    return this.saveAsync(cb);
+    return this.saveAsync();
   },
 
-  removeFavorite: function(flowId, cb) {
+  removeFavorite: function(flowId) {
     var filteredFavorites = _.filter(this.favorites, function(favorite) {
       return favorite.flow !== flowId;
     });
 
     this.favorites = filteredFavorites;
-    return this.saveAsync(cb);
+    return this.saveAsync();
 
     // TODO: Is this better? this.favorites.pull doesn't work, requires an actual update call.
     // this.update({$pull: { favorites: { flow: flowId}}}, function(err) {
@@ -128,7 +127,7 @@ UserSchema.methods = {
 
   recordPlay: function(flow) {
     this.stats.flowsPlayed += 1;
-    this.stats.movesPlayed += flow.moves.length;
+    this.stats.moves += flow.moves.length;
 
     var minutesPlayed = _.foldl(flow.moves, function(total, current) {
       return total + current.duration;
@@ -136,20 +135,20 @@ UserSchema.methods = {
 
     this.stats.minutesPlayed += minutesPlayed;
 
-    var found = _.findIndex(this.recentlyPlayed, function(entry) {
+    var foundIdx = _.findIndex(this.recentlyPlayed, function(entry) {
       return entry.flow === flow._id;
-    }) !== -1;
+    });
     
-    if (!found) {
+    if (foundIdx !== -1) {
+      console.log('resetting date on ' + foundIdx + ' ' + this.recentlyPlayed[foundIdx].date.getTime());
+      this.recentlyPlayed[foundIdx].date = Date.now();
+      console.log('Now ' + this.recentlyPlayed[foundIdx].date.getTime());
+    } else {
       // TODO: Not atomic, not sure if $addToSet is atomic either
       this.recentlyPlayed.push({flow: flow._id});
     }
 
-    // TODO: Sort?
-    if (this.recentlyPlayed.length > 10) {
-      this.recentlyPlayed = this.recentlyPlayed.slice(1, this.recentlyPlayed.length);
-    }
-
+    this.recentlyPlayed = _(this.recentlyPlayed).sortBy('date').reverse().slice(0, 10).value();
     return this.saveAsync();
   },
 
