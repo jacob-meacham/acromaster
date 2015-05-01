@@ -163,7 +163,6 @@ UserSchema.methods = {
   }
 };
 
-
 UserSchema.options.toJSON = {
   transform: function(doc, ret) {
     ret.id = ret._id;
