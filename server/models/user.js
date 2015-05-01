@@ -140,9 +140,7 @@ UserSchema.methods = {
     });
     
     if (foundIdx !== -1) {
-      console.log('resetting date on ' + foundIdx + ' ' + this.recentlyPlayed[foundIdx].date.getTime());
       this.recentlyPlayed[foundIdx].date = Date.now();
-      console.log('Now ' + this.recentlyPlayed[foundIdx].date.getTime());
     } else {
       // TODO: Not atomic, not sure if $addToSet is atomic either
       this.recentlyPlayed.push({flow: flow._id});
