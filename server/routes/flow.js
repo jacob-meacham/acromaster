@@ -4,18 +4,14 @@ var Flow = require('../models/flow.js');
 var Move = require('../models/move.js');
 
 var loadById = function(req, res, next, id) {
-  Flow.load(id, function(err, flow) {
-    if (err) {
-      return next(err);
-    }
-    
+  Flow.load(id).then(function(flow) {
     if (!flow) {
       return next(new Error('Failed to load flow with id ' + id));
     }
 
     req.flow = flow;
     next();
-  });
+  }).then(null, next);
 };
 
 var getFlow = function(req, res) {
@@ -64,7 +60,7 @@ var _listInternal = function(req, res, next) {
     res.jsonp({
       flows: flows,
       page: page+1,
-      total: count
+      total: count // TODO: Fix total in the search query case.
     });
   }).then(null, next); // Pass errors directly to next
 };

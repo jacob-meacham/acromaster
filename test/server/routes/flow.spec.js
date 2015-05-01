@@ -168,9 +168,11 @@ describe('/api/flow', function() {
         });
     });
 
-    it('should not allow overwriting a flow with an author', function(done) {
-      // TODO: Stub
-      done();
+    it('should not allow overwriting a flow with an author', function() {
+      return request(authedApp)
+        .post('/api/flow')
+        .send({name: 'A Flow!', author: author2})
+        .expect(401);
     });
   });
 
@@ -213,6 +215,16 @@ describe('/api/flow', function() {
           _flow.author.name.should.equal(author1.name);
           expect(_flow.author.id).to.exist;
           expect(_flow.author.email).to.not.exist;
+        });
+    });
+
+    it('should return an error from the backing db', function() {
+      sandbox.stub(Flow, 'load').rejects('bad id');
+      return request(app)
+        .get('/api/flow/' + flow1._id)
+        .expect(500)
+        .expect(function(res) {
+          res.body.error.should.match(/bad id/);
         });
     });
   });
@@ -259,13 +271,23 @@ describe('/api/flow', function() {
     });
 
     it('should update without errors', function() {
+      var update = {
+        moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }],
+        description: 'My new description',
+        name: 'My new name',
+        playCount: 1000
+      };
+
       return request(authedApp)
         .put('/api/flow/' + flow1._id)
-        .send({moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }]})
+        .send(update)
         .expect(200)
         .expect(function(res) {
           var _flow = new Flow(res.body);
           _flow.moves.length.should.equal(2);
+          _flow.description.should.eql('My new description');
+          _flow.name.should.eql('My new name');
+          _flow.playCount.should.eql(0);
         });
     });
   });
@@ -274,7 +296,6 @@ describe('/api/flow', function() {
     it('should list all flows', function() {
       return request(app)
         .get('/api/flow')
-        .set('Accept', 'application/json')
         .expect(200)
         .expect(function(res) {
           res.body.flows.should.have.length(5);
@@ -287,7 +308,6 @@ describe('/api/flow', function() {
       return request(app)
         .get('/api/flow')
         .query({page: 1})
-        .set('Accept', 'application/json')
         .expect(200)
         .expect(function(res) {
           res.body.flows.should.have.length(5);
@@ -297,7 +317,6 @@ describe('/api/flow', function() {
           request(app)
             .get('/api/flow')
             .query({page: 2})
-            .set('Accept', 'application/json')
             .expect(200)
             .expect(function(res) {
               res.body.flows.should.have.length(0);
@@ -313,11 +332,35 @@ describe('/api/flow', function() {
 
       return request(app)
         .get('/api/flow')
-        .set('Accept', 'application/json')
         .expect(500)
         .expect(function(res) {
-          stub.should.have.been.callCount(1);
+          stub.should.have.callCount(1);
           res.body.error.should.equal('Error: Stub error');
+        });
+    });
+
+    it('should do full-text search', function() {
+      var listSpy = sandbox.spy(Flow, 'list');
+
+      return request(app)
+        .get('/api/flow')
+        .query({search_query: 'Flow'})
+        .expect(200)
+        .expect(function() {
+          listSpy.should.have.callCount(1);
+          var args = listSpy.getCall(0).args[0];
+          args.should.have.property('searchQuery');
+          args.searchQuery.should.eql({ $text: { $search: 'Flow' }});
+        });
+      });
+
+    it('should return a random selection', function() {
+      return request(app)
+        .get('/api/flow')
+        .query({random: true, max: 2})
+        .expect(200)
+        .expect(function(res) {
+          res.body.flows.should.have.length(2);
         });
     });
   });
