@@ -5,16 +5,17 @@ head
 
   base(href="/")
 
-  title= appName
+  title="{{siteName}}"
   meta(http-equiv='Content-type', content='text/html;charset=UTF-8')
-  meta(name="description", content="#{description}")
+  meta(name="description", content="{{description}}")
+  meta(name="keywords", content="{{keywords}}")
 
   link(href='/img/icons/favicon.ico', rel='shortcut icon', type='image/x-icon')
   
-  meta(property='og:title', content='#{title}')
-  meta(property='og:description', content='#{description}')
+  meta(property='og:title', content='{{title}}')
+  meta(property='og:description', content='{{description}}')
   meta(property='og:type', content='website')
-  meta(property='og:site_name', content='#{appName}')
+  meta(property='og:site_name', content='{{siteName}}')
 
   each asset in assets.vendor.css
     link(rel='stylesheet', href=asset)
