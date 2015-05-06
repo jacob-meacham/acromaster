@@ -4,6 +4,7 @@ var Promise = require('bluebird');
 var mongoose = require('mongoose');
 Promise.promisifyAll(mongoose);
 var ShortId = require('mongoose-shortid');
+var recentPlugin = require('mongoose-recent');
 var Schema = mongoose.Schema;
 var slugify = require('slugify');
 var _ = require('lodash');
@@ -134,20 +135,7 @@ UserSchema.methods = {
     }, 0);
 
     this.stats.minutesPlayed += minutesPlayed;
-
-    var foundIdx = _.findIndex(this.recentlyPlayed, function(entry) {
-      return entry.flow === flow._id;
-    });
-    
-    if (foundIdx !== -1) {
-      this.recentlyPlayed[foundIdx].date = Date.now();
-    } else {
-      // TODO: Not atomic, not sure if $addToSet is atomic either
-      this.recentlyPlayed.push({flow: flow._id});
-    }
-
-    this.recentlyPlayed = _(this.recentlyPlayed).sortBy('date').reverse().slice(0, 10).value();
-    return this.saveAsync();
+    return this.addRecentPlay(flow._id);
   },
 
   toPublic: function() {
@@ -174,5 +162,8 @@ UserSchema.options.toJSON = {
     return ret;
   }
 };
+
+UserSchema.plugin(recentPlugin, { name: 'flow', schemaType: { type: ShortId, ref: 'Flow' }, collectionPath: 'recentlyPlayed', addFunctionName: 'addRecentPlay' });
+console.log(UserSchema.statics);
 
 module.exports = mongoose.model('User', UserSchema);
