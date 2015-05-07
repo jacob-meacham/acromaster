@@ -1,24 +1,25 @@
 'use strict';
 
-var request = require('supertest');
+var request = require('supertest-as-promised');
 var app = require('../../../server');
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
-var async = require('async');
 var Move = require('../../../server/models/move');
 
+Promise.promisifyAll(mongoose);
 mockgoose(mongoose);
 
-require('sinon');
+var sinon = require('sinon');
 require('mocha-sinon');
 var chai = require('chai');
-var expect = chai.expect;
 chai.should();
 
-var move1, move2;
-
 describe('/api/flow', function() {
-  before(function(done) {
+  var move1, move2;
+  var sandbox;
+
+  before(function() {
     var _move = {
       name: 'New Move',
       difficulty: 5,
@@ -37,37 +38,37 @@ describe('/api/flow', function() {
     };
     move2 = new Move(_move);
 
-    async.waterfall([
-      function(cb) {
-        move1.save(cb);
-      },
-      function(res, cb) {
-        move2.save(cb);
-      }], function(err) {
-        expect(err).to.not.exist;
-        done();
-      });
+    return move1.saveAsync().then(function() {
+      return move2.saveAsync();
+    });
   });
 
   after(function() {
     mockgoose.reset();
   });
 
+  beforeEach(function() {
+    sandbox = sinon.sandbox.create();
+  });
+
+  afterEach(function() {
+    sandbox.restore();
+  });
+
   describe('GET /api/moves', function() {
-    it('should return all moves with an empty query', function(done) {
-      request(app)
+    it('should return all moves with an empty query', function() {
+      return request(app)
         .get('/api/moves')
         .expect('Content-Type', /json/)
         .expect(200)
         .expect(function(res) {
           res.body.should.have.length(2);
           res.body[0].name.should.equal('New Move');
-        })
-        .end(done);
+        });
     });
 
-    it('should return a particular move with a query', function(done) {
-      request(app)
+    it('should return a particular move with a query', function() {
+      return request(app)
         .get('/api/moves')
         .query({name: 'New Move'})
         .expect('Content-Type', /json/)
@@ -75,25 +76,43 @@ describe('/api/flow', function() {
         .expect(function(res) {
           res.body.should.have.length(1);
           res.body[0].name.should.equal('New Move');
-        })
-        .end(done);
+        });
     });
 
-    it('should return nothing with an invalid query', function(done) {
-      request(app)
+    it('should return nothing with an invalid query', function() {
+      return request(app)
         .get('/api/moves')
         .query({foo: 'New Move'})
         .expect('Content-Type', /json/)
         .expect(200)
         .expect(function(res) {
           res.body.should.have.length(0);
-        })
-        .end(done);
+        });
     });
 
-    it('should return an error if there is an error connecting to the backing store', function(done) { 
-      // TODO: Stub
-      done();
+    it('should allow an empty query', function() {
+      return request(app)
+        .get('/api/moves')
+        .query({foo: 'New Move'})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect(function(res) {
+          res.body.should.have.length(0);
+      });
+    });
+
+    it('should return an error if there is an error connecting to the backing store', function() {
+      sandbox.stub(Move, 'find', function(query, cb) {
+        cb('errorTown');
+      });
+
+      return request(app)
+        .get('/api/moves')
+        .query({foo: 'New Move'})
+        .expect(500)
+        .expect(function(res) {
+          res.body.error.should.match(/errorTown/);
+        });
     });
   });
 });
