@@ -132,5 +132,42 @@ describe('/api/profile', function() {
           res.body.favorites[0].flow.should.eql(profile.favorites[0].flow);
       });
     });
+
+    it('should allow adding/removing a favorite', function() {
+
+    });
+
+    it('should not allow adding/removing a favorite if the user does not match', function() {
+
+    });
+
+    it('should allow querying for a favorite', function() {
+      stubLoadUserProfile();
+
+      // return request(app)
+      //   .get('/api/profile/amelia/favorites/flow1')
+      //   .expect(200)
+      //   .expect(function(res) {
+      //     res.body.hasFavorited.to.be.true;
+      // }).then(function() {
+      //   return request(app)
+      //     .get('/api/profile/amelia/favorites/notAFlow')
+      //     .expect(200)
+      //     .expect(function(res) {
+      //       res.body.hasFavorited.to.be.false;
+      //     });
+      // });
+    });
+
+    it('should return an error if querying for a favorite returns an error', function() {
+    //   sandbox.stub(User, 'find', function(query, cb) {
+    //     console.log('in the stub yo');
+    //     cb('find error');
+    //   });
+
+    //   return request(app)
+    //     .get('/api/profile/amelia/favorites/flow1')
+    //     .expect(500);
+    // });
   });
 });
