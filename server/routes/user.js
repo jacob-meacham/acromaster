@@ -28,7 +28,7 @@ var getUserProfile = function(req, res) {
 };
 
 var userMatch = function(req, res, next) {
-  if (!req.user || req.params.userId !== req.user.username) {
+  if (!req.user || req.params.username !== req.user.username) {
     return next({error: new Error('Not logged in or not authorized'), status: 401});
   }
 
@@ -36,7 +36,7 @@ var userMatch = function(req, res, next) {
 };
 
 var hasFavorited = function(req, res, next) {
-  User.findOne({username: req.params.userId, 'favorites.flow': req.params.flow}, function(err, user) {
+  User.findOne({username: req.params.username, 'favorites.flow': req.params.flow}, function(err, user) {
     if(err) {
       return next(err);
     }
@@ -69,8 +69,8 @@ module.exports = function(app) {
   app.get('/api/profile/:user', getUserProfile);
   app.get('/api/profile/:user/favorites', getFavorites);
   app.get('/api/profile/:user/flows', getFlows);
-  app.get('/api/profile/:userId/favorites/:flow', hasFavorited);
-  app.post('/api/profile/:userId/favorites/:flow', userMatch, addFavorite);
-  app.delete('/api/profile/:userId/favorites/:flow', userMatch, removeFavorite);
+  app.get('/api/profile/:username/favorites/:flow', hasFavorited);
+  app.post('/api/profile/:username/favorites/:flow', userMatch, addFavorite);
+  app.delete('/api/profile/:username/favorites/:flow', userMatch, removeFavorite);
   app.param('user', loadByName);
 };
