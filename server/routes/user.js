@@ -28,7 +28,7 @@ var getUserProfile = function(req, res) {
 };
 
 var userMatch = function(req, res, next) {
-  if (!req.user || req.params.userId !== req.user._id) {
+  if (!req.user || req.params.userId !== req.user.username) {
     return next({error: new Error('Not logged in or not authorized'), status: 401});
   }
 
@@ -36,12 +36,12 @@ var userMatch = function(req, res, next) {
 };
 
 var hasFavorited = function(req, res, next) {
-  User.find({_id: req.params.userId, 'favorites.flow': req.params.flowId}, function(err, flows) {
+  User.findOne({username: req.params.userId, 'favorites.flow': req.params.flow}, function(err, user) {
     if(err) {
       return next(err);
     }
 
-    res.jsonp({hasFavorited: !!flows.length});
+    res.jsonp({hasFavorited: !!user && !!user.favorites && !!user.favorites.length});
   });
 };
 
@@ -54,13 +54,13 @@ var getFlows = function(req, res) {
 };
 
 var addFavorite = function(req, res, next) {
-  req.user.addFavorite(req.params.flowId).spread(function(user) {
+  req.user.addFavorite(req.params.flow).spread(function(user) {
     return res.jsonp(user);
   }).catch(next);
 };
 
 var removeFavorite = function(req, res, next) {
-  req.user.removeFavorite(req.params.flowId).spread(function(user) {
+  req.user.removeFavorite(req.params.flow).then(function(user) {
     return res.jsonp(user);
   }).catch(next);
 };
@@ -69,8 +69,8 @@ module.exports = function(app) {
   app.get('/api/profile/:user', getUserProfile);
   app.get('/api/profile/:user/favorites', getFavorites);
   app.get('/api/profile/:user/flows', getFlows);
-  app.get('/api/profile/:userId/favorites/:flowId', hasFavorited);
-  app.post('/api/profile/:userId/favorites/:flowId', userMatch, addFavorite);
-  app.delete('/api/profile/:userId/favorites/:flowId', userMatch, removeFavorite);
+  app.get('/api/profile/:userId/favorites/:flow', hasFavorited);
+  app.post('/api/profile/:userId/favorites/:flow', userMatch, addFavorite);
+  app.delete('/api/profile/:userId/favorites/:flow', userMatch, removeFavorite);
   app.param('user', loadByName);
 };

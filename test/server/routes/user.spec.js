@@ -11,18 +11,24 @@ mockgoose(mongoose);
 
 var chai = require('chai');
 chai.should();
+var expect = chai.expect;
 
+var Bluebird = require('bluebird');
 var sinon = require('sinon');
 require('mocha-sinon');
-require('sinon-as-promised');
+require('sinon-as-promised')(Bluebird);
 var sinonChai = require('sinon-chai');
 chai.use(sinonChai);
 
 describe('/api/profile', function() {
   var sandbox;
-  beforeEach(function() {
+  var user;
+  beforeEach(function(done) {
     sandbox = sinon.sandbox.create();
     mockgoose.reset();
+
+    user = new User({name: 'Amelia', email: 'amelia.badelia@test.com', favorites: []});
+    user.save(done);
   });
 
   afterEach(function() {
@@ -30,10 +36,6 @@ describe('/api/profile', function() {
   });
 
   var stubLoadUserProfile = function() {
-    var user = new User({name: 'Amelia', email: 'amelia.badelia@test.com', favorites: []});
-    user.addFavorite('flow1');
-    user.addFavorite('flow2');
-
     var profile = {
       id: user._id,
       name: user.name,
@@ -54,7 +56,7 @@ describe('/api/profile', function() {
   describe('/:userId', function() {
     it('should return an existing user', function() {
       var profile = stubLoadUserProfile();
-      sandbox.stub(Flow, 'listByUser').resolves([{name: 'Flow1'}, {name: 'Flow2'}]);
+      var listStub = sandbox.stub(Flow, 'listByUser').resolves([{name: 'Flow1'}, {name: 'Flow2'}]);
 
       return request(app)
         .get('/api/profile/amelia')
@@ -63,6 +65,7 @@ describe('/api/profile', function() {
         .expect(function(res) {
           res.body.name.should.equal(profile.name);
           res.body.flows.should.have.length(2);
+          listStub.should.have.callCount(1);
         });
     });
 
@@ -121,53 +124,134 @@ describe('/api/profile', function() {
   });
 
   describe('/:user/favorites', function() {
+    var carolAuthedApp;
+    var ameliaAuthedApp;
+
+    var flow;
+
+    before(function(done) {
+      var _flow = {
+        name: 'Flow 1',
+        createdAt: '12/10/1990'
+      };
+      flow = new Flow(_flow);
+      flow.save(done);
+    });
+
+    beforeEach(function() {
+      carolAuthedApp = require('./utils/authedApp')(app).withUser(new User({username: 'carol', name: 'carol'}));
+      ameliaAuthedApp = require('./utils/authedApp')(app).withUser(user);
+    });
+
     it('should return the favorites of the user', function() {
       var profile = stubLoadUserProfile();
 
-      return request(app)
-        .get('/api/profile/amelia/favorites')
-        .expect(200)
-        .expect(function(res) {
-          res.body.favorites.should.have.length(2);
-          res.body.favorites[0].flow.should.eql(profile.favorites[0].flow);
+      user.addFavorite('flow1');
+      user.addFavorite('flow2');
+
+      return user.saveAsync().then(function() {
+        return request(app)
+          .get('/api/profile/amelia/favorites')
+          .expect(200)
+          .expect(function(res) {
+            res.body.favorites.should.have.length(2);
+            res.body.favorites[0].flow.should.eql(profile.favorites[0].flow);
+          });
       });
     });
 
     it('should allow adding/removing a favorite', function() {
-
+      return request(ameliaAuthedApp)
+        .post('/api/profile/amelia/favorites/' + flow._id)
+        .expect(200)
+        .expect(function(res) {
+          res.body.favorites.should.have.length(1);
+          res.body.favorites[0].flow.should.eql(flow._id);
+        }).then(function() {
+          return request(ameliaAuthedApp)
+            .delete('/api/profile/amelia/favorites/' + flow._id)
+            .expect(200)
+            .expect(function(res) {
+              expect(res.body.favorites).to.be.empty;
+            });
+        });
     });
 
     it('should not allow adding/removing a favorite if the user does not match', function() {
-
+      // Unauthenticated add
+      return request(app)
+        .post('/api/profile/amelia/favorites/flow1')
+        .expect(401).then(function() {
+          // Unauthenticated remove
+          return request(app)
+            .delete('/api/profile/amelia/favorites/flow1')
+            .expect(401);
+        }).then(function() {
+          // Mismatch add
+          return request(carolAuthedApp)
+            .post('/api/profile/amelia/favorites/flow1')
+            .expect(401);
+        }).then(function() {
+          return request(carolAuthedApp)
+            .delete('/api/profile/amelia/favorites/flow1')
+            .expect(401);
+        });
     });
 
     it('should allow querying for a favorite', function() {
-      stubLoadUserProfile();
+      user.addFavorite('flow1');
 
-      // return request(app)
-      //   .get('/api/profile/amelia/favorites/flow1')
-      //   .expect(200)
-      //   .expect(function(res) {
-      //     res.body.hasFavorited.to.be.true;
-      // }).then(function() {
-      //   return request(app)
-      //     .get('/api/profile/amelia/favorites/notAFlow')
-      //     .expect(200)
-      //     .expect(function(res) {
-      //       res.body.hasFavorited.to.be.false;
-      //     });
-      // });
+      return user.saveAsync().then(function() {
+        return request(app)
+          .get('/api/profile/amelia/favorites/flow1')
+          .expect(200)
+          .expect(function(res) {
+            res.body.hasFavorited.should.be.true;
+          }).then(function() {
+            return request(app)
+              .get('/api/profile/amelia/favorites/notAFlow')
+              .expect(200)
+              .expect(function(res) {
+                res.body.hasFavorited.should.be.false;
+            });
+        }).then(function() {
+          return request(app)
+            .get('/api/profile/noUser/favorites/notAFlow')
+            .expect(200)
+            .expect(function(res) {
+              res.body.hasFavorited.should.be.false;
+            });
+        });
+      });
     });
 
     it('should return an error if querying for a favorite returns an error', function() {
-    //   sandbox.stub(User, 'find', function(query, cb) {
-    //     console.log('in the stub yo');
-    //     cb('find error');
-    //   });
+      sandbox.stub(User, 'findOne', function(query, cb) {
+        cb('find error');
+      });
 
-    //   return request(app)
-    //     .get('/api/profile/amelia/favorites/flow1')
-    //     .expect(500);
-    // });
+      return request(app)
+        .get('/api/profile/amelia/favorites/flow1')
+        .expect(500);
+    });
+
+    it('should return an error if adding or removing returns an error', function() {
+      sandbox.stub(user, 'addFavorite').rejects('no favorite');
+      sandbox.stub(user, 'removeFavorite').rejects('no favorite');
+
+      return request(ameliaAuthedApp)
+        .post('/api/profile/amelia/favorites/flow1')
+        .expect(500)
+        .expect(function(res) {
+          res.body.error.should.match(/no favorite/);
+        }).then(function() {
+          return request(ameliaAuthedApp)
+            .delete('/api/profile/amelia/favorites/flow1')
+            .expect(500)
+            .expect(function(res) {
+              res.body.error.should.match(/no favorite/);
+            });
+        });
+    });
   });
 });

@@ -40,7 +40,8 @@ var UserSchema = new Schema({
 
   // TODO: This might take a long time to return all of these...
   favorites: [{
-    flow: { type: ShortId, ref: 'Flow'},
+    //flow: { type: ShortId, ref: 'Flow'},
+    flow: String,
     favoritedAt: { type: Date, 'default': Date.now }
   }],
 
@@ -106,6 +107,7 @@ UserSchema.methods = {
 
     this.favorites = filteredFavorites;
     return this.saveAsync();
+    //return Promise.resolve([flowId,'a']);
 
     // TODO: Is this better? this.favorites.pull doesn't work, requires an actual update call.
     // this.update({$pull: { favorites: { flow: flowId}}}, function(err) {
@@ -164,6 +166,5 @@ UserSchema.options.toJSON = {
 };
 
 UserSchema.plugin(recentPlugin, { name: 'flow', schemaType: { type: ShortId, ref: 'Flow' }, collectionPath: 'recentlyPlayed', addFunctionName: 'addRecentPlay' });
-console.log(UserSchema.statics);
 
 module.exports = mongoose.model('User', UserSchema);
