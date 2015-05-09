@@ -24,6 +24,7 @@ module.exports = function(app, _user) {
       next();
     });
     authedApp.use(app);
+    authedApp.reset = reset;
     return authedApp;
   };
 
