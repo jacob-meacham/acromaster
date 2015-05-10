@@ -20,12 +20,6 @@ var MoveEntrySchema = new Schema({
 });
 MoveEntrySchema.options.toJSON = { transform: subdocTransform };
 
-var PlayEntrySchema = new Schema({
-  player: {type: ShortId, ref: 'User'},
-  date: { type: Date, 'default': Date.now },
-});
-PlayEntrySchema.options.toJSON = { transform: subdocTransform };
-
 var FlowSchema = new Schema({
     _id: {
     type: ShortId,
@@ -43,7 +37,7 @@ var FlowSchema = new Schema({
   workout: {type: Boolean, default: false },
 
   playCount: { type: Number, default : 0 },
-  plays: [PlayEntrySchema]
+  plays: [{type: ShortId, ref: 'User'}]
 });
 
 FlowSchema.index({ name: 'text', description: 'text', authorName: 'text' });
@@ -82,21 +76,22 @@ FlowSchema.statics = {
 
   countByUser: function(author_id) {
     return this.count({author: author_id}).exec();
-  }
-};
+  },
 
-FlowSchema.methods = {
-  recordPlayed: function(userId, cb) {
+  recordPlayed: function(id, userId) {
     var update = {
-      $addToSet: {
-        plays: { player: userId }
-      },
       $inc: {
         playCount: 1
       }
     };
 
-    return this.update(update).exec(cb);
+    if (userId) {
+      update.$addToSet = {
+        plays: userId
+      };
+    }
+
+    return this.findOneAndUpdate({_id: id}, update, {new: true}).exec();
   }
 };
 
@@ -107,14 +102,6 @@ FlowSchema.plugin(likesPlugin, {
 });
 
 FlowSchema.plugin(randomPlugin, { path: '__random'});
-
-FlowSchema.pre('remove', function(next) {
-  this.model('User').update(
-      { 'favorites.flow': this._id },
-      { $pull: { 'favorites.flow': this._id} },
-      { multi: true },
-      next);
-});
 
 FlowSchema.options.toJSON = {
   transform: function(doc, ret) {
