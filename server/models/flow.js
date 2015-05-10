@@ -8,6 +8,24 @@ var likesPlugin = require('mongoose-likes');
 var randomPlugin = require('mongoose-random');
 var Schema = mongoose.Schema;
 
+var subdocTransform = function(doc, ret) {
+  delete ret._id;
+  delete ret.__v;
+  return ret;
+};
+
+var MoveEntrySchema = new Schema({
+  move: { type: ShortId, ref: 'Move' },
+  duration: Number,
+});
+MoveEntrySchema.options.toJSON = { transform: subdocTransform };
+
+var PlayEntrySchema = new Schema({
+  player: {type: ShortId, ref: 'User'},
+  date: { type: Date, 'default': Date.now },
+});
+PlayEntrySchema.options.toJSON = { transform: subdocTransform };
+
 var FlowSchema = new Schema({
     _id: {
     type: ShortId,
@@ -18,21 +36,14 @@ var FlowSchema = new Schema({
   authorName: { type: String },
   author: { type: ShortId, ref: 'User' },
 
-  moves: [{
-    move: { type: ShortId, ref: 'Move' },
-    duration: Number
-  }],
+  moves: [MoveEntrySchema],
 
   createdAt: { type : Date, default : Date.now },
   official: Boolean,
   workout: {type: Boolean, default: false },
 
   playCount: { type: Number, default : 0 },
-
-  plays: [{
-    player: {type: ShortId, ref: 'User'},
-    date: { type: Date, 'default': Date.now }
-  }]
+  plays: [PlayEntrySchema]
 });
 
 FlowSchema.index({ name: 'text', description: 'text', authorName: 'text' });
