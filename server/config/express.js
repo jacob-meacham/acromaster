@@ -73,7 +73,9 @@ module.exports = {
 
     addErrorHandlers: function(app) {
         app.use(function(err, req, res, next) {
+            /* istanbul ignore next: explicitly not testable */
             if (process.env.NODE_ENV !== 'test') {
+                /* istanbul ignore next */
                 console.error(err.stack);
             }
             next(err);
@@ -81,8 +83,12 @@ module.exports = {
 
         // jshint unused:false
         app.use(function(err, req, res, next) {
-            // Return 500 to the client.
             // Use toString because instances of Error don't JSON.stringify well.
+            if (err.status) {
+                return res.status(err.status).send({ error: err.error.toString() });
+            }
+            
+            // Return 500 to the client.
             res.status(500).send({ error: err.toString() });
         });
     }

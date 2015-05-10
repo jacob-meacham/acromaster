@@ -14,14 +14,19 @@ describe('QuickPlayController', function() {
     FlowService = {
       generateFlow: function() {}
     };
+    
     $location = {
       path: function() {}
+    };
+
+    var RandomNameService = {
+      generateFlowName: function() { return 'My Flow Name'; }
     };
 
     sandbox = sinon.sandbox.create();
 
     $scope = {};
-    $controller('WorkoutCreateController', { $scope: $scope, $location: $location, FlowService: FlowService });
+    $controller('WorkoutCreateController', { $scope: $scope, $location: $location, FlowService: FlowService, RandomNameService: RandomNameService });
   }));
 
   afterEach(function() {

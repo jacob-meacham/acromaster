@@ -1,21 +1,50 @@
 'use strict';
 
-var Flow = require('../models/flow.js');
-var Move = require('../models/move.js');
+var Promise = require('bluebird');
+var Flow = require('../models/flow');
+var Move = require('../models/move');
 
 var loadById = function(req, res, next, id) {
-  Flow.load(id, function(err, flow) {
-    if (err) {
-      return next(err);
-    }
-    
+  Flow.load(id).then(function(flow) {
     if (!flow) {
       return next(new Error('Failed to load flow with id ' + id));
     }
 
     req.flow = flow;
     next();
-  });
+  }).then(null, next);
+};
+
+var loadFlowFromBody = function(req, res, next) {
+  req.flow = new Flow(req.body);
+  next();
+};
+
+var updateFlow = function(req, res, next) {
+  loadById(req, res, next, req.flow._id);
+};
+
+var requireAuthorMatch = function(req, res, next) {
+  if (req.flow.author) {
+    if (!req.isAuthenticated() || req.user._id !== req.flow.author._id) {
+      return next({error: new Error('This flow doesn\'t belong to you'), status: 401});
+    }
+  }
+  next();
+};
+
+var requireUserOrAnonId = function(req, res, next) {
+  if (!req.isAuthenticated()) {
+    if (!req.query.anonId || req.query.anonId.indexOf('__anon_') !== 0) {
+      return next({error: new Error('Need to be logged in or have a valid anon id'), status: 401});
+    }
+
+    req.userId = req.query.anonId;
+  } else {
+    req.userId = req.user.id;
+  }
+
+  next();
 };
 
 var getFlow = function(req, res) {
@@ -64,7 +93,7 @@ var _listInternal = function(req, res, next) {
     res.jsonp({
       flows: flows,
       page: page+1,
-      total: count
+      total: count // TODO: Fix total in the search query case.
     });
   }).then(null, next); // Pass errors directly to next
 };
@@ -77,47 +106,25 @@ var list = function(req, res, next) {
   }
 };
 
-var doesAuthorMatch = function(req, flow) {
-  if (flow.author) {
-    if (!req.user || req.user._id !== flow.author._id) {
-      return false;
-    }
-  }
-  return true;
-};
-
 var create = function(req, res, next) {
-  var flow = new Flow(req.body);
-  if (!doesAuthorMatch(req, flow)) {
-    res.status(401).send({error: new Error('This flow doesn\'t belong to you')});
-    return;
-  }
-  
+  var flow = req.flow;
   if (req.user) {
     flow.author = req.user;
     flow.authorName = req.user.name;
 
     // We actually created this, so lets write it down
-    req.user.recordFlowWritten(); // Async is totally fine
+    req.user.recordFlowWritten(); // Async is totally fine - we can just throw errors on the floor.
   }
 
-  flow.save(function(err) {
-    if (err) {
-      return next(err);
-    }
-
+  flow.saveAsync().then(function() {
     res.jsonp(flow);
-  });
+  }).catch(next);
 };
 
-var update = function(req, res) {
+var update = function(req, res, next) {
   var flow = req.flow;
   if (!flow.author) {
-    res.status(401).send({error: new Error('This flow doesn\'belong to you')});
-    return;
-  } else if (!doesAuthorMatch(req, flow)) {
-    res.status(401).send({error: new Error('This flow doesn\'t belong to you')});
-    return;
+    return res.status(401).send({error: new Error('This flow doesn\'belong to you')});
   }
 
   // Only allow changes to moves, name, and description.
@@ -125,69 +132,31 @@ var update = function(req, res) {
   if (req.body.name) { flow.name = req.body.name; }
   if (req.body.description) { flow.description = req.body.description; }
 
-  flow.save(function() {
+  flow.saveAsync().then(function() {
     res.jsonp(flow);
-  });
+  }).catch(next);
 };
 
 var deleteFlow = function(req, res, next) {
-  // TODO: DRY
-  var flow = req.flow;
-  if (!doesAuthorMatch(req, flow)) {
-    res.status(401).send({error: new Error('This flow doesn\'t belong to you')});
-    return;
-  }
-
-  flow.remove(function(err) {
-    if (err) {
-      return next(err);
-    }
-
-    res.status(200);
-  });
-};
-
-var requireUser = function(req, res, next) {
-  if (!req.user) {
-    return res.status(401).send({error: new Error('No user')});
-  }
-  
-  next();
-};
-
-var requireUserOrAnonId = function(req, res, next) {
-  if (!req.user) {
-    if (!req.query.anonId || req.query.anonId.indexOf('__anon_') !== 0) {
-      return res.status(401).send({error: new Error('Need to be logged in or have a valid anon id')});
-    }
-
-    req.userId = req.query.anonId;
-  } else {
-    req.userId = req.user.id;
-  }
-
-  next();
+  req.flow.removeAsync().then(function() {
+    res.status(200).send({});
+  }).catch(next);
 };
 
 var like = function(req, res, next) {
-  var flow = req.flow;
-  flow.like(req.userId, function(err) {
-    if (err) {
-      return next(err);
-    }
+  // TODO: promisifyAll didn't seem to work well on like
+  req.flow.like(req.userId, function(err) {
+    if (err) { next(err); }
 
-    res.jsonp(flow);
+    next();
   });
 };
 
 var removeLike = function(req, res, next) {
-  var flow = req.flow;
-  flow.cancelLike(req.userId, function(err) {
-    if (err) {
-      return next(err);
-    }
+  req.flow.cancelLike(req.userId, function(err) {
+    if (err) { return next(err); }
 
-    res.jsonp(flow);
+    next();
   });
 };
 
@@ -202,25 +171,24 @@ var hasLiked = function(req, res, next) {
 };
 
 var recordPlayed = function(req, res, next) {
-  var userId = 0;
+  var promises = [];
+  var userId;
   if (req.user) {
-    // If there is no user, just record with a dummy player.
     userId = req.user._id;
+    promises.push(req.user.recordPlay(req.flow));
+  } else {
+    promises.push({});
   }
 
-  req.flow.recordPlayed(userId).then(function() {
-    if (req.user) {
-      return req.user.recordPlay(req.flow);
-    }
-  }).then(function() {
-    res.jsonp({plays: req.flow.plays});
-  }).then(null, next);
+  promises.push(Flow.recordPlayed(req.flow._id, userId));
+  Promise.all(promises).spread(function(user, flow) {
+    res.jsonp({flow: flow, plays: flow.plays});
+  }).catch(next);
 };
 
 var generate = function(req, res, next) {
   if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
-    res.status(400).send({error: 'totalTime and timePerMove required'});
-    return;
+    return next({error: 'totalTime and timePerMove required', status: 400});
   }
 
   var generateFlow = function(all_moves) {
@@ -268,14 +236,9 @@ var generate = function(req, res, next) {
     var flow = generateFlow(moves);
     return Flow.populate(flow, 'moves.moves');
   }).then(function(flow) {
-    flow.save(function(err) {
-      // TODO: wrap in a promise...
-      if (err) {
-        next(err);
-      }
-
-      res.jsonp(flow);
-    });
+    return flow.saveAsync();
+  }).then(function(flow) {
+    res.jsonp(flow);
   }).then(null, next);
 };
 
@@ -283,13 +246,13 @@ module.exports = function(app) {
   app.get('/api/flow/generate', generate);
   app.get('/api/flow', list);
   app.get('/api/flow/:flowId', getFlow);
-  app.post('/api/flow', create);
-  app.put('/api/flow/:flowId', update);
-  app.delete('/api/flow/:flowId', deleteFlow);
-  app.post('/api/flow/:flowId/likes', requireUserOrAnonId, like);
-  app.delete('/api/flow/:flowId/likes', requireUserOrAnonId, removeLike);
+  app.post('/api/flow', loadFlowFromBody, requireAuthorMatch, create);
+  app.put('/api/flow/:flowId', requireAuthorMatch, update);
+  app.delete('/api/flow/:flowId', requireAuthorMatch, deleteFlow);
+  app.post('/api/flow/:flowId/likes', requireUserOrAnonId, like, updateFlow, getFlow); // after liking, update and return the flow
+  app.delete('/api/flow/:flowId/likes', requireUserOrAnonId, removeLike, updateFlow, getFlow); // after removing the like, update and return the flow
   app.get('/api/flow/:flowId/likes', requireUserOrAnonId, hasLiked);
-  app.post('/api/flow/:flowId/plays', requireUser, recordPlayed);
+  app.post('/api/flow/:flowId/plays', recordPlayed);
 
   app.param('flowId', loadById);
 };

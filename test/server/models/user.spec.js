@@ -1,19 +1,20 @@
 'use strict';
 
-var async = require('async');
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
 var chai = require('chai');
-require('../../../server/models/user.js');
+var sinon = require('sinon');
+var User = require('../../../server/models/user');
 
+Promise.promisifyAll(mongoose);
 mockgoose(mongoose);
 
 chai.should();
 var expect = chai.expect;
 
-var User = mongoose.model('User');
-
 var user1, user2;
+var sandbox;
 
 describe('User Model', function() {
   before(function() {
@@ -33,7 +34,12 @@ describe('User Model', function() {
   });
 
   beforeEach(function() {
+    sandbox = sinon.sandbox.create();
     mockgoose.reset();
+  });
+
+  afterEach(function() {
+    sandbox.restore();
   });
 
   describe('save()', function() {
@@ -92,46 +98,147 @@ describe('User Model', function() {
   });
 
   describe('loadPublicProfile()', function() {
-    it('should load a user by name', function(done) {
+    it('should load a user by name', function() {
       var _user = new User(user1);
-      async.waterfall([
-        function(next) {
-          _user.save(next);
-        },
-
-        function() {
-          User.loadPublicProfile(_user.username, function(err, loaded_user) {
-            expect(err).to.not.exist;
-            loaded_user.name.should.equal(_user.name);
-            done();
-          });
-        }
-      ]);
-    });
-
-    it('should not load a nonexistent user', function(done) {
-      User.loadPublicProfile('johnny-boy-11', function(err, user) {
-        expect(err).to.not.exist;
-        expect(user).to.not.exist;
-        done();
+      return _user.saveAsync().then(function() {
+        return User.loadPublicProfile(_user.username);
+      }).then(function(loaded_user) {
+        loaded_user.name.should.equal(_user.name);
       });
     });
 
-    it('should load only public information', function(done) {
-      var _user = new User(user1);
-      async.waterfall([
-        function(next) {
-          _user.save(next);
-        },
+    it('should not load a nonexistent user', function() {
+      return User.loadPublicProfile('johnny-boy-11').then(function(user) {
+        expect(user).to.not.exist;
+      });
+    });
 
-        function() {
-          User.loadPublicProfile(_user.username, function(err, loaded_user) {
-            expect(err).to.not.exist;
-            expect(loaded_user).to.have.keys('name', 'username', 'createdAt', 'id', 'profilePictureUrl', 'favorites', 'stats');
-            done();
-          });
-        }
-      ]);
+    it('should load only public information', function() {
+      var _user = new User(user1);
+      return _user.saveAsync().then(function() {
+        return User.loadPublicProfile(_user.username);
+      }).then(function(loaded_user) {
+        expect(loaded_user).to.have.keys('name', 'username', 'createdAt', 'id', 'profilePictureUrl', 'favorites', 'stats');
+      });
+    });
+  });
+
+  describe('favorites', function() {
+    it('should add a favorite', function() {
+      var user = new User(user1);
+      return user.addFavorite('myfave').spread(function(_user) {
+        _user.favorites.should.have.length(1);
+        _user.favorites[0].flow.should.eql('myfave');
+        return user.addFavorite('myfave2');
+      }).spread(function(_user) {
+        _user.favorites.should.have.length(2);
+        _user.favorites[1].flow.should.eql('myfave2');
+      });
+    });
+
+    it('should not add duplicate favorites', function() {
+      var user = new User(user1);
+      return user.addFavorite('myfave').spread(function() {
+        return user.addFavorite('myfave');
+      }).spread(function(_user) {
+        _user.favorites.should.have.length(1);
+      });
+    });
+
+    it('should allow removing favorites', function() {
+      var user = new User(user1);
+      return user.addFavorite('myfave').spread(function() {
+        return user.addFavorite('myfave2');
+      }).spread(function() {
+        return user.removeFavorite('myfave');
+      }).spread(function(_user) {
+        _user.favorites.should.have.length(1);
+        _user.favorites[0].flow.should.eql('myfave2');
+        return _user.removeFavorite('notappearing');
+      }).spread(function(_user) {
+        _user.favorites.should.have.length(1);
+      });
+    });
+  });
+
+  describe('stats', function() {
+    var user;
+    beforeEach(function() {
+      user = new User(user1);
+    });
+
+    it('should record when a flow has been written', function() {
+      return user.recordFlowWritten().spread(function(_user) {
+        _user.stats.flowsWritten.should.eql(1);
+        return user.recordFlowWritten();
+      }).spread(function(_user) {
+        _user.stats.flowsWritten.should.eql(2);
+      });
+    });
+
+    it('should record a play event', function() {
+      var flow = {
+        moves: [
+          { duration: 10},
+          { duration: 20},
+          { duration: 30}
+        ],
+        _id: 'flowid'
+      };
+
+      return user.recordPlay(flow).spread(function(_user) {
+        _user.stats.flowsPlayed.should.eql(1);
+        _user.stats.moves.should.eql(3);
+        _user.stats.minutesPlayed.should.eql(60);
+        _user.recentlyPlayed.should.have.length(1);
+        return user.recordPlay(flow);
+      }).spread(function(_user) {
+        _user.stats.flowsPlayed.should.eql(2);
+        _user.stats.moves.should.eql(6);
+        _user.stats.minutesPlayed.should.eql(120);
+        _user.recentlyPlayed.should.have.length(1);
+      });
+    });
+
+    it('should only store 10 recently played flows', function() {
+      var flows = [];
+      for (var i = 0; i < 20; i++) {
+        flows.push(user.recordPlay({
+          moves: [],
+          _id: 'flow' + i
+        }));
+      }
+
+      return Promise.all(flows).then(function() {
+        // Grab the user back from the db
+        return User.findOne({_id: user._id}).exec();
+      }).then(function(_user) {
+        _user.recentlyPlayed.should.have.length(10);
+        _user.recentlyPlayed[0].flow.should.eql('flow19');
+      });
+    });
+
+    // Could instead use an array with arr.reduce(..., Promise.resolve()).then(...), but I couldn't test my initial invariant
+    it('should move a recently played flow to the front', function() {
+      var currentTime = Date.now();
+      sandbox.stub(Date, 'now', function() {
+        currentTime += 100;
+        return currentTime;
+      });
+
+      var flow1 = { _id: 'flow1', moves: [] };
+      var flow2 = { _id: 'flow2', moves: [] };
+
+      return user.recordPlay(flow1).then(function() {
+        return user.recordPlay(flow2);
+      }).spread(function(_user) {
+        _user.recentlyPlayed.should.have.length(2);
+        _user.recentlyPlayed[0].flow.should.eql('flow2');
+        return user.recordPlay(flow1);
+      }).spread(function(_user) {
+        _user.recentlyPlayed.should.have.length(2);
+        _user.recentlyPlayed[0].flow.should.eql('flow1');
+      });
     });
   });
 

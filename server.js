@@ -2,7 +2,7 @@
 
 var express = require('express');
 
-var env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || /* istanbul ignore next: explicitly not testable */ 'development';
 var config = require('./server/config/config')[env];
 var passportConfig = require('./server/config/config').common;
 var mongoose = require('mongoose');
@@ -22,7 +22,7 @@ expressConfig.setupApp(app, passport, config);
 var version = process.env.VERSION || 'Development version';
 
 // Hook up routes
-require('./server/routes/auth')(app, passport);
+require('./server/routes/auth').routes(app, passport);
 require('./server/routes/flow')(app);
 require('./server/routes/moves')(app);
 require('./server/routes/user')(app);
