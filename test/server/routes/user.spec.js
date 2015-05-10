@@ -45,11 +45,7 @@ describe('/api/profile', function() {
       favorites: user.favorites
     };
 
-    sandbox.stub(User, 'loadPublicProfile', function(name, callback) {
-      name.should.equal('amelia');
-      return callback(null, profile);
-    });
-
+    sandbox.stub(User, 'loadPublicProfile').resolves(profile);
     return profile;
   };
 
@@ -70,9 +66,7 @@ describe('/api/profile', function() {
     });
 
     it('should return an error with a nonexistent user', function() {
-      sandbox.stub(User, 'loadPublicProfile', function(name, callback) {
-        return callback(null, null);
-      });
+      sandbox.stub(User, 'loadPublicProfile').resolves(null);
 
       return request(app)
         .get('/api/profile/name')
@@ -81,9 +75,7 @@ describe('/api/profile', function() {
 
     it('should return an error if the backend errors when finding a user', function() {
       var error = new Error('foo');
-      sandbox.stub(User, 'loadPublicProfile', function(name, callback) {
-        callback(error, null);
-      });
+      sandbox.stub(User, 'loadPublicProfile').rejects(error);
 
       return request(app)
         .get('/api/profile/name')
