@@ -65,21 +65,14 @@ UserSchema.pre('save', function(next) {
 });
 
 UserSchema.statics = {
-  loadPublicProfile: function(name, cb) {
-    this.findOne({ username: name })
+  loadPublicProfile: function(name) {
+    return this.findOne({ username: name })
       .populate('favorites.flow', 'name _id')
       .populate('recentlyPlayed.flow', 'name _id')
-      .exec(function(err, user) {
-        if (err) {
-          return cb(err);
+      .exec().then(function(user) {
+        if (user) {
+          return user.toPublic();
         }
-
-        if (!user) {
-          return cb();
-        }
-
-        var profile = user.toPublic();
-        cb(null, profile);
       });
   }
 };
