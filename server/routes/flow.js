@@ -1,7 +1,7 @@
 'use strict';
 
-var Flow = require('../models/flow.js');
-var Move = require('../models/move.js');
+var Flow = require('../models/flow');
+var Move = require('../models/move');
 
 var loadById = function(req, res, next, id) {
   Flow.load(id).then(function(flow) {
@@ -17,6 +17,10 @@ var loadById = function(req, res, next, id) {
 var loadFlowFromBody = function(req, res, next) {
   req.flow = new Flow(req.body);
   next();
+};
+
+var updateFlow = function(req, res, next) {
+  loadById(req, res, next, req.flow._id);
 };
 
 var requireAuthorMatch = function(req, res, next) {
@@ -148,24 +152,21 @@ var deleteFlow = function(req, res, next) {
 };
 
 var like = function(req, res, next) {
+  // TODO: promisifyAll didn't seem to work well on like
   var flow = req.flow;
   flow.like(req.userId, function(err) {
-    if (err) {
-      return next(err);
-    }
+    if (err) { next(err); }
 
-    res.jsonp(flow);
+    next();
   });
 };
 
 var removeLike = function(req, res, next) {
   var flow = req.flow;
   flow.cancelLike(req.userId, function(err) {
-    if (err) {
-      return next(err);
-    }
+    if (err) { return next(err); }
 
-    res.jsonp(flow);
+    next();
   });
 };
 
@@ -259,8 +260,8 @@ module.exports = function(app) {
   app.post('/api/flow', loadFlowFromBody, requireAuthorMatch, create);
   app.put('/api/flow/:flowId', requireAuthorMatch, update);
   app.delete('/api/flow/:flowId', requireAuthorMatch, deleteFlow);
-  app.post('/api/flow/:flowId/likes', requireUserOrAnonId, like);
-  app.delete('/api/flow/:flowId/likes', requireUserOrAnonId, removeLike);
+  app.post('/api/flow/:flowId/likes', requireUserOrAnonId, like, updateFlow, getFlow); // after liking, update and return the flow
+  app.delete('/api/flow/:flowId/likes', requireUserOrAnonId, removeLike, updateFlow, getFlow); // after removing the like, update and return the flow
   app.get('/api/flow/:flowId/likes', requireUserOrAnonId, hasLiked);
   app.post('/api/flow/:flowId/plays', requireUser, recordPlayed);
 

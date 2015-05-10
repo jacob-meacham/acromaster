@@ -395,84 +395,153 @@ describe('/api/flow', function() {
   describe('/likes POST', function() {
     it('should return success when liking a flow that exists', function() {
       return request(authedApp)
-      .post('/api/flow/' + flow1._id + '/likes')
-      .expect(200);
+        .post('/api/flow/' + flow1._id + '/likes')
+        .expect(200)
+        .expect(function(res) {
+          res.body.likes.should.eql(1);
+          res.body.likers[0].should.eql(author1._id);
+        });
     });
 
     it('should not error if liking twice', function() {
       return request(authedApp)
-      .post('/api/flow/' + flow1._id + '/likes')
-      .expect(200)
-      .then(function() {
-        request(authedApp).post('/api/flow/' + flow1._id + '/likes')
-        .expect(200);
+        .post('/api/flow/' + flow1._id + '/likes')
+        .expect(200)
+        .then(function() {
+          return request(authedApp).post('/api/flow/' + flow1._id + '/likes')
+            .expect(200)
+            .expect(function(res) {
+              res.body.likes.should.eql(1);
+              res.body.likers.should.have.length(1);
+            });
+        });
+    });
+
+    it('should fail if there is an error on the backend', function() {
+      var stubFlow = { like: function() {} };
+      var likeStub = sandbox.stub(stubFlow, 'like', function(id, cb) {
+        cb('oh noes!');
       });
+
+      sandbox.stub(Flow, 'load').resolves(stubFlow);
+      return request(authedApp)
+        .post('/api/flow/' + flow1._id + '/likes')
+        .expect(500)
+        .expect(function(res) {
+          likeStub.should.have.callCount(1);
+          res.body.error.should.match(/oh noes!/);
+        });
     });
 
     it('should fail when the flow is not known', function() {
       return request(authedApp)
-      .post('/api/flow/noFlowHere/likes')
-      .expect(500);
+        .post('/api/flow/noFlowHere/likes')
+        .expect(500);
     });
 
     it('should fail if no user is logged in and no anon id is passed', function() {
       return request(app)
-      .post('/api/flow/' + flow1._id + '/likes')
-      .expect(401);
+        .post('/api/flow/' + flow1._id + '/likes')
+        .expect(401);
     });
 
     it('should fail with an invalid anon id', function() {
-      // TODO
+      return request(app)
+        .post('/api/flow/' + flow1._id + '/likes')
+        .query({anonId: 'blahblah'})
+        .expect(401);
     });
 
     it('should like with a valid anon id', function() {
-      // TODO
+      return request(app)
+        .post('/api/flow/' + flow1._id + '/likes')
+        .query({anonId: '__anon_abc123'})
+        .expect(200)
+        .expect(function(res) {
+          res.body.likers[0].should.eql('__anon_abc123');
+        });
     });
   });
 
   describe('/likes GET', function() {
-    it('should return true if the user has liked the flow', function(done) {
-      // TODO Stub
-      done();
+    it('should return whether the user has liked the flow', function() {
+      return request(authedApp).get('/api/flow/' + flow1._id + '/likes')
+        .expect(200)
+        .expect(function(res) {
+          res.body.hasLiked.should.be.false;
+        }).then(function() {
+          return request(authedApp)
+            .post('/api/flow/' + flow1._id + '/likes')
+            .expect(200);
+        }).then(function() {
+          return request(authedApp).get('/api/flow/' + flow1._id + '/likes')
+            .expect(200)
+            .expect(function(res) {
+              res.body.hasLiked.should.be.true;
+            });
+        });
     });
 
-    it('should return false if the user has not liked the flow', function(done) {
-      // TODO Stub
-      done();
+    it('should fail if there is an error on the backend', function() {
+      var likeStub = sandbox.stub(Flow, 'findLikes', function(id, options, cb) {
+        console.log('likeStub');
+        cb('oh noes!');
+      });
+
+      return request(authedApp)
+        .get('/api/flow/' + flow1._id + '/likes')
+        .expect(500)
+        .expect(function(res) {
+          likeStub.should.have.callCount(1);
+          res.body.error.should.match(/oh noes!/);
+        });
     });
 
     it('should fail when the flow is not known', function() {
       return request(app)
-      .get('/api/flow/noFlowHere/likes')
-      .expect(500);
+        .get('/api/flow/noFlowHere/likes')
+        .expect(500);
     });
 
     it('should fail if no user is logged in', function() {
       return request(app)
-      .get('/api/flow/' + flow1._id + '/likes')
-      .expect(401);
+        .get('/api/flow/' + flow1._id + '/likes')
+        .expect(401);
     });
   });
 
   describe('/likes DELETE', function() {
     it('should remove a like', function() {
-      // TODO: Get flow like and verify delete
       return request(authedApp)
         .post('/api/flow/' + flow1._id + '/likes')
         .expect(200)
         .expect(function(res) {
-          console.log(res.body);
+          res.body.likes.should.eql(1);
+          res.body.likers[0].should.eql(author1._id);
         }).then(function() {
           return request(authedApp)
             .delete('/api/flow/' + flow1._id + '/likes')
-            .expect(200);
-        }).then(function() {
-          return request(authedApp)
-            .get('/api/flow' + flow1._id + '/likes')
             .expect(200)
             .expect(function(res) {
-              console.log(res.body);
+              res.body.likes.should.eql(0);
+              res.body.likers.should.have.length(0);
             });
+        });
+    });
+
+    it('should fail if there is an error on the backend', function() {
+      var stubFlow = { cancelLike: function() {} };
+      var likeStub = sandbox.stub(stubFlow, 'cancelLike', function(id, cb) {
+        cb('oh noes!');
+      });
+
+      sandbox.stub(Flow, 'load').resolves(stubFlow);
+      return request(authedApp)
+        .delete('/api/flow/' + flow1._id + '/likes')
+        .expect(500)
+        .expect(function(res) {
+          likeStub.should.have.callCount(1);
+          res.body.error.should.match(/oh noes!/);
         });
     });
 
