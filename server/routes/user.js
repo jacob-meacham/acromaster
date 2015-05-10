@@ -7,7 +7,6 @@ var Flow = mongoose.model('Flow');
 
 var loadByName = function(req, res, next, name) {
   User.loadPublicProfile(name).then(function(profile) {
-    console.log('returning user');
     if (!profile) {
       return next({error: new Error('User with name ' + name + ' does not exist'), status: 404});
     }
