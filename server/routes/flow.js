@@ -198,8 +198,7 @@ var recordPlayed = function(req, res, next) {
 
 var generate = function(req, res, next) {
   if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
-    res.status(400).send({error: 'totalTime and timePerMove required'});
-    return;
+    return next({error: 'totalTime and timePerMove required', status: 400});
   }
 
   var generateFlow = function(all_moves) {

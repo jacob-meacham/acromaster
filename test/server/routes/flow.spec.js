@@ -390,6 +390,19 @@ describe('/api/flow', function() {
           res.body.error.should.equal('Error: Stub error');
         });
     });
+
+    it('should allow setting flow name and user', function() {
+      return request(authedApp)
+        .get('/api/flow/generate')
+        .set('Accept', 'application/json')
+        .query({totalTime:'10', timePerMove:'10', flowName: 'haha a new flow'})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect(function(res) {
+          res.body.author.should.eql(author1._id);
+          res.body.name.should.eql('haha a new flow');
+        });
+    });
   });
 
   describe('/likes POST', function() {
