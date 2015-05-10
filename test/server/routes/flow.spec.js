@@ -391,7 +391,7 @@ describe('/api/flow', function() {
     });
   });
 
-  describe('/likes', function() {
+  describe('/likes POST', function() {
     it('should return success when liking a flow that exists', function() {
       return request(authedApp)
       .post('/api/flow/' + flow1._id + '/likes')
@@ -414,12 +414,22 @@ describe('/api/flow', function() {
       .expect(500);
     });
 
-    it('should fail if no user is logged in', function() {
+    it('should fail if no user is logged in and no anon id is passed', function() {
       return request(app)
       .post('/api/flow/' + flow1._id + '/likes')
       .expect(401);
     });
 
+    it('should fail with an invalid anon id', function() {
+      // TODO
+    });
+
+    it('should like with a valid anon id', function() {
+      // TODO
+    });
+  });
+
+  describe('/likes GET', function() {
     it('should return true if the user has liked the flow', function(done) {
       // TODO Stub
       done();
@@ -441,24 +451,28 @@ describe('/api/flow', function() {
       .get('/api/flow/' + flow1._id + '/likes')
       .expect(401);
     });
+  });
 
+  describe('/likes DELETE', function() {
     it('should remove a like', function() {
       // TODO: Get flow like and verify delete
       return request(authedApp)
         .post('/api/flow/' + flow1._id + '/likes')
         .expect(200)
-        .then(function() {
+        .expect(function(res) {
+          console.log(res.body);
+        }).then(function() {
           return request(authedApp)
-          .delete('/api/flow/' + flow1._id + '/likes')
-          .expect(200);
+            .delete('/api/flow/' + flow1._id + '/likes')
+            .expect(200);
+        }).then(function() {
+          return request(authedApp)
+            .get('/api/flow' + flow1._id + '/likes')
+            .expect(200)
+            .expect(function(res) {
+              console.log(res.body);
+            });
         });
-    });
-
-    it('should do nothing if the flow does not have a like from that user', function() {
-      // TODO: Verify before and after state is the same (use another user with .withUser)
-      return request(authedApp)
-        .delete('/api/flow/' + flow1._id + '/likes')
-        .expect(200);
     });
 
     it('should fail when the flow is not known', function() {
