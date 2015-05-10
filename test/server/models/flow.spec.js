@@ -17,9 +17,6 @@ var expect = chai.expect;
 var flow1, flow2;
 var move1, move2;
 var user;
-var Flow = mongoose.model('Flow');
-var Move = mongoose.model('Move');
-var User = mongoose.model('User');
 
 var saveFlow = function(flow) {
   return flow.saveAsync().catch(function(err) {
@@ -79,7 +76,7 @@ describe('Flow Model', function() {
   beforeEach(function() {
     mockgoose.reset();
 
-    return Promise.all([new Move(move1).saveAsync(), new Move(move2).saveAsync(), user.saveAsync()]);
+    return Promise.all([new Move(move1).saveAsync(), new Move(move2).saveAsync()]);
   });
   
   describe('save()', function() {
@@ -220,6 +217,30 @@ describe('Flow Model', function() {
         return Flow.countByUser(user._id);
       }).then(function(count) {
         count.should.eql(2);
+      });
+    });
+  });
+
+  describe('recordPlayed()', function() {
+    it('should record a play event', function() {
+      return saveFlow(new Flow(flow1)).then(function() {
+        return Flow.recordPlayed(flow1._id, user._id);
+      }).then(function(flow) {
+        flow.playCount.should.eql(1);
+        flow.plays[0].should.eql(user._id);
+      });
+    });
+
+    it('should not record duplicate players', function() {
+      return saveFlow(new Flow(flow1)).then(function() {
+        return Flow.recordPlayed(flow1._id, user._id);
+      }).then(function(flow) {
+        flow.playCount.should.eql(1);
+        flow.plays[0].should.eql(user._id);
+        return Flow.recordPlayed(flow1._id, user._id);
+      }).then(function(flow) {
+        flow.playCount.should.eql(2);
+        flow.plays.should.have.length(1);
       });
     });
   });

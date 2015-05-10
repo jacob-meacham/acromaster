@@ -26,7 +26,7 @@ var testError = function(sinon, passportCallback, done) {
 
   passportCallback('accessToken', 'refreshToken', {id: '0'}, spy);
   
-  stub.should.have.been.callCount(1);
+  stub.should.have.callCount(1);
   spy.should.have.been.calledWith('An error occurred');
   done();
 };
@@ -42,7 +42,7 @@ var testReturnUser = function(sinon, expectedIdQuery, passportCallback, done) {
 
   passportCallback('accessToken', 'refreshToken', {id: 'abc123'}, spy);
 
-  stub.should.have.been.callCount(1);
+  stub.should.have.callCount(1);
   spy.should.have.been.calledWith(null, user);
   done();
 };
@@ -55,8 +55,8 @@ var testCreateUser = function(sinon, profile, passportCallback, saveCallback) {
   
   sinon.stub(mongoose.Model.prototype, 'save', function(callback) {
     callback(null);
-    findStub.should.have.been.callCount(1);
-    spy.should.have.been.callCount(1);
+    findStub.should.have.callCount(1);
+    spy.should.have.callCount(1);
     saveCallback(spy.args[0][1]);
   });
 
@@ -72,8 +72,8 @@ var testCreateUserError = function(sinon, profile, passportCallback, done) {
   sinon.stub(mongoose.Model.prototype, 'save', function(callback) {
     callback('An error occurred');
     
-    findStub.should.have.been.callCount(1);
-    spy.should.have.been.callCount(1);
+    findStub.should.have.callCount(1);
+    spy.should.have.callCount(1);
     spy.should.have.been.calledWith('An error occurred');
     done();
   });
