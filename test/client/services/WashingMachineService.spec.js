@@ -3,12 +3,16 @@
 describe('WashingMachineService', function() {
   beforeEach(module('acromaster'));
 
+  var sandbox;
+  var RandomService;
   var WashingMachineService;
   var $httpBackend;
 
   beforeEach(function() {
+    sandbox = sinon.sandbox.create();
+
     var numChooseCalls = 0;
-    var RandomService = {
+    RandomService = {
       random: function() { return 0.01; },
       choose: function(arr) {
         var val;
@@ -24,7 +28,7 @@ describe('WashingMachineService', function() {
     };
 
     module(function ($provide) {
-        $provide.value('RandomService', RandomService);
+      $provide.value('RandomService', RandomService);
     });
   });
 
@@ -38,16 +42,29 @@ describe('WashingMachineService', function() {
   }));
 
   afterEach(function() {
+    sandbox.restore();
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should generate a washing machine', function() {
-    $httpBackend.flush();
+  it('should generate a washing machine', function(done) {
     WashingMachineService.generate().then(function(washingMachine) {
       expect(washingMachine.move1.name).to.eql('move2');
       expect(washingMachine.move2.name).to.eql('move1');
       expect(washingMachine.name).to.eql('Goofy Reverse Tiny Seattle Grease Log of Amazingness');
+      done();
     });
+    $httpBackend.flush();
+  });
+
+  it('should generate a minimal washing machine', function(done) {
+    sandbox.stub(RandomService, 'random').returns(1.0);
+    WashingMachineService.generate().then(function(washingMachine) {
+      expect(washingMachine.move1.name).to.eql('move2');
+      expect(washingMachine.move2.name).to.eql('move1');
+      expect(washingMachine.name).to.eql('Grease Log');
+      done();
+    });
+    $httpBackend.flush();
   });
 });
