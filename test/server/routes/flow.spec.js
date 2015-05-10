@@ -4,11 +4,12 @@ var request = require('supertest-as-promised');
 var app = require('../../../server');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
-var async = require('async');
 var Flow = require('../../../server/models/flow');
 var Move = require('../../../server/models/move');
 var User = require('../../../server/models/user');
+var Promise = require('bluebird');
 
+Promise.promisifyAll(mongoose);
 mockgoose(mongoose);
 
 var sinon = require('sinon');
@@ -25,7 +26,7 @@ describe('/api/flow', function() {
   var flow1, flow2, flow3;
   var move1, move2;
 
-  before(function(done) {
+  before(function() {
     var _move = {
       name: 'New Move',
       difficulty: 5,
@@ -87,36 +88,11 @@ describe('/api/flow', function() {
       flow3 = new Flow(_flow);
     };
 
-    async.waterfall([
-      function(cb) {
-        move1.save(cb);
-      },
-      function(res, cb) {
-        move2.save(cb);
-      },
-      function(res, cb) {
-        author1.save(cb);
-      },
-      function(res, cb) {
-        author2.save(cb);
-      },
-      function(res, cb) {
-        setupFlows();
-        cb(null, null);
-      },
-      function(res, cb) {
-        flow1.save(cb);
-      },
-      function(res, cb) {
-        flow2.save(cb);
-      },
-      function(res, cb) {
-        flow3.save(cb);
-      }
-      ], function(err) {
-        expect(err).to.not.exist;
-        done();
-      });
+    return Promise.all([move1.saveAsync(), move2.saveAsync(), author1.saveAsync(), author2.saveAsync()]).then(function() {
+      setupFlows();
+
+      return Promise.all([flow1.saveAsync(), flow2.saveAsync(), flow3.saveAsync()]);
+    });
   });
 
   after(function() {
@@ -132,7 +108,7 @@ describe('/api/flow', function() {
     sandbox.restore();
   });
 
-  describe('POST /api/flow', function() {
+  describe('POST', function() {
     it('should not create with an empty body', function() {
       return request(app)
         .post('/api/flow')
@@ -176,7 +152,7 @@ describe('/api/flow', function() {
     });
   });
 
-  describe('GET /api/flow/:flowId', function() {
+  describe('/:flowId GET', function() {
     it('should return an error with an invalid id', function() {
       return request(app)
         .get('/api/flow/0')
@@ -229,7 +205,7 @@ describe('/api/flow', function() {
     });
   });
   
-  describe('PUT /api/flow/:flowId', function() {
+  describe('/:flowId PUT', function() {
     it('should return an error with an invalid id', function() {
       return request(app)
         .put('/api/flow/0')
@@ -292,7 +268,7 @@ describe('/api/flow', function() {
     });
   });
 
-  describe('GET /api/flow', function() {
+  describe('GET', function() {
     it('should list all flows', function() {
       return request(app)
         .get('/api/flow')
@@ -365,7 +341,7 @@ describe('/api/flow', function() {
     });
   });
 
-  describe('GET /api/flow/generate', function() {
+  describe('/generate', function() {
     it('should return JSON', function() {
       return request(app)
         .get('/api/flow/generate')
@@ -415,7 +391,7 @@ describe('/api/flow', function() {
     });
   });
 
-  describe('POST /api/flow/likes', function() {
+  describe('/likes', function() {
     it('should return success when liking a flow that exists', function() {
       return request(authedApp)
       .post('/api/flow/' + flow1._id + '/likes')
@@ -443,9 +419,7 @@ describe('/api/flow', function() {
       .post('/api/flow/' + flow1._id + '/likes')
       .expect(401);
     });
-  });
-  
-  describe('GET /api/flow/likes', function() {
+
     it('should return true if the user has liked the flow', function(done) {
       // TODO Stub
       done();
@@ -467,9 +441,7 @@ describe('/api/flow', function() {
       .get('/api/flow/' + flow1._id + '/likes')
       .expect(401);
     });
-  });
 
-  describe('DELETE /api/flow/likes', function() {
     it('should remove a like', function() {
       // TODO: Get flow like and verify delete
       return request(authedApp)
@@ -502,7 +474,7 @@ describe('/api/flow', function() {
     });
   });
 
-  describe('POST /api/flow/plays', function() {
+  describe('/plays', function() {
     it('should add a play and a player', function() {
       // TODO: STUB
       return request(app)
