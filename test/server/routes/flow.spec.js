@@ -26,7 +26,7 @@ describe('/api/flow', function() {
   var flow1, flow2, flow3;
   var move1, move2;
 
-  before(function() {
+  beforeEach(function() {
     var _move = {
       name: 'New Move',
       difficulty: 5,
@@ -106,6 +106,7 @@ describe('/api/flow', function() {
 
   afterEach(function() {
     sandbox.restore();
+    mockgoose.reset();
   });
 
   describe('POST', function() {
@@ -274,9 +275,9 @@ describe('/api/flow', function() {
         .get('/api/flow')
         .expect(200)
         .expect(function(res) {
-          res.body.flows.should.have.length(5);
-          res.body.flows[0].name.should.equal('Yet Another Flow');
-          res.body.flows[1].name.should.equal('My Flow');
+          res.body.flows.should.have.length(3);
+          res.body.flows[0].name.should.equal('Flow');
+          res.body.flows[1].name.should.equal('Flow 3');
         });
     });
 
@@ -286,9 +287,9 @@ describe('/api/flow', function() {
         .query({page: 1})
         .expect(200)
         .expect(function(res) {
-          res.body.flows.should.have.length(5);
+          res.body.flows.should.have.length(3);
           res.body.page.should.equal(1);
-          res.body.total.should.equal(5);
+          res.body.total.should.equal(3);
         }).then(function() {
           request(app)
             .get('/api/flow')
@@ -297,7 +298,7 @@ describe('/api/flow', function() {
             .expect(function(res) {
               res.body.flows.should.have.length(0);
               res.body.page.should.equal(2);
-              res.body.total.should.equal(5);
+              res.body.total.should.equal(3);
             });
         });
     });
