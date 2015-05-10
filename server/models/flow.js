@@ -61,12 +61,16 @@ FlowSchema.statics = {
       .exec(cb);
   },
 
-  listByUser : function(author_id, cb) {
-    // TODO: Paging?
+  listByUser: function(author_id, options) {
     return this.find({author: author_id}, '_id name author createdAt ratings')
-      .sort('createdAt')
-      .limit(1000)
-      .exec(cb);
+      .sort({createdAt: -1})
+      .limit(options.max)
+      .skip(options.max * options.page)
+      .exec();
+  },
+
+  countByUser: function(author_id) {
+    return this.count({author: author_id}).exec();
   }
 };
 
