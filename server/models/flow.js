@@ -71,7 +71,6 @@ FlowSchema.statics = {
 };
 
 FlowSchema.methods = {
-  // TODO: Make static?
   recordPlayed: function(userId, cb) {
     var update = {
       $addToSet: {
@@ -94,7 +93,6 @@ FlowSchema.plugin(likesPlugin, {
 
 FlowSchema.plugin(randomPlugin, { path: '__random'});
 
-// TODO: Need to test this
 FlowSchema.pre('remove', function(next) {
   this.model('User').update(
       { 'favorites.flow': this._id },
@@ -110,7 +108,7 @@ FlowSchema.options.toJSON = {
     delete ret.__random;
     delete ret.__v;
     delete ret.authorName; // Not required in return
-    delete ret.plays; // TODO: Pull these out on return, unless explicitly asking for them
+    delete ret.plays;
     return ret;
   }
 };

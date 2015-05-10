@@ -38,10 +38,8 @@ var UserSchema = new Schema({
   twitter: {},
   google: {},
 
-  // TODO: This might take a long time to return all of these...
   favorites: [{
-    //flow: { type: ShortId, ref: 'Flow'},
-    flow: String,
+    flow: { type: ShortId, ref: 'Flow'},
     favoritedAt: { type: Date, 'default': Date.now }
   }],
 
@@ -93,7 +91,6 @@ UserSchema.methods = {
     }) !== -1;
     
     if (!found) {
-      // TODO: Not atomic, not sure if $addToSet is atomic either
       this.favorites.push({flow: flowId});
     }
 
@@ -107,24 +104,10 @@ UserSchema.methods = {
 
     this.favorites = filteredFavorites;
     return this.saveAsync();
-    //return Promise.resolve([flowId,'a']);
-
-    // TODO: Is this better? this.favorites.pull doesn't work, requires an actual update call.
-    // this.update({$pull: { favorites: { flow: flowId}}}, function(err) {
-    //   if (err) {
-    //     return cb(err);
-    //   }
-
-         // This is not correct, want the actual object
-    //   return cb(null, this);
-    // });
   },
 
-  // TODO: Change this to just search the Flows instead?
   recordFlowWritten: function() {
-    // TODO: No $inc?
     this.stats.flowsWritten += 1;
-
     return this.saveAsync();
   },
 

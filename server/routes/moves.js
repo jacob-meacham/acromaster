@@ -1,9 +1,8 @@
 'use strict';
 
-var Move = require('../models/move.js');
+var Move = require('../models/move');
 
 var getMoves = function(req, res, next) {
-  // TODO: Don't allow arbitrary input
   var query = req.query;
   Move.find(query, function(err, moves) {
     if (err) {

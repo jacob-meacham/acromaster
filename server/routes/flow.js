@@ -10,8 +10,7 @@ var loadById = function(req, res, next, id) {
     }
 
     req.flow = flow;
-    next();
-  }).then(null, next);
+  }).then(next, next);
 };
 
 var loadFlowFromBody = function(req, res, next) {
