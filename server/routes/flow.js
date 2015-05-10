@@ -10,7 +10,8 @@ var loadById = function(req, res, next, id) {
     }
 
     req.flow = flow;
-  }).then(next, next);
+    next();
+  }).then(null, next);
 };
 
 var loadFlowFromBody = function(req, res, next) {
@@ -20,25 +21,25 @@ var loadFlowFromBody = function(req, res, next) {
 
 var requireAuthorMatch = function(req, res, next) {
   if (req.flow.author) {
-    if (!req.user || req.user._id !== req.flow.author._id) {
-      return res.status(401).send({error: new Error('This flow doesn\'t belong to you')});
+    if (!req.isAuthenticated() || req.user._id !== req.flow.author._id) {
+      return next({error: new Error('This flow doesn\'t belong to you'), status: 401});
     }
   }
   next();
 };
 
 var requireUser = function(req, res, next) {
-  if (!req.user) {
-    return res.status(401).send({error: new Error('No user')});
+  if (!req.isAuthenticated()) {
+    return next({error: new Error('No user'), status: 401});
   }
   
   next();
 };
 
 var requireUserOrAnonId = function(req, res, next) {
-  if (!req.user) {
+  if (!req.isAuthenticated()) {
     if (!req.query.anonId || req.query.anonId.indexOf('__anon_') !== 0) {
-      return res.status(401).send({error: new Error('Need to be logged in or have a valid anon id')});
+      return next({error: new Error('Need to be logged in or have a valid anon id'), status: 401});
     }
 
     req.userId = req.query.anonId;
