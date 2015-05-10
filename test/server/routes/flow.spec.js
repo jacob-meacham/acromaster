@@ -269,7 +269,39 @@ describe('/api/flow', function() {
     });
   });
 
-  describe('GET', function() {
+  describe('/:flowId DELETE', function() {
+    it('should delete the flow', function() {
+      var stubFlow = { removeAsync: function() {} };
+      var removeStub = sandbox.stub(stubFlow, 'removeAsync').resolves({});
+      sandbox.stub(Flow, 'load').resolves(stubFlow);
+
+      return request(authedApp)
+        .delete('/api/flow/' + flow1._id)
+        .expect(200)
+        .expect(function() {
+          removeStub.should.have.callCount(1);
+        });
+    });
+
+    it('should not delete the flow if the author does not match', function() {
+      return request(app)
+        .delete('/api/flow/' + flow1._id)
+        .expect(401).then(function() {
+          var _user = {
+            name: 'Bobby',
+            username: 'bobby',
+            email: 'test.foo@test.com'
+          };
+
+          var wrongAuthedApp = require('./utils/authedApp')(app).withUser(new User(_user));
+          return request(wrongAuthedApp)
+            .delete('/api/flow/' + flow1._id)
+            .expect(401);
+        });
+    });
+  });
+
+  describe('/ GET', function() {
     it('should list all flows', function() {
       return request(app)
         .get('/api/flow')
@@ -497,7 +529,6 @@ describe('/api/flow', function() {
 
     it('should fail if there is an error on the backend', function() {
       var likeStub = sandbox.stub(Flow, 'findLikes', function(id, options, cb) {
-        console.log('likeStub');
         cb('oh noes!');
       });
 
@@ -573,24 +604,27 @@ describe('/api/flow', function() {
 
   describe('/plays', function() {
     it('should add a play and a player', function() {
-      // TODO: STUB
-      return request(app)
-      .get('/api/flow/' + flow1._id + '/play')
-      .expect(200);
-    });
-
-    it('should not hold duplicate players', function() {
-      // TODO: STUB
-      return request(app)
-      .get('/api/flow/' + flow1._id + '/play')
-      .expect(200);
+      return request(authedApp)
+      .post('/api/flow/' + flow1._id + '/plays')
+      .expect(200)
+      .expect(function(res) {
+        res.body.flow.playCount.should.eql(1);
+        res.body.plays[0].should.eql(author1._id);
+      }).then(function() {
+        return request(authedApp)
+          .post('/api/flow/' + flow1._id + '/plays')
+          .expect(200);
+      });
     });
 
     it('should not fail when no user is logged in', function() {
-      // TODO: Stub
       return request(app)
-      .get('/api/flow/' + flow1._id + '/play')
-      .expect(200);
+        .post('/api/flow/' + flow1._id + '/plays')
+        .expect(200)
+        .expect(function(res) {
+          res.body.flow.playCount.should.eql(1);
+          res.body.plays.should.have.length(0);
+        });
     });
   });
 });
