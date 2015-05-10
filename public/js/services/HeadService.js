@@ -7,7 +7,9 @@ acromasterServices.factory('HeadService', [function() {
   var description = 'Acromaster';
   var keywords = 'acrobatics';
   return {
-    siteName: siteName,
+    getSiteName: function() {
+      return siteName;
+    },
 
     setSiteName: function(_siteName) {
       siteName = _siteName;
@@ -17,26 +19,32 @@ acromasterServices.factory('HeadService', [function() {
       siteName = 'Acromaster';
     },
 
-    title: title,
+    getTitle: function() {
+      return title;
+    },
 
     setTitle: function(_title) {
       title = _title;
     },
 
-    description: description,
+    getDescription: function() {
+      return description;
+    },
 
     setDescription: function(_description) {
       description = _description;
     },
 
-    keywords: keywords,
+    getKeywords: function() {
+      return keywords;
+    },
 
     setKeywords: function(_keywords) {
       keywords = _keywords;
     },
 
     defaultKeywords: function() {
-      keywords = 'acrobatics sports';
+      keywords = 'acrobatics';
     }
   };
 }]);
