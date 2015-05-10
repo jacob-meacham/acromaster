@@ -9,6 +9,18 @@ var Schema = mongoose.Schema;
 var slugify = require('slugify');
 var _ = require('lodash');
 
+var subdocTransform = function(doc, ret) {
+  delete ret._id;
+  delete ret.__v;
+  return ret;
+};
+
+var FavoriteEntrySchema = new Schema({
+  flow: { type: ShortId, ref: 'Flow'},
+  favoritedAt: { type: Date, 'default': Date.now }
+});
+FavoriteEntrySchema.options.toJSON = { transform: subdocTransform };
+
 var UserSchema = new Schema({
   _id: {
     type: ShortId,
@@ -38,15 +50,7 @@ var UserSchema = new Schema({
   twitter: {},
   google: {},
 
-  favorites: [{
-    flow: { type: ShortId, ref: 'Flow'},
-    favoritedAt: { type: Date, 'default': Date.now }
-  }],
-
-  recentlyPlayed: [{
-    flow: { type: ShortId, ref: 'Flow'},
-    date: { type: Date, 'default': Date.now }
-  }],
+  favorites: [FavoriteEntrySchema],
 
   stats: {
     flowsPlayed: { type: Number, 'default': '0' },
@@ -65,21 +69,14 @@ UserSchema.pre('save', function(next) {
 });
 
 UserSchema.statics = {
-  loadPublicProfile: function(name, cb) {
-    this.findOne({ username: name })
+  loadPublicProfile: function(name) {
+    return this.findOne({ username: name })
       .populate('favorites.flow', 'name _id')
       .populate('recentlyPlayed.flow', 'name _id')
-      .exec(function(err, user) {
-        if (err) {
-          return cb(err);
+      .exec().then(function(user) {
+        if (user) {
+          return user.toPublic();
         }
-
-        if (!user) {
-          return cb();
-        }
-
-        var profile = user.toPublic();
-        cb(null, profile);
       });
   }
 };
@@ -141,9 +138,6 @@ UserSchema.options.toJSON = {
     ret.id = ret._id;
     delete ret._id;
     delete ret.__v;
-    _.forEach(ret.favorites, function(favorite) {
-      delete favorite._id;
-    });
     return ret;
   }
 };

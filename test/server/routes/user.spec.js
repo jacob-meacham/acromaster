@@ -45,18 +45,13 @@ describe('/api/profile', function() {
       favorites: user.favorites
     };
 
-    sandbox.stub(User, 'loadPublicProfile', function(name, callback) {
-      name.should.equal('amelia');
-      return callback(null, profile);
-    });
-
+    sandbox.stub(User, 'loadPublicProfile').resolves(profile);
     return profile;
   };
 
   describe('/:userId', function() {
     it('should return an existing user', function() {
       var profile = stubLoadUserProfile();
-      var listStub = sandbox.stub(Flow, 'listByUser').resolves([{name: 'Flow1'}, {name: 'Flow2'}]);
 
       return request(app)
         .get('/api/profile/amelia')
@@ -64,15 +59,11 @@ describe('/api/profile', function() {
         .expect('Content-Type', /json/)
         .expect(function(res) {
           res.body.name.should.equal(profile.name);
-          res.body.flows.should.have.length(2);
-          listStub.should.have.callCount(1);
         });
     });
 
     it('should return an error with a nonexistent user', function() {
-      sandbox.stub(User, 'loadPublicProfile', function(name, callback) {
-        return callback(null, null);
-      });
+      sandbox.stub(User, 'loadPublicProfile').resolves(null);
 
       return request(app)
         .get('/api/profile/name')
@@ -81,9 +72,7 @@ describe('/api/profile', function() {
 
     it('should return an error if the backend errors when finding a user', function() {
       var error = new Error('foo');
-      sandbox.stub(User, 'loadPublicProfile', function(name, callback) {
-        callback(error, null);
-      });
+      sandbox.stub(User, 'loadPublicProfile').rejects(error);
 
       return request(app)
         .get('/api/profile/name')
@@ -92,33 +81,33 @@ describe('/api/profile', function() {
           res.body.error.should.equal(error.toString());
         });
     });
-
-    it('should return an error if filling out the flows errors', function() {
-      stubLoadUserProfile();
-
-      var error = new Error('foo');
-      sandbox.stub(Flow, 'listByUser').rejects(error);
-      
-      return request(app)
-        .get('/api/profile/amelia')
-        .expect(500)
-        .expect(function(res) {
-          res.body.error.should.equal(error.toString());
-      });
-    });
   });
 
   describe('/:user/flows', function() {
     it('should return the flows for the user', function() {
-      stubLoadUserProfile();
-      sandbox.stub(Flow, 'listByUser').resolves(['flow1', 'flow2']);
+      var profile = stubLoadUserProfile();
+      var listStub = sandbox.stub(Flow, 'listByUser').resolves(['flow1', 'flow2']);
+      sandbox.stub(Flow, 'countByUser').resolves(2);
 
       return request(app)
         .get('/api/profile/amelia/flows')
         .expect(200)
         .expect(function(res) {
+          listStub.should.have.callCount(1);
+          listStub.getCall(0).args[0].should.eql(profile.id);
+          listStub.getCall(0).args[1].should.eql({max: 100, page: 0});
           res.body.flows.should.have.length(2);
           res.body.flows.should.eql(['flow1', 'flow2']);
+      }).then(function() {
+        return request(app)
+          .get('/api/profile/amelia/flows')
+          .query({max: 10, page: 2})
+          .expect(200)
+          .expect(function(res) {
+            // Stubbing, so the paging won't work
+            listStub.getCall(1).args[1].should.eql({max: '10', page: 1});
+            res.body.page.should.eql(2);
+        });
       });
     });
   });

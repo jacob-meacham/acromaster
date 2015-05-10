@@ -8,6 +8,18 @@ var likesPlugin = require('mongoose-likes');
 var randomPlugin = require('mongoose-random');
 var Schema = mongoose.Schema;
 
+var subdocTransform = function(doc, ret) {
+  delete ret._id;
+  delete ret.__v;
+  return ret;
+};
+
+var MoveEntrySchema = new Schema({
+  move: { type: ShortId, ref: 'Move' },
+  duration: Number,
+});
+MoveEntrySchema.options.toJSON = { transform: subdocTransform };
+
 var FlowSchema = new Schema({
     _id: {
     type: ShortId,
@@ -18,21 +30,14 @@ var FlowSchema = new Schema({
   authorName: { type: String },
   author: { type: ShortId, ref: 'User' },
 
-  moves: [{
-    move: { type: ShortId, ref: 'Move' },
-    duration: Number
-  }],
+  moves: [MoveEntrySchema],
 
   createdAt: { type : Date, default : Date.now },
   official: Boolean,
   workout: {type: Boolean, default: false },
 
   playCount: { type: Number, default : 0 },
-
-  plays: [{
-    player: {type: ShortId, ref: 'User'},
-    date: { type: Date, 'default': Date.now }
-  }]
+  plays: [{type: ShortId, ref: 'User'}]
 });
 
 FlowSchema.index({ name: 'text', description: 'text', authorName: 'text' });
@@ -61,27 +66,32 @@ FlowSchema.statics = {
       .exec(cb);
   },
 
-  listByUser : function(author_id, cb) {
-    // TODO: Paging?
+  listByUser: function(author_id, options) {
     return this.find({author: author_id}, '_id name author createdAt ratings')
-      .sort('createdAt')
-      .limit(1000)
-      .exec(cb);
-  }
-};
+      .sort({createdAt: -1})
+      .limit(options.max)
+      .skip(options.max * options.page)
+      .exec();
+  },
 
-FlowSchema.methods = {
-  recordPlayed: function(userId, cb) {
+  countByUser: function(author_id) {
+    return this.count({author: author_id}).exec();
+  },
+
+  recordPlayed: function(id, userId) {
     var update = {
-      $addToSet: {
-        plays: { player: userId }
-      },
       $inc: {
         playCount: 1
       }
     };
 
-    return this.update(update).exec(cb);
+    if (userId) {
+      update.$addToSet = {
+        plays: userId
+      };
+    }
+
+    return this.findOneAndUpdate({_id: id}, update, {new: true}).exec();
   }
 };
 
@@ -92,14 +102,6 @@ FlowSchema.plugin(likesPlugin, {
 });
 
 FlowSchema.plugin(randomPlugin, { path: '__random'});
-
-FlowSchema.pre('remove', function(next) {
-  this.model('User').update(
-      { 'favorites.flow': this._id },
-      { $pull: { 'favorites.flow': this._id} },
-      { multi: true },
-      next);
-});
 
 FlowSchema.options.toJSON = {
   transform: function(doc, ret) {

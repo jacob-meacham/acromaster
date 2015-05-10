@@ -1,19 +1,18 @@
 'use strict';
 
 var Promise = require('bluebird');
-var async = require('async');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
 var chai = require('chai');
 var sinon = require('sinon');
-require('../../../server/models/user.js');
+var User = require('../../../server/models/user');
 
+Promise.promisifyAll(mongoose);
 mockgoose(mongoose);
 
 chai.should();
 var expect = chai.expect;
 
-var User = mongoose.model('User');
 var user1, user2;
 var sandbox;
 
@@ -99,46 +98,28 @@ describe('User Model', function() {
   });
 
   describe('loadPublicProfile()', function() {
-    it('should load a user by name', function(done) {
+    it('should load a user by name', function() {
       var _user = new User(user1);
-      async.waterfall([
-        function(next) {
-          _user.save(next);
-        },
-
-        function() {
-          User.loadPublicProfile(_user.username, function(err, loaded_user) {
-            expect(err).to.not.exist;
-            loaded_user.name.should.equal(_user.name);
-            done();
-          });
-        }
-      ]);
-    });
-
-    it('should not load a nonexistent user', function(done) {
-      User.loadPublicProfile('johnny-boy-11', function(err, user) {
-        expect(err).to.not.exist;
-        expect(user).to.not.exist;
-        done();
+      return _user.saveAsync().then(function() {
+        return User.loadPublicProfile(_user.username);
+      }).then(function(loaded_user) {
+        loaded_user.name.should.equal(_user.name);
       });
     });
 
-    it('should load only public information', function(done) {
-      var _user = new User(user1);
-      async.waterfall([
-        function(next) {
-          _user.save(next);
-        },
+    it('should not load a nonexistent user', function() {
+      return User.loadPublicProfile('johnny-boy-11').then(function(user) {
+        expect(user).to.not.exist;
+      });
+    });
 
-        function() {
-          User.loadPublicProfile(_user.username, function(err, loaded_user) {
-            expect(err).to.not.exist;
-            expect(loaded_user).to.have.keys('name', 'username', 'createdAt', 'id', 'profilePictureUrl', 'favorites', 'stats');
-            done();
-          });
-        }
-      ]);
+    it('should load only public information', function() {
+      var _user = new User(user1);
+      return _user.saveAsync().then(function() {
+        return User.loadPublicProfile(_user.username);
+      }).then(function(loaded_user) {
+        expect(loaded_user).to.have.keys('name', 'username', 'createdAt', 'id', 'profilePictureUrl', 'favorites', 'stats');
+      });
     });
   });
 

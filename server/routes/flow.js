@@ -1,7 +1,8 @@
 'use strict';
 
-var Flow = require('../models/flow.js');
-var Move = require('../models/move.js');
+var Promise = require('bluebird');
+var Flow = require('../models/flow');
+var Move = require('../models/move');
 
 var loadById = function(req, res, next, id) {
   Flow.load(id).then(function(flow) {
@@ -19,20 +20,16 @@ var loadFlowFromBody = function(req, res, next) {
   next();
 };
 
+var updateFlow = function(req, res, next) {
+  loadById(req, res, next, req.flow._id);
+};
+
 var requireAuthorMatch = function(req, res, next) {
   if (req.flow.author) {
     if (!req.isAuthenticated() || req.user._id !== req.flow.author._id) {
       return next({error: new Error('This flow doesn\'t belong to you'), status: 401});
     }
   }
-  next();
-};
-
-var requireUser = function(req, res, next) {
-  if (!req.isAuthenticated()) {
-    return next({error: new Error('No user'), status: 401});
-  }
-  
   next();
 };
 
@@ -141,31 +138,25 @@ var update = function(req, res, next) {
 };
 
 var deleteFlow = function(req, res, next) {
-  var flow = req.flow;
-  flow.removeAsync().then(function() {
-    res.status(200);
+  req.flow.removeAsync().then(function() {
+    res.status(200).send({});
   }).catch(next);
 };
 
 var like = function(req, res, next) {
-  var flow = req.flow;
-  flow.like(req.userId, function(err) {
-    if (err) {
-      return next(err);
-    }
+  // TODO: promisifyAll didn't seem to work well on like
+  req.flow.like(req.userId, function(err) {
+    if (err) { next(err); }
 
-    res.jsonp(flow);
+    next();
   });
 };
 
 var removeLike = function(req, res, next) {
-  var flow = req.flow;
-  flow.cancelLike(req.userId, function(err) {
-    if (err) {
-      return next(err);
-    }
+  req.flow.cancelLike(req.userId, function(err) {
+    if (err) { return next(err); }
 
-    res.jsonp(flow);
+    next();
   });
 };
 
@@ -180,25 +171,24 @@ var hasLiked = function(req, res, next) {
 };
 
 var recordPlayed = function(req, res, next) {
-  var userId = 0;
+  var promises = [];
+  var userId;
   if (req.user) {
-    // If there is no user, just record with a dummy player.
     userId = req.user._id;
+    promises.push(req.user.recordPlay(req.flow));
+  } else {
+    promises.push({});
   }
 
-  req.flow.recordPlayed(userId).then(function() {
-    if (req.user) {
-      return req.user.recordPlay(req.flow);
-    }
-  }).then(function() {
-    res.jsonp({plays: req.flow.plays});
-  }).then(null, next);
+  promises.push(Flow.recordPlayed(req.flow._id, userId));
+  Promise.all(promises).spread(function(user, flow) {
+    res.jsonp({flow: flow, plays: flow.plays});
+  }).catch(next);
 };
 
 var generate = function(req, res, next) {
   if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
-    res.status(400).send({error: 'totalTime and timePerMove required'});
-    return;
+    return next({error: 'totalTime and timePerMove required', status: 400});
   }
 
   var generateFlow = function(all_moves) {
@@ -259,10 +249,10 @@ module.exports = function(app) {
   app.post('/api/flow', loadFlowFromBody, requireAuthorMatch, create);
   app.put('/api/flow/:flowId', requireAuthorMatch, update);
   app.delete('/api/flow/:flowId', requireAuthorMatch, deleteFlow);
-  app.post('/api/flow/:flowId/likes', requireUserOrAnonId, like);
-  app.delete('/api/flow/:flowId/likes', requireUserOrAnonId, removeLike);
+  app.post('/api/flow/:flowId/likes', requireUserOrAnonId, like, updateFlow, getFlow); // after liking, update and return the flow
+  app.delete('/api/flow/:flowId/likes', requireUserOrAnonId, removeLike, updateFlow, getFlow); // after removing the like, update and return the flow
   app.get('/api/flow/:flowId/likes', requireUserOrAnonId, hasLiked);
-  app.post('/api/flow/:flowId/plays', requireUser, recordPlayed);
+  app.post('/api/flow/:flowId/plays', recordPlayed);
 
   app.param('flowId', loadById);
 };
