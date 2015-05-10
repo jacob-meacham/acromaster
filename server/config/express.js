@@ -73,7 +73,9 @@ module.exports = {
 
     addErrorHandlers: function(app) {
         app.use(function(err, req, res, next) {
+            /* istanbul ignore next: explicitly not testable */
             if (process.env.NODE_ENV !== 'test') {
+                /* istanbul ignore next */
                 console.error(err.stack);
             }
             next(err);
