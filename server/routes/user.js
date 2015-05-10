@@ -6,21 +6,15 @@ var User = mongoose.model('User');
 var Flow = mongoose.model('Flow');
 
 var loadByName = function(req, res, next, name) {
-  User.loadPublicProfile(name, function(err, profile) {
-    if (err) {
-      return next(err);
-    }
-    
+  User.loadPublicProfile(name).then(function(profile) {
+    console.log('returning user');
     if (!profile) {
       return next({error: new Error('User with name ' + name + ' does not exist'), status: 404});
     }
 
     req.profile = profile;
-    Flow.listByUser(req.profile.id).then(function(flows) {
-      profile.flows = flows;
-      next();
-    }).then(null, next);
-  });
+    next();
+  }).then(null, next);
 };
 
 var getUserProfile = function(req, res) {
@@ -50,7 +44,22 @@ var getFavorites = function(req, res) {
 };
 
 var getFlows = function(req, res) {
-  res.jsonp({flows: req.profile.flows});
+  var options = {};
+  options.max = req.query.max;
+  if (!options.max || options.max > 100) {
+    options.max = 100;
+  }
+  options.page = (req.query.page > 0 ? req.query.page : 1) - 1;
+
+  var flows;
+  Flow.listByUser(req.profile.id, options).then(function(_flows) {
+    flows = _flows;
+    return Flow.countByUser(req.profile.id);
+  }).then(function(count) {
+    res.jsonp({flows: flows,
+               page: options.page+1,
+               total: count});
+  });
 };
 
 var addFavorite = function(req, res, next) {
