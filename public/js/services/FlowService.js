@@ -42,17 +42,14 @@ acromasterServices.factory('FlowService', ['Flow', function(Flow) {
 
       return returnedFlow;
     },
-    generateFlow: function(params, callback) {
-      var returnedFlow = Flow.generate(params, function() {
-        flow = returnedFlow;
-        // TODO: No need for this, just return the promise
-        if (callback) {
-          callback(flow);
-        }
-      });
 
-      return returnedFlow;
+    generateFlow: function(params) {
+      return Flow.generate(params).$promise.then(function(returnedFlow) {
+        flow = returnedFlow;
+        return flow;
+      });
     },
+
     getCurrentFlow: function() { return flow; },
     clearCurrentFlow: function() { flow = null; }
   };
