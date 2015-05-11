@@ -8,7 +8,7 @@ describe('AuthService', function() {
   var user;
 
   before(function() {
-    user = {name: 'userName', id: 'userId', roles: []};
+    user = {name: 'userName', id: 'userId'};
   });
 
   describe('with a user set', function() {
@@ -133,6 +133,36 @@ describe('AuthService', function() {
     it('should not be authenticated', function() {
       expect(AuthService.getUser()).to.not.be.null;
       AuthService.isAuthenticated().should.not.be.true;
+    });
+  });
+
+  describe('canEdit', function() {
+    beforeEach(inject(function(_$window_) {
+      $window = _$window_;
+      $window.user = {};
+    }));
+
+    beforeEach(inject(function(_AuthService_) {
+      AuthService = _AuthService_;
+    }));
+
+    it('should return false if the flow is not valid', function() {
+      AuthService.canEdit(null).should.be.false;
+      AuthService.canEdit({name: 'flow'}).should.be.false;
+    });
+
+    it('should return false if no user is logged in', function() {
+      AuthService.canEdit({name: 'flow', author: { id: 'authorId' }}).should.be.false;
+    });
+
+    it('should return false if the author and user do not match', function() {
+      AuthService.setUser({id: 'userId'});
+      AuthService.canEdit({name: 'flow', author: { id: 'authorId' }}).should.be.false;
+    });
+
+    it('should allow editing on a match', function() {
+      AuthService.setUser({id: 'authorId'});
+      AuthService.canEdit({name: 'flow', author: { id: 'authorId' }}).should.be.true;
     });
   });
 });
