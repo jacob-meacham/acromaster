@@ -3,16 +3,21 @@
 describe('QuickPlayController', function() {
   beforeEach(module('acromaster'));
 
+  var $rootScope;
   var $scope;
   var $location;
   var FlowService;
+  var deferred;
 
   var sandbox;
 
-  beforeEach(inject(function($controller) {
-    // Stub-stubs
+  beforeEach(inject(function(_$rootScope_, $controller, $q) {
+    $rootScope = _$rootScope_;
+    deferred = $q.defer();
+
+    sandbox = sinon.sandbox.create();
     FlowService = {
-      generateFlow: function() {}
+      generateFlow: sandbox.stub().returns(deferred.promise)
     };
     
     $location = {
@@ -22,8 +27,6 @@ describe('QuickPlayController', function() {
     var RandomNameService = {
       generateFlowName: function() { return 'My Flow Name'; }
     };
-
-    sandbox = sinon.sandbox.create();
 
     $scope = {};
     $controller('WorkoutCreateController', { $scope: $scope, $location: $location, FlowService: FlowService, RandomNameService: RandomNameService });
@@ -46,30 +49,36 @@ describe('QuickPlayController', function() {
 
     var expectedParams = $scope.flowParams;
 
+    FlowService.generateFlow = {};
     sandbox.stub(FlowService, 'generateFlow', function(params) {
       params.should.eql(expectedParams);
+      return deferred.promise;
     });
 
     $scope.generateFlow();
+    deferred.resolve({});
+    $rootScope.$apply();
   });
 
   it('should set the total time correctly', function() {
     $scope.flowParams.totalMinutes = 10;
     $scope.generateFlow();
+    deferred.resolve({});
+    $rootScope.$apply();
 
     $scope.flowParams.totalTime.should.eql(10*60);
   });
 
   it('should set the location to quick play', function() {
-    var flowId = 'flowId';
-    sandbox.stub(FlowService, 'generateFlow', function(params, callback) {
-      callback({id: flowId});
-    });
+    var flowId = 'myFlowId';
 
-    sandbox.stub($location, 'path', function(path) {
-      path.should.eql('/flow/flowId/play');
+    var pathStub = sandbox.stub($location, 'path', function(path) {
+      path.should.eql('/flow/myFlowId/play');
     });
 
     $scope.generateFlow();
+    deferred.resolve({id: flowId});
+    $rootScope.$apply();
+    pathStub.should.have.callCount(1);
   });
 });

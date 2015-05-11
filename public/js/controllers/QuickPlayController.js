@@ -6,7 +6,7 @@ angular.module('acromaster.controllers').controller('WorkoutCreateController', [
   $scope.generateFlow = function() {
     flowParams.totalTime = flowParams.totalMinutes * 60;
     flowParams.flowName = RandomNameService.generateFlowName();
-    FlowService.generateFlow(flowParams, function(flow) {
+    FlowService.generateFlow(flowParams).then(function(flow) {
       $location.path('/flow/' + flow.id + '/play');
     });
   };
