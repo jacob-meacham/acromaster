@@ -32,12 +32,9 @@ acromasterServices.factory('Moves', ['$resource', function($resource) {
 acromasterServices.factory('FlowService', ['Flow', function(Flow) {
   var flow = null;
   return {
-    instantiateFlow: function(id, callback) {
+    instantiateFlow: function(id) {
       var returnedFlow = Flow.get({flowId: id}, function() {
         flow = returnedFlow;
-        if (callback) {
-          callback(returnedFlow);
-        }
       });
 
       return returnedFlow;

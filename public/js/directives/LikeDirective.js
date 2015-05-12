@@ -12,7 +12,6 @@ directives.controller('LikeDirectiveController', ['Flow', 'AuthService', '$cooki
     return '__anon_' + Math.random().toString(36).substr(2);
   };
 
-  // TODO: If authenticated, take over the likes?
   var cookieAnonId = $cookieStore.get('acromasterAnonId');
   if (!cookieAnonId) {
     cookieAnonId = cookieHash();
@@ -27,7 +26,6 @@ directives.controller('LikeDirectiveController', ['Flow', 'AuthService', '$cooki
     }
   };
 
-  // TODO: Should move liking logic to a service
   var addLike = function() {
     vm.likeCount += 1;
     vm.hasLiked = true;
@@ -40,14 +38,6 @@ directives.controller('LikeDirectiveController', ['Flow', 'AuthService', '$cooki
     Flow.unlike({ flowId: vm.flow.id, anonId: cookieAnonId });
   };
 
-  vm.flow.$promise.then(function() {
-    vm.likeCount = vm.flow.likes;
-    return Flow.hasLiked({ flowId: vm.flow.id, anonId: cookieAnonId }).$promise;
-  }).then(function(response) {
-    vm.hasLiked = response.hasLiked;
-    vm.action = getAction();
-  });
-
   vm.toggleLike = function() {
     if (vm.hasLiked) {
       removeLike();
@@ -57,6 +47,15 @@ directives.controller('LikeDirectiveController', ['Flow', 'AuthService', '$cooki
 
     vm.action = getAction();
   };
+
+  vm.flow.$promise.then(function() {
+    vm.likeCount = vm.flow.likes;
+    return Flow.hasLiked({ flowId: vm.flow.id, anonId: cookieAnonId }).$promise;
+  }).then(function(response) {
+    vm.hasLiked = response.hasLiked;
+    vm.action = getAction();
+  });
+  
 }]);
 directives.directive('flowLike', [function() {
   return {

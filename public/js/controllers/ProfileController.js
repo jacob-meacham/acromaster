@@ -1,6 +1,5 @@
 'use strict';
 
-// TODO: Caching of profile?
 var acromasterControllers = angular.module('acromaster.controllers');
 
 acromasterControllers.controller('ProfileHomeController', ['$scope', '$routeParams', 'User', function($scope, $routeParams, User) {
