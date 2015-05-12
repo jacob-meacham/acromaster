@@ -1,8 +1,6 @@
 'use strict';
 
 angular.module('acromaster.controllers').controller('PageController', ['$scope', 'HeadService', function($scope, HeadService) {
-  $scope.siteName = HeadService.getSiteName();
-  $scope.title = HeadService.getTitle();
-  $scope.description = HeadService.getDescription();
-  $scope.keywords = HeadService.getKeywords();
+  // Not the nicest, but it makes working with this controller much easier (instead of adding a bunch of watches)
+  $scope.pageHeader = HeadService;
 }]);

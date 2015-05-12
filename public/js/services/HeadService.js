@@ -1,50 +1,35 @@
 'use strict';
 var acromasterServices = angular.module('acromaster.services');
 
-acromasterServices.factory('HeadService', [function() {
-  var siteName = 'Acromaster';
-  var title = 'Acromaster';
-  var description = 'Acromaster';
-  var keywords = 'acrobatics';
-  return {
-    getSiteName: function() {
-      return siteName;
-    },
+acromasterServices.service('HeadService', [function() {
+  this.siteName = 'Acromaster';
+  this.title = 'Acromaster';
+  this.description = 'Acromaster';
+  this.keywords = 'acrobatics';
 
-    setSiteName: function(_siteName) {
-      siteName = _siteName;
-    },
-
-    defaultSiteName: function() {
-      siteName = 'Acromaster';
-    },
-
-    getTitle: function() {
-      return title;
-    },
-
-    setTitle: function(_title) {
-      title = _title;
-    },
-
-    getDescription: function() {
-      return description;
-    },
-
-    setDescription: function(_description) {
-      description = _description;
-    },
-
-    getKeywords: function() {
-      return keywords;
-    },
-
-    setKeywords: function(_keywords) {
-      keywords = _keywords;
-    },
-
-    defaultKeywords: function() {
-      keywords = 'acrobatics';
-    }
+  this.setSiteName = function(_siteName) {
+    this.siteName = _siteName;
   };
+
+  this.defaultSiteName = function() {
+    this.siteName = 'Acromaster';
+  };
+
+  this.setTitle = function(_title) {
+    this.title = _title;
+  };
+
+  this.setDescription = function(_description) {
+    this.description = _description;
+  };
+
+  this.setKeywords = function(_keywords) {
+    this.keywords = _keywords;
+  };
+
+  this.defaultKeywords = function() {
+    this.keywords = 'acrobatics';
+  };
+
+  return this;
 }]);
