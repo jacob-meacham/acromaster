@@ -144,7 +144,6 @@ var deleteFlow = function(req, res, next) {
 };
 
 var like = function(req, res, next) {
-  // TODO: promisifyAll didn't seem to work well on like
   req.flow.like(req.userId, function(err) {
     if (err) { next(err); }
 
