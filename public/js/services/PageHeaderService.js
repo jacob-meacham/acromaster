@@ -1,7 +1,7 @@
 'use strict';
 var acromasterServices = angular.module('acromaster.services');
 
-acromasterServices.service('HeadService', [function() {
+acromasterServices.service('PageHeaderService', [function() {
   this.siteName = 'Acromaster';
   this.title = 'Acromaster';
   this.description = 'Acromaster';
