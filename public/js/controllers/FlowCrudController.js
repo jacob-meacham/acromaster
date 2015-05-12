@@ -47,7 +47,7 @@ controllers.controller('FlowEditController', ['$scope', '$routeParams', '$locati
 
 controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', '$modal', 'FlowService', 'AuthService', 'User', function($scope, $routeParams, $location, $modal, flowService, authService, User) {
   var flowId = $routeParams.flowId;
-  // TODO: Promise instead?
+
   var flow = $scope.flow = flowService.instantiateFlow(flowId, function() {
     $scope.canEdit = authService.canEdit(flow);
   });
@@ -65,11 +65,15 @@ controllers.controller('FlowViewController', ['$scope', '$routeParams', '$locati
     }
   };
 
-  // TODO: fix if a user isn't logged in
-  User.hasFavorited({ flowId: flowId, userId: authService.getUser().id }, function(response) {
-    $scope.hasFavorited = response.hasFavorited;
+  if (authService.isAuthenticated()) {
+    User.hasFavorited({ flowId: flowId, userId: authService.getUser().id }, function(response) {
+      $scope.hasFavorited = response.hasFavorited;
+      $scope.action = getAction();
+    });
+  } else {
+    $scope.hasFavorited = false;
     $scope.action = getAction();
-  });
+  }
 
   $scope.toggleFavorite = function() {
     if ($scope.hasFavorited) {
