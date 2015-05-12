@@ -3,7 +3,7 @@
 describe('FlowService', function() {
   beforeEach(module('acromaster'));
 
-  describe('Moves factory', function() {
+  describe('Moves', function() {
     var Moves;
     var $httpBackend;
 
@@ -24,7 +24,7 @@ describe('FlowService', function() {
     });
   });
 
-  describe('FlowService factory', function() {
+  describe('FlowService', function() {
     var flow = {name: 'newFlow', moves: [{name: 'moveA'}, {name: 'moveB'}]};
     var FlowService;
     var $httpBackend;
@@ -74,6 +74,55 @@ describe('FlowService', function() {
 
       FlowService.clearCurrentFlow();
       expect(FlowService.getCurrentFlow()).to.be.null;
+    });
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+  });
+
+  describe('FlowSearchInitialData', function() {
+    var FlowSearchInitialData;
+    var Flow;
+    var $rootScope;
+    var $httpBackend;
+    var $route;
+
+    beforeEach(inject(function(_FlowSearchInitialData_, _Flow_, _$rootScope_, _$httpBackend_, _$route_) {
+      FlowSearchInitialData = _FlowSearchInitialData_;
+      Flow = _Flow_;
+      $rootScope = _$rootScope_;
+      $httpBackend = _$httpBackend_;
+      $route = _$route_;
+    }));
+
+    it('should perform a search', function(done) {
+      $route.current = {
+        params: {
+          max: 10,
+          page: 1,
+          search_query: 'fooQuery'
+        }
+      };
+
+      var searchSpy = sinon.spy(Flow, 'get');
+      $httpBackend.expectGET('/api/flow?max=10&page=1&search_query=fooQuery').respond({name: 'newFlow'}, {name: 'flow2'});
+
+      // TODO: This should not be necessary. Remove.
+      $httpBackend.expectGET('/partials/index.html').respond(200, '');
+
+      var promise = FlowSearchInitialData.performSearch();
+      $httpBackend.flush();
+
+      searchSpy.should.have.callCount(1);
+      searchSpy.getCall(0).args[0].should.eql({search_query: 'fooQuery', max: 10, page: 1});
+      promise.then(function(flows) {
+        flows.name.should.eql('newFlow');
+        done();
+      });
+
+      $rootScope.$apply();
     });
 
     afterEach(function() {

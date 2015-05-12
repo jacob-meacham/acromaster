@@ -131,6 +131,7 @@ describe('FlowCrudController', function() {
     it('should start with a flow from the FlowService', function() {
       var flowStub = sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
       var userStub = sandbox.stub(AuthService, 'getUser').returns({id: 'userId'});
+      sandbox.stub(AuthService, 'isAuthenticated').returns(true);
       $controller('FlowViewController', {$scope: $scope, $location: $location, FlowService: FlowService, AuthService: AuthService });
 
       $scope.flow.should.eql(flow);
@@ -142,6 +143,7 @@ describe('FlowCrudController', function() {
       var pathSpy = sandbox.spy($location, 'path');
       sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
       sandbox.stub(AuthService, 'getUser').returns({id: 'userId'});
+      sandbox.stub(AuthService, 'isAuthenticated').returns(true);
 
       $controller('FlowViewController', {$scope: $scope, $location: $location, FlowService: FlowService, AuthService: AuthService });
 
