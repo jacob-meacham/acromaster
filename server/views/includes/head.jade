@@ -1,21 +1,21 @@
-head
+head(ng-controller="PageHeaderController")
   meta(charset='utf-8')
   meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
   meta(name='viewport', content='width=device-width,initial-scale=1')
 
   base(href="/")
 
-  title="{{siteName}}"
+  title="{{pageHeader.siteName}}"
   meta(http-equiv='Content-type', content='text/html;charset=UTF-8')
-  meta(name="description", content="{{description}}")
-  meta(name="keywords", content="{{keywords}}")
+  meta(name="description", content="{{pageHeader.description}}")
+  meta(name="keywords", content="{{pageHeader.keywords}}")
 
   link(href='/img/icons/favicon.ico', rel='shortcut icon', type='image/x-icon')
   
-  meta(property='og:title', content='{{title}}')
-  meta(property='og:description', content='{{description}}')
+  meta(property='og:title', content='{{pageHeader.title}}')
+  meta(property='og:description', content='{{pageHeader.description}}')
   meta(property='og:type', content='website')
-  meta(property='og:site_name', content='{{siteName}}')
+  meta(property='og:site_name', content='{{pageHeader.siteName}}')
 
   each asset in assets.vendor.css
     link(rel='stylesheet', href=asset)
