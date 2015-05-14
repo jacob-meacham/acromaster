@@ -57,11 +57,15 @@ describe('FlowCrudController', function() {
 
   describe('FlowCreateController', function() {
     var Flow;
+    var FlowService;
     var $location;
+    var $routeParams;
 
-    beforeEach(inject(function(_Flow_, _$location_) {
+    beforeEach(inject(function(_Flow_, _FlowService_, _$location_, _$routeParams_) {
       Flow = _Flow_;
+      FlowService = _FlowService_;
       $location = _$location_;
+      $routeParams = _$routeParams_;
     }));
 
     it('should start with an empty flow', function() {
@@ -79,6 +83,20 @@ describe('FlowCrudController', function() {
       flow.id = '10';
       $scope.saveSuccess(flow);
       pathSpy.should.have.been.calledWith('/flow/10');
+    });
+
+    it('should instantiate the passed in flow', function() {
+      $routeParams.flowId = 'abc123';
+      var instantiateSpy = sandbox.stub(FlowService, 'instantiateFlow', function(id, cb) {
+        id.should.eql('abc123');
+        cb({moves: ['a', 'b'], name: 'My Flow'});
+      });
+
+      $controller('FlowCreateController', {$scope: $scope, Flow: Flow});
+      $scope.flow.moves.should.eql(['a', 'b']);
+      $scope.flow.name.should.eql('Remix of My Flow');
+
+      instantiateSpy.should.have.callCount(1);
     });
   });
 
