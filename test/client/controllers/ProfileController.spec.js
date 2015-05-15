@@ -6,6 +6,7 @@ describe('Profile*Controllers', function() {
   var $controller;
   var User;
   var sandbox;
+  var profile;
 
   beforeEach(inject(function(_$controller_, _User_, $routeParams) {
     $controller = _$controller_;
@@ -13,6 +14,7 @@ describe('Profile*Controllers', function() {
     $routeParams.user = 'someUser';
 
     sandbox = sinon.sandbox.create();
+    profile = {name: 'foo', flows: ['a', 'b']};
   }));
 
   afterEach(function() {
@@ -21,7 +23,6 @@ describe('Profile*Controllers', function() {
 
   describe('ProfileHomeController', function() {
     it('should set the profile from the server', function() {
-      var profile = {name: 'foo', flows: ['a', 'b']};
       sandbox.stub(User, 'get').returns(profile);
       var $scope = {};
       
@@ -38,12 +39,11 @@ describe('Profile*Controllers', function() {
 
   describe('ProfileStatsController', function() {
     it('should set the profile from the server', function() {
-      var profile = {name: 'foo', flows: ['a', 'b']};
       sandbox.stub(User, 'get').returns(profile);
       var $scope = {};
       
       // Create controller
-      $controller('ProfileHomeController', { $scope: $scope });
+      $controller('ProfileStatsController', { $scope: $scope });
       $scope.profile.should.eql(profile);
     });
 
@@ -55,12 +55,11 @@ describe('Profile*Controllers', function() {
 
   describe('ProfileAchievementsController', function() {
     it('should set the profile from the server', function() {
-      var profile = {name: 'foo', flows: ['a', 'b']};
       sandbox.stub(User, 'get').returns(profile);
       var $scope = {};
       
       // Create controller
-      $controller('ProfileHomeController', { $scope: $scope });
+      $controller('ProfileAchievementsController', { $scope: $scope });
       $scope.profile.should.eql(profile);
     });
 
