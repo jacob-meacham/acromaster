@@ -88,10 +88,7 @@ angular.module('acromaster.directives')
   };
 
   var nextMove = function(entryIndex) {
-    if (currentEntry) {
-      currentEntry.visible = false;
-    }
- 
+    currentEntry.visible = false;
     if (entryIndex >= vm.flow.moves.length) {
       return finishFlow();
     }
@@ -103,7 +100,7 @@ angular.module('acromaster.directives')
     vm.currentMoveIdx = entryIndex;
     vm.setAudio(currentEntry.move.audioUri);
  
-    var scaledDuration = getScaledDuration(currentEntry.duration, vm.speedMultiplier);
+    scaledDuration = getScaledDuration(currentEntry.duration, vm.speedMultiplier);
     vm.timeRemaining = scaledDuration * 1000;
     startTimer(1000);
   };
