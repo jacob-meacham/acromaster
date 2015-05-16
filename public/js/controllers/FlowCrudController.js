@@ -76,6 +76,11 @@ controllers.controller('FlowViewController', ['$scope', '$routeParams', '$locati
   }
 
   $scope.toggleFavorite = function() {
+    if (!authService.isAuthenticated()) {
+      // TODO: popup a box in this case.
+      return;
+    }
+
     if ($scope.hasFavorited) {
       User.unfavorite({ flowId: flowId, userId: authService.getUser().id});
     } else {
