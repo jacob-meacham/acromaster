@@ -3,23 +3,20 @@
 describe('NavbarController', function() {
   beforeEach(module('acromaster'));
 
+  var sandbox;
+  
   var $scope;
   var AuthService;
   var $controller;
   var $modal;
-  var locals;
 
-  var sandbox;
-
-  beforeEach(inject(function(_$controller_, _$modal_, _AuthService_, $rootScope) {
+  beforeEach(inject(function(_$controller_, _$modal_, _AuthService_) {
     $controller = _$controller_;
     $modal = _$modal_;
     AuthService = _AuthService_;
-    $scope = $rootScope.$new();
+    $scope = {};
 
     sandbox = sinon.sandbox.create();
-
-    locals = { $scope: $scope, AuthService: AuthService};
   }));
 
   afterEach(function() {
@@ -30,7 +27,7 @@ describe('NavbarController', function() {
     var user = {name: 'foo', roles: []};
     AuthService.setUser(user);
 
-    $controller('NavbarController', locals);
+    $controller('NavbarController', { $scope: $scope, AuthService: AuthService});
 
     $scope.user.should.eql(user);
     $scope.authenticated.should.eql(true);
@@ -44,7 +41,7 @@ describe('NavbarController', function() {
       callback();
     });
 
-    $controller('NavbarController', locals);
+    $controller('NavbarController', { $scope: $scope, AuthService: AuthService});
 
     $scope.user.should.eql(user);
     $scope.authenticated.should.eql(true);
@@ -59,7 +56,7 @@ describe('NavbarController', function() {
   it('should open the About modal', function() {
     var openStub = sandbox.stub($modal, 'open');
 
-    $controller('NavbarController', locals);
+    $controller('NavbarController', { $scope: $scope, AuthService: AuthService});
 
     $scope.about();
     openStub.should.have.callCount(1);
