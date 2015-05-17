@@ -1,6 +1,6 @@
 'use strict';
 
-var LikeDirectiveController = function(Flow, authService, $cookieStore) {
+var LikeDirectiveController = function(Flow, $cookieStore) {
   var vm = this;
   vm.hasLiked = false;
 
@@ -68,5 +68,5 @@ var flowLike = function() {
 };
 
 angular.module('acromaster.directives')
-  .controller('LikeDirectiveController', ['Flow', 'AuthService', '$cookieStore', LikeDirectiveController])
-  .directive('flowLike', flowLike);
+  .controller('LikeDirectiveController', ['Flow', '$cookieStore', LikeDirectiveController])
+  .directive('flowlike', flowLike);
