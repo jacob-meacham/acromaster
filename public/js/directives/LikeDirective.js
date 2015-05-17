@@ -69,4 +69,4 @@ var flowLike = function() {
 
 angular.module('acromaster.directives')
   .controller('LikeDirectiveController', ['Flow', '$cookieStore', LikeDirectiveController])
-  .directive('flowlike', flowLike);
+  .directive('flowLike', flowLike);
