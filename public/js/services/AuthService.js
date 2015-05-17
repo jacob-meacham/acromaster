@@ -3,9 +3,9 @@
 var AuthService = function($window, $http, $location, $route) {
   function isEmpty(obj) {
     for(var prop in obj) {
-        if(obj.hasOwnProperty(prop)) {
-          return false;
-        }
+      if(obj.hasOwnProperty(prop)) {
+        return false;
+      }
     }
 
     return true;
