@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('acromaster.services').factory('FlowStatsService', ['FlowService', function(flowService) {
+var FlowStatsService = function(flowService) {
   return {
     getStats : function(flow) {
       if (!flow) {
@@ -31,4 +31,7 @@ angular.module('acromaster.services').factory('FlowStatsService', ['FlowService'
       return stats;
     }
   };
-}]);
+};
+
+angular.module('acromaster.services')
+  .factory('FlowStatsService', ['FlowService', FlowStatsService]);

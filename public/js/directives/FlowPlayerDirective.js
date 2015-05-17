@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('acromaster.directives')
-.controller('FlowPlayerDirectiveController', ['$scope', '$interval', 'SoundService', function($scope, $interval, sounds) {
+var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   var vm = this;
 
   var audio = vm.audio = new Audio();
@@ -116,8 +115,9 @@ angular.module('acromaster.directives')
   $scope.$on('$destroy', function() {
     cancelTimer();
   });
-}])
-.directive('flowplayer', function() {
+};
+
+var flowplayer = function() {
   return {
     restrict: 'E',
     scope: {
@@ -129,4 +129,8 @@ angular.module('acromaster.directives')
     controllerAs: 'vm',
     bindToController: true
   };
-});
+};
+
+angular.module('acromaster.directives')
+  .controller('FlowPlayerDirectiveController', ['$scope', '$interval', 'SoundService', FlowPlayerDirectiveController])
+  .directive('flowplayer', flowplayer);

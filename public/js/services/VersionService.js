@@ -1,8 +1,6 @@
 'use strict';
 
-var acromasterServices = angular.module('acromaster.services');
-
-acromasterServices.factory('VersionService', ['$http', function($http) {
+var VersionService = function($http) {
   return {
     getVersion: function() {
       return $http.get('/version').success(function(version) {
@@ -10,4 +8,7 @@ acromasterServices.factory('VersionService', ['$http', function($http) {
       });
     }
   };
-}]);
+};
+
+angular.module('acromaster.services')
+  .factory('VersionService', ['$http', VersionService]);

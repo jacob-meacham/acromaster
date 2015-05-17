@@ -17,5 +17,5 @@ var FlowPlayController = function($scope, $location, $routeParams, flowService) 
   };
 };
 
-var controllers = angular.module('acromaster.controllers');
-controllers.controller('FlowPlayController', ['$scope', '$location', '$routeParams', 'FlowService', FlowPlayController]);
+angular.module('acromaster.controllers')
+  .controller('FlowPlayController', ['$scope', '$location', '$routeParams', 'FlowService', FlowPlayController]);

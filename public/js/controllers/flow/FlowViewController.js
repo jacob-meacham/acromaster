@@ -59,5 +59,5 @@ var FlowViewController = function($scope, $routeParams, $location, $modal, flowS
   };
 };
 
-var controllers = angular.module('acromaster.controllers');
-controllers.controller('FlowViewController', ['$scope', '$routeParams', '$location', '$modal', 'FlowService', 'AuthService', 'User', FlowViewController]);
+angular.module('acromaster.controllers')
+  .controller('FlowViewController', ['$scope', '$routeParams', '$location', '$modal', 'FlowService', 'AuthService', 'User', FlowViewController]);

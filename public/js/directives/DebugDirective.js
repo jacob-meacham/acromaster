@@ -1,8 +1,6 @@
 'use strict';
 
-var directives = angular.module('acromaster.directives');
-
-directives.directive('debug', ['environment', function(environment) {
+var debug = function(environment) {
   return {
     restrict: 'E',
     link: function(scope, element) {
@@ -11,4 +9,7 @@ directives.directive('debug', ['environment', function(environment) {
       }
     }
   };
-}]);
+};
+
+angular.module('acromaster.directives')
+  .directive('debug', ['environment', debug]);

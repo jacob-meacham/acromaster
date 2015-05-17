@@ -12,4 +12,5 @@ var WaschingMachineViewController = function($scope, WashingMachineService) {
   $scope.generate();
 };
 
-angular.module('acromaster.controllers').controller('WashingMachineViewController', ['$scope', 'WashingMachineService', WaschingMachineViewController]);
+angular.module('acromaster.controllers')
+  .controller('WashingMachineViewController', ['$scope', 'WashingMachineService', WaschingMachineViewController]);

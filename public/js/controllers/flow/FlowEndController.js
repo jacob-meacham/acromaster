@@ -58,5 +58,5 @@ var FlowEndController = function($scope, $location, Flow, flowService, flowStats
   }, 1050);
 };
 
-var controllers = angular.module('acromaster.controllers');
-controllers.controller('FlowEndController', ['$scope', '$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', FlowEndController]);
+angular.module('acromaster.controllers')
+  .controller('FlowEndController', ['$scope', '$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', FlowEndController]);

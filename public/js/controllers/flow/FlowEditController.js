@@ -11,5 +11,5 @@ var FlowEditController = function($scope, $routeParams, $location, flowService) 
   };
 };
 
-var controllers = angular.module('acromaster.controllers');
-controllers.controller('FlowEditController', ['$scope', '$routeParams', '$location', 'FlowService', FlowEditController]);
+angular.module('acromaster.controllers')
+  .controller('FlowEditController', ['$scope', '$routeParams', '$location', 'FlowService', FlowEditController]);

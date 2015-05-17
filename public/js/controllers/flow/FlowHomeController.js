@@ -13,5 +13,5 @@ var FlowHomeController = function($scope, $location, Flow, PageHeaderService) {
   };
 };
 
-var controllers = angular.module('acromaster.controllers');
-controllers.controller('FlowHomeController', ['$scope', '$location', 'Flow', 'PageHeaderService', FlowHomeController]);
+angular.module('acromaster.controllers')
+  .controller('FlowHomeController', ['$scope', '$location', 'Flow', 'PageHeaderService', FlowHomeController]);

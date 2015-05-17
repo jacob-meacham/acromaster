@@ -15,5 +15,5 @@ var FlowCreateController = function($scope, $routeParams, $location, Flow, flowS
   };
 };
 
-var controllers = angular.module('acromaster.controllers');
-controllers.controller('FlowCreateController', ['$scope', '$routeParams', '$location', 'Flow', 'FlowService', FlowCreateController]);
+angular.module('acromaster.controllers')
+  .controller('FlowCreateController', ['$scope', '$routeParams', '$location', 'Flow', 'FlowService', FlowCreateController]);

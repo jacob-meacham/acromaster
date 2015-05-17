@@ -24,4 +24,5 @@ var NavbarController = function($scope, $modal, authService) {
   resetAuth();
 };
 
-angular.module('acromaster.controllers').controller('NavbarController', ['$scope', '$modal', 'AuthService', NavbarController]);
+angular.module('acromaster.controllers')
+  .controller('NavbarController', ['$scope', '$modal', 'AuthService', NavbarController]);

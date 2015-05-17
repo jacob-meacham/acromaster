@@ -4,5 +4,5 @@ var FlowSearchResultsController = function($scope, flowsPromise) {
   $scope.flows = flowsPromise.flows;
 };
 
-var controllers = angular.module('acromaster.controllers');
-controllers.controller('FlowSearchResultsController', ['$scope', 'flows', FlowSearchResultsController]);
+angular.module('acromaster.controllers')
+  .controller('FlowSearchResultsController', ['$scope', 'flows', FlowSearchResultsController]);

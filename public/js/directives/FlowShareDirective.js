@@ -1,12 +1,11 @@
 'use strict';
 
-var directives = angular.module('acromaster.directives');
-
-directives.controller('FlowShareDirectiveController', ['$location', function($location) {
+var FlowShareDirectiveController = function($location) {
   var vm = this;
   vm.baseUrl = $location.absUrl().replace($location.path(), '') + '/flow';
-}]);
-directives.directive('flowShare', ['$document', '$timeout', function($document, $timeout) {
+};
+
+var flowShare = function($document, $timeout) {
   function link(scope, element) {
     // Sadly, nsPopover compiles async, and doesn't have any callback, so we fake it via a timeout
     var focusTimeout;
@@ -45,4 +44,8 @@ directives.directive('flowShare', ['$document', '$timeout', function($document, 
       flowId: '@'
     }
   };
-}]);
+};
+
+angular.module('acromaster.directives')
+  .controller('FlowShareDirectiveController', ['$location', FlowShareDirectiveController])
+  .directive('flowShare', ['$document', '$timeout', flowShare]);

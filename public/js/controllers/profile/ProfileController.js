@@ -30,9 +30,9 @@ var ProfileAchievementsController = function($scope, $routeParams, User) {
   $scope.profile = User.get({userId: $routeParams.user});
 };
 
-var acromasterControllers = angular.module('acromaster.controllers');
-acromasterControllers.controller('ProfileHomeController', ['$scope', '$routeParams', 'User', ProfileHomeController]);
-acromasterControllers.controller('ProfileStatsController', ['$scope', '$routeParams', 'User', ProfileStatsController]);
-acromasterControllers.controller('ProfileFlowsController', ['$scope', '$routeParams', 'User', '$http', ProfileFlowsController]);
-acromasterControllers.controller('ProfileFavoritesController', ['$scope', '$routeParams', 'User', '$http', ProfileFavoritesController]);
-acromasterControllers.controller('ProfileAchievementsController', ['$scope', '$routeParams', 'User', ProfileAchievementsController]);
+angular.module('acromaster.controllers')
+  .controller('ProfileHomeController', ['$scope', '$routeParams', 'User', ProfileHomeController])
+  .controller('ProfileStatsController', ['$scope', '$routeParams', 'User', ProfileStatsController])
+  .controller('ProfileFlowsController', ['$scope', '$routeParams', 'User', '$http', ProfileFlowsController])
+  .controller('ProfileFavoritesController', ['$scope', '$routeParams', 'User', '$http', ProfileFavoritesController])
+  .controller('ProfileAchievementsController', ['$scope', '$routeParams', 'User', ProfileAchievementsController]);

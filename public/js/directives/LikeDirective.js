@@ -1,10 +1,7 @@
 'use strict';
 
-var directives = angular.module('acromaster.directives');
-
-directives.controller('LikeDirectiveController', ['Flow', 'AuthService', '$cookieStore', function(Flow, authService, $cookieStore) {
+var LikeDirectiveController = function(Flow, authService, $cookieStore) {
   var vm = this;
-
   vm.hasLiked = false;
 
   // Doesn't need to be cryptographically secure
@@ -55,9 +52,9 @@ directives.controller('LikeDirectiveController', ['Flow', 'AuthService', '$cooki
     vm.hasLiked = response.hasLiked;
     vm.action = getAction();
   });
-  
-}]);
-directives.directive('flowLike', [function() {
+};
+
+var flowLike = function() {
   return {
     restrict: 'E',
     templateUrl: 'partials/flow/flow_like.html',
@@ -68,4 +65,8 @@ directives.directive('flowLike', [function() {
       flow: '='
     }
   };
-}]);
+};
+
+angular.module('acromaster.directives')
+  .controller('LikeDirectiveController', ['Flow', 'AuthService', '$cookieStore', LikeDirectiveController])
+  .directive('flowLike', flowLike);
