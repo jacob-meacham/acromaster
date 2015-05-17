@@ -1,8 +1,6 @@
 'use strict';
 
-var directives = angular.module('acromaster.directives');
-
-directives.directive('navMenu', ['$location', function($location) {
+var navMenu = function($location) {
   return {
     link: function(scope, element, attrs) {
       var links = element.find('a');
@@ -36,4 +34,7 @@ directives.directive('navMenu', ['$location', function($location) {
       });
     }
   };
-}]);
+};
+
+angular.module('acromaster.directives')
+  .directive('navMenu', ['$location', navMenu]);

@@ -1,35 +1,29 @@
 'use strict';
-var acromasterServices = angular.module('acromaster.services');
 
-acromasterServices.factory('Flow', ['$resource', function($resource) {
-    return $resource('/api/flow/:flowId', {
-      flowId: '@id'
-    },
-    {
-      update: { method: 'PUT' },
-      generate: { method:'GET', url:'/api/flow/generate' },
-      like: { method: 'POST', url: '/api/flow/:flowId/likes' },
-      unlike: { method: 'DELETE', url: '/api/flow/:flowId/likes' },
-      hasLiked: { method: 'GET', url: '/api/flow/:flowId/likes' },
-      recordPlay: { method: 'POST', url: '/api/flow/:flowId/plays' }
-    });
-  }]
-);
+var Flow = function($resource) {
+  return $resource('/api/flow/:flowId', {
+    flowId: '@id'
+  },
+  {
+    update: { method: 'PUT' },
+    generate: { method:'GET', url:'/api/flow/generate' },
+    like: { method: 'POST', url: '/api/flow/:flowId/likes' },
+    unlike: { method: 'DELETE', url: '/api/flow/:flowId/likes' },
+    hasLiked: { method: 'GET', url: '/api/flow/:flowId/likes' },
+    recordPlay: { method: 'POST', url: '/api/flow/:flowId/plays' }
+  });
+};
 
-acromasterServices.factory('FlowSearchInitialData', ['Flow', '$route', function(Flow, $route) {
+var FlowSearchInitialData = function(Flow, $route) {
   return {
     performSearch: function() {
       var params = $route.current.params;
       return Flow.get({search_query: params.search_query, max: params.max, page: params.page}).$promise;
     }
   };
-}]);
+};
 
-acromasterServices.factory('Moves', ['$resource', function($resource) {
-  return $resource('/api/moves');
-}]);
-
-acromasterServices.factory('FlowService', ['Flow', function(Flow) {
+var FlowService = function(Flow) {
   var flow = null;
   return {
     instantiateFlow: function(id) {
@@ -50,4 +44,9 @@ acromasterServices.factory('FlowService', ['Flow', function(Flow) {
     getCurrentFlow: function() { return flow; },
     clearCurrentFlow: function() { flow = null; }
   };
-}]);
+};
+
+angular.module('acromaster.services')
+  .factory('Flow', ['$resource', Flow])
+  .factory('FlowSearchInitialData', ['Flow', '$route', FlowSearchInitialData])
+  .factory('FlowService', ['Flow', FlowService]);

@@ -5,13 +5,13 @@ describe('WashingMachineController', function() {
   var $controller;
   var $q;
   var WashingMachineServiceStub;
-  var scope;
+  var $rootScope;
 
   beforeEach(function() {
     module('acromaster');
 
-    inject(function(_$controller_, $rootScope, _$q_) {
-      scope = $rootScope.$new();
+    inject(function(_$controller_, _$rootScope_, _$q_) {
+      $rootScope = _$rootScope_;
       $controller = _$controller_;
       $q = _$q_;
     });
@@ -31,11 +31,11 @@ describe('WashingMachineController', function() {
   });
 
   it('should bind the washing machine to the scope', function() {
-    $controller('WashingMachineViewController', { $scope: scope, WashingMachineService : WashingMachineServiceStub });
-    scope.$digest();
+    var vm = $controller('WashingMachineViewController', { WashingMachineService : WashingMachineServiceStub });
+    $rootScope.$digest();
 
-    scope.move1.name.should.eql('move1');
-    scope.move2.name.should.eql('move2');
-    scope.washing_machine.should.eql('WishyWash');
+    vm.move1.name.should.eql('move1');
+    vm.move2.name.should.eql('move2');
+    vm.washing_machine.should.eql('WishyWash');
   });
 });

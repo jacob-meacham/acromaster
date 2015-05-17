@@ -1,8 +1,6 @@
 'use strict';
 
-var directives = angular.module('acromaster.directives');
-
-directives.directive('backButton', [function() {
+var backButton = function() {
   return {
     restrict: 'E',
     template: '<a ng-href="{{url}}"><span class="glyphicon glyphicon-circle-arrow-left large-glyphicon back-button"></span></a>',
@@ -10,4 +8,7 @@ directives.directive('backButton', [function() {
       'url': '@'
     }
   };
-}]);
+};
+
+angular.module('acromaster.directives')
+  .directive('backButton', backButton);

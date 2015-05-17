@@ -155,6 +155,34 @@ describe('FlowPlayerDirective', function() {
 
       cancelSpy.should.have.callCount(1);
     });
+
+    it('should allow updating the duration', function() {
+      ctrl.start();
+
+      deferred.resolve();
+      $rootScope.$apply();
+
+      ctrl.timeRemaining.should.eql(10000);
+      ctrl.updateDuration();
+      ctrl.timeRemaining.should.eql(10000);
+
+      ctrl.speedMultiplier = 2;
+      ctrl.updateDuration();
+      ctrl.timeRemaining.should.eql(5000);
+
+      ctrl.speedMultiplier = 0.5;
+      ctrl.updateDuration();
+      ctrl.timeRemaining.should.eql(20000);
+
+      ctrl.speedMultiplier = -1;
+      ctrl.updateDuration();
+      ctrl.timeRemaining.should.eql(10000);
+
+      advanceMove(9000);
+      ctrl.speedMultiplier = 2;
+      ctrl.updateDuration();
+      ctrl.timeRemaining.should.eql(1000);
+    });
   });
 
   describe('directive', function() {

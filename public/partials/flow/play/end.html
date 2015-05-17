@@ -3,16 +3,16 @@
     <h3>Here's what you did</h3>
     <div class="inner row">
       <div class="col-md-4">
-        <just-gage id="moves-gauge" value="numMovesOptions.value" options="numMovesOptions"></just-gage>
+        <just-gage id="moves-gauge" value="vm.numMovesOptions.value" options="vm.numMovesOptions"></just-gage>
       </div>
       <div class="col-md-4">
-        <just-gage id="time-gauge" value="totalTimeOptions.value" options="totalTimeOptions"></just-gage>
+        <just-gage id="time-gauge" value="vm.totalTimeOptions.value" options="vm.totalTimeOptions"></just-gage>
       </div>
       <div class="col-md-4">
-        <just-gage id="difficulty-gauge" value="difficultyOptions.value" options="difficultyOptions"></just-gage>
+        <just-gage id="difficulty-gauge" value="vm.difficultyOptions.value" options="vm.difficultyOptions"></just-gage>
       </div>
     </div>
-    <a ng-href="/flow/{{flow.id}}/remix">Remix This Flow</a>
-    <flow-share flow-id="{{flow.id}}"></flow-share>
-    <flow-like flow="flow"></flow-like>
+    <a ng-href="/flow/{{vm.flow.id}}/remix">Remix This Flow</a>
+    <flow-share flow-id="{{vm.flow.id}}"></flow-share>
+    <flow-like flow="vm.flow"></flow-like>
 </section>

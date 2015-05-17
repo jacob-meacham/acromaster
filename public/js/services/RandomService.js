@@ -1,9 +1,7 @@
 'use strict';
 
-var acromasterServices = angular.module('acromaster.services');
-
 // Because testable code is the best, and why not?
-acromasterServices.factory('RandomService', [function() {
+var RandomService = function() {
   return {
     random: function() {
       return Math.random();
@@ -13,9 +11,9 @@ acromasterServices.factory('RandomService', [function() {
       return arr[Math.floor(Math.random()*arr.length)];
     }
   };
-}]);
+};
 
-acromasterServices.factory('RandomNameService', ['RandomService', function(rand) {
+var RandomNameService = function(rand) {
   return {
     generateFlowName: function() {
       var template = {
@@ -44,4 +42,8 @@ acromasterServices.factory('RandomNameService', ['RandomService', function(rand)
       }
     }
   };
-}]);
+};
+
+angular.module('acromaster.services')
+  .factory('RandomService', RandomService)
+  .factory('RandomNameService', ['RandomService', RandomNameService]);

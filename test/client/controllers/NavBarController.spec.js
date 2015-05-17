@@ -3,23 +3,18 @@
 describe('NavbarController', function() {
   beforeEach(module('acromaster'));
 
-  var $scope;
-  var AuthService;
-  var $controller;
-  var $modal;
-  var locals;
-
   var sandbox;
+  
+  var $controller;
+  var AuthService;
+  var $modal;
 
-  beforeEach(inject(function(_$controller_, _$modal_, _AuthService_, $rootScope) {
+  beforeEach(inject(function(_$controller_, _$modal_, _AuthService_) {
     $controller = _$controller_;
     $modal = _$modal_;
     AuthService = _AuthService_;
-    $scope = $rootScope.$new();
 
     sandbox = sinon.sandbox.create();
-
-    locals = { $scope: $scope, AuthService: AuthService};
   }));
 
   afterEach(function() {
@@ -30,10 +25,10 @@ describe('NavbarController', function() {
     var user = {name: 'foo', roles: []};
     AuthService.setUser(user);
 
-    $controller('NavbarController', locals);
+    var vm = $controller('NavbarController');
 
-    $scope.user.should.eql(user);
-    $scope.authenticated.should.eql(true);
+    vm.user.should.eql(user);
+    vm.authenticated.should.eql(true);
   });
 
   it('should allow for logout', function() {
@@ -44,24 +39,24 @@ describe('NavbarController', function() {
       callback();
     });
 
-    $controller('NavbarController', locals);
+    var vm = $controller('NavbarController');
 
-    $scope.user.should.eql(user);
-    $scope.authenticated.should.eql(true);
+    vm.user.should.eql(user);
+    vm.authenticated.should.eql(true);
 
-    $scope.logout();
+    vm.logout();
 
     logoutStub.should.have.callCount(1);
-    expect($scope.user).to.be.null;
-    $scope.authenticated.should.be.false;
+    expect(vm.user).to.be.null;
+    vm.authenticated.should.be.false;
   });
 
   it('should open the About modal', function() {
     var openStub = sandbox.stub($modal, 'open');
 
-    $controller('NavbarController', locals);
+    var vm = $controller('NavbarController');
 
-    $scope.about();
+    vm.about();
     openStub.should.have.callCount(1);
     var openCall = openStub.getCall(0);
     openCall.args[0].controller.should.eql('AboutController');

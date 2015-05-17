@@ -3,13 +3,12 @@
 describe('QuickPlayController', function() {
   beforeEach(module('acromaster'));
 
+  var sandbox;
+  var vm;
   var $rootScope;
-  var $scope;
   var $location;
   var FlowService;
   var deferred;
-
-  var sandbox;
 
   beforeEach(inject(function(_$rootScope_, $controller, $q) {
     $rootScope = _$rootScope_;
@@ -28,8 +27,7 @@ describe('QuickPlayController', function() {
       generateFlowName: function() { return 'My Flow Name'; }
     };
 
-    $scope = {};
-    $controller('WorkoutCreateController', { $scope: $scope, $location: $location, FlowService: FlowService, RandomNameService: RandomNameService });
+    vm = $controller('WorkoutCreateController', { $location: $location, FlowService: FlowService, RandomNameService: RandomNameService });
   }));
 
   afterEach(function() {
@@ -37,17 +35,17 @@ describe('QuickPlayController', function() {
   });
 
   it('should initialize the scope with appropriate params', function() {
-    expect($scope.flowParams).to.not.be.null;
-    $scope.flowParams.totalMinutes.should.eql(30);
+    expect(vm.flowParams).to.not.be.null;
+    vm.flowParams.totalMinutes.should.eql(30);
 
-    expect($scope.generateFlow).to.not.be.null;
+    expect(vm.generateFlow).to.not.be.null;
   });
 
   it('should generate the flow with the appropriate params', function() {
-    $scope.flowParams.totalMinutes = 20;
-    $scope.flowParams.foo = 'foo';
+    vm.flowParams.totalMinutes = 20;
+    vm.flowParams.foo = 'foo';
 
-    var expectedParams = $scope.flowParams;
+    var expectedParams = vm.flowParams;
 
     FlowService.generateFlow = {};
     sandbox.stub(FlowService, 'generateFlow', function(params) {
@@ -55,18 +53,18 @@ describe('QuickPlayController', function() {
       return deferred.promise;
     });
 
-    $scope.generateFlow();
+    vm.generateFlow();
     deferred.resolve({});
     $rootScope.$apply();
   });
 
   it('should set the total time correctly', function() {
-    $scope.flowParams.totalMinutes = 10;
-    $scope.generateFlow();
+    vm.flowParams.totalMinutes = 10;
+    vm.generateFlow();
     deferred.resolve({});
     $rootScope.$apply();
 
-    $scope.flowParams.totalTime.should.eql(10*60);
+    vm.flowParams.totalTime.should.eql(10*60);
   });
 
   it('should set the location to quick play', function() {
@@ -76,7 +74,7 @@ describe('QuickPlayController', function() {
       path.should.eql('/flow/myFlowId/play');
     });
 
-    $scope.generateFlow();
+    vm.generateFlow();
     deferred.resolve({id: flowId});
     $rootScope.$apply();
     pathStub.should.have.callCount(1);

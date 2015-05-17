@@ -1,11 +1,16 @@
 'use strict';
 
-angular.module('acromaster.controllers').controller('AboutController', ['$scope', '$modalInstance', 'VersionService', function($scope, $modalInstance, version) {
+var AboutController = function($modalInstance, version) {
+  var vm = this;
   version.getVersion().success(function(ver) {
-    $scope.version = ver;
+    vm.version = ver;
   });
 
-  $scope.exit = function() {
+  vm.exit = function() {
     $modalInstance.dismiss('exit');
   };
-}]);
+};
+
+angular.module('acromaster.controllers')
+  .controller('AboutController', ['$modalInstance', 'VersionService', AboutController]);
+  

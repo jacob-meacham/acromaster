@@ -1,8 +1,6 @@
 'use strict';
 
-var acromasterServices = angular.module('acromaster.services');
-
-acromasterServices.factory('SoundService', ['$http', function($http) {
+var SoundService = function($http) {
   return {
     getRoot: function() {
       return $http.get('/api/sounds').then(function(root) {
@@ -16,4 +14,7 @@ acromasterServices.factory('SoundService', ['$http', function($http) {
       });
     }
   };
-}]);
+};
+
+angular.module('acromaster.services')
+  .factory('SoundService', ['$http', SoundService]);

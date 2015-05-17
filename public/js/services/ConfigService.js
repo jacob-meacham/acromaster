@@ -1,14 +1,17 @@
 'use strict';
-var services = angular.module('acromaster.services');
 
-services.factory('_', ['$window', function($window) {
+var lodash = function($window) {
   return $window._;
-}]);
+};
 
-services.factory('environment', ['$window', function($window) {
+var environment = function($window) {
   return {
     isDebug: function() {
       return $window.env === 'development';
     }
   };
-}]);
+};
+
+angular.module('acromaster.services')
+  .factory('_', ['$window', lodash])
+  .factory('environment', ['$window', environment]);

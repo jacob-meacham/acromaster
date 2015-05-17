@@ -12,27 +12,25 @@ describe('PageHeaderController', function() {
   }));
 
   it('should start with the Head Service defaults', function() {
-    var $scope = {};
-    $controller('PageHeaderController', { $scope: $scope, PageHeaderService: PageHeaderService });
+    var vm = $controller('PageHeaderController');
 
-    $scope.pageHeader.siteName.should.eql(PageHeaderService.siteName);
-    $scope.pageHeader.title.should.eql(PageHeaderService.title);
-    $scope.pageHeader.description.should.eql(PageHeaderService.description);
-    $scope.pageHeader.keywords.should.eql(PageHeaderService.keywords);
+    vm.header.siteName.should.eql(PageHeaderService.siteName);
+    vm.header.title.should.eql(PageHeaderService.title);
+    vm.header.description.should.eql(PageHeaderService.description);
+    vm.header.keywords.should.eql(PageHeaderService.keywords);
   });
 
   it('should update when the service values update', function() {
-    var $scope = {};
-    $controller('PageHeaderController', { $scope: $scope });
+    var vm = $controller('PageHeaderController');
 
     PageHeaderService.setSiteName('new site name');
     PageHeaderService.setTitle('new title');
     PageHeaderService.setDescription('new description');
     PageHeaderService.setKeywords('new keywords');
 
-    $scope.pageHeader.siteName.should.eql(PageHeaderService.siteName);
-    $scope.pageHeader.title.should.eql(PageHeaderService.title);
-    $scope.pageHeader.description.should.eql(PageHeaderService.description);
-    $scope.pageHeader.keywords.should.eql(PageHeaderService.keywords);
+    vm.header.siteName.should.eql(PageHeaderService.siteName);
+    vm.header.title.should.eql(PageHeaderService.title);
+    vm.header.description.should.eql(PageHeaderService.description);
+    vm.header.keywords.should.eql(PageHeaderService.keywords);
   });
 });

@@ -1,19 +1,19 @@
 <section class="flows">
-    <h1 class="flow-title">{{flow.name}}</h1>
-    <em>Created by {{flow.author.name || "Anonymous"}} on {{flow.createdAt | date}}</em>
+    <h1 class="flow-title">{{vm.flow.name}}</h1>
+    <em>Created by {{vm.flow.author.name || "Anonymous"}} on {{vm.flow.createdAt | date}}</em>
 
     <h3>Moves</h3>
     <ul>
-        <li ng-repeat='moveEntry in flow.moves'>
+        <li ng-repeat='moveEntry in vm.flow.moves'>
             {{moveEntry.move.name}} - {{moveEntry.duration}} seconds
         </li>
     </ul>
-    <a ng-click='toggleFavorite()'>{{action}}</a>
-    <flow-like flow="flow"></flow-like>
-    <a ng-href="/flow/{{flow.id}}/edit" ng-show="canEdit">Edit Your Flow</a>
-    <a ng-href="/flow/{{flow.id}}/remix">Remix This Flow</a>
-    <button ng-click="delete()" class="btn btn-default" ng-show="canEdit">Delete Your Flow</button>
-    <button ng-click="start()" class="btn btn-default">Start Flow</button>
-    <flow-share flow-id="{{flow.id}}"></flow-share>
+    <a ng-click='vm.toggleFavorite()'>{{vm.action}}</a>
+    <flow-like flow="vm.flow"></flow-like>
+    <a ng-href="/flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit">Edit Your Flow</a>
+    <a ng-href="/flow/{{vm.flow.id}}/remix">Remix This Flow</a>
+    <button ng-click="vm.delete()" class="btn btn-default" ng-show="vm.canEdit">Delete Your Flow</button>
+    <button ng-click="vm.start()" class="btn btn-default">Start Flow</button>
+    <flow-share flow-id="{{vm.flow.id}}"></flow-share>
     <back-button url="/flows"></back-button>
 </section>

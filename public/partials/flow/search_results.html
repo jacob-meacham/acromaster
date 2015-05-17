@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat='flow in flows | filter:query'>
+            <tr ng-repeat='flow in vm.flows | filter:query'>
                 <td><a ng-href="/flow/{{flow.id}}">{{flow.name}}</a></td>
                 <td>{{flow.author.name||"Anonymous"}}</td>
                 <td>TODO Calculate Length {{flow.moves.length}}</td>

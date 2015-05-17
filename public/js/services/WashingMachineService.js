@@ -1,7 +1,6 @@
 'use strict';
-var acromasterServices = angular.module('acromaster.services');
 
-acromasterServices.factory('WashingMachineService', ['Moves', 'RandomService', function(Moves, rand) {
+var WashingMachineService = function(Moves, rand) {
   var staticMoves = Moves.query({'tags': 'static'});
 
   var generateName = function() {
@@ -54,4 +53,7 @@ acromasterServices.factory('WashingMachineService', ['Moves', 'RandomService', f
       });
     }
   };
-}]);
+};
+
+angular.module('acromaster.services')
+  .factory('WashingMachineService', ['Moves', 'RandomService', WashingMachineService]);

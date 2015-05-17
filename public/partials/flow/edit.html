@@ -1,5 +1,4 @@
 <section class="flows center-block col-sm-8">
-    <floweditor flow="flow" on-save-success="saveSuccess(flow)" is-creating="false"></floweditor>
-    <button ng-click="reset()" class="btn btn-default">Start Flow</button>
+    <floweditor flow="vm.flow" on-save-success="vm.saveSuccess(flow)" is-creating="false"></floweditor>
     <back-button url="/"></back-button>
 </section>

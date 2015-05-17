@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('acromaster.directives')
-.controller('FlowPlayerDirectiveController', ['$scope', '$interval', 'SoundService', function($scope, $interval, sounds) {
+var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   var vm = this;
 
   var audio = vm.audio = new Audio();
@@ -88,10 +87,7 @@ angular.module('acromaster.directives')
   };
 
   var nextMove = function(entryIndex) {
-    if (currentEntry) {
-      currentEntry.visible = false;
-    }
- 
+    currentEntry.visible = false;
     if (entryIndex >= vm.flow.moves.length) {
       return finishFlow();
     }
@@ -103,7 +99,7 @@ angular.module('acromaster.directives')
     vm.currentMoveIdx = entryIndex;
     vm.setAudio(currentEntry.move.audioUri);
  
-    var scaledDuration = getScaledDuration(currentEntry.duration, vm.speedMultiplier);
+    scaledDuration = getScaledDuration(currentEntry.duration, vm.speedMultiplier);
     vm.timeRemaining = scaledDuration * 1000;
     startTimer(1000);
   };
@@ -119,8 +115,9 @@ angular.module('acromaster.directives')
   $scope.$on('$destroy', function() {
     cancelTimer();
   });
-}])
-.directive('flowplayer', function() {
+};
+
+var flowplayer = function() {
   return {
     restrict: 'E',
     scope: {
@@ -132,4 +129,8 @@ angular.module('acromaster.directives')
     controllerAs: 'vm',
     bindToController: true
   };
-});
+};
+
+angular.module('acromaster.directives')
+  .controller('FlowPlayerDirectiveController', ['$scope', '$interval', 'SoundService', FlowPlayerDirectiveController])
+  .directive('flowplayer', flowplayer);
