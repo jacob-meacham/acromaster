@@ -133,12 +133,11 @@ describe('FlowLikeDirective', function() {
     }));
 
     it('should bind a flow', function() {
-      // var moves = [{move: 'move1', duration: 30}, {move: 'move3', duration: 100}];
       var deferred = $q.defer();
       $rootScope.flow = {id: 'flowId', likes: 10};
       $rootScope.flow.$promise = deferred.promise;
 
-      var element = $compile('<flowlike flow="flow"></flowlike>')($rootScope);
+      var element = $compile('<flow-like flow="flow"></flow-like>')($rootScope);
       $rootScope.$digest();
 
       var ctrl = element.isolateScope().vm;

@@ -28,7 +28,7 @@ describe('Profile*Controllers', function() {
   var assertProfileEqual = function(o) {
     o.name.should.eql(profile.name);
     o.flows.should.eql(profile.flows);
-  }
+  };
 
   describe('ProfileHomeController', function() {
     it('should set the profile from the server', function() {
