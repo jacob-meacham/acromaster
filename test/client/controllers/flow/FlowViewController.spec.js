@@ -4,8 +4,8 @@ describe('FlowViewController', function() {
   beforeEach(module('acromaster'));
 
   var sandbox;
-  var $scope;
   var $controller;
+  var $rootScope;
 
   var flow;
   var FlowService;
@@ -15,9 +15,9 @@ describe('FlowViewController', function() {
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
 
-    inject(function(_$controller_, $rootScope, Flow, _FlowService_, _$location_, _AuthService_) {
+    inject(function(_$controller_, _$rootScope_, Flow, _FlowService_, _$location_, _AuthService_) {
       $controller = _$controller_;
-      $scope = $rootScope.$new();
+      $rootScope = _$rootScope_;
       
       flow = new Flow({moves: []});
       flow.id = '10';
@@ -36,9 +36,9 @@ describe('FlowViewController', function() {
     var flowStub = sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
     var userStub = sandbox.stub(AuthService, 'getUser').returns({id: 'userId'});
     sandbox.stub(AuthService, 'isAuthenticated').returns(true);
-    $controller('FlowViewController', {$scope: $scope});
+    var vm = $controller('FlowViewController');
 
-    $scope.flow.should.eql(flow);
+    vm.flow.should.eql(flow);
     flowStub.should.have.callCount(1);
     userStub.should.have.callCount(1);
   });
@@ -49,9 +49,9 @@ describe('FlowViewController', function() {
     sandbox.stub(AuthService, 'getUser').returns({id: 'userId'});
     sandbox.stub(AuthService, 'isAuthenticated').returns(true);
 
-    $controller('FlowViewController', {$scope: $scope});
+    var vm = $controller('FlowViewController');
 
-    $scope.start();
+    vm.start();
     pathSpy.should.have.been.calledWith('/flow/10/play');
   });
 
@@ -62,13 +62,13 @@ describe('FlowViewController', function() {
     });
 
     var authStub = sandbox.stub(AuthService, 'canEdit').returns(true);
-    $controller('FlowViewController', {$scope: $scope});
-    $scope.canEdit.should.eql(true);
+    var vm = $controller('FlowViewController');
+    vm.canEdit.should.eql(true);
 
     authStub.restore();
     authStub = sandbox.stub(AuthService, 'canEdit').returns(false);
-    $controller('FlowViewController', {$scope: $scope});
-    $scope.canEdit.should.eql(false);
+    vm = $controller('FlowViewController');
+    vm.canEdit.should.eql(false);
   });
 
   describe('favorited', function() {
@@ -95,23 +95,23 @@ describe('FlowViewController', function() {
 
     it('should have the correct state if authenticated and favorited', function() {
       setup(true, true);
-      $controller('FlowViewController', {$scope: $scope});
-      $scope.hasFavorited.should.eql(true);
-      $scope.action.should.eql('Unfavorite');
+      var vm = $controller('FlowViewController');
+      vm.hasFavorited.should.eql(true);
+      vm.action.should.eql('Unfavorite');
     });
 
     it('should have the correct state if authenticated and not favorited', function() {
       setup(true, false);
-      $controller('FlowViewController', {$scope: $scope});
-      $scope.hasFavorited.should.eql(false);
-      $scope.action.should.eql('Favorite');
+      var vm = $controller('FlowViewController');
+      vm.hasFavorited.should.eql(false);
+      vm.action.should.eql('Favorite');
     });
 
     it('should have the correct state if not authenticated', function() {
       setup(false, false);
-      $controller('FlowViewController', {$scope: $scope});
-      $scope.hasFavorited.should.eql(false);
-      $scope.action.should.eql('Favorite');
+      var vm = $controller('FlowViewController');
+      vm.hasFavorited.should.eql(false);
+      vm.action.should.eql('Favorite');
     });
 
     it('should toggle correctly if authenticated and favorited', function() {
@@ -119,18 +119,18 @@ describe('FlowViewController', function() {
       var unfavoriteStub = sandbox.stub(User, 'unfavorite').returns({});
 
       setup(true, true);
-      $controller('FlowViewController', {$scope: $scope});
-      $scope.hasFavorited.should.eql(true);
+      var vm = $controller('FlowViewController');
+      vm.hasFavorited.should.eql(true);
       
-      $scope.toggleFavorite();
+      vm.toggleFavorite();
       unfavoriteStub.should.have.callCount(1);
-      $scope.hasFavorited.should.eql(false);
-      $scope.action.should.eql('Favorite');
+      vm.hasFavorited.should.eql(false);
+      vm.action.should.eql('Favorite');
 
-      $scope.toggleFavorite();
+      vm.toggleFavorite();
       favoriteStub.should.have.callCount(1);
-      $scope.hasFavorited.should.eql(true);
-      $scope.action.should.eql('Unfavorite');
+      vm.hasFavorited.should.eql(true);
+      vm.action.should.eql('Unfavorite');
     });
 
     it('should toggle correctly if authenticated and not favorited', function() {
@@ -138,17 +138,17 @@ describe('FlowViewController', function() {
       var unfavoriteStub = sandbox.stub(User, 'unfavorite').returns({});
 
       setup(true, false);
-      $controller('FlowViewController', {$scope: $scope});
+      var vm = $controller('FlowViewController');
 
-      $scope.toggleFavorite();
+      vm.toggleFavorite();
       favoriteStub.should.have.callCount(1);
-      $scope.hasFavorited.should.eql(true);
-      $scope.action.should.eql('Unfavorite');
+      vm.hasFavorited.should.eql(true);
+      vm.action.should.eql('Unfavorite');
 
-      $scope.toggleFavorite();
+      vm.toggleFavorite();
       unfavoriteStub.should.have.callCount(1);
-      $scope.hasFavorited.should.eql(false);
-      $scope.action.should.eql('Favorite');
+      vm.hasFavorited.should.eql(false);
+      vm.action.should.eql('Favorite');
     });
 
     it('should not toggle if not authenticated', function() {
@@ -156,8 +156,8 @@ describe('FlowViewController', function() {
       var unfavoriteStub = sandbox.stub(User, 'unfavorite').returns({});
 
       setup(false, false);
-      $controller('FlowViewController', {$scope: $scope});
-      $scope.toggleFavorite();
+      var vm = $controller('FlowViewController');
+      vm.toggleFavorite();
       favoriteStub.should.have.callCount(0);
       unfavoriteStub.should.have.callCount(0);
     });
@@ -175,9 +175,9 @@ describe('FlowViewController', function() {
     it('should open the a delete modal', function() {
       var openSpy = sandbox.spy($modal, 'open');
 
-      $controller('FlowViewController', { $scope: $scope });
+      var vm = $controller('FlowViewController');
 
-      $scope.delete();
+      vm.delete();
       openSpy.should.have.callCount(1);
     });
 
@@ -185,12 +185,12 @@ describe('FlowViewController', function() {
       sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
       var openSpy = sandbox.spy($modal, 'open');
 
-      $controller('FlowViewController', { $scope: $scope });
+      var vm = $controller('FlowViewController');
 
-      $scope.delete();
+      vm.delete();
       $httpBackend.expectGET('partials/flow/delete_modal.html').respond({});
       $httpBackend.expectGET('/partials/index.html').respond({});
-      $scope.$apply();
+      $rootScope.$apply();
       $httpBackend.flush();
 
       openSpy.should.have.callCount(1);
@@ -200,7 +200,7 @@ describe('FlowViewController', function() {
 
       var instance = openSpy.getCall(0).returnValue;
       instance.close(1);
-      $scope.$apply();
+      $rootScope.$apply();
       $httpBackend.flush();
 
       locationStub.should.have.callCount(1);

@@ -4,7 +4,6 @@ describe('FlowEditController', function() {
   beforeEach(module('acromaster'));
 
   var sandbox;
-  var $scope;
   var $controller;
 
   var flow;
@@ -13,7 +12,6 @@ describe('FlowEditController', function() {
 
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
-    $scope = {};
 
     inject(function(_$controller_, Flow, _FlowService_, _$location_) {
       $controller = _$controller_;
@@ -34,16 +32,16 @@ describe('FlowEditController', function() {
     sandbox.stub(FlowService, 'instantiateFlow', function(id, cb) {
       cb(flow);
     });
-    $controller('FlowEditController', {$scope: $scope});
-
-    $scope.flow.should.eql(flow);
+    
+    var vm = $controller('FlowEditController');
+    vm.flow.should.eql(flow);
   });
 
   it('should redirect on save success', function() {
     var pathSpy = sandbox.spy($location, 'path');
-    $controller('FlowEditController', {$scope: $scope});
+    var vm = $controller('FlowEditController');
 
-    $scope.saveSuccess(flow);
+    vm.saveSuccess(flow);
     pathSpy.should.have.been.calledWith('/flow/10');
   });
 });

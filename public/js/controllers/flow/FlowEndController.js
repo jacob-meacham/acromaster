@@ -1,7 +1,8 @@
 'use strict';
 
-var FlowEndController = function($scope, $location, Flow, flowService, flowStats, $timeout, _) {
-  var flow = $scope.flow = flowService.getCurrentFlow();
+var FlowEndController = function($location, Flow, flowService, flowStats, $timeout, _) {
+  var vm = this;
+  var flow = vm.flow = flowService.getCurrentFlow();
   if (!flow || !flow.moves || flow.moves.length === 0) {
     // No flow defined, so redirect back to home.
     return $location.path('/');
@@ -23,7 +24,7 @@ var FlowEndController = function($scope, $location, Flow, flowService, flowStats
     donutStartAngle: 270
   };
   
-  $scope.totalTimeOptions = _.merge({
+  vm.totalTimeOptions = _.merge({
     title: 'Total Time',
     min: 0,
     max: 60,
@@ -31,14 +32,14 @@ var FlowEndController = function($scope, $location, Flow, flowService, flowStats
     
   }, commonOptions);
 
-  $scope.difficultyOptions = _.merge({
+  vm.difficultyOptions = _.merge({
     title: 'Average Move Difficulty',
     min: 0,
     max: 9,
     levelColors: ['#FFFF00'],
   }, commonOptions);
 
-  $scope.numMovesOptions = _.merge({
+  vm.numMovesOptions = _.merge({
     title: 'Number of Moves',
     min: 0,
     max: 100,
@@ -46,17 +47,17 @@ var FlowEndController = function($scope, $location, Flow, flowService, flowStats
   }, commonOptions);
 
   $timeout(function() {
-    $scope.numMovesOptions.value = stats.numMoves;
+    vm.numMovesOptions.value = stats.numMoves;
   }, 650);
 
   $timeout(function() {
-    $scope.totalTimeOptions.value = stats.totalTime;
+    vm.totalTimeOptions.value = stats.totalTime;
   }, 850);
 
   $timeout(function() {
-    $scope.difficultyOptions.value = stats.difficulty;
+    vm.difficultyOptions.value = stats.difficulty;
   }, 1050);
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowEndController', ['$scope', '$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', FlowEndController]);
+  .controller('FlowEndController', ['$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', FlowEndController]);

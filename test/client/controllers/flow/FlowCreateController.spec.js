@@ -4,7 +4,6 @@ describe('FlowCreateController', function() {
   beforeEach(module('acromaster'));
 
   var sandbox;
-  var $scope;
   var $controller;
 
   var Flow;
@@ -14,7 +13,6 @@ describe('FlowCreateController', function() {
 
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
-    $scope = {};
 
     inject(function(_$controller_, _Flow_, _FlowService_, _$location_, _$routeParams_) {
       $controller = _$controller_;
@@ -31,18 +29,18 @@ describe('FlowCreateController', function() {
   
   it('should start with an empty flow', function() {
     var expected = new Flow({moves: []});
-    $controller('FlowCreateController', {$scope: $scope});
+    var vm = $controller('FlowCreateController');
 
-    $scope.flow.should.eql(expected);
+    vm.flow.should.eql(expected);
   });
 
   it('should redirect on save success', function() {
     var pathSpy = sandbox.spy($location, 'path');
-    $controller('FlowCreateController', {$scope: $scope});
+    var vm = $controller('FlowCreateController');
 
     var flow = new Flow();
     flow.id = '10';
-    $scope.saveSuccess(flow);
+    vm.saveSuccess(flow);
     pathSpy.should.have.been.calledWith('/flow/10');
   });
 
@@ -53,9 +51,9 @@ describe('FlowCreateController', function() {
       cb({moves: ['a', 'b'], name: 'My Flow'});
     });
 
-    $controller('FlowCreateController', {$scope: $scope});
-    $scope.flow.moves.should.eql(['a', 'b']);
-    $scope.flow.name.should.eql('Remix of My Flow');
+    var vm = $controller('FlowCreateController');
+    vm.flow.moves.should.eql(['a', 'b']);
+    vm.flow.name.should.eql('Remix of My Flow');
 
     instantiateSpy.should.have.callCount(1);
   });

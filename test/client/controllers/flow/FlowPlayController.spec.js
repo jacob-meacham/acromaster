@@ -4,7 +4,6 @@ describe('FlowPlayController', function() {
   beforeEach(module('acromaster'));
 
   var sandbox;
-  var $scope;
   var $controller;
   
   var flow;
@@ -24,7 +23,6 @@ describe('FlowPlayController', function() {
 
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
-    $scope = {};
 
     inject(function(_$controller_, FlowService, _$location_) {
       $controller = _$controller_;
@@ -40,34 +38,34 @@ describe('FlowPlayController', function() {
   it('should use the cached flow', function() {
     var getStub = sandbox.stub(flowService, 'getCurrentFlow').returns(flow);
     var instantiateStub = sandbox.stub(flowService, 'instantiateFlow').throws();
-    $controller('FlowPlayController', {$scope: $scope});
+    var vm = $controller('FlowPlayController');
 
     instantiateStub.should.have.callCount(0);
     getStub.should.have.callCount(1);
 
-    $scope.flow.should.eql(flow);
+    vm.flow.should.eql(flow);
   });
 
   it('should use a flow from the server', function() {
     sandbox.stub(flowService, 'instantiateFlow').returns(flow);
-    $controller('FlowPlayController', {$scope: $scope});
+    var vm = $controller('FlowPlayController');
 
-    $scope.flow.should.eql(flow);
+    vm.flow.should.eql(flow);
   });
 
   it('should redirect on error', function() {
     var pathSpy = sandbox.spy($location, 'path');
-    $controller('FlowPlayController', {$scope: $scope});
+    var vm = $controller('FlowPlayController');
 
-    $scope.onFlowEnd('err');
+    vm.onFlowEnd('err');
     pathSpy.should.have.been.calledWith('/');
   });
 
   it('should send to end on finish', function() {
     var pathSpy = sandbox.spy($location, 'path');
-    $controller('FlowPlayController', {$scope: $scope});
+    var vm = $controller('FlowPlayController');
 
-    $scope.onFlowEnd();
+    vm.onFlowEnd();
     pathSpy.should.have.been.calledWith('/flow/end');
   });
 });

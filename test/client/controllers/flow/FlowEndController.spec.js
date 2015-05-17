@@ -4,7 +4,6 @@ describe('FlowEndController', function() {
   beforeEach(module('acromaster'));
 
   var sandbox;
-  var $scope;
   var $controller;
   
   var flow;
@@ -26,8 +25,6 @@ describe('FlowEndController', function() {
 
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
-    $scope = {};
-
     inject(function(_$controller_, FlowService, _$location_, _$timeout_, _$httpBackend_) {
       $controller = _$controller_;
 
@@ -44,38 +41,36 @@ describe('FlowEndController', function() {
 
   it('should redirect to / if no flow exists', function() {
     var spy = sandbox.spy($location, 'path');
-
-    $controller('FlowEndController', {$scope: $scope});
-
+    $controller('FlowEndController');
     spy.should.have.have.been.calledWith('/');
   });
 
   it('should create default stats options', function() {
     sandbox.stub(flowService, 'getCurrentFlow').returns(flow);
-    $controller('FlowEndController', {$scope: $scope});
+    var vm = $controller('FlowEndController');
 
-    expect($scope.totalTimeOptions).to.exist;
-    expect($scope.difficultyOptions).to.exist;
-    expect($scope.numMovesOptions).to.exist;
+    expect(vm.totalTimeOptions).to.exist;
+    expect(vm.difficultyOptions).to.exist;
+    expect(vm.numMovesOptions).to.exist;
   });
 
   it('should delay setting the stats value', function() {
     sandbox.stub(flowService, 'getCurrentFlow').returns(flow);
     $httpBackend.expectPOST('/api/flow/plays').respond({});
 
-    $controller('FlowEndController', {$scope: $scope});
+    var vm = $controller('FlowEndController');
 
     $timeout.flush(700);
-    $scope.numMovesOptions.value.should.eql(4);
-    $scope.totalTimeOptions.value.should.eql(0);
-    $scope.difficultyOptions.value.should.eql(0);
+    vm.numMovesOptions.value.should.eql(4);
+    vm.totalTimeOptions.value.should.eql(0);
+    vm.difficultyOptions.value.should.eql(0);
 
     $timeout.flush(200);
-    $scope.totalTimeOptions.value.should.eql(4);
-    $scope.difficultyOptions.value.should.eql(0);
+    vm.totalTimeOptions.value.should.eql(4);
+    vm.difficultyOptions.value.should.eql(0);
 
     $timeout.flush(200);
-    $scope.difficultyOptions.value.should.eql(5);
+    vm.difficultyOptions.value.should.eql(5);
 
     $timeout.verifyNoPendingTasks();
   });

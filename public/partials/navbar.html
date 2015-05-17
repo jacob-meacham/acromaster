@@ -1,17 +1,17 @@
 <div class="container inner">  
   <div class="navbar-header pull-right">
-    <ul class="nav navbar-nav pull-left" data-ng-hide="authenticated">
+    <ul class="nav navbar-nav pull-left" data-ng-hide="nav.authenticated">
       <li class="pull-right sticky-item"><a href="/login">Login</a></li>
     </ul>
-    <ul class="nav pull-left" data-ng-show="authenticated">
+    <ul class="nav pull-left" data-ng-show="nav.authenticated">
         <li class="dropdown pull-right">
             <a href="#" class="dropdown-toggle sticky-item">
-                {{user.name}} <b class="caret"></b>
+                {{nav.user.name}} <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="/users/me">Profile</a></li>
+                <li><a ng-href="/users/{{nav.user.username}}">Profile</a></li>
                 <li class="divider"></li>
-                <li><a href ng-click="logout()">Sign out</a></li>
+                <li><a href ng-click="nav.logout()">Sign out</a></li>
             </ul>
         </li>
     </ul>
@@ -27,7 +27,7 @@
   <div class="collapse navbar-collapse navbar-right">
         <ul nav-menu class="nav navbar-nav pull-right">
             <li>
-                <a ng-click="about()">About</a>
+                <a ng-click="nav.about()">About</a>
             </li>
         </ul>
   </div>

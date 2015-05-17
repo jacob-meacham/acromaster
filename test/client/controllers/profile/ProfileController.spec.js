@@ -24,11 +24,10 @@ describe('Profile*Controllers', function() {
   describe('ProfileHomeController', function() {
     it('should set the profile from the server', function() {
       sandbox.stub(User, 'get').returns(profile);
-      var $scope = {};
       
       // Create controller
-      $controller('ProfileHomeController', { $scope: $scope });
-      $scope.profile.should.eql(profile);
+      var vm = $controller('ProfileHomeController');
+      vm.profile.should.eql(profile);
     });
 
     it('should show an error if the user does not exist', function() {
@@ -40,11 +39,10 @@ describe('Profile*Controllers', function() {
   describe('ProfileStatsController', function() {
     it('should set the profile from the server', function() {
       sandbox.stub(User, 'get').returns(profile);
-      var $scope = {};
       
       // Create controller
-      $controller('ProfileStatsController', { $scope: $scope });
-      $scope.profile.should.eql(profile);
+      var vm = $controller('ProfileStatsController');
+      vm.profile.should.eql(profile);
     });
 
     it('should show an error if the user does not exist', function() {
@@ -56,11 +54,10 @@ describe('Profile*Controllers', function() {
   describe('ProfileAchievementsController', function() {
     it('should set the profile from the server', function() {
       sandbox.stub(User, 'get').returns(profile);
-      var $scope = {};
       
       // Create controller
-      $controller('ProfileAchievementsController', { $scope: $scope });
-      $scope.profile.should.eql(profile);
+      var vm = $controller('ProfileAchievementsController');
+      vm.profile.should.eql(profile);
     });
 
     it('should show an error if the user does not exist', function() {

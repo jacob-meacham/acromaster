@@ -4,8 +4,6 @@ describe('FlowHomeController', function() {
   beforeEach(module('acromaster'));
 
   var sandbox;
-  
-  var $scope;
   var $controller;
 
   var Flow;
@@ -13,7 +11,6 @@ describe('FlowHomeController', function() {
 
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
-    $scope = {};
 
     inject(function(_$controller_, _Flow_, _$location_) {
       $controller = _$controller_;
@@ -33,19 +30,19 @@ describe('FlowHomeController', function() {
       callback({flows: flows, total: 3});
     });
 
-    $controller('FlowHomeController', {$scope: $scope});
-    flows.should.contain($scope.randomFlow);
-    $scope.featuredFlows.should.have.length(2);
-    $scope.featuredFlows[0].should.eql(flows[1]);
-    $scope.featuredFlows[1].should.eql(flows[2]);
+    var vm = $controller('FlowHomeController');
+    flows.should.contain(vm.randomFlow);
+    vm.featuredFlows.should.have.length(2);
+    vm.featuredFlows[0].should.eql(flows[1]);
+    vm.featuredFlows[1].should.eql(flows[2]);
   });
 
   it('should expose find', function() {
     var locationSpy = sandbox.spy($location, 'path');
 
-    $controller('FlowHomeController', {$scope: $scope});
-    $scope.searchQuery = 'beginner';
-    $scope.search();
+    var vm = $controller('FlowHomeController');
+    vm.searchQuery = 'beginner';
+    vm.search();
 
     // Ensure that the location is set correctly, with the query param.
     locationSpy.should.have.callCount(1);

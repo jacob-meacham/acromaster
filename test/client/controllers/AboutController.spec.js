@@ -18,19 +18,17 @@ describe('AboutController', function() {
   }));
 
   it('should set the version to the server version', function() {
-    var $scope = {};
-    $controller('AboutController', { $scope: $scope, $modalInstance: $modalInstance });
+    var vm = $controller('AboutController', {$modalInstance: $modalInstance});
     $httpBackend.flush();
-    $scope.version.should.equal('myversion');
+    vm.version.should.equal('myversion');
   });
 
   it('should allow dismissal of the modal', function() {
-    var $scope = {};
     var dismissSpy = $modalInstance.dismiss = sinon.spy();
-    $controller('AboutController', { $scope: $scope, $modalInstance: $modalInstance });
-    $scope.exit.should.exist;
+    var vm = $controller('AboutController', {$modalInstance: $modalInstance});
+    vm.exit.should.exist;
 
-    $scope.exit();
+    vm.exit();
     dismissSpy.should.have.callCount(1);
     dismissSpy.should.have.been.calledWith('exit');
     $httpBackend.flush();

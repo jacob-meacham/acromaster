@@ -1,6 +1,6 @@
 <section class="flows">
     <section class="searchField">
-        <form ng-submit="search()">
+        <form ng-submit="vm.search()">
           <input type="text" ng-model="searchQuery">
           <input type="submit" value="Search">
         </form>
@@ -12,12 +12,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat='flow in featuredFlows'>
+            <tr ng-repeat='flow in vm.featuredFlows'>
                 <!-- TODO: A directive for showing a flow -->
                 <td><a ng-href="/flow/{{flow.id}}">{{flow.name}}</a></td>
             </tr>
         </tbody>
     </table>
-    <h3><a ng-href="/flow/{{randomFlow.id}}">Random</a></h3>
+    <h3><a ng-href="/flow/{{vm.randomFlow.id}}">Random</a></h3>
     <h3><a href="/flow/create">Create your own</a></h3>
 </section>

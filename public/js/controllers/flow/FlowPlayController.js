@@ -1,14 +1,15 @@
 'use strict';
 
-var FlowPlayController = function($scope, $location, $routeParams, flowService) {
+var FlowPlayController = function($location, $routeParams, flowService) {
+  var vm = this;
   var flow = flowService.getCurrentFlow();
   if (!flow) {
     flow = flowService.instantiateFlow($routeParams.flowId);
   }
 
-  $scope.flow = flow;
+  vm.flow = flow;
   
-  $scope.onFlowEnd = function(err) {
+  vm.onFlowEnd = function(err) {
     if (err) {
       $location.path('/');
     } else {
@@ -18,4 +19,4 @@ var FlowPlayController = function($scope, $location, $routeParams, flowService) 
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowPlayController', ['$scope', '$location', '$routeParams', 'FlowService', FlowPlayController]);
+  .controller('FlowPlayController', ['$location', '$routeParams', 'FlowService', FlowPlayController]);

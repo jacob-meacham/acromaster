@@ -4,16 +4,13 @@ describe('FlowSearchResultsController', function() {
   beforeEach(module('acromaster'));
 
   var sandbox;
-  var $scope;
   var $controller;
 
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
-    $scope = {};
 
     inject(function(_$controller_) {
       $controller = _$controller_;
-      
     });
   });
 
@@ -27,7 +24,7 @@ describe('FlowSearchResultsController', function() {
       flows: flows
     };
 
-    $controller('FlowSearchResultsController', {$scope: $scope, flows: flowsPromise});
-    $scope.flows.should.eql(flows);
+    var vm = $controller('FlowSearchResultsController', {flows: flowsPromise});
+    vm.flows.should.eql(flows);
   });
 });

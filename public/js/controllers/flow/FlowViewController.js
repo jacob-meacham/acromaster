@@ -1,19 +1,20 @@
 'use strict';
 
-var FlowViewController = function($scope, $routeParams, $location, $modal, flowService, authService, User) {
+var FlowViewController = function($routeParams, $location, $modal, flowService, authService, User) {
+  var vm = this;
   var flowId = $routeParams.flowId;
 
-  var flow = $scope.flow = flowService.instantiateFlow(flowId, function() {
-    $scope.canEdit = authService.canEdit(flow);
+  var flow = vm.flow = flowService.instantiateFlow(flowId, function() {
+    vm.canEdit = authService.canEdit(flow);
   });
 
-  $scope.start = function() {
+  vm.start = function() {
     $location.path('/flow/' + flow.id + '/play');
   };
 
   // TODO: DRY with LikeDirective
   var getAction = function() {
-    if ($scope.hasFavorited) {
+    if (vm.hasFavorited) {
       return 'Unfavorite';
     } else {
       return 'Favorite';
@@ -22,31 +23,31 @@ var FlowViewController = function($scope, $routeParams, $location, $modal, flowS
 
   if (authService.isAuthenticated()) {
     User.hasFavorited({ flowId: flowId, userId: authService.getUser().id }, function(response) {
-      $scope.hasFavorited = response.hasFavorited;
-      $scope.action = getAction();
+      vm.hasFavorited = response.hasFavorited;
+      vm.action = getAction();
     });
   } else {
-    $scope.hasFavorited = false;
-    $scope.action = getAction();
+    vm.hasFavorited = false;
+    vm.action = getAction();
   }
 
-  $scope.toggleFavorite = function() {
+  vm.toggleFavorite = function() {
     if (!authService.isAuthenticated()) {
       // TODO: popup a box in this case.
       return;
     }
 
-    if ($scope.hasFavorited) {
+    if (vm.hasFavorited) {
       User.unfavorite({ flowId: flowId, userId: authService.getUser().id});
     } else {
       User.favorite({ flowId: flowId, userId: authService.getUser().id});
     }
 
-    $scope.hasFavorited = !$scope.hasFavorited;
-    $scope.action = getAction();
+    vm.hasFavorited = !vm.hasFavorited;
+    vm.action = getAction();
   };
 
-  $scope.delete = function() {
+  vm.delete = function() {
     var modalInstance = $modal.open({
       templateUrl: 'partials/flow/delete_modal.html',
       backdrop: true,
@@ -60,4 +61,4 @@ var FlowViewController = function($scope, $routeParams, $location, $modal, flowS
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowViewController', ['$scope', '$routeParams', '$location', '$modal', 'FlowService', 'AuthService', 'User', FlowViewController]);
+  .controller('FlowViewController', ['$routeParams', '$location', '$modal', 'FlowService', 'AuthService', 'User', FlowViewController]);

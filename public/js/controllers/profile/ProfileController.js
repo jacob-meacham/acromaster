@@ -1,38 +1,43 @@
 'use strict';
 
-var setupPagination = function($scope, $http, type, userid) {
+var setupPagination = function(vm, $http, type, userid) {
   // TODO: Into a service we go!
-  $scope.flows = $http.get('/api/profile/' + userid + '/' + type);
-  $scope.perPage = 25;
+  vm.flows = $http.get('/api/profile/' + userid + '/' + type);
+  vm.perPage = 25;
 };
 
-var ProfileHomeController = function($scope, $routeParams, User) {
-  $scope.profile = User.get({userId: $routeParams.user});
+var ProfileHomeController = function($routeParams, User) {
+  var vm = this;
+  vm.profile = User.get({userId: $routeParams.user});
 };
 
-var ProfileStatsController = function($scope, $routeParams, User) {
-  $scope.profile = User.get({userId: $routeParams.user});
+var ProfileStatsController = function($routeParams, User) {
+  var vm = this;
+  vm.profile = User.get({userId: $routeParams.user});
 };
 
-var ProfileFlowsController = function($scope, $routeParams, User, $http) {
-  $scope.profile = User.get({userId: $routeParams.user});
+var ProfileFlowsController = function($routeParams, User, $http) {
+  var vm = this;
+  vm.profile = User.get({userId: $routeParams.user});
 
-  setupPagination($scope, $http, 'flows', $routeParams.user);
+  setupPagination(vm, $http, 'flows', $routeParams.user);
 };
 
-var ProfileFavoritesController = function($scope, $routeParams, User, $http) {
-  $scope.profile = User.get({userId: $routeParams.user});
+var ProfileFavoritesController = function($routeParams, User, $http) {
+  var vm = this;
+  vm.profile = User.get({userId: $routeParams.user});
 
-  setupPagination($scope, $http, 'favorites', $routeParams.user);
+  setupPagination(vm, $http, 'favorites', $routeParams.user);
 };
 
-var ProfileAchievementsController = function($scope, $routeParams, User) {
-  $scope.profile = User.get({userId: $routeParams.user});
+var ProfileAchievementsController = function($routeParams, User) {
+  var vm = this;
+  vm.profile = User.get({userId: $routeParams.user});
 };
 
 angular.module('acromaster.controllers')
-  .controller('ProfileHomeController', ['$scope', '$routeParams', 'User', ProfileHomeController])
-  .controller('ProfileStatsController', ['$scope', '$routeParams', 'User', ProfileStatsController])
-  .controller('ProfileFlowsController', ['$scope', '$routeParams', 'User', '$http', ProfileFlowsController])
-  .controller('ProfileFavoritesController', ['$scope', '$routeParams', 'User', '$http', ProfileFavoritesController])
-  .controller('ProfileAchievementsController', ['$scope', '$routeParams', 'User', ProfileAchievementsController]);
+  .controller('ProfileHomeController', ['$routeParams', 'User', ProfileHomeController])
+  .controller('ProfileStatsController', ['$routeParams', 'User', ProfileStatsController])
+  .controller('ProfileFlowsController', ['$routeParams', 'User', '$http', ProfileFlowsController])
+  .controller('ProfileFavoritesController', ['$routeParams', 'User', '$http', ProfileFavoritesController])
+  .controller('ProfileAchievementsController', ['$routeParams', 'User', ProfileAchievementsController]);

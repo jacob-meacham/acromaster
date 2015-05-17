@@ -36,19 +36,23 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
     })
     .when('/about', {
       templateUrl: '/partials/about.html',
-      controller: 'AboutController'
+      controller: 'AboutController',
+      controllerAs: 'vm'
     })
     .when('/washing-machine', {
       templateUrl: '/partials/washing-machine/view.html',
-      controller: 'WashingMachineViewController'
+      controller: 'WashingMachineViewController',
+      controllerAs: 'vm'
     })
     .when('/flows', {
       templateUrl: '/partials/flow/home.html',
-      controller: 'FlowHomeController'
+      controller: 'FlowHomeController',
+      controllerAs: 'vm'
     })
     .when('/flows/results', {
       templateUrl: '/partials/flow/search_results.html',
       controller: 'FlowSearchResultsController',
+      controllerAs: 'vm',
       resolve: {
         flows: function(FlowSearchInitialData) {
           return FlowSearchInitialData.performSearch();
@@ -57,47 +61,58 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
     })
     .when('/flow/create', {
       templateUrl: '/partials/flow/create.html',
-      controller: 'FlowCreateController'
+      controller: 'FlowCreateController',
+      controllerAs: 'vm'
     })
     .when('/flow/:flowId/remix', {
       templateUrl: '/partials/flow/create.html',
-      controller: 'FlowCreateController'
+      controller: 'FlowCreateController',
+      controllerAs: 'vm'
     })
     .when('/flow/workout', {
       templateUrl: '/partials/flow/play/workout.html',
-      controller: 'WorkoutCreateController'
+      controller: 'WorkoutCreateController',
+      controllerAs: 'vm'
     })
     .when('/flow/end', {
       templateUrl: '/partials/flow/play/end.html',
-      controller: 'FlowEndController'
+      controller: 'FlowEndController',
+      controllerAs: 'vm'
     })
     .when('/flow/:flowId/edit', {
       templateUrl: '/partials/flow/edit.html',
-      controller: 'FlowEditController'
+      controller: 'FlowEditController',
+      controllerAs: 'vm'
     })
     .when('/flow/:flowId', {
       templateUrl: '/partials/flow/view.html',
-      controller: 'FlowViewController'
+      controller: 'FlowViewController',
+      controllerAs: 'vm'
     })
     .when('/flow/:flowId/play', {
       templateUrl: '/partials/flow/play/play.html',
-      controller: 'FlowPlayController'
+      controller: 'FlowPlayController',
+      controllerAs: 'vm'
     })
     .when('/profile/:user', {
       templateUrl: '/partials/profile/home.html',
-      controller: 'ProfileHomeController'
+      controller: 'ProfileHomeController',
+      controllerAs: 'vm'
     })
     .when('/profile/:user/favorites', {
       templateUrl: '/partials/profile/favorites.html',
-      controller: 'ProfileFavoritesController'
+      controller: 'ProfileFavoritesController',
+      controllerAs: 'vm'
     })
     .when('/profile/:user/flows', {
       templateUrl: '/partials/profile/flows.html',
-      controller: 'ProfileFlowsController'
+      controller: 'ProfileFlowsController',
+      controllerAs: 'vm'
     })
     .when('/profile/:user/achievements', {
       templateUrl: '/partials/profile/achievements.html',
-      controller: 'ProfileAchievementsController'
+      controller: 'ProfileAchievementsController',
+      controllerAs: 'vm'
     })
     .otherwise({
       redirectTo: '/'
