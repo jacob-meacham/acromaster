@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('acromaster.controllers').controller('WashingMachineViewController', ['$scope', 'WashingMachineService', function($scope, WashingMachineService) {
+var WaschingMachineViewController = function($scope, WashingMachineService) {
   $scope.generate = function() {
     WashingMachineService.generate().then(function(washingMachine) {
       $scope.move1 = washingMachine.move1;
@@ -10,4 +10,6 @@ angular.module('acromaster.controllers').controller('WashingMachineViewControlle
   };
 
   $scope.generate();
-}]);
+};
+
+angular.module('acromaster.controllers').controller('WashingMachineViewController', ['$scope', 'WashingMachineService', WaschingMachineViewController]);

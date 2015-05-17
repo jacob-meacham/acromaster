@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('acromaster.controllers').controller('AboutController', ['$scope', '$modalInstance', 'VersionService', function($scope, $modalInstance, version) {
+var AboutController = function($scope, $modalInstance, version) {
   version.getVersion().success(function(ver) {
     $scope.version = ver;
   });
@@ -8,4 +8,8 @@ angular.module('acromaster.controllers').controller('AboutController', ['$scope'
   $scope.exit = function() {
     $modalInstance.dismiss('exit');
   };
-}]);
+};
+
+angular.module('acromaster.controllers')
+  .controller('AboutController', ['$scope', '$modalInstance', 'VersionService', AboutController]);
+  

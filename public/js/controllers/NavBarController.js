@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('acromaster.controllers').controller('NavbarController', ['$scope', '$modal', 'AuthService', function($scope, $modal, authService) {
+var NavbarController = function($scope, $modal, authService) {
   var resetAuth = function() {
     $scope.user = authService.getUser();
     $scope.authenticated = authService.isAuthenticated();
@@ -22,4 +22,6 @@ angular.module('acromaster.controllers').controller('NavbarController', ['$scope
   };
 
   resetAuth();
-}]);
+};
+
+angular.module('acromaster.controllers').controller('NavbarController', ['$scope', '$modal', 'AuthService', NavbarController]);

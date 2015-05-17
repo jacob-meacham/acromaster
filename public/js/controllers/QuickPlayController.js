@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('acromaster.controllers').controller('WorkoutCreateController', ['$scope', '$location', 'FlowService', 'RandomNameService', function($scope, $location, FlowService, RandomNameService) {
+var WorkoutCreateController = function($scope, $location, FlowService, RandomNameService) {
   var flowParams = $scope.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};
 
   $scope.generateFlow = function() {
@@ -10,4 +10,7 @@ angular.module('acromaster.controllers').controller('WorkoutCreateController', [
       $location.path('/flow/' + flow.id + '/play');
     });
   };
-}]);
+};
+
+angular.module('acromaster.controllers')
+  .controller('WorkoutCreateController', ['$scope', '$location', 'FlowService', 'RandomNameService', WorkoutCreateController]);
