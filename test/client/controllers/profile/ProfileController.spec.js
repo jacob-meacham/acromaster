@@ -3,13 +3,17 @@
 describe('Profile*Controllers', function() {
   beforeEach(module('acromaster'));
 
-  var $controller;
-  var User;
   var sandbox;
+  var $controller;
+  var $httpBackend;
+
+  var User;
   var profile;
 
-  beforeEach(inject(function(_$controller_, _User_, $routeParams) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _User_, $routeParams) {
     $controller = _$controller_;
+    $httpBackend = _$httpBackend_;
+
     User = _User_;
     $routeParams.user = 'someUser';
 
@@ -21,13 +25,17 @@ describe('Profile*Controllers', function() {
     sandbox.restore();
   });
 
+  var assertProfileEqual = function(o) {
+    o.name.should.eql(profile.name);
+    o.flows.should.eql(profile.flows);
+  }
+
   describe('ProfileHomeController', function() {
     it('should set the profile from the server', function() {
-      sandbox.stub(User, 'get').returns(profile);
-      
-      // Create controller
+      $httpBackend.expectGET('/api/profile/someUser').respond(profile);
       var vm = $controller('ProfileHomeController');
-      vm.profile.should.eql(profile);
+      $httpBackend.flush();
+      assertProfileEqual(vm.profile);
     });
 
     it('should show an error if the user does not exist', function() {
@@ -38,11 +46,10 @@ describe('Profile*Controllers', function() {
 
   describe('ProfileStatsController', function() {
     it('should set the profile from the server', function() {
-      sandbox.stub(User, 'get').returns(profile);
-      
-      // Create controller
+      $httpBackend.expectGET('/api/profile/someUser').respond(profile);
       var vm = $controller('ProfileStatsController');
-      vm.profile.should.eql(profile);
+      $httpBackend.flush();
+      assertProfileEqual(vm.profile);
     });
 
     it('should show an error if the user does not exist', function() {
@@ -53,11 +60,48 @@ describe('Profile*Controllers', function() {
 
   describe('ProfileAchievementsController', function() {
     it('should set the profile from the server', function() {
-      sandbox.stub(User, 'get').returns(profile);
-      
-      // Create controller
+      $httpBackend.expectGET('/api/profile/someUser').respond(profile);
       var vm = $controller('ProfileAchievementsController');
-      vm.profile.should.eql(profile);
+      $httpBackend.flush();
+      assertProfileEqual(vm.profile);
+    });
+
+    it('should show an error if the user does not exist', function() {
+      // TODO
+      expect(true).to.be.true;
+    });
+  });
+
+  describe('ProfileFlowsController', function() {
+    it('should set the profile from the server', function() {
+      var flows = [{name: 'flow1'}, {name: 'flow2'}];
+      $httpBackend.expectGET('/api/profile/someUser').respond(profile);
+      $httpBackend.expectGET('/api/profile/someUser/flows').respond(flows);
+      var vm = $controller('ProfileFlowsController');
+      $httpBackend.flush();
+      
+      assertProfileEqual(vm.profile);
+      vm.flows.should.have.length(2);
+      vm.flows[0].name.should.eql(flows[0].name);
+    });
+
+    it('should show an error if the user does not exist', function() {
+      // TODO
+      expect(true).to.be.true;
+    });
+  });
+
+  describe('ProfileFavoritesController', function() {
+    it('should set the profile from the server', function() {
+      var flows = [{name: 'flow1'}, {name: 'flow2'}];
+      $httpBackend.expectGET('/api/profile/someUser').respond(profile);
+      $httpBackend.expectGET('/api/profile/someUser/favorites').respond(flows);
+      var vm = $controller('ProfileFavoritesController');
+      $httpBackend.flush();
+      
+      assertProfileEqual(vm.profile);
+      vm.flows.should.have.length(2);
+      vm.flows[0].name.should.eql(flows[0].name);
     });
 
     it('should show an error if the user does not exist', function() {
