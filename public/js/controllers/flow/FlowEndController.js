@@ -1,25 +1,6 @@
 'use strict';
 
-var controllers = angular.module('acromaster.controllers');
-
-controllers.controller('FlowPlayController', ['$scope', '$location', '$routeParams', 'FlowService', function($scope, $location, $routeParams, flowService) {
-  var flow = flowService.getCurrentFlow();
-  if (!flow) {
-    flow = flowService.instantiateFlow($routeParams.flowId);
-  }
-
-  $scope.flow = flow;
-  
-  $scope.onFlowEnd = function(err) {
-    if (err) {
-      $location.path('/');
-    } else {
-      $location.path('/flow/end');
-    }
-  };
-}]);
-
-controllers.controller('FlowEndController', ['$scope', '$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', function($scope, $location, Flow, flowService, flowStats, $timeout, _) {
+var FlowEndController = function($scope, $location, Flow, flowService, flowStats, $timeout, _) {
   var flow = $scope.flow = flowService.getCurrentFlow();
   if (!flow || !flow.moves || flow.moves.length === 0) {
     // No flow defined, so redirect back to home.
@@ -75,4 +56,7 @@ controllers.controller('FlowEndController', ['$scope', '$location', 'Flow', 'Flo
   $timeout(function() {
     $scope.difficultyOptions.value = stats.difficulty;
   }, 1050);
-}]);
+};
+
+var controllers = angular.module('acromaster.controllers');
+controllers.controller('FlowEndController', ['$scope', '$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', FlowEndController]);
