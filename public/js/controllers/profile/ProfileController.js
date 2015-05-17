@@ -26,8 +26,6 @@ var ProfileFavoritesController = function($scope, $routeParams, User, $http) {
   setupPagination($scope, $http, 'favorites', $routeParams.user);
 };
 
-acromasterControllers.controller('ProfileAchievementsController', ['$scope', '$routeParams', 'User', ProfileAchievementsController]);
-
 var ProfileAchievementsController = function($scope, $routeParams, User) {
   $scope.profile = User.get({userId: $routeParams.user});
 };
