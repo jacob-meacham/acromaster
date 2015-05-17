@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = function($window) {
+var lodash = function($window) {
   return $window._;
 };
 
@@ -13,5 +13,5 @@ var environment = function($window) {
 };
 
 angular.module('acromaster.services')
-  .factory('_', ['$window', _])
+  .factory('_', ['$window', lodash])
   .factory('environment', ['$window', environment]);
