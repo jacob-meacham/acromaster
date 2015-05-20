@@ -72,11 +72,13 @@ var _listRandom = function(req, res, next) {
 
 var _listInternal = function(req, res, next) {
   var page = (req.query.page > 0 ? req.query.page : 1) - 1;
+  var wantCount = req.query.count;
   var max = _getMax(req);
 
   var options = {
     page: page,
     max: max,
+    searchQuery: {}
   };
 
   if (req.query.search_query) {
@@ -88,12 +90,15 @@ var _listInternal = function(req, res, next) {
   var flows = null;
   Flow.list(options).then(function(_flows) {
     flows = _flows;
-    return Flow.count().exec();
+    if (wantCount) {
+      return Flow.count(options.searchQuery).exec();
+    }
+    return 0;
   }).then(function(count) {
     res.jsonp({
       flows: flows,
       page: page+1,
-      total: count // TODO: Fix total in the search query case.
+      total: count
     });
   }).then(null, next); // Pass errors directly to next
 };
