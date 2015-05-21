@@ -72,7 +72,7 @@ var _listRandom = function(req, res, next) {
 
 var _listInternal = function(req, res, next) {
   var page = (req.query.page > 0 ? req.query.page : 1) - 1;
-  var wantCount = req.query.count;
+  var wantCount = req.query.count || true;
   var max = _getMax(req);
 
   var options = {
