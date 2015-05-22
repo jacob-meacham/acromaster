@@ -29,7 +29,9 @@ angular.module('acromaster.directives', []);
 app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
     when('/', {
-      templateUrl: '/partials/index.html'
+      templateUrl: '/partials/index.html',
+      controller: 'HomeController',
+      controllerAs: 'vm'
     })
     .when('/login', {
       templateUrl: '/partials/login.html'

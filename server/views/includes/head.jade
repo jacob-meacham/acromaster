@@ -5,7 +5,7 @@ head(ng-controller="PageHeaderController as page")
 
   base(href="/")
 
-  title="{{page.header.siteName}}"
+  title(ng-bind="page.header.title")
   meta(http-equiv='Content-type', content='text/html;charset=UTF-8')
   meta(name="description", content="{{page.header.description}}")
   meta(name="keywords", content="{{page.header.keywords}}")

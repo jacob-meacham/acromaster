@@ -1,12 +1,15 @@
 'use strict';
 
-var FlowViewController = function($routeParams, $location, $modal, flowService, authService, User) {
+var FlowViewController = function($routeParams, $location, $modal, flowService, authService, pageHeaderService, User) {
   var vm = this;
   var flowId = $routeParams.flowId;
 
   var flow = vm.flow = flowService.instantiateFlow(flowId, function() {
     vm.canEdit = authService.canEdit(flow);
+    pageHeaderService.setTitle(flow.name);
   });
+
+  pageHeaderService.setTitle(flow.name);
 
   vm.start = function() {
     $location.path('/flow/' + flow.id + '/play');
@@ -61,4 +64,4 @@ var FlowViewController = function($routeParams, $location, $modal, flowService, 
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowViewController', ['$routeParams', '$location', '$modal', 'FlowService', 'AuthService', 'User', FlowViewController]);
+  .controller('FlowViewController', ['$routeParams', '$location', '$modal', 'FlowService', 'AuthService', 'PageHeaderService', 'User', FlowViewController]);

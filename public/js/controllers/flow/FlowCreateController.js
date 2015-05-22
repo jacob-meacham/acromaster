@@ -1,6 +1,6 @@
 'use strict';
 
-var FlowCreateController = function($routeParams, $location, Flow, flowService) {
+var FlowCreateController = function($routeParams, $location, Flow, flowService, pageHeaderService) {
   var vm = this;
 
   vm.flow = new Flow({moves: []});
@@ -11,6 +11,8 @@ var FlowCreateController = function($routeParams, $location, Flow, flowService) 
       vm.flow.name = 'Remix of ' + flow.name;
     });
   }
+
+  pageHeaderService.setTitle('Create Flow');
   
   vm.saveSuccess = function(savedFlow) {
     $location.path('/flow/' + savedFlow.id);
@@ -18,4 +20,4 @@ var FlowCreateController = function($routeParams, $location, Flow, flowService) 
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowCreateController', ['$routeParams', '$location', 'Flow', 'FlowService', FlowCreateController]);
+  .controller('FlowCreateController', ['$routeParams', '$location', 'Flow', 'FlowService', 'PageHeaderService', FlowCreateController]);

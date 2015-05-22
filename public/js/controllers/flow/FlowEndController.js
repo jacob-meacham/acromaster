@@ -1,6 +1,6 @@
 'use strict';
 
-var FlowEndController = function($location, Flow, flowService, flowStats, $timeout, _) {
+var FlowEndController = function($location, Flow, flowService, flowStats, $timeout, _, pageHeaderService) {
   var vm = this;
   var flow = vm.flow = flowService.getCurrentFlow();
   if (!flow || !flow.moves || flow.moves.length === 0) {
@@ -8,6 +8,7 @@ var FlowEndController = function($location, Flow, flowService, flowStats, $timeo
     return $location.path('/');
   }
 
+  pageHeaderService.setTitle('Results - ' + flow.name);
   Flow.recordPlay({flowId: flow.id}, {});
 
   var stats = flowStats.getStats(flow);
@@ -60,4 +61,4 @@ var FlowEndController = function($location, Flow, flowService, flowStats, $timeo
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowEndController', ['$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', FlowEndController]);
+  .controller('FlowEndController', ['$location', 'Flow', 'FlowService', 'FlowStatsService', '$timeout', '_', 'PageHeaderService', FlowEndController]);

@@ -1,7 +1,10 @@
 'use strict';
 
-var WaschingMachineViewController = function(WashingMachineService) {
+var WaschingMachineViewController = function(WashingMachineService, pageHeaderService) {
   var vm = this;
+
+  pageHeaderService.setTitle('Washing Machines');
+  
   vm.generate = function() {
     WashingMachineService.generate().then(function(washingMachine) {
       vm.move1 = washingMachine.move1;
@@ -14,4 +17,4 @@ var WaschingMachineViewController = function(WashingMachineService) {
 };
 
 angular.module('acromaster.controllers')
-  .controller('WashingMachineViewController', ['WashingMachineService', WaschingMachineViewController]);
+  .controller('WashingMachineViewController', ['WashingMachineService', 'PageHeaderService', WaschingMachineViewController]);

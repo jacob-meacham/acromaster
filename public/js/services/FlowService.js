@@ -26,8 +26,12 @@ var FlowSearchInitialData = function(Flow, $route) {
 var FlowService = function(Flow) {
   var flow = null;
   return {
-    instantiateFlow: function(id) {
+    // TODO: Change to promise?
+    instantiateFlow: function(id, cb) {
       var returnedFlow = Flow.get({flowId: id}, function() {
+        if (cb) {
+          cb();
+        }
         flow = returnedFlow;
       });
 

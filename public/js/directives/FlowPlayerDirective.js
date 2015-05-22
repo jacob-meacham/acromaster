@@ -126,7 +126,7 @@ var flowplayer = function() {
     },
     templateUrl: 'partials/flow/play/flowplayer.html',
     controller: 'FlowPlayerDirectiveController',
-    controllerAs: 'vm',
+    controllerAs: 'player',
     bindToController: true
   };
 };

@@ -7,7 +7,7 @@ var FlowHomeController = function($location, Flow, PageHeaderService) {
     vm.featuredFlows = response.flows.slice(1, response.total);
   });
 
-  PageHeaderService.setTitle('Acromaster - Flows');
+  PageHeaderService.setTitle('Flows');
 
   vm.search = function() {
     $location.path('/flows/results').search({search_query: vm.searchQuery});
@@ -15,4 +15,4 @@ var FlowHomeController = function($location, Flow, PageHeaderService) {
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowHomeController', ['$location', 'Flow', 'PageHeaderService', FlowHomeController]);
+  .controller('FlowHomeController', ['$location', 'Flow', 'PageHeaderService', 'PageHeaderService', FlowHomeController]);

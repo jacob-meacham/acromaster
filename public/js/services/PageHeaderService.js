@@ -15,7 +15,11 @@ var PageHeaderService = function() {
   };
 
   this.setTitle = function(_title) {
-    this.title = _title;
+    if (_title) {
+      this.title = 'Acromaster - ' + _title;
+    } else {
+      this.title = 'Acromaster';
+    }
   };
 
   this.setDescription = function(_description) {
