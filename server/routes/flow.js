@@ -238,7 +238,7 @@ var generate = function(req, res, next) {
 
   Move.list({}).then(function(moves) {
     var flow = generateFlow(moves);
-    return Flow.populate(flow, 'moves.moves');
+    return Flow.populate(flow, 'moves.move');
   }).then(function(flow) {
     return flow.saveAsync();
   }).then(function(flow) {
