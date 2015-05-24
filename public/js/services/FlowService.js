@@ -30,7 +30,7 @@ var FlowService = function(Flow) {
     instantiateFlow: function(id, cb) {
       var returnedFlow = Flow.get({flowId: id}, function() {
         if (cb) {
-          cb();
+          cb(returnedFlow);
         }
         flow = returnedFlow;
       });
