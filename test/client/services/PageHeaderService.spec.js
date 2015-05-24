@@ -22,7 +22,9 @@ describe('Page Header Service', function() {
     PageHeaderService.siteName.should.eql('Acromaster');
 
     PageHeaderService.setTitle('New Title');
-    PageHeaderService.title.should.eql('New Title');
+    PageHeaderService.title.should.eql('Acromaster - New Title');
+    PageHeaderService.setTitle();
+    PageHeaderService.title.should.eql('Acromaster');
 
     PageHeaderService.setDescription('New Description');
     PageHeaderService.description.should.eql('New Description');

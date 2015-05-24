@@ -19,7 +19,7 @@ describe('FlowViewController', function() {
       $controller = _$controller_;
       $rootScope = _$rootScope_;
       
-      flow = new Flow({moves: []});
+      flow = new Flow({name: 'Flow', moves: []});
       flow.id = '10';
 
       FlowService = _FlowService_;
@@ -57,7 +57,7 @@ describe('FlowViewController', function() {
 
   it('should set the edit state', function() {
     sandbox.stub(FlowService, 'instantiateFlow', function(id, cb) {
-      cb();
+      cb(flow);
       return flow;
     });
 

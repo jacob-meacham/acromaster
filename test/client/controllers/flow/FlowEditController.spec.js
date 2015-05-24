@@ -16,7 +16,7 @@ describe('FlowEditController', function() {
     inject(function(_$controller_, Flow, _FlowService_, _$location_) {
       $controller = _$controller_;
 
-      flow = new Flow({moves: []});
+      flow = new Flow({name: 'Flow', moves: []});
       flow.id = '10';
 
       FlowService = _FlowService_;

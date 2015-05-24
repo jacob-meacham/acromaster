@@ -7,11 +7,20 @@ describe('FlowService', function() {
     var flow = {name: 'newFlow', moves: [{name: 'moveA'}, {name: 'moveB'}]};
     var FlowService;
     var $httpBackend;
+    var sandbox;
 
-    beforeEach(inject(function(_FlowService_, _$httpBackend_) {
-      FlowService = _FlowService_;
-      $httpBackend = _$httpBackend_;
-    }));
+    beforeEach(function() {
+      sandbox = sinon.sandbox.create();
+      
+      inject(function(_FlowService_, _$httpBackend_) {
+        FlowService = _FlowService_;
+        $httpBackend = _$httpBackend_;
+      });
+    });
+
+    afterEach(function() {
+      sandbox.restore();
+    });
 
     var assertEqualFlows = function(flow1, flow2) {
       flow1.name.should.eql(flow2.name);
@@ -24,11 +33,12 @@ describe('FlowService', function() {
 
     it('should get a flow with the specified id', function() {
       $httpBackend.expectGET('/api/flow/test').respond(flow);
-      FlowService.instantiateFlow('test', function(returnedFlow) {
-        assertEqualFlows(returnedFlow, flow);
-      });
+      var instantiateSpy = sandbox.spy();
+      FlowService.instantiateFlow('test', instantiateSpy);
       $httpBackend.flush();
-      
+
+      instantiateSpy.should.have.callCount(1);
+      assertEqualFlows(instantiateSpy.getCall(0).args[0], flow);
       assertEqualFlows(FlowService.getCurrentFlow(), flow);
     });
 

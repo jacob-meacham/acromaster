@@ -4,12 +4,10 @@ var FlowViewController = function($routeParams, $location, $modal, flowService, 
   var vm = this;
   var flowId = $routeParams.flowId;
 
-  var flow = vm.flow = flowService.instantiateFlow(flowId, function() {
+  var flow = vm.flow = flowService.instantiateFlow(flowId, function(flow) {
     vm.canEdit = authService.canEdit(flow);
     pageHeaderService.setTitle(flow.name);
   });
-
-  pageHeaderService.setTitle(flow.name);
 
   vm.start = function() {
     $location.path('/flow/' + flow.id + '/play');

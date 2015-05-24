@@ -201,7 +201,7 @@ describe('FlowPlayerDirective', function() {
       var element = $compile('<flowplayer flow="flow"></flowplayer>')($rootScope);
       $rootScope.$digest();
 
-      var ctrl = element.isolateScope().vm;
+      var ctrl = element.isolateScope().player;
       ctrl.flow.should.eql($rootScope.flow);
     });
 
@@ -212,7 +212,7 @@ describe('FlowPlayerDirective', function() {
       var element = $compile('<flowplayer flow="flow" on-flow-end="onFlowEnd()"></flowplayer>')($rootScope);
       $rootScope.$digest();
 
-      var ctrl = element.isolateScope().vm;
+      var ctrl = element.isolateScope().player;
       ctrl.onFlowEnd();
 
       $rootScope.onFlowEnd.should.have.callCount(1);
