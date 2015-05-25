@@ -236,7 +236,11 @@ var generate = function(req, res, next) {
     return flow;
   };
 
-  Move.list({}).then(function(moves) {
+  var criteria = {};
+  if (req.query.difficulty) {
+    criteria.difficulty = { $lte: req.query.difficulty };
+  }
+  Move.list(criteria).then(function(moves) {
     var flow = generateFlow(moves);
     return Flow.populate(flow, 'moves.move');
   }).then(function(flow) {
