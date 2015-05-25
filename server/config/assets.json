@@ -4,6 +4,8 @@
         "public/lib/bootstrap/dist/css/bootstrap.min.css": "public/lib/bootstrap/dist/css/bootstrap.css",
         "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css": "public/lib/jquery-ui/themes/base/minified/jquery-ui.css",
         "public/lib/angular-xeditable/dist/css/xeditable.css": "public/lib/angular-xeditable/dist/css/xeditable.css",
+        "public/lib/slick.js/slick/slick.css": "public/lib/slick.js/slick/slick.css",
+        "public/lib/slick.js/slick/slick-theme.css": "public/lib/slick.js/slick/slick-theme.css",
         "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css": "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
     },
     "js": {
@@ -26,6 +28,8 @@
         "public/lib/angular-flash/dist/angular-flash.min.js": "public/lib/angular-flash/dist/angular-flash.js",
         "public/lib/nsPopover/src/nsPopover.js": "public/lib/nsPopover/src/nsPopover.js",
         "public/lib/angular-cookies/angular-cookies.min.js": "public/lib/angular-cookies/angular-cookies.js",
+        "public/lib/slick.js/slick/slick.min.js": "public/lib/slick.js/slick/slick.js",
+        "public/lib/angular-slick/dist/slick.min.js": "public/lib/angular-slick/dist/slick.js",
         "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"
     }
   },
