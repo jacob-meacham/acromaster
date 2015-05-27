@@ -1,6 +1,6 @@
 'use strict';
 
-var WorkoutCreateController = function($location, $scope, FlowService, RandomNameService, pageHeaderService) {
+var QuickPlayController = function($location, $scope, flowService, rand, pageHeaderService) {
   var vm = this;
   var flowParams = vm.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};
   vm.currentDifficultyIndex = 1;
@@ -14,8 +14,8 @@ var WorkoutCreateController = function($location, $scope, FlowService, RandomNam
 
   vm.generateFlow = function() {
     flowParams.totalTime = flowParams.totalMinutes * 60;
-    flowParams.flowName = RandomNameService.generateFlowName();
-    FlowService.generateFlow(flowParams).then(function(flow) {
+    flowParams.flowName = rand.generateFlowName();
+    flowService.generateFlow(flowParams).then(function(flow) {
       $location.path('/flow/' + flow.id + '/play');
     });
   };
@@ -53,4 +53,4 @@ var WorkoutCreateController = function($location, $scope, FlowService, RandomNam
 };
 
 angular.module('acromaster.controllers')
-  .controller('WorkoutCreateController', ['$location', '$scope', 'FlowService', 'RandomNameService', 'PageHeaderService', WorkoutCreateController]);
+  .controller('QuickPlayController', ['$location', '$scope', 'FlowService', 'RandomNameService', 'PageHeaderService', QuickPlayController]);
