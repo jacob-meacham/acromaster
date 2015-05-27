@@ -27,7 +27,7 @@ describe('QuickPlayController', function() {
       generateFlowName: function() { return 'My Flow Name'; }
     };
 
-    vm = $controller('WorkoutCreateController', { $location: $location, FlowService: FlowService, RandomNameService: RandomNameService });
+    vm = $controller('WorkoutCreateController', { $location: $location, $scope: $rootScope.$new(), FlowService: FlowService, RandomNameService: RandomNameService });
   }));
 
   afterEach(function() {
