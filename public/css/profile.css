@@ -1,0 +1,45 @@
+/* line 1, ../sass/profile.scss */
+.profile-bar {
+  text-align: left;
+}
+
+/* line 6, ../sass/profile.scss */
+.profile .profile-bar .avatar {
+  border-radius: 6px;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+  line-height: 1px;
+}
+/* line 14, ../sass/profile.scss */
+.profile .profile-bar h1 {
+  font-size: 2em;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+}
+/* line 21, ../sass/profile.scss */
+.profile .profile-bar .name {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+/* line 26, ../sass/profile.scss */
+.profile .profile-bar .username {
+  margin-top: 2px;
+  font-size: 1.5em;
+  color: #eee;
+}
+/* line 32, ../sass/profile.scss */
+.profile .profile-bar .user-info {
+  margin-top: 4px;
+}
+/* line 36, ../sass/profile.scss */
+.profile .profile-bar .user-details {
+  margin-top: 25px;
+  padding-top: 10px;
+  border-top: 1px solid #fff;
+}
+/* line 42, ../sass/profile.scss */
+.profile .profile-bar .join-date {
+  font-style: italic;
+}
