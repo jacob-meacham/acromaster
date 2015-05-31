@@ -39,9 +39,9 @@ var FlowViewController = function($routeParams, $location, $modal, flowService, 
     }
 
     if (vm.hasFavorited) {
-      User.unfavorite({ flowId: flowId, userId: authService.getUser().id});
+      User.unfavorite({ flowId: flowId, userId: authService.getUser().username});
     } else {
-      User.favorite({ flowId: flowId, userId: authService.getUser().id});
+      User.favorite({ flowId: flowId, userId: authService.getUser().username});
     }
 
     vm.hasFavorited = !vm.hasFavorited;
