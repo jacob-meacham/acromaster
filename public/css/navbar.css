@@ -39,12 +39,21 @@
 }
 
 /* line 34, ../sass/navbar.scss */
+.nav .avatar {
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-right: 5px;
+  border-radius: 3px;
+}
+
+/* line 42, ../sass/navbar.scss */
 .navbar {
   background-color: transparent;
   border-color: transparent;
 }
 
-/* line 39, ../sass/navbar.scss */
+/* line 47, ../sass/navbar.scss */
 .navbar-nav {
   float: right;
 }

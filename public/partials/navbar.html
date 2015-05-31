@@ -4,12 +4,12 @@
       <li class="pull-right sticky-item"><a href="/login">Login</a></li>
     </ul>
     <ul class="nav pull-left" data-ng-show="nav.authenticated">
-        <li class="dropdown pull-right">
-            <a href="#" class="dropdown-toggle sticky-item">
-                {{nav.user.name}} <b class="caret"></b>
+        <li class="dropdown pull-right" dropdown>
+            <a href="#" class="dropdown-toggle sticky-item" dropdown-toggle>
+                <img class="avatar" ng-src="{{nav.user.profilePictureUrl}}">{{nav.user.username}} <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a ng-href="/users/{{nav.user.username}}">Profile</a></li>
+                <li><a ng-href="/profile/{{nav.user.username}}">Profile</a></li>
                 <li class="divider"></li>
                 <li><a href ng-click="nav.logout()">Sign out</a></li>
             </ul>
