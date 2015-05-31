@@ -128,7 +128,8 @@ UserSchema.methods = {
       profilePictureUrl: this.profilePictureUrl,
       createdAt: this.createdAt,
       stats: this.stats,
-      favorites: this.favorites
+      favorites: this.favorites,
+      recentlyPlayed: this.recentlyPlayed
     };
   }
 };
