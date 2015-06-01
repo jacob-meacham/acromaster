@@ -118,7 +118,7 @@ describe('User Model', function() {
       return _user.saveAsync().then(function() {
         return User.loadPublicProfile(_user.username);
       }).then(function(loaded_user) {
-        expect(loaded_user).to.have.keys('name', 'username', 'createdAt', 'id', 'profilePictureUrl', 'favorites', 'stats');
+        expect(loaded_user).to.have.keys('name', 'username', 'createdAt', 'id', 'profilePictureUrl', 'favorites', 'recentlyPlayed', 'stats');
       });
     });
   });

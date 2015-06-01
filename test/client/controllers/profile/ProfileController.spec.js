@@ -18,7 +18,15 @@ describe('Profile*Controllers', function() {
     $routeParams.user = 'someUser';
 
     sandbox = sinon.sandbox.create();
-    profile = {name: 'foo', flows: ['a', 'b']};
+    profile = {
+      name: 'foo',
+      flows: ['a', 'b'],
+      stats: {
+        flowsPlayed: 10,
+        moves: 200,
+        minutesPlayed: 100
+      }
+    };
   }));
 
   afterEach(function() {
