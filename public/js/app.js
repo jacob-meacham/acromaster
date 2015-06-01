@@ -74,7 +74,7 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
     })
     .when('/flow/workout', {
       templateUrl: '/partials/flow/play/workout.html',
-      controller: 'WorkoutCreateController',
+      controller: 'QuickPlayController',
       controllerAs: 'vm'
     })
     .when('/flow/end', {
