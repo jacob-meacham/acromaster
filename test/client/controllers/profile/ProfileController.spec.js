@@ -44,20 +44,6 @@ describe('Profile*Controllers', function() {
     });
   });
 
-  describe('ProfileStatsController', function() {
-    it('should set the profile from the server', function() {
-      $httpBackend.expectGET('/api/profile/someUser').respond(profile);
-      var vm = $controller('ProfileStatsController');
-      $httpBackend.flush();
-      assertProfileEqual(vm.profile);
-    });
-
-    it('should show an error if the user does not exist', function() {
-      // TODO
-      expect(true).to.be.true;
-    });
-  });
-
   describe('ProfileAchievementsController', function() {
     it('should set the profile from the server', function() {
       $httpBackend.expectGET('/api/profile/someUser').respond(profile);

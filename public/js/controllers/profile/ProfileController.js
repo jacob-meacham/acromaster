@@ -68,12 +68,6 @@ var ProfileHomeController = function($routeParams, $timeout, $window, rand, User
   });
 };
 
-var ProfileStatsController = function($routeParams, User, pageHeaderService) {
-  var vm = this;
-  vm.profile = User.get({userId: $routeParams.user});
-  pageHeaderService.setTitle($routeParams.user);
-};
-
 var ProfileFlowsController = function($routeParams, User, pageHeaderService) {
   var vm = this;
   vm.profile = User.get({userId: $routeParams.user});
@@ -98,7 +92,6 @@ var ProfileAchievementsController = function($routeParams, User, pageHeaderServi
 
 angular.module('acromaster.controllers')
   .controller('ProfileHomeController', ['$routeParams', '$timeout', '$window', 'RandomService', 'User', 'PageHeaderService', '_', ProfileHomeController])
-  .controller('ProfileStatsController', ['$routeParams', 'User', 'PageHeaderService', ProfileStatsController])
   .controller('ProfileFlowsController', ['$routeParams', 'User', 'PageHeaderService', ProfileFlowsController])
   .controller('ProfileFavoritesController', ['$routeParams', 'User', 'PageHeaderService', ProfileFavoritesController])
   .controller('ProfileAchievementsController', ['$routeParams', 'User', 'PageHeaderService', ProfileAchievementsController]);
