@@ -2,6 +2,7 @@
 
 var ProfileHomeController = function($routeParams, $timeout, $window, rand, User, pageHeaderService, _) {
   var vm = this;
+  vm.templateUrl = 'partials/profile/home.html';
   pageHeaderService.setTitle($routeParams.user);
 
   var commonOptions = {
@@ -70,6 +71,7 @@ var ProfileHomeController = function($routeParams, $timeout, $window, rand, User
 
 var ProfileFlowsController = function($routeParams, User, pageHeaderService) {
   var vm = this;
+  vm.templateUrl = 'partials/profile/flows.html';
   vm.profile = User.get({userId: $routeParams.user});
   vm.flows = User.getFlows({userId: $routeParams.user});
   vm.perPage = 25;
@@ -78,20 +80,26 @@ var ProfileFlowsController = function($routeParams, User, pageHeaderService) {
 
 var ProfileFavoritesController = function($routeParams, User, pageHeaderService) {
   var vm = this;
+  vm.templateUrl = 'partials/profile/favorites.html';
   vm.profile = User.get({userId: $routeParams.user});
   vm.flows = User.getFavorites({userId: $routeParams.user});
   vm.perPage = 25;
   pageHeaderService.setTitle($routeParams.user);
 };
 
-var ProfileAchievementsController = function($routeParams, User, pageHeaderService) {
+var ProfileAchievementsController = function($routeParams, User, pageHeaderService, achievementsService) {
   var vm = this;
-  vm.profile = User.get({userId: $routeParams.user});
+  vm.templateUrl = 'partials/profile/achievements.html';
   pageHeaderService.setTitle($routeParams.user);
+
+  vm.profile = User.get({userId: $routeParams.user});
+  vm.profile.$promise.then(function() {
+    vm.achievements = achievementsService.getUserAchievements(vm.profile);
+  });
 };
 
 angular.module('acromaster.controllers')
   .controller('ProfileHomeController', ['$routeParams', '$timeout', '$window', 'RandomService', 'User', 'PageHeaderService', '_', ProfileHomeController])
   .controller('ProfileFlowsController', ['$routeParams', 'User', 'PageHeaderService', ProfileFlowsController])
   .controller('ProfileFavoritesController', ['$routeParams', 'User', 'PageHeaderService', ProfileFavoritesController])
-  .controller('ProfileAchievementsController', ['$routeParams', 'User', 'PageHeaderService', ProfileAchievementsController]);
+  .controller('ProfileAchievementsController', ['$routeParams', 'User', 'PageHeaderService', 'AchievementsService', ProfileAchievementsController]);

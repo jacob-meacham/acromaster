@@ -1,5 +1,11 @@
-<h2>Achievements</h2>
-Flows Played - {{vm.profile.stats.flowsPlayed}}
-Minutes Played - {{vm.profile.stats.minutesPlayed}}
-Flows Written - {{vm.profile.stats.flowsWritten}}
-Moves - {{vm.profile.stats.moves}}
+<div class="achievements">
+    <div ng-repeat="achievement in vm.achievements" ng-class="{achievement: true, awarded: achievement.awarded}">
+        <div class="inner" popover="{{achievement.description}}" popover-placement="bottom" popover-trigger="mouseenter">
+            <i ng-class='{{achievement.image}}'></i>
+            <div class="title">{{achievement.title}}</div>
+        </div>
+    </div>
+</div>
+<div class="col-md-8">
+    <debug>{{vm.achievements}}</debug>
+</div>

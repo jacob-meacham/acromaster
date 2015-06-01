@@ -98,22 +98,22 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       controllerAs: 'vm'
     })
     .when('/profile/:user', {
-      templateUrl: '/partials/profile/home.html',
+      templateUrl: '/partials/profile/container.html',
       controller: 'ProfileHomeController',
       controllerAs: 'vm'
     })
     .when('/profile/:user/favorites', {
-      templateUrl: '/partials/profile/favorites.html',
+      templateUrl: '/partials/profile/container.html',
       controller: 'ProfileFavoritesController',
       controllerAs: 'vm'
     })
     .when('/profile/:user/flows', {
-      templateUrl: '/partials/profile/flows.html',
+      templateUrl: '/partials/profile/container.html',
       controller: 'ProfileFlowsController',
       controllerAs: 'vm'
     })
     .when('/profile/:user/achievements', {
-      templateUrl: '/partials/profile/achievements.html',
+      templateUrl: '/partials/profile/container.html',
       controller: 'ProfileAchievementsController',
       controllerAs: 'vm'
     })
