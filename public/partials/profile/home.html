@@ -12,6 +12,12 @@
     </div>
     <div class="col-md-9">
         <div class="row">
+            <a ng-href="/profile/{{vm.profile.username}}">Profile</a>
+            <a ng-href="/profile/{{vm.profile.username}}/achievements">Achievements</a>
+            <a ng-href="/profile/{{vm.profile.username}}/flows">My Flows</a>
+            <a ng-href="/profile/{{vm.profile.username}}/favorites">Favorites</a>
+        </div>
+        <div class="row">
             <div class="col-md-4 recent-flows">
                 <h2>Recent Flows</h2>
                 <ul ng-repeat="entry in vm.profile.recentlyPlayed | limitTo:5 | filter:{flow:'!'}">
