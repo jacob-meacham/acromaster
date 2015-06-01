@@ -6,22 +6,41 @@
             <h1 class="username">{{ vm.profile.username }}</h1>
         </div>
         <div class="user-details">
-            <i class="fa fa-clock-o"></i> <span class="join-date">User since {{vm.profile.createdAt | date}}</span>
+            <div class="join-date"><i class="fa fa-clock-o"></i> User since {{vm.profile.createdAt | date}}</div>
+            <div class="flows">TODO: {{vm.profile.stats.flowsWritten}} flows written</div>
         </div>
     </div>
     <div class="col-md-9">
-        <div class="recent-flows">
-            <h2>Recent Flows</h2>
-            <ul ng-repeat="entry in vm.profile.recentlyPlayed">
-                <li><a href="/flow/{{entry.flow.id}}">{{entry.flow.name}}</li>
-            </ul>
+        <div class="row">
+            <div class="col-md-4 recent-flows">
+                <h2>Recent Flows</h2>
+                <ul ng-repeat="entry in vm.profile.recentlyPlayed | limitTo:5 | filter:{flow:'!'}">
+                    <li><a href="/flow/{{entry.flow.id}}">{{entry.flow.name}}</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-md-offset-1">
+                <h2>Favorites</h2>
+                <ul ng-repeat="entry in vm.profile.favorites | limitTo:5 | filter:{flow:'!'}">
+                    <li><a href="/flow/{{entry.flow.id}}">{{entry.flow.name}}</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="stats">
-            <h2>My Stats</h2>
-            {{vm.profile.stats.flowsPlayed}} flows played
-            {{vm.profile.stats.minutesPlayed | number:0 }} minutes played
-            {{vm.profile.stats.flowsWritten}} flows written
-            {{vm.profile.stats.moves}} moves performed
+        <div class="row stats">
+            <div class="col-md-3">
+                <just-gage id="flows-gauge" value="vm.flowsPlayedOptions.value" options="vm.flowsPlayedOptions"></just-gage>
+                <div class="info">{{vm.profile.stats.flowsPlayed}} flows played</div>
+            </div>
+            <div class="col-md-3">
+                <just-gage id="time-gauge" value="vm.minutesPlayedOptions.value" options="vm.minutesPlayedOptions"></just-gage>
+                <div class="info">{{vm.profile.stats.minutesPlayed | number:0 }} minutes played</div>
+            </div>
+            <div class="col-md-3">
+                <just-gage id="moves-gauge" value="vm.movesPlayedOptions.value" options="vm.movesPlayedOptions"></just-gage>
+                <div class="info">{{vm.profile.stats.moves}} moves performed</div>
+            </div>
         </div>
+    </div>
+    <div class="col-md-12">
+        <debug>{{ vm.profile | json }}</debug>
     </div>
 </div>

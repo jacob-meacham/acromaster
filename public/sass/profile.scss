@@ -1,4 +1,4 @@
-.profile-bar {
+.profile {
     text-align: left;
 }
 
@@ -41,5 +41,14 @@
 
     .join-date {
         font-style: italic;
+    }
+}
+
+.profile .stats {
+    text-align: center;
+    
+    tspan {
+        font-family: 'FontAwesome';
+        font-size: 1.5em;
     }
 }

@@ -1,5 +1,5 @@
 /* line 1, ../sass/profile.scss */
-.profile-bar {
+.profile {
   text-align: left;
 }
 
@@ -42,4 +42,14 @@
 /* line 42, ../sass/profile.scss */
 .profile .profile-bar .join-date {
   font-style: italic;
+}
+
+/* line 47, ../sass/profile.scss */
+.profile .stats {
+  text-align: center;
+}
+/* line 50, ../sass/profile.scss */
+.profile .stats tspan {
+  font-family: 'FontAwesome';
+  font-size: 1.5em;
 }
