@@ -95,7 +95,31 @@ span.large-glyphicon {
   background: #777;
 }
 
-/* line 91, ../sass/common.scss */
+/* line 90, ../sass/common.scss */
+.debug {
+  margin-top: 20px;
+}
+/* line 93, ../sass/common.scss */
+.debug .btn {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0;
+  outline: none;
+  border-bottom: none;
+}
+/* line 104, ../sass/common.scss */
+.debug .debug-inner {
+  font-size: 0.8em;
+  padding: 0;
+  text-align: left;
+  border-top-left-radius: 0;
+  background-color: #fff;
+}
+
+/* line 114, ../sass/common.scss */
 slider, [slider] {
   display: inline-block;
   position: relative;
@@ -104,12 +128,12 @@ slider, [slider] {
   margin: 25px 5px 25px 5px;
   vertical-align: middle;
 }
-/* line 99, ../sass/common.scss */
+/* line 122, ../sass/common.scss */
 slider span, [slider] span {
   white-space: nowrap;
   position: absolute;
 }
-/* line 103, ../sass/common.scss */
+/* line 126, ../sass/common.scss */
 slider span.bar, [slider] span.bar {
   width: 100%;
   height: 100%;
@@ -117,13 +141,13 @@ slider span.bar, [slider] span.bar {
   background: #444;
   overflow: hidden;
 }
-/* line 110, ../sass/common.scss */
+/* line 133, ../sass/common.scss */
 slider span.bar .selection, [slider] span.bar .selection {
   width: 0;
   height: 100%;
   background: #13b6ff;
 }
-/* line 117, ../sass/common.scss */
+/* line 140, ../sass/common.scss */
 slider span.pointer, [slider] span.pointer {
   cursor: pointer;
   width: 20px;
@@ -134,7 +158,7 @@ slider span.pointer, [slider] span.pointer {
   z-index: 2;
   border-radius: 100%;
 }
-/* line 127, ../sass/common.scss */
+/* line 150, ../sass/common.scss */
 slider span.pointer:after, [slider] span.pointer:after {
   content: '';
   background-color: #777;
@@ -145,15 +169,15 @@ slider span.pointer:after, [slider] span.pointer:after {
   left: 6px;
   border-radius: 100%;
 }
-/* line 137, ../sass/common.scss */
+/* line 160, ../sass/common.scss */
 slider span.pointer:after:hover, [slider] span.pointer:after:hover {
   background-color: #000;
 }
-/* line 142, ../sass/common.scss */
+/* line 165, ../sass/common.scss */
 slider span.pointer.active:after, [slider] span.pointer.active:after {
   background-color: #f00;
 }
-/* line 147, ../sass/common.scss */
+/* line 170, ../sass/common.scss */
 slider span.bubble, [slider] span.bubble {
   display: none !important;
 }

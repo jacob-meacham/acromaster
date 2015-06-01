@@ -87,6 +87,29 @@ span.large-glyphicon {
   background: #777;
 }
 
+.debug {
+  margin-top: 20px;
+
+  .btn {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 0;
+    outline:none;
+    border-bottom: none;
+  }
+
+  .debug-inner {
+    font-size: 0.8em;
+    padding: 0;
+    text-align: left;
+    border-top-left-radius: 0;
+    background-color: #fff;
+  }
+}
+
 $slider-height: 7px;
 slider, [slider] {
   display: inline-block;
