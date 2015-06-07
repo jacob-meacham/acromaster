@@ -1,4 +1,7 @@
 <h2>Authored Flows</h2>
-<ul ng-repeat='flow in vm.profile.flows'>
-    <li><a href="/flow/{{flow.id}}">{{flow.name}}</li>
+<ul ng-repeat='flow in vm.flowResults.flows'>
+    <li><a href="/flow/{{flow.id}}">{{flow.name}}</a></li>
 </ul>
+<div class="col-md-12">
+    <debug>{{ vm.flowResults | json }}</debug>
+</div>
