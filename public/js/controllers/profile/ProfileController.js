@@ -72,10 +72,11 @@ var ProfileHomeController = function($routeParams, $timeout, $window, rand, User
 var ProfileFlowsController = function($routeParams, User, pageHeaderService) {
   var vm = this;
   vm.templateUrl = 'partials/profile/flows.html';
-  vm.profile = User.get({userId: $routeParams.user});
-  vm.flows = User.getFlows({userId: $routeParams.user});
-  vm.perPage = 25;
   pageHeaderService.setTitle($routeParams.user);
+
+  vm.profile = User.get({userId: $routeParams.user});
+  vm.flowResults = User.getFlows({userId: $routeParams.user});
+  vm.perPage = 25;
 };
 
 var ProfileFavoritesController = function($routeParams, User, pageHeaderService) {

@@ -10,7 +10,7 @@ var User = function($resource) {
     unfavorite: { method: 'DELETE', url: '/api/profile/:userId/favorites/:flowId' },
     getFavorites: { method: 'GET', url: '/api/profile/:userId/favorites', isArray: true },
     hasFavorited: { method: 'GET', url: '/api/profile/:userId/favorites/:flowId' },
-    getFlows: { method: 'GET', url: '/api/profile/:userId/flows', isArray: true }
+    getFlows: { method: 'GET', url: '/api/profile/:userId/flows' }
   });
 };
 
