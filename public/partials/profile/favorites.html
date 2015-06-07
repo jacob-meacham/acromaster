@@ -1,5 +1,5 @@
 <!-- TODO If this is me, add a link to unfavorite -->
 <h2>Favorite Flows</h2>
-<ul ng-repeat='favorite in vm.profile.favorites'>
+<ul ng-repeat="favorite in vm.profile.favorites | filter:{flow:'!'}">
     <li><a href="/flow/{{favorite.flow.id}}">{{favorite.flow.name}}</li>
 </ul>
