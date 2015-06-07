@@ -7,7 +7,7 @@
         </div>
         <div class="user-details">
             <div class="join-date"><i class="fa fa-clock-o"></i> User since {{vm.profile.createdAt | date}}</div>
-            <div class="flows">TODO: {{vm.profile.stats.flowsWritten}} flows written</div>
+            <div class="flows"><a ng-href="/profile/{{vm.profile.username}}/flows">{{vm.profile.stats.flowsWritten}} flows written</a></div>
         </div>
     </div>
     <div class="col-md-9">
