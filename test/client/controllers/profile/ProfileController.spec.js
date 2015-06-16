@@ -68,15 +68,15 @@ describe('Profile*Controllers', function() {
 
   describe('ProfileFlowsController', function() {
     it('should set the profile from the server', function() {
-      var flows = [{name: 'flow1'}, {name: 'flow2'}];
+      var flows = {flows: [{name: 'flow1'}, {name: 'flow2'}], page:1, total:2};
       $httpBackend.expectGET('/api/profile/someUser').respond(profile);
       $httpBackend.expectGET('/api/profile/someUser/flows').respond(flows);
       var vm = $controller('ProfileFlowsController');
       $httpBackend.flush();
       
       assertProfileEqual(vm.profile);
-      vm.flows.should.have.length(2);
-      vm.flows[0].name.should.eql(flows[0].name);
+      vm.flowResults.flows.should.have.length(2);
+      vm.flowResults.flows[0].name.should.eql(flows.flows[0].name);
     });
 
     it('should show an error if the user does not exist', function() {
