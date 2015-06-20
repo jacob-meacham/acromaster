@@ -1,11 +1,25 @@
-/* line 1, ../sass/about.scss */
-.version {
+/* line 2, ../sass/about.scss */
+.about-modal-window .close-button {
+  float: right;
+}
+/* line 6, ../sass/about.scss */
+.about-modal-window .modal-content {
+  background-color: #cccccc;
+}
+/* line 10, ../sass/about.scss */
+.about-modal-window .version {
   color: #666666;
   margin-top: 10px;
-  margin-left: 180px;
+  float: right;
+  font-style: italic;
+}
+/* line 17, ../sass/about.scss */
+.about-modal-window section {
+  margin: 10px;
+  color: #666666;
 }
 
-/* line 7, ../sass/about.scss */
+/* line 23, ../sass/about.scss */
 .about-backdrop {
   bottom: 0;
   position: fixed;

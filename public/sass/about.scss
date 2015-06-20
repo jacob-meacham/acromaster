@@ -1,7 +1,23 @@
-.version {
-  color: #666666;
-  margin-top: 10px;
-  margin-left: 180px;
+.about-modal-window {
+    .close-button {
+        float: right;
+    }
+
+    .modal-content {
+        background-color: #cccccc;
+    }
+    
+    .version {
+        color: #666666;
+        margin-top: 10px;
+        float: right;
+        font-style: italic;
+     }
+
+    section {
+        margin: 10px;
+        color: #666666;
+    }
 }
 
 .about-backdrop {
