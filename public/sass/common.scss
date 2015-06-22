@@ -5,10 +5,15 @@
 }
 
 /* Links */
-a,
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
 a:focus,
 a:hover {
-  color: #111;
+  color: #23527c;
+  text-decoration: underline;
 }
 
 /* Custom default button */
@@ -22,7 +27,7 @@ a:hover {
 }
 
 html {
-  background-color: #f8f8f8;
+  background-color: $primary-background-color;
 }
 
 /*
