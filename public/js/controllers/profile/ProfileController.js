@@ -7,11 +7,11 @@ var ProfileHomeController = function($routeParams, $timeout, $window, rand, User
 
   var commonOptions = {
     value: 0,
-    gaugeWidthScale: 0.2,
+    gaugeWidthScale: 0.3,
     donut: true,
     relativeGaugeSize: true,
-    valueFontColor: '#fff',
-    titleFontColor: '#fff',
+    valueFontColor: '#333',
+    titleFontColor: '#333',
     gaugeColor: '#00000000',
     counter: false,
     donutStartAngle: 270,
