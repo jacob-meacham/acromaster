@@ -27,7 +27,7 @@
 .profile .profile-bar .username {
   margin-top: 2px;
   font-size: 1.5em;
-  color: #eee;
+  color: #666;
 }
 /* line 32, ../sass/profile.scss */
 .profile .profile-bar .user-info {
@@ -37,7 +37,7 @@
 .profile .profile-bar .user-details {
   margin-top: 25px;
   padding-top: 10px;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #eee;
 }
 /* line 42, ../sass/profile.scss */
 .profile .profile-bar .join-date {
