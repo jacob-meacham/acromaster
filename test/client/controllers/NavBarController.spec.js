@@ -59,6 +59,6 @@ describe('NavbarController', function() {
     vm.about();
     openStub.should.have.callCount(1);
     var openCall = openStub.getCall(0);
-    openCall.args[0].controller.should.eql('AboutController');
+    openCall.args[0].controller.should.eql('AboutController as vm');
   });
 });
