@@ -18,8 +18,8 @@ var FlowEndController = function($location, Flow, flowService, flowStats, $timeo
     gaugeWidthScale: 0.2,
     donut: true,
     relativeGaugeSize: true,
-    valueFontColor: '#fff',
-    titleFontColor: '#fff',
+    valueFontColor: '#333',
+    titleFontColor: '#333',
     gaugeColor: '#00000000',
     counter: true,
     donutStartAngle: 270
