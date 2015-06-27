@@ -1,18 +1,16 @@
 /* line 3, ../sass/main.scss */
 .thumbnail {
   padding-top: 30px;
-  background: #000;
-  /* IE8 proofing */
-  background: rgba(1, 1, 1, 0.7);
+  background: #222;
+  border: 3px solid #fcb426;
+  border-radius: 10px;
+  color: white;
   height: 300px;
   position: relative;
-  opacity: 0.9;
 }
-
 /* line 12, ../sass/main.scss */
 .thumbnail .caption {
-  opacity: 0.7;
-  color: #111;
+  color: white;
 }
 
 /* line 17, ../sass/main.scss */
