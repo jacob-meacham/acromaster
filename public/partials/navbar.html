@@ -1,30 +1,29 @@
 <div class="container">  
-  <div class="navbar-header">
-    <a href="/" class="navbar-brand">acromaster</a>
-    
-    <button type="button" class="navbar-toggle" data-target=".navbar-collapse", data-toggle="collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
-    <div class="collapse navbar-collapse">
-        <ul nav-menu class="nav navbar-nav">
-            <li>
-                <a href="/flows">Flows</a>
-            </li>
-            <li>
-                <a href="/flow/workout">Workout</a>
-            </li>
-            <li>
-                <a ng-click="nav.about()">About</a>
-            </li>
-        </ul>
-    </div>
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="navbar-brand" href="/">acromaster</a>
+</div>
+<div class="collapse navbar-collapse">
+    <ul nav-menu class="nav navbar-nav">
+        <li>
+            <a href="/flows">Flows</a>
+        </li>
+        <li>
+            <a href="/flow/workout">Workout</a>
+        </li>
+        <li>
+            <a ng-click="nav.about()">About</a>
+        </li>
+    </ul>
     <ul class="nav navbar-nav pull-right" data-ng-hide="nav.authenticated">
       <li class="pull-right sticky-item"><a href="/login">Login</a></li>
     </ul>
-    <ul class="nav pull-right" data-ng-show="nav.authenticated">
+    <ul class="nav navbar-nav pull-right" data-ng-show="nav.authenticated">
         <li class="dropdown pull-right" dropdown>
             <a href="#" class="dropdown-toggle sticky-item" dropdown-toggle>
                 <img class="avatar" ng-src="{{nav.user.profilePictureUrl}}">{{nav.user.username}} <b class="caret"></b>
@@ -36,5 +35,5 @@
             </ul>
         </li>
     </ul>
-  </div>
+</div>
 </div>
