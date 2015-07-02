@@ -169,9 +169,9 @@
 }
 
 /* line 150, ../sass/animations.scss */
-.back-button:hover,
-.back-button:focus,
-.back-button:active {
+.back-button .glyphicon:hover,
+.back-button .glyphicon:focus,
+.back-button .glyphicon:active {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;

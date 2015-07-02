@@ -147,9 +147,9 @@
   opacity: 1;
 }
 
-.back-button:hover,
-.back-button:focus,
-.back-button:active {
+.back-button .glyphicon:hover,
+.back-button .glyphicon:focus,
+.back-button .glyphicon:active {
   @include standard-ease(0.2s);
   opacity: 1;
 }

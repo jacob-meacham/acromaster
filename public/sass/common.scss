@@ -93,10 +93,13 @@ span.large-glyphicon {
 }
 
 .back-button {
-  font-size: 4.0em !important;
-  padding-top: 40px;
-  float: left;
-  opacity: 0.5;
+ font-size: 4.0em !important;
+ padding-top: 40px;
+ float: left;
+
+  .glyphicon {
+    opacity: 0.5;
+  }
 }
 
 .ui-slider {
