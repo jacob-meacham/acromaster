@@ -1,8 +1,8 @@
 'use strict';
 
 var paths = {
-  js: ['Gruntfile.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/js/**/*.js', '!public/js/client.min.js'],
-  css: ['public/css/*.css', '!public/css/client.min.css']
+  js: ['Gruntfile.js', 'server.js', 'test/**/*.js', 'config/**/*.js', 'server/**/*.js', 'public/app/**/*.js', '!public/app/client.min.js'],
+  css: ['public/assets/css/*.css', '!public/assets/css/client.min.css']
 };
 
 var testConfig = require('./server/config/config').test;
@@ -20,7 +20,7 @@ module.exports = function(grunt) {
                 }
             },
             html: {
-                files: ['public/partials/**'],
+                files: ['public/app/**/*.html'],
                 options: {
                     livereload: true
                 }
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                 }
             },
             sass: {
-                files: ['public/sass/**'],
+                files: ['public/assets/sass/**'],
                 tasks: ['compass:dev'],
                 options: {
                     livereload: true
@@ -59,7 +59,7 @@ module.exports = function(grunt) {
             },
             
             karma: {
-                files: ['test/client/**/*.spec.js', 'public/js/**/*.js'],
+                files: ['test/client/**/*.spec.js', 'public/app/**/*.js'],
                 tasks: ['karma:dev:run']
             }
         },
@@ -84,15 +84,15 @@ module.exports = function(grunt) {
         compass: {
             dist: {
                 options: {
-                    sassDir: 'public/sass',
-                    cssDir: 'public/css',
+                    sassDir: 'public/assets/sass',
+                    cssDir: 'public/assets/css',
                     environment: 'production'
                 }
             },
             dev: {
                 options: {
-                    sassDir: 'public/sass',
-                    cssDir: 'public/css'
+                    sassDir: 'public/assets/sass',
+                    cssDir: 'public/assets/css'
                 }
             }
         },

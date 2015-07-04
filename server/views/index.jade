@@ -3,7 +3,7 @@ html(lang='en', ng-app='acromaster')
   include includes/head
   body
     div.footer-wrapper
-        div(role='navigator', ng-include="'partials/navbar.html'" ng-controller="NavbarController as nav").navbar.navbar-inverse
+        div(role='navigator', ng-include="'app/navbar/navbar.html'" ng-controller="NavbarController as nav").navbar.navbar-inverse
         div.container.inner
             div.view-container
                 section(data-ng-view).view-frame

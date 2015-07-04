@@ -30,30 +30,30 @@ angular.module('acromaster.directives', []);
 app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
     when('/', {
-      templateUrl: '/partials/index.html',
+      templateUrl: '/app/home/home.html',
       controller: 'HomeController',
       controllerAs: 'vm'
     })
     .when('/login', {
-      templateUrl: '/partials/login.html'
+      templateUrl: '/app/login/login.html'
     })
     .when('/about', {
-      templateUrl: '/partials/about.html',
+      templateUrl: '/app/about/about.html',
       controller: 'AboutController',
       controllerAs: 'vm'
     })
     .when('/washing-machine', {
-      templateUrl: '/partials/washing-machine/view.html',
+      templateUrl: '/app/washing-machine/washing-machine.html',
       controller: 'WashingMachineViewController',
       controllerAs: 'vm'
     })
     .when('/flows', {
-      templateUrl: '/partials/flow/home.html',
+      templateUrl: '/app/flow//home/flow-home.html',
       controller: 'FlowHomeController',
       controllerAs: 'vm'
     })
     .when('/flows/results', {
-      templateUrl: '/partials/flow/search_results.html',
+      templateUrl: '/app/flow/search/flow-search-results.html',
       controller: 'FlowSearchResultsController',
       controllerAs: 'vm',
       resolve: {
@@ -63,57 +63,57 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       }
     })
     .when('/flow/create', {
-      templateUrl: '/partials/flow/create.html',
+      templateUrl: '/app/flow/create/flow-create.html',
       controller: 'FlowCreateController',
       controllerAs: 'vm'
     })
     .when('/flow/:flowId/remix', {
-      templateUrl: '/partials/flow/create.html',
+      templateUrl: '/app/flow/create/flow-create.html',
       controller: 'FlowCreateController',
       controllerAs: 'vm'
     })
     .when('/flow/workout', {
-      templateUrl: '/partials/flow/play/workout.html',
+      templateUrl: '/app/workout/workout.html',
       controller: 'QuickPlayController',
       controllerAs: 'vm'
     })
     .when('/flow/end', {
-      templateUrl: '/partials/flow/play/end.html',
+      templateUrl: '/app/flow/play/end/flow-end.html',
       controller: 'FlowEndController',
       controllerAs: 'vm'
     })
     .when('/flow/:flowId/edit', {
-      templateUrl: '/partials/flow/edit.html',
+      templateUrl: '/app/flow/edit/flow-edit.html',
       controller: 'FlowEditController',
       controllerAs: 'vm'
     })
     .when('/flow/:flowId', {
-      templateUrl: '/partials/flow/view.html',
+      templateUrl: '/app/flow/view/flow-view.html',
       controller: 'FlowViewController',
       controllerAs: 'vm'
     })
     .when('/flow/:flowId/play', {
-      templateUrl: '/partials/flow/play/play.html',
+      templateUrl: '/app/flow/play/flow-play.html',
       controller: 'FlowPlayController',
       controllerAs: 'vm'
     })
     .when('/profile/:user', {
-      templateUrl: '/partials/profile/container.html',
+      templateUrl: '/app/profile/profile-container.html',
       controller: 'ProfileHomeController',
       controllerAs: 'vm'
     })
     .when('/profile/:user/favorites', {
-      templateUrl: '/partials/profile/container.html',
+      templateUrl: '/app/profile/profile-container.html',
       controller: 'ProfileFavoritesController',
       controllerAs: 'vm'
     })
     .when('/profile/:user/flows', {
-      templateUrl: '/partials/profile/container.html',
+      templateUrl: '/app/profile/profile-container.html',
       controller: 'ProfileFlowsController',
       controllerAs: 'vm'
     })
     .when('/profile/:user/achievements', {
-      templateUrl: '/partials/profile/container.html',
+      templateUrl: '/app/profile/profile-container.html',
       controller: 'ProfileAchievementsController',
       controllerAs: 'vm'
     })

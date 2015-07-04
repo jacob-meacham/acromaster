@@ -57,7 +57,7 @@ var LikeDirectiveController = function(Flow, $cookieStore) {
 var flowLike = function() {
   return {
     restrict: 'E',
-    templateUrl: 'partials/flow/flow_like.html',
+    templateUrl: 'app/flow/like/flow-like.html',
     controller: 'LikeDirectiveController',
     controllerAs: 'vm',
     bindToController: true,

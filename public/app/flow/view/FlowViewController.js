@@ -50,7 +50,7 @@ var FlowViewController = function($routeParams, $location, $modal, flowService, 
 
   vm.delete = function() {
     var modalInstance = $modal.open({
-      templateUrl: 'partials/flow/delete_modal.html',
+      templateUrl: 'app/flow/edit/flow-delete-modal.html',
       backdrop: true,
     });
 

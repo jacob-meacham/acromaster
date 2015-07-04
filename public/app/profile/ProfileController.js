@@ -2,7 +2,7 @@
 
 var ProfileHomeController = function($routeParams, $timeout, $window, rand, User, pageHeaderService, _) {
   var vm = this;
-  vm.templateUrl = 'partials/profile/home.html';
+  vm.templateUrl = 'app/profile/profile-home.html';
   pageHeaderService.setTitle($routeParams.user);
 
   var commonOptions = {
@@ -71,7 +71,7 @@ var ProfileHomeController = function($routeParams, $timeout, $window, rand, User
 
 var ProfileFlowsController = function($routeParams, User, pageHeaderService) {
   var vm = this;
-  vm.templateUrl = 'partials/profile/flows.html';
+  vm.templateUrl = 'app/profile/profile-flows.html';
   pageHeaderService.setTitle($routeParams.user);
 
   vm.profile = User.get({userId: $routeParams.user});
@@ -81,7 +81,7 @@ var ProfileFlowsController = function($routeParams, User, pageHeaderService) {
 
 var ProfileFavoritesController = function($routeParams, User, pageHeaderService) {
   var vm = this;
-  vm.templateUrl = 'partials/profile/favorites.html';
+  vm.templateUrl = 'app/profile/profile-favorites.html';
   vm.profile = User.get({userId: $routeParams.user});
   vm.flows = User.getFavorites({userId: $routeParams.user});
   vm.perPage = 25;
@@ -90,7 +90,7 @@ var ProfileFavoritesController = function($routeParams, User, pageHeaderService)
 
 var ProfileAchievementsController = function($routeParams, User, pageHeaderService, achievementsService) {
   var vm = this;
-  vm.templateUrl = 'partials/profile/achievements.html';
+  vm.templateUrl = 'app/profile/profile-achievements.html';
   pageHeaderService.setTitle($routeParams.user);
 
   vm.profile = User.get({userId: $routeParams.user});

@@ -13,7 +13,7 @@ var NavbarController = function($modal, authService) {
 
   vm.about = function() {
     $modal.open({
-      templateUrl: 'partials/about.html',
+      templateUrl: 'app/about/about.html',
       controller: 'AboutController as vm',
       size: 'lg',
       backdrop: true,

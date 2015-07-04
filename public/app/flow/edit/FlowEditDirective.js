@@ -107,7 +107,7 @@ var floweditor = function() {
       saveSuccess: '&onSaveSuccess',
       isCreating: '='
     },
-    templateUrl: 'partials/flow/floweditor.html',
+    templateUrl: 'app/flow/edit/flow-editor.html',
     controller: 'FlowEditDirectiveController',
     controllerAs: 'vm',
     bindToController: true

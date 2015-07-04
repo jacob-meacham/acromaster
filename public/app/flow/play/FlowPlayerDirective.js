@@ -124,7 +124,7 @@ var flowplayer = function() {
       flow: '=',
       onFlowEnd: '&'
     },
-    templateUrl: 'partials/flow/play/flowplayer.html',
+    templateUrl: 'app/flow/play/flow-player.html',
     controller: 'FlowPlayerDirectiveController',
     controllerAs: 'player',
     bindToController: true
