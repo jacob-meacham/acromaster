@@ -4,7 +4,7 @@
             <a ng-click="vm.toggleAdvancedPane()">Advanced<span class="advanced-gear glyphicon glyphicon-cog"></span></a>
         </div>
     </div>
-    <div collapse="vm.collapseAdvancedPane">
+    <div collapse="vm.collapseAdvancedPane" class="advanced-pane">
         <div class="row">
             <div class="col-sm-3">
                 <h5>Move Duration: {{vm.flowParams.timePerMove}}</h5><div glyphicon glyphicon-question></div>
@@ -19,6 +19,7 @@
                 <slider floor="0" ceiling="11" ng-model="vm.flowParams.difficulty"></slider>
             </div>
         </div>
+        <hr class="soften" />
     </div>
     <div class="row">
         <div class="col-sm-3">
