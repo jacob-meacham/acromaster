@@ -188,8 +188,8 @@ describe('FlowViewController', function() {
       var vm = $controller('FlowViewController');
 
       vm.delete();
-      $httpBackend.expectGET('partials/flow/delete_modal.html').respond({});
-      $httpBackend.expectGET('/partials/index.html').respond({});
+      $httpBackend.expectGET('app/flow/edit/flow-delete-modal.html').respond({});
+      $httpBackend.expectGET('/app/home/home.html').respond({});
       $rootScope.$apply();
       $httpBackend.flush();
 

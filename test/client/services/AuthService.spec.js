@@ -58,7 +58,7 @@ describe('AuthService', function() {
         });
 
         $httpBackend.expectGET('/logout').respond({});
-        $httpBackend.expectGET('/partials/index.html').respond({});
+        $httpBackend.expectGET('/app/home/home.html').respond({});
       });
 
 

@@ -18,7 +18,7 @@ describe('FlowEditDirective', function() {
       sandbox.stub(Moves, 'query').returns(['move1', 'move2', 'move3']);
 
       // TODO: This should not be necessary. Remove.
-      $httpBackend.expectGET('/partials/index.html').respond(200, '');
+      $httpBackend.expectGET('/app/home/home.html').respond(200, '');
     });
   });
 

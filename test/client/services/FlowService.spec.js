@@ -99,7 +99,7 @@ describe('FlowService', function() {
       $httpBackend.expectGET('/api/flow?max=10&page=1&search_query=fooQuery').respond({name: 'newFlow'}, {name: 'flow2'});
 
       // TODO: This should not be necessary. Remove.
-      $httpBackend.expectGET('/partials/index.html').respond(200, '');
+      $httpBackend.expectGET('/app/home/home.html').respond(200, '');
 
       var promise = FlowSearchInitialData.performSearch();
       $httpBackend.flush();
