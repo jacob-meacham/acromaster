@@ -1,6 +1,30 @@
 <section class="flows">
     <h1 class="flow-title">{{vm.flow.name}}</h1>
-    <em>Created by {{vm.flow.author.name || "Anonymous"}} on {{vm.flow.createdAt | date}}</em>
+    <div class="flow-header-box">
+        <div class="flow-author-info">
+            <span class="flow-author">{{vm.flow.author.name || "Anonymous"}}</span>
+            <span class="flow-date">{{vm.flow.createdAt | date}}</span>
+        </div>
+        <div class="flow-plays">{{vm.flow.plays + 1}} plays</div>
+        <hr class="soften" />
+        <div class="flow-actions">
+            <a ng-click='vm.toggleFavorite()'><span class="glyphicon glyphicon-plus" aria-hidden="true">{{vm.action}}</a>
+            <flow-like flow="vm.flow"></flow-like>
+            <a ng-href="/flow/{{vm.flow.id}}/remix"><span class="glyphicon glyphicon-random" aria-hidden="true"> Remix</a>
+            <flow-share flow-id="{{vm.flow.id}}"></flow-share>
+        </div>
+    </div>
+
+    <div class="owner-actions" ng-show="vm.canEdit">
+        <a ng-href="/flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit">Edit Your Flow</a>
+        <button ng-click="vm.delete()" class="btn btn-default">Delete Your Flow</button>
+    </div>
+
+    <div class="flow-info">
+        {{vm.flow.description}}
+    </div>
+
+    <button ng-click="vm.start()" class="btn btn-default">Start Flow</button>
 
     <h3>Moves</h3>
     <ul>
@@ -8,12 +32,6 @@
             {{moveEntry.move.name}} - {{moveEntry.duration}} seconds
         </li>
     </ul>
-    <a ng-click='vm.toggleFavorite()'>{{vm.action}}</a>
-    <flow-like flow="vm.flow"></flow-like>
-    <a ng-href="/flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit">Edit Your Flow</a>
-    <a ng-href="/flow/{{vm.flow.id}}/remix">Remix This Flow</a>
-    <button ng-click="vm.delete()" class="btn btn-default" ng-show="vm.canEdit">Delete Your Flow</button>
-    <button ng-click="vm.start()" class="btn btn-default">Start Flow</button>
-    <flow-share flow-id="{{vm.flow.id}}"></flow-share>
+
     <back-button url="/flows"></back-button>
 </section>

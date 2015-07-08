@@ -16,9 +16,9 @@ var FlowViewController = function($routeParams, $location, $modal, flowService, 
   // TODO: DRY with LikeDirective
   var getAction = function() {
     if (vm.hasFavorited) {
-      return 'Unfavorite';
+      return 'Remove Favorite';
     } else {
-      return 'Favorite';
+      return 'Add Favorite';
     }
   };
 

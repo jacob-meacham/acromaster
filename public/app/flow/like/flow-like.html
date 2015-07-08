@@ -1,1 +1,3 @@
-<a ng-click='vm.toggleLike()'>{{vm.action}}</a> {{vm.likeCount}}
+<div class="likes">
+    <a ng-class="like-button {{vm.liked}}" ng-click='vm.toggleLike()'><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> </span><span class="like-count">{{vm.likeCount}}</span></a>
+</div>

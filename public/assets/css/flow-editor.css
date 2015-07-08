@@ -2,13 +2,37 @@
 .flows {
   text-align: left;
 }
-
-/* line 5, ../sass/flow-editor.scss */
-.move-list {
+/* line 4, ../sass/flow-editor.scss */
+.flows .move-list {
   padding-bottom: 20px;
 }
-
-/* line 9, ../sass/flow-editor.scss */
-.flow-title {
+/* line 8, ../sass/flow-editor.scss */
+.flows .flow-title {
   margin-bottom: 0;
+}
+/* line 12, ../sass/flow-editor.scss */
+.flows .flow-plays {
+  text-align: right;
+  font-size: 1.5em;
+}
+/* line 17, ../sass/flow-editor.scss */
+.flows hr {
+  margin: 0;
+}
+/* line 21, ../sass/flow-editor.scss */
+.flows .flow-header-box {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 20px;
+  padding: 20px 20px 0 20px;
+  background-color: #fcfcfc;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+/* line 30, ../sass/flow-editor.scss */
+.flows .likes {
+  display: inline-block;
+}
+/* line 34, ../sass/flow-editor.scss */
+.flows .flow-actions {
+  padding: 5px 0 5px 0;
 }
