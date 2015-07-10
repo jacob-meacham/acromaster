@@ -56,20 +56,23 @@
 
 /* line 57, ../sass/profile.scss */
 .profile .achievements .achievement {
+  width: 174px;
+  height: 160px;
   float: left;
   padding: 15px;
-  border-radius: 3px;
-  border: 1px solid #eee;
+  text-align: center;
+  border-radius: 5px;
   margin: 10px;
-  opacity: 0.5;
-  background-color: black;
+  background-color: #808080;
+  color: #cccccc;
 }
-/* line 67, ../sass/profile.scss */
+/* line 69, ../sass/profile.scss */
 .profile .achievements .awarded {
-  opacity: 1.0;
-  background-color: none;
+  background-color: black;
+  border: 3px solid #fcb426;
+  color: white;
 }
-/* line 72, ../sass/profile.scss */
+/* line 75, ../sass/profile.scss */
 .profile .achievements .popover {
   color: black;
 }

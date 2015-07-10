@@ -42,7 +42,7 @@ var AchievementsService = function(_) {
       image: '{fa:true, "fa-trophy":true, "fa-2x":true}'
     },
     goldstar : {
-      title: 'Member of the Gold Star Alliance',
+      title: 'Gold Star Alliance',
       description: 'Log 1000 minutes of flow time',
       image: '{fa:true, "fa-trophy":true, "fa-2x":true}'
     },

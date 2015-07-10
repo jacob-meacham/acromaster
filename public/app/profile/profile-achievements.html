@@ -1,4 +1,5 @@
 <div class="achievements">
+    <hr class="soften" />
     <div ng-repeat="achievement in vm.achievements" ng-class="{achievement: true, awarded: achievement.awarded}">
         <div class="inner" popover="{{achievement.description}}" popover-placement="bottom" popover-trigger="mouseenter">
             <i ng-class='{{achievement.image}}'></i>
