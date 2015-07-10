@@ -112,11 +112,11 @@ UserSchema.methods = {
     this.stats.flowsPlayed += 1;
     this.stats.moves += flow.moves.length;
 
-    var minutesPlayed = _.foldl(flow.moves, function(total, current) {
+    var secondsPlayed = _.foldl(flow.moves, function(total, current) {
       return total + current.duration;
     }, 0);
 
-    this.stats.minutesPlayed += minutesPlayed;
+    this.stats.minutesPlayed += secondsPlayed / 60;
     return this.addRecentPlay(flow._id);
   },
 
