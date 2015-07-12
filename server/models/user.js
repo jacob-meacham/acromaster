@@ -54,7 +54,7 @@ var UserSchema = new Schema({
 
   stats: {
     flowsPlayed: { type: Number, 'default': '0' },
-    minutesPlayed: { type: Number, 'default': '0' },
+    secondsPlayed: { type: Number, 'default': '0' },
     flowsWritten: { type: Number, 'default': '0' },
     moves: { type: Number, 'default': '0' }
   }
@@ -116,7 +116,7 @@ UserSchema.methods = {
       return total + current.duration;
     }, 0);
 
-    this.stats.minutesPlayed += secondsPlayed / 60;
+    this.stats.secondsPlayed += secondsPlayed;
     return this.addRecentPlay(flow._id);
   },
 
