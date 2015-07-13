@@ -1,25 +1,241 @@
-/* line 1, ../sass/flow-player.scss */
+/* line 1, ../sass/animations.scss */
+.view-container {
+  position: relative;
+}
+
+/* line 5, ../sass/animations.scss */
+.view-frame.ng-leave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  -webkit-animation: viewExit 0.5s both ease-in-out;
+  -moz-animation: viewExit 0.5s both ease-in-out;
+  animation: viewExit 0.5s both ease-in-out;
+  z-index: 99;
+}
+
+/* line 15, ../sass/animations.scss */
+.view-frame.ng-enter {
+  -webkit-animation: viewEnter 0.5s both ease-in-out;
+  -moz-animation: viewEnter 0.5s both ease-in-out;
+  animation: viewEnter 0.5s both ease-in-out;
+  z-index: 100;
+}
+
+/* line 22, ../sass/animations.scss */
+.view-frame.ng-leave .back-button {
+  opacity: 0;
+}
+
+@keyframes viewExit {
+  to {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
+@-moz-keyframes viewExit {
+  to {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
+@-webkit-keyframes viewExit {
+  to {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
+@keyframes viewEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-moz-keyframes viewEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes viewEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+/* line 98, ../sass/animations.scss */
+.play-move.ng-hide-add {
+  position: absolute;
+  -webkit-animation: fade-out 0.5s both ease-in-out;
+  -moz-animation: fade-out 0.5s both ease-in-out;
+  animation: fade-out 0.5s both ease-in-out;
+}
+
+/* line 104, ../sass/animations.scss */
+.play-move.ng-hide-remove {
+  -webkit-animation: fade-in 0.5s both ease-in-out;
+  -moz-animation: fade-in 0.5s both ease-in-out;
+  animation: fade-in 0.5s both ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* line 143, ../sass/animations.scss */
+.thumbnail:hover,
+.thumbnail:focus {
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  background: #010101;
+  opacity: 1;
+}
+
+/* line 150, ../sass/animations.scss */
+.back-button .glyphicon:hover,
+.back-button .glyphicon:focus,
+.back-button .glyphicon:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  opacity: 1;
+}
+
+/* line 157, ../sass/animations.scss */
+.login-twitter:hover,
+.login-twitter:focus,
+.login-twitter:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  background-color: #3ea1ec;
+}
+
+/* line 164, ../sass/animations.scss */
+.login-facebook:hover,
+.login-facebook:focus,
+.login-facebook:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  background-color: #344e86;
+}
+
+/* line 3, ../sass/flow-player.scss */
 .move-name {
   font-weight: bold;
   font-size: 10vw;
   letter-spacing: 2px;
 }
 
-/* line 7, ../sass/flow-player.scss */
+/* line 9, ../sass/flow-player.scss */
 .flow-start-button {
   font-size: 18.0em !important;
   padding-top: 40px;
 }
 
-/* line 12, ../sass/flow-player.scss */
+/* line 14, ../sass/flow-player.scss */
 .flow-player-button {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
   font-size: 4.0em;
+  color: #999;
 }
 
-/* line 16, ../sass/flow-player.scss */
+/* line 20, ../sass/flow-player.scss */
+.flow-player-button.ng-hide-add {
+  display: none !important;
+}
+
+/* line 24, ../sass/flow-player.scss */
 .flow-player-button:hover {
-  color: #fff;
-  text-shadow: 0 0 4px #999;
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  color: #000;
   cursor: pointer;
   text-decoration: none;
 }
