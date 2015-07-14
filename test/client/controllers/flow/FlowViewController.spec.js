@@ -97,21 +97,21 @@ describe('FlowViewController', function() {
       setup(true, true);
       var vm = $controller('FlowViewController');
       vm.hasFavorited.should.eql(true);
-      vm.action.should.eql('Unfavorite');
+      vm.action.should.eql('Remove Favorite');
     });
 
     it('should have the correct state if authenticated and not favorited', function() {
       setup(true, false);
       var vm = $controller('FlowViewController');
       vm.hasFavorited.should.eql(false);
-      vm.action.should.eql('Favorite');
+      vm.action.should.eql('Add Favorite');
     });
 
     it('should have the correct state if not authenticated', function() {
       setup(false, false);
       var vm = $controller('FlowViewController');
       vm.hasFavorited.should.eql(false);
-      vm.action.should.eql('Favorite');
+      vm.action.should.eql('Add Favorite');
     });
 
     it('should toggle correctly if authenticated and favorited', function() {
@@ -125,12 +125,12 @@ describe('FlowViewController', function() {
       vm.toggleFavorite();
       unfavoriteStub.should.have.callCount(1);
       vm.hasFavorited.should.eql(false);
-      vm.action.should.eql('Favorite');
+      vm.action.should.eql('Add Favorite');
 
       vm.toggleFavorite();
       favoriteStub.should.have.callCount(1);
       vm.hasFavorited.should.eql(true);
-      vm.action.should.eql('Unfavorite');
+      vm.action.should.eql('Remove Favorite');
     });
 
     it('should toggle correctly if authenticated and not favorited', function() {
@@ -143,12 +143,12 @@ describe('FlowViewController', function() {
       vm.toggleFavorite();
       favoriteStub.should.have.callCount(1);
       vm.hasFavorited.should.eql(true);
-      vm.action.should.eql('Unfavorite');
+      vm.action.should.eql('Remove Favorite');
 
       vm.toggleFavorite();
       unfavoriteStub.should.have.callCount(1);
       vm.hasFavorited.should.eql(false);
-      vm.action.should.eql('Favorite');
+      vm.action.should.eql('Add Favorite');
     });
 
     it('should not toggle if not authenticated', function() {
