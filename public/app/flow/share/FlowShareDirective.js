@@ -36,7 +36,7 @@ var flowShare = function($document, $timeout) {
   return {
     restrict: 'E',
     link: link,
-    template: '<a href="#" ns-popover ns-popover-template="app/flow/share/share-popover.html" ns-popover-theme="ns-popover-tooltip-theme" ns-popover-placement="top">Share this flow</a>',
+    template: '<a href="#" class="share-link" ns-popover ns-popover-template="app/flow/share/share-popover.html" ns-popover-theme="ns-popover-tooltip-theme" ns-popover-placement="top"><span class="glyphicon glyphicon-share-alt" aria-hidden="true" /> Share</a>',
     controller: 'FlowShareDirectiveController',
     controllerAs: 'vm',
     bindToController: true,
