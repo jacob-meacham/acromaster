@@ -39,7 +39,7 @@ a:hover {
 
 /* line 35, ../sass/common.scss */
 html {
-  background-color: white;
+  background-color: #f9f9f9;
 }
 
 /*
@@ -117,10 +117,16 @@ span.large-glyphicon {
 }
 
 /* line 109, ../sass/common.scss */
+hr.narrow {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* line 114, ../sass/common.scss */
 .debug {
   margin-top: 20px;
 }
-/* line 112, ../sass/common.scss */
+/* line 117, ../sass/common.scss */
 .debug .btn {
   margin-left: auto;
   margin-right: auto;
@@ -131,7 +137,7 @@ span.large-glyphicon {
   outline: none;
   border-bottom: none;
 }
-/* line 123, ../sass/common.scss */
+/* line 128, ../sass/common.scss */
 .debug .debug-inner {
   font-size: 0.8em;
   padding: 0;
@@ -140,7 +146,7 @@ span.large-glyphicon {
   background-color: #fff;
 }
 
-/* line 133, ../sass/common.scss */
+/* line 138, ../sass/common.scss */
 slider, [slider] {
   display: inline-block;
   position: relative;
@@ -149,12 +155,12 @@ slider, [slider] {
   margin: 25px 5px 25px 5px;
   vertical-align: middle;
 }
-/* line 141, ../sass/common.scss */
+/* line 146, ../sass/common.scss */
 slider span, [slider] span {
   white-space: nowrap;
   position: absolute;
 }
-/* line 145, ../sass/common.scss */
+/* line 150, ../sass/common.scss */
 slider span.bar, [slider] span.bar {
   width: 100%;
   height: 100%;
@@ -162,13 +168,13 @@ slider span.bar, [slider] span.bar {
   background: #444;
   overflow: hidden;
 }
-/* line 152, ../sass/common.scss */
+/* line 157, ../sass/common.scss */
 slider span.bar .selection, [slider] span.bar .selection {
   width: 0;
   height: 100%;
   background: #13b6ff;
 }
-/* line 159, ../sass/common.scss */
+/* line 164, ../sass/common.scss */
 slider span.pointer, [slider] span.pointer {
   cursor: pointer;
   width: 20px;
@@ -179,7 +185,7 @@ slider span.pointer, [slider] span.pointer {
   z-index: 2;
   border-radius: 100%;
 }
-/* line 169, ../sass/common.scss */
+/* line 174, ../sass/common.scss */
 slider span.pointer:after, [slider] span.pointer:after {
   content: '';
   background-color: #777;
@@ -190,15 +196,15 @@ slider span.pointer:after, [slider] span.pointer:after {
   left: 6px;
   border-radius: 100%;
 }
-/* line 179, ../sass/common.scss */
+/* line 184, ../sass/common.scss */
 slider span.pointer:after:hover, [slider] span.pointer:after:hover {
   background-color: #000;
 }
-/* line 184, ../sass/common.scss */
+/* line 189, ../sass/common.scss */
 slider span.pointer.active:after, [slider] span.pointer.active:after {
   background-color: #f00;
 }
-/* line 189, ../sass/common.scss */
+/* line 194, ../sass/common.scss */
 slider span.bubble, [slider] span.bubble {
   display: none !important;
 }
