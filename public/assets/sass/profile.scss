@@ -2,6 +2,36 @@
     text-align: left;
 }
 
+.profile {
+    .list-box {
+        margin: 20px 0 20px 0;
+        background-color: white;
+    }
+
+    h2 {
+        font-size: 1.3em;
+        border: 2px solid #e5e5e5;
+        padding: 8px;
+        margin: 0;
+    }
+
+    .list-box-inner {
+        position: relative;
+        padding: 10px;
+        list-style: none;
+        border: 1px solid #e5e5e5;
+        border-top: 0;
+        margin: 0;
+    }
+
+    .play-now {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 25px;
+    }
+}
+
 .profile .profile-bar {
     .avatar {
         border-radius: 6px;
@@ -51,6 +81,19 @@
         font-family: 'FontAwesome';
         font-size: 1.5em;
     }
+
+    .info {
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+    .stat-box {
+        margin-top: 10px;
+        padding-bottom: 20px;
+        background-color: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+    }
 }
 
 .profile .achievements {
@@ -74,5 +117,12 @@
 
     .popover {
         color: black;
+    }
+}
+
+.profile .nav {
+    font-size: 1.2em;
+    a {
+        padding-left: 15px;
     }
 }
