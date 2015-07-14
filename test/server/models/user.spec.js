@@ -189,13 +189,13 @@ describe('User Model', function() {
       return user.recordPlay(flow).spread(function(_user) {
         _user.stats.flowsPlayed.should.eql(1);
         _user.stats.moves.should.eql(3);
-        _user.stats.minutesPlayed.should.eql(60);
+        _user.stats.secondsPlayed.should.eql(60);
         _user.recentlyPlayed.should.have.length(1);
         return user.recordPlay(flow);
       }).spread(function(_user) {
         _user.stats.flowsPlayed.should.eql(2);
         _user.stats.moves.should.eql(6);
-        _user.stats.minutesPlayed.should.eql(120);
+        _user.stats.secondsPlayed.should.eql(120);
         _user.recentlyPlayed.should.have.length(1);
       });
     });

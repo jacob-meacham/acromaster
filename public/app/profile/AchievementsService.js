@@ -124,7 +124,7 @@ var AchievementsService = function(_) {
 
       // # of minutes played
       var timeSteps = [{key: 'gettingwarmedup', val: 10}, {key: 'acrolific', val: 100}, {key: 'acrofanatic', val: 500}, {key: 'goldstar', val: 1000}, {key: 'flownforaweek', val: 10000}];
-      setStepBasedAchievements(achievements, timeSteps, user.stats.minutesPlayed);
+      setStepBasedAchievements(achievements, timeSteps, user.stats.secondsPlayed / 60);
 
       // # of moves done
       setStepBasedAchievements(achievements, [{key: 'fistfulofacro', val: 100}, {key: 'neverseenthatone', val: 1000}, {key: 'allthemoves', val: 10000}], user.stats.moves);
