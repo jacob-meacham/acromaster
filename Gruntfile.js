@@ -41,10 +41,7 @@ module.exports = function(grunt) {
             },
             css: {
                 files: paths.css,
-                tasks: ['csslint'],
-                options: {
-                    livereload: true
-                }
+                tasks: ['csslint']
             },
             express: {
                 files: ['server.js', 'server/**/*.js'],
