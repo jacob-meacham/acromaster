@@ -2,6 +2,7 @@
   color: #A8AEB2;
   text-decoration: none;
   cursor: pointer;
+  position: relative;
 }
 
 .like-button:focus,
@@ -22,4 +23,6 @@
 .like-count {
     font-size: 0.8em;
     padding-bottom: 2px;
+    position: absolute;
+    left: 25px;
 }
