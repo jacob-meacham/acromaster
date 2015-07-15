@@ -22,28 +22,29 @@
   float: left;
   margin-right: 5px;
   border-radius: 3px;
+  font-size: 4em;
 }
-/* line 25, ../sass/flows.scss */
+/* line 26, ../sass/flows.scss */
 .flows hr {
   margin: 0;
 }
-/* line 29, ../sass/flows.scss */
+/* line 30, ../sass/flows.scss */
 .flows .flow-author-info {
   margin-top: 10px;
   font-size: 0.9em;
 }
-/* line 34, ../sass/flows.scss */
+/* line 35, ../sass/flows.scss */
 .flows .flow-author {
   padding-top: 3px;
   margin-left: 8px;
   font-weight: bold;
 }
-/* line 40, ../sass/flows.scss */
+/* line 41, ../sass/flows.scss */
 .flows .flow-date {
   font-style: italic;
   margin-left: 8px;
 }
-/* line 45, ../sass/flows.scss */
+/* line 46, ../sass/flows.scss */
 .flows .flow-box {
   margin-top: 10px;
   margin-bottom: 15px;
@@ -53,13 +54,13 @@
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }
-/* line 55, ../sass/flows.scss */
+/* line 56, ../sass/flows.scss */
 .flows .likes {
   float: right;
   font-size: 1.5em;
   padding-right: 20px;
 }
-/* line 61, ../sass/flows.scss */
+/* line 62, ../sass/flows.scss */
 .flows .flow-actions {
   padding: 5px 0 5px 0;
 }
