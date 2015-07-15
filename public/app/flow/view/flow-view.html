@@ -3,7 +3,10 @@
     <div class="flow-box flow-header">
         <button ng-click="vm.start()" class="btn btn-default">Play Flow</button>
         <div class="flow-author-info">
-            <img class="avatar" ng-src="{{vm.flow.author.profilePictureUrl}}" />
+            <div class="avatar-container" ng-switch on="vm.flow.author.profilePictureUrl || 'null'">
+                <span class="avatar glyphicon glyphicon-user" ng-switch-when="null" />
+                <img class="avatar" ng-switch-default ng-src="{{vm.flow.author.profilePictureUrl}}" />
+            </div>
             <div class="flow-author">{{vm.flow.author.name || "Anonymous"}}</div>
             <div class="flow-date">Created {{vm.flow.createdAt | date}}</div>
         </div>
