@@ -37,6 +37,9 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
     .when('/login', {
       templateUrl: '/app/login/login.html'
     })
+    .when('/signup', {
+      templateUrl: '/app/login/login.html'
+    })
     .when('/about', {
       templateUrl: '/app/about/about.html',
       controller: 'AboutController',
