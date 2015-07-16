@@ -1,11 +1,11 @@
 'use strict';
 
-var FlowShareDirectiveController = function($location) {
+var ShareDirectiveController = function($location) {
   var vm = this;
-  vm.baseUrl = $location.absUrl().replace($location.path(), '') + '/flow';
+  vm.baseUrl = $location.absUrl().replace($location.url(), '');
 };
 
-var flowShare = function($document, $timeout) {
+var share = function($document, $timeout) {
   function link(scope, element) {
     // Sadly, nsPopover compiles async, and doesn't have any callback, so we fake it via a timeout
     var focusTimeout;
@@ -36,16 +36,16 @@ var flowShare = function($document, $timeout) {
   return {
     restrict: 'E',
     link: link,
-    template: '<a href="#" class="share-link" ns-popover ns-popover-template="app/flow/share/share-popover.html" ns-popover-theme="ns-popover-tooltip-theme" ns-popover-placement="top"><span class="glyphicon glyphicon-share-alt" aria-hidden="true" /> Share</a>',
-    controller: 'FlowShareDirectiveController',
+    template: '<a href="#" class="share-link" ns-popover ns-popover-template="app/share/share-popover.html" ns-popover-theme="ns-popover-tooltip-theme" ns-popover-placement="top"><span class="glyphicon glyphicon-share-alt" aria-hidden="true" /> Share</a>',
+    controller: 'ShareDirectiveController',
     controllerAs: 'vm',
     bindToController: true,
     scope: {
-      flowId: '@'
+      sharePartial: '@'
     }
   };
 };
 
 angular.module('acromaster.directives')
-  .controller('FlowShareDirectiveController', ['$location', FlowShareDirectiveController])
-  .directive('flowShare', ['$document', '$timeout', flowShare]);
+  .controller('ShareDirectiveController', ['$location', ShareDirectiveController])
+  .directive('share', ['$document', '$timeout', share]);

@@ -12,7 +12,7 @@
         <just-gage id="difficulty-gauge" value="vm.difficultyOptions.value" options="vm.difficultyOptions"></just-gage>
       </div>
     </div>
-    <a ng-href="/flow/{{vm.flow.id}}/remix">Remix This Flow</a>
-    <flow-share flow-id="{{vm.flow.id}}"></flow-share>
+    <a ng-href="flow/{{vm.flow.id}}/remix">Remix This Flow</a>
+    <share share-partial="/flow/{{vm.flow.id}}"></share>
     <flow-like flow="vm.flow"></flow-like>
 </section>
