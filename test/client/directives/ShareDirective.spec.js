@@ -1,6 +1,6 @@
 'use strict';
 
-describe('FlowLikeDirective', function() {
+describe('ShareDirective', function() {
   beforeEach(module('acromaster', 'acromaster.templates'));
 
   var sandbox;
@@ -12,7 +12,7 @@ describe('FlowLikeDirective', function() {
     inject(function(_$rootScope_, $location) {
       $rootScope = _$rootScope_;
       sandbox.stub($location, 'absUrl').returns('acromaster.org/flow/myFlow/edit');
-      sandbox.stub($location, 'path').returns('/flow/myFlow/edit');
+      sandbox.stub($location, 'url').returns('/flow/myFlow/edit');
     });
   });
 
@@ -20,7 +20,7 @@ describe('FlowLikeDirective', function() {
     sandbox.restore();
   });
 
-  describe('FlowShareDirectiveController', function() {
+  describe('ShareDirectiveController', function() {
     var $controller;
 
     beforeEach(inject(function(_$controller_) {
@@ -28,8 +28,8 @@ describe('FlowLikeDirective', function() {
     }));
 
     it('should have the correct base url', function() {
-      var ctrl = $controller('FlowShareDirectiveController');
-      ctrl.baseUrl.should.eql('acromaster.org/flow');
+      var ctrl = $controller('ShareDirectiveController');
+      ctrl.baseUrl.should.eql('acromaster.org');
     });
   });
 
@@ -45,15 +45,15 @@ describe('FlowLikeDirective', function() {
     }));
 
     it('should bind to the controller', function() {
-      var element = $compile('<flow-share flow-id="someAwesomeFlow"></flow-share>')($rootScope);
+      var element = $compile('<share share-partial="flow/someAwesomeFlow"></share>')($rootScope);
       $rootScope.$digest();
 
       var ctrl = element.isolateScope().vm;
-      ctrl.flowId.should.eql('someAwesomeFlow');
+      ctrl.sharePartial.should.eql('flow/someAwesomeFlow');
     });
 
     it('should create an nspopover with the appropriate text', function() {
-      $compile('<flow-share flow-id="someAwesomeFlow"></flow-share>')($rootScope);
+      $compile('<share share-partial="flow/someAwesomeFlow"></share>')($rootScope);
       $rootScope.$digest();
 
       $timeout.flush(2000);
@@ -64,7 +64,7 @@ describe('FlowLikeDirective', function() {
 
     it('should cancel the compile timeout', function() {
       var cancelTimeout = sandbox.spy($timeout, 'cancel');
-      var element = $compile('<flow-share flow-id="someAwesomeFlow"></flow-share>')($rootScope);
+      var element = $compile('<share share-partial="flow/someAwesomeFlow"></share>')($rootScope);
       $rootScope.$digest();
 
       element.triggerHandler('$destroy');
@@ -73,7 +73,7 @@ describe('FlowLikeDirective', function() {
 
     it('should cancel the focus timeout, if it exists', function() {
       var cancelTimeout = sandbox.spy($timeout, 'cancel');
-      var element = $compile('<flow-share flow-id="someAwesomeFlow"></flow-share>')($rootScope);
+      var element = $compile('<share share-partial="flow/someAwesomeFlow"></share>')($rootScope);
       $rootScope.$digest();
 
       $timeout.flush(2000);
@@ -84,7 +84,7 @@ describe('FlowLikeDirective', function() {
     });
 
     it('should call select on popover click', function() {
-      $compile('<flow-share flow-id="someAwesomeFlow"></flow-share>')($rootScope);
+      $compile('<share share-partial="flow/someAwesomeFlow"></share>')($rootScope);
       $rootScope.$digest();
 
       $timeout.flush(2000);
@@ -96,7 +96,7 @@ describe('FlowLikeDirective', function() {
     });
 
     it('should call focus and select on element click', function() {
-      var element = $compile('<flow-share flow-id="someAwesomeFlow"></flow-share>')($rootScope);
+      var element = $compile('<share share-partial="flow/someAwesomeFlow"></share>')($rootScope);
       $rootScope.$digest();
 
       $timeout.flush(2000);
