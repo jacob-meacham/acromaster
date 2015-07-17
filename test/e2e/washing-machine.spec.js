@@ -12,8 +12,8 @@ describe('Washing Machines', function() {
   });
 
   it('should start with a washing machine', function(done) {
-    expect(element(by.binding('vm.move1.name')).getText()).to.eventually.exist;
-    expect(element(by.binding('vm.move2.name')).getText()).to.eventually.exist;
+    expect(element(by.binding('vm.move1')).getText()).to.eventually.exist;
+    expect(element(by.binding('vm.move2')).getText()).to.eventually.exist;
     expect(element(by.binding('vm.washing_machine')).getText()).to.eventually.exist.notify(done);
   });
 
