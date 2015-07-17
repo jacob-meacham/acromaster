@@ -45,7 +45,7 @@ FlowSchema.index({ name: 'text', description: 'text', authorName: 'text' });
 FlowSchema.statics = {
   load: function(id, cb) {
     return this.findOne({ _id: id })
-      .populate('author', 'name _id profilePictureUrl')
+      .populate('author', 'name username _id profilePictureUrl')
       .populate('moves.move')
       .exec(cb);
   },

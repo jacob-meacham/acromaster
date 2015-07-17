@@ -5,9 +5,12 @@
         <div class="flow-author-info">
             <div class="avatar-container" ng-switch on="vm.flow.author.profilePictureUrl || 'null'">
                 <span class="avatar glyphicon glyphicon-user" ng-switch-when="null" />
-                <img class="avatar" ng-switch-default ng-src="{{vm.flow.author.profilePictureUrl}}" />
+                <a ng-switch-default ng-href="/profile/{{vm.flow.author.username}}"><img class="avatar" ng-src="{{vm.flow.author.profilePictureUrl}}" /></a>
             </div>
-            <div class="flow-author">{{vm.flow.author.name || "Anonymous"}}</div>
+            <div class="flow-author">
+                <a ng-href="/profile/{{vm.flow.author.username}}" ng-show="vm.flow.author.username">{{vm.flow.author.name}}</a>
+                <div ng-hide="vm.flow.author.username">Anonymous</div>
+            </div>
             <div class="flow-date">Created {{vm.flow.createdAt | date}}</div>
         </div>
         <div class="flow-plays">{{vm.flow.plays + 1}} plays</div>
