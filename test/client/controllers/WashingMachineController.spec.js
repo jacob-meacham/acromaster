@@ -34,8 +34,8 @@ describe('WashingMachineController', function() {
     var vm = $controller('WashingMachineViewController', { WashingMachineService : WashingMachineServiceStub });
     $rootScope.$digest();
 
-    vm.move1.name.should.eql('move1');
-    vm.move2.name.should.eql('move2');
+    vm.move1.should.eql('move1');
+    vm.move2.should.eql('move2');
     vm.washing_machine.should.eql('WishyWash');
   });
 });
