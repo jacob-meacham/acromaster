@@ -20,15 +20,16 @@ a:hover {
 /* Custom default button */
 .btn-default {
   text-shadow: none; /* Prevent inheritence from `body` */
+  color: white;
+  background-color: #c12b32;
   border: 1px solid #111;
-  background-color: transparent; 
-  color: #c12b32;
+  font-weight: bold;
 }
 
 .btn-default:hover {
   text-shadow: none; /* Prevent inheritence from `body` */
+  background-color: #741a1e;
   color: white;
-  background-color: #c12b32;
   border: 1px solid #111;
 }
 
