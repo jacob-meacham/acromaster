@@ -62,5 +62,9 @@
 }
 /* line 62, ../sass/flows.scss */
 .flows .flow-actions {
-  padding: 5px 0 5px 0;
+  padding: 5px 0 8px 0;
+}
+/* line 65, ../sass/flows.scss */
+.flows .flow-actions a {
+  margin-right: 10px;
 }
