@@ -18,19 +18,19 @@
 </div>
 <div class="row stats">
     <div class="col-md-4">
-        <div class="stat-box">
+        <div class="box-container">
             <just-gage id="flows-gauge" value="vm.flowsPlayedOptions.value" options="vm.flowsPlayedOptions"></just-gage>
             <div class="info">{{vm.profile.stats.flowsPlayed}} flows played</div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="stat-box">
+        <div class="box-container">
             <just-gage id="time-gauge" value="vm.minutesPlayedOptions.value" options="vm.minutesPlayedOptions"></just-gage>
             <div class="info">{{vm.profile.stats.minutesPlayed | number:0 }} minutes played</div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="stat-box">
+        <div class="box-container">
             <just-gage id="moves-gauge" value="vm.movesPlayedOptions.value" options="vm.movesPlayedOptions"></just-gage>
             <div class="info">{{vm.profile.stats.moves}} moves performed</div>
         </div>

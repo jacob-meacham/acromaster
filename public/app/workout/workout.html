@@ -16,7 +16,7 @@
             </div>
             <div class="col-sm-3 col-sm-offset-1">
                 <h5>Difficulty: {{vm.flowParams.difficulty}}</h5>
-                <slider floor="0" ceiling="11" ng-model="vm.flowParams.difficulty"></slider>
+                <slider floor="1" ceiling="11" ng-model="vm.flowParams.difficulty"></slider>
             </div>
         </div>
         <hr class="soften" />
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-sm-3">
             <h3>Flow Length</h3>
-            <slider floor="0" step="10" ceiling="120" ng-model="vm.flowParams.totalMinutes"></slider>
+            <slider floor="5" step="10" ceiling="125" ng-model="vm.flowParams.totalMinutes"></slider>
             <h3>{{vm.flowParams.totalMinutes}} minutes</h3>
         </div>
         <div class="col-sm-3 col-sm-offset-1">
