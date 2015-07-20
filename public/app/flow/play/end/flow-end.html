@@ -1,6 +1,11 @@
-<section>
+<section id="flow-end">
     <h1>Great Job!</h1>
-    <h3>Here's what you did</h3>
+    <h3>You just completed {{vm.flow.name}}</h3>
+    <div class="social-actions">
+      <flow-like flow="vm.flow"></flow-like>
+      <share share-partial="/flow/{{vm.flow.id}}"></share>
+      <a ng-href="flow/{{vm.flow.id}}/remix">Remix This Flow</a>
+    </div>
     <div class="inner row">
       <div class="col-md-4">
         <just-gage id="moves-gauge" value="vm.numMovesOptions.value" options="vm.numMovesOptions"></just-gage>
@@ -12,7 +17,4 @@
         <just-gage id="difficulty-gauge" value="vm.difficultyOptions.value" options="vm.difficultyOptions"></just-gage>
       </div>
     </div>
-    <a ng-href="flow/{{vm.flow.id}}/remix">Remix This Flow</a>
-    <share share-partial="/flow/{{vm.flow.id}}"></share>
-    <flow-like flow="vm.flow"></flow-like>
 </section>

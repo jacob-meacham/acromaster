@@ -68,3 +68,18 @@
 .flows .flow-actions a {
   margin-right: 10px;
 }
+
+/* line 72, ../sass/flows.scss */
+#flow-end .likes {
+  font-size: 1.5em;
+  display: inline-block;
+  margin-right: 10px;
+}
+/* line 77, ../sass/flows.scss */
+#flow-end .social-actions {
+  padding: 5px 0 8px 0;
+}
+/* line 80, ../sass/flows.scss */
+#flow-end .social-actions a {
+  margin-right: 10px;
+}
