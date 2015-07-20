@@ -87,16 +87,8 @@
   font-size: 1.1em;
   font-weight: bold;
 }
-/* line 90, ../sass/profile.scss */
-.profile .stats .stat-box {
-  margin-top: 10px;
-  padding-bottom: 20px;
-  background-color: white;
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
-}
 
-/* line 100, ../sass/profile.scss */
+/* line 92, ../sass/profile.scss */
 .profile .achievements .achievement {
   width: 174px;
   height: 160px;
@@ -108,22 +100,22 @@
   background-color: #808080;
   color: #cccccc;
 }
-/* line 112, ../sass/profile.scss */
+/* line 104, ../sass/profile.scss */
 .profile .achievements .awarded {
   background-color: black;
   border: 3px solid #fcb426;
   color: white;
 }
-/* line 118, ../sass/profile.scss */
+/* line 110, ../sass/profile.scss */
 .profile .achievements .popover {
   color: black;
 }
 
-/* line 123, ../sass/profile.scss */
+/* line 115, ../sass/profile.scss */
 .profile .nav {
   font-size: 1.2em;
 }
-/* line 125, ../sass/profile.scss */
+/* line 117, ../sass/profile.scss */
 .profile .nav a {
   padding-left: 15px;
 }
