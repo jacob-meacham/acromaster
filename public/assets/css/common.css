@@ -151,7 +151,7 @@ hr.narrow {
 slider, [slider] {
   display: inline-block;
   position: relative;
-  height: 7px;
+  height: 25px;
   width: 100%;
   margin: 25px 5px 25px 5px;
   vertical-align: middle;
@@ -165,47 +165,32 @@ slider span, [slider] span {
 slider span.bar, [slider] span.bar {
   width: 100%;
   height: 100%;
-  border-radius: 7px;
-  background: #444;
+  background: #e0e0e0;
+  border: solid 1px #111;
+  border-radius: 25px;
   overflow: hidden;
 }
-/* line 158, ../sass/common.scss */
+/* line 159, ../sass/common.scss */
 slider span.bar .selection, [slider] span.bar .selection {
   width: 0;
   height: 100%;
   background: #13b6ff;
 }
-/* line 165, ../sass/common.scss */
+/* line 166, ../sass/common.scss */
 slider span.pointer, [slider] span.pointer {
   cursor: pointer;
-  width: 20px;
-  height: 20px;
-  top: -8px;
-  background-color: #fff;
-  border: 1px solid #000;
+  width: 60px;
+  height: 25px;
+  background-color: #fdd27d;
   z-index: 2;
-  border-radius: 100%;
+  border: solid 2px #fcb426;
+  border-radius: 10px;
 }
 /* line 175, ../sass/common.scss */
-slider span.pointer:after, [slider] span.pointer:after {
-  content: '';
-  background-color: #777;
-  width: 8px;
-  height: 8px;
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  border-radius: 100%;
+slider span.pointer.active, [slider] span.pointer.active {
+  background-color: #fdc755;
 }
-/* line 185, ../sass/common.scss */
-slider span.pointer:after:hover, [slider] span.pointer:after:hover {
-  background-color: #000;
-}
-/* line 190, ../sass/common.scss */
-slider span.pointer.active:after, [slider] span.pointer.active:after {
-  background-color: #f00;
-}
-/* line 195, ../sass/common.scss */
+/* line 180, ../sass/common.scss */
 slider span.bubble, [slider] span.bubble {
   display: none !important;
 }
