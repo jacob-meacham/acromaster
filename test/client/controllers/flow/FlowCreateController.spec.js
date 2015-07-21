@@ -31,6 +31,9 @@ describe('FlowCreateController', function() {
     var expected = new Flow({moves: []});
     var vm = $controller('FlowCreateController');
 
+    // imageUrl is set to a random image - everything else should be empty.
+    vm.flow.imageUrl.should.exist;
+    delete vm.flow.imageUrl;
     vm.flow.should.eql(expected);
   });
 

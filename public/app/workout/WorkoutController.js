@@ -15,6 +15,7 @@ var QuickPlayController = function($location, $scope, flowService, rand, pageHea
   vm.generateFlow = function() {
     flowParams.totalTime = flowParams.totalMinutes * 60;
     flowParams.flowName = rand.generateFlowName();
+    flowParams.imageUrl = rand.randomFlowIcon();
     flowService.generateFlow(flowParams).then(function(flow) {
       $location.path('/flow/' + flow.id + '/play');
     });

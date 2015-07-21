@@ -1,15 +1,16 @@
 'use strict';
 
-var FlowCreateController = function($routeParams, $location, Flow, flowService, pageHeaderService) {
+var FlowCreateController = function($routeParams, $location, rand, Flow, flowService, pageHeaderService) {
   var vm = this;
 
-  vm.flow = new Flow({moves: []});
   if ($routeParams.flowId) {
     flowService.instantiateFlow($routeParams.flowId, function(flow) {
-      vm.flow = new Flow({moves: []}); // Force the value to change
-      vm.flow.moves = flow.moves;
+      vm.flow = flow;
       vm.flow.name = 'Remix of ' + flow.name;
     });
+  } else {
+    vm.flow = new Flow({moves: []});
+    vm.flow.imageUrl = rand.randomFlowIcon();
   }
 
   pageHeaderService.setTitle('Create Flow');
@@ -20,4 +21,4 @@ var FlowCreateController = function($routeParams, $location, Flow, flowService, 
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowCreateController', ['$routeParams', '$location', 'Flow', 'FlowService', 'PageHeaderService', FlowCreateController]);
+  .controller('FlowCreateController', ['$routeParams', '$location', 'RandomNameService', 'Flow', 'FlowService', 'PageHeaderService', FlowCreateController]);

@@ -40,6 +40,10 @@ var RandomNameService = function(rand) {
         if (template.adjective !== '') { template.adjective = 'The '; }
         return template.adjective + template.type + template.type_add + ' Flow';
       }
+    },
+
+    randomFlowIcon: function() {
+      return rand.choose(['ice-lolly', 'ice-lolly-tasted', 'apple', 'grain', 'sunglasses', 'tree-deciduous', 'certificate', 'eye-open', 'fire', 'leaf', 'heart']);
     }
   };
 };

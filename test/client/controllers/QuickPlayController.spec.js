@@ -24,7 +24,8 @@ describe('QuickPlayController', function() {
     };
 
     var RandomNameService = {
-      generateFlowName: function() { return 'My Flow Name'; }
+      generateFlowName: function() { return 'My Flow Name'; },
+      randomFlowIcon: function() { return 'random-icon'; }
     };
 
     vm = $controller('QuickPlayController', { $location: $location, $scope: $rootScope.$new(), FlowService: FlowService, RandomNameService: RandomNameService });
@@ -44,6 +45,8 @@ describe('QuickPlayController', function() {
   it('should generate the flow with the appropriate params', function() {
     vm.flowParams.totalMinutes = 20;
     vm.flowParams.foo = 'foo';
+    vm.flowParams.name = 'My Flow Name';
+    vm.flowParams.imageUrl = 'random-icon';
 
     var expectedParams = vm.flowParams;
 
