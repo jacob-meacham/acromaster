@@ -1,5 +1,5 @@
 <section class="flows">
-    <h1 class="flow-title"><span class="glyphicon glyphicon-fire" /> {{vm.flow.name}}</h1>
+    <h1 class="flow-title"><span class="glyphicon glyphicon-{{vm.flow.imageUrl}}" /> {{vm.flow.name}}</h1>
     <div class="flow-box flow-header">
         <button ng-click="vm.start()" class="btn btn-default">Play Flow</button>
         <div class="flow-author-info">
@@ -39,4 +39,7 @@
         </ul>
     </div>
     <back-button url="/flows"></back-button>
+    <debug class="block">
+        <p>{{vm.flow}}</p>
+    </debug>
 </section>

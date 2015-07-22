@@ -31,19 +31,19 @@
             </tr>
         </thead>
         <tbody ui:sortable ng:model="vm.moveList">
-            <tr ng:repeat="move in vm.moveList" class="item">
+            <tr ng:repeat="moveEntry in vm.moveList" class="item">
                 <td>
-                    <span editable-text="move.move.name" e-autocomplete="off" e-name="name" e-class="form-control" e-form="flowForm" e-required e-typeahead="move as move.name for move in vm.allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="vm.removeMove($index)" onbeforesave="vm.checkMove($data)" onaftersave="vm.updateMove($index, $data)">
-                        {{move.move.name}}
+                    <span editable-text="moveEntry.move" e-autocomplete="off" e-name="name" e-class="form-control" e-form="flowForm" e-required e-typeahead="move as move.name for move in vm.allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="vm.removeMove($index)" onbeforesave="vm.checkMove($data)" onaftersave="vm.updateMove($index, $data)">
+                        {{moveEntry.move.name}}
                     </span>
                 </td>
                 <td>
-                    <span editable-text="move.duration" e-name="duration" e-class="form-control" e-form="flowForm" onbeforesave="vm.checkDuration($data)" e-required>
-                        {{move.duration}}
+                    <span editable-text="moveEntry.duration" e-name="duration" e-class="form-control" e-form="flowForm" onbeforesave="vm.checkDuration($data)" e-required>
+                        {{moveEntry.duration}}
                     </span>
                 </td>
                 <td>
-                    <form editable-form name="flowForm" ng-show="flowForm.$visible" class="form-buttons form-inline" shown="vm.inserted == move">
+                    <form editable-form name="flowForm" ng-show="flowForm.$visible" class="form-buttons form-inline" shown="vm.inserted == moveEntry">
                       <button type="submit" ng-disabled="flowForm.$waiting" class="btn btn-primary">
                         <span class="glyphicon glyphicon-ok"></span>
                       </button>
