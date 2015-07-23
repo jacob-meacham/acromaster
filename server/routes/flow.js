@@ -62,7 +62,7 @@ var _getMax = function(req) {
 
 var _listRandom = function(req, res, next) {
   var max = _getMax(req);
-  Flow.findRandom().limit(max).exec().then(function(flows) {
+  Flow.findRandom({workout: false}).limit(max).exec().then(function(flows) {
     res.jsonp({
       flows: flows,
       total: max
