@@ -1,4 +1,4 @@
-<section>
+<section class="workout-create">
     <div class="row">
         <div ng-class="{ 'advanced-open': vm.showAdvancedPane }" class="pull-right">
             <a ng-click="vm.toggleAdvancedPane()">Advanced<span class="advanced-gear glyphicon glyphicon-cog"></span></a>
@@ -7,16 +7,19 @@
     <div collapse="vm.collapseAdvancedPane" class="advanced-pane">
         <div class="row">
             <div class="col-sm-3">
-                <h5>Move Duration: {{vm.flowParams.timePerMove}}</h5><div glyphicon glyphicon-question></div>
+                <h4>Move Duration <span class="glyphicon glyphicon-question-sign" popover="Moves that have a higher difficulty than this won't be part of the workout." popover-trigger="mouseenter"></span></h4>
                 <slider floor="5" ceiling="60" ng-model="vm.flowParams.timePerMove"></slider>
+                <h4>{{vm.flowParams.timePerMove}} seconds</h4>
             </div>
             <div class="col-sm-3 col-sm-offset-1">
-                <h5>Move Variance: {{vm.flowParams.timeVariance}}</h5><div glyphicon glyphicon-question></div>
+                <h4>Move Variance <span class="glyphicon glyphicon-question-sign" popover="This is the random number of seconds added to each move in the workout." popover-trigger="mouseenter"></span></h4>
                 <slider floor="0" ceiling="60" ng-model="vm.flowParams.timeVariance"></slider>
+                <h4>{{vm.flowParams.timeVariance}} seconds</h4>
             </div>
             <div class="col-sm-3 col-sm-offset-1">
-                <h5>Difficulty: {{vm.flowParams.difficulty}}</h5>
+                <h4>Difficulty <span class="glyphicon glyphicon-question-sign" popover="Moves that have a higher difficulty than this won't be part of the workout." popover-trigger="mouseenter"></span></h4>
                 <slider floor="1" ceiling="11" ng-model="vm.flowParams.difficulty"></slider>
+                <h4>{{vm.flowParams.difficulty}}</h4>
             </div>
         </div>
         <hr class="soften" />
