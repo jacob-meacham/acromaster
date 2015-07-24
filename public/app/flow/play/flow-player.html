@@ -5,7 +5,16 @@
             <div class="move-name">{{entry.move.name}}</div>
         </div>
     </div>
-    <span class="glyphicon glyphicon-pause flow-player-button" ng-show="player.hasStarted && !player.paused" ng-click="player.pause()"></span>
-    <span class="glyphicon glyphicon-play flow-player-button" ng-show="player.hasStarted && player.paused" ng-click="player.play()"></span>
-    <slider floor="0.25" ceiling="4" precision="2" ng-change="player.updateDuration()" ng-model="player.speedMultiplier"></slider>
+    <div class="row">
+        <div class="col-sm-1 col-sm-offset-6">
+            <span class="glyphicon glyphicon-pause flow-player-button" ng-show="player.hasStarted && !player.paused" ng-click="player.pause()"></span>
+            <span class="glyphicon glyphicon-play flow-player-button" ng-show="player.hasStarted && player.paused" ng-click="player.play()"></span>
+        </div>
+        <div class="col-sm-3">
+            <div class="speed-slider" ng-show="player.hasStarted">
+                <slider floor="0.25" ceiling="4" precision="2" ng-change="player.updateDuration()" ng-model="player.speedMultiplier"></slider>
+                <div class="speed-slider-label">Speed - x{{player.speedMultiplier}}</div>
+            </div>
+        </div>
+    </div>
 </div>
