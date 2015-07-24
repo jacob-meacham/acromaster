@@ -5,19 +5,20 @@
   padding-bottom: 8px;
   font-size: 1.8em;
   height: auto;
+  color: #000;
 }
 
-/* line 11, ../sass/navbar.scss */
+/* line 12, ../sass/navbar.scss */
 .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
   color: #000;
 }
 
-/* line 15, ../sass/navbar.scss */
+/* line 16, ../sass/navbar.scss */
 .navbar-nav > li {
   display: inline-block;
 }
 
-/* line 19, ../sass/navbar.scss */
+/* line 20, ../sass/navbar.scss */
 .navbar-nav > li > a {
   font-size: 16px;
   font-weight: bold;
@@ -29,7 +30,7 @@
   margin-bottom: 3px;
 }
 
-/* line 30, ../sass/navbar.scss */
+/* line 31, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > li > a:hover {
   color: #9d9d9d;
   border-top-color: #fcb426;
@@ -39,20 +40,20 @@
   transition: border-top-color 0.15s ease;
 }
 
-/* line 39, ../sass/navbar.scss */
+/* line 40, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > .active > a {
   color: #9d9d9d;
   background: transparent;
   border-top-color: #c12b32;
 }
 
-/* line 45, ../sass/navbar.scss */
+/* line 46, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
   color: #9d9d9d;
   background: transparent;
 }
 
-/* line 50, ../sass/navbar.scss */
+/* line 51, ../sass/navbar.scss */
 .nav .avatar {
   width: 20px;
   height: 20px;
@@ -61,7 +62,7 @@
   border-radius: 3px;
 }
 
-/* line 58, ../sass/navbar.scss */
+/* line 59, ../sass/navbar.scss */
 .navbar {
   background-color: #f9f9f9;
   border-color: transparent;
