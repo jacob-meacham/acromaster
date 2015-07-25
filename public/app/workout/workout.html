@@ -25,29 +25,35 @@
         <hr class="soften" />
     </div>
     <div class="row">
-        <div class="col-sm-3">
-            <h3>Flow Length</h3>
-            <slider floor="5" step="10" ceiling="125" ng-model="vm.flowParams.totalMinutes"></slider>
-            <h3>{{vm.flowParams.totalMinutes}} minutes</h3>
+        <div class="col-sm-4">
+            <div class="workout-column">
+                <h3>Flow Length</h3>
+                <slider floor="5" step="10" ceiling="125" ng-model="vm.flowParams.totalMinutes"></slider>
+                <h3>{{vm.flowParams.totalMinutes}} minutes</h3>
+            </div>
         </div>
-        <div class="col-sm-3 col-sm-offset-1">
-            <h3>Difficulty</h3>
-            <slick dots=false infinite=false current-index="vm.currentDifficultyIndex" initial-slide="{{vm.currentDifficultyIndex}}">
-                <div><h3>Beginner</h3></div>
-                <div><h3>Intermediate</h3></div>
-                <div><h3>Hard</h3></div>
-                <div><h3>Expert</h3></div>
-            </slick>
+        <div class="col-sm-4 workout-column-mid">
+            <div class="workout-column">
+                <h3>Difficulty</h3>
+                <slick dots=false infinite=false current-index="vm.currentDifficultyIndex" initial-slide="{{vm.currentDifficultyIndex}}">
+                    <div><h3>Beginner</h3></div>
+                    <div><h3>Intermediate</h3></div>
+                    <div><h3>Hard</h3></div>
+                    <div><h3>Expert</h3></div>
+                </slick>
+            </div>
         </div>
-        <div class="col-sm-3 col-sm-offset-1">
-            <h3>Move Length</h3>
-            <slick dots=false infinite=false current-index="vm.currentMoveLengthIndex" initial-slide="{{vm.currentMoveLengthIndex}}">
-                <div><h3>Quick</h3></div>
-                <div><h3>Short</h3></div>
-                <div><h3>Medium</h3></div>
-                <div><h3>Long</h3></div>
-                <div><h3>Epic!</h3></div>
-            </slick>
+        <div class="col-sm-4">
+            <div class="workout-column">
+                <h3>Move Length</h3>
+                <slick dots=false infinite=false current-index="vm.currentMoveLengthIndex" initial-slide="{{vm.currentMoveLengthIndex}}">
+                    <div><h3>Quick</h3></div>
+                    <div><h3>Short</h3></div>
+                    <div><h3>Medium</h3></div>
+                    <div><h3>Long</h3></div>
+                    <div><h3>Epic!</h3></div>
+                </slick>
+            </div>
         </div>
     </div>
     <button type="button" class="btn btn-default btn-lg" ng-click="vm.generateFlow()">Let's Go!</button>
