@@ -1,8 +1,42 @@
-.slick-prev:before,
-.slick-next:before {
-    color: black;
-}
+.workout-create {
+    .slick-prev:before,
+    .slick-next:before {
+        color: black;
+    }
 
-.advanced-gear {
-    padding-left: 5px;
+    .slick-prev {
+        left: 0;
+    }
+
+    .slick-next {
+        right: 0;
+    }
+
+    .advanced-gear {
+        padding-left: 5px;
+    }
+
+    h4 {
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+
+    slider {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    @media (min-width: 1024px) {
+        .workout-column {
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .workout-column-mid {
+            border-left: solid 1px #ddd;
+            border-right: solid 1px #ddd;
+        }
+    }
 }

@@ -1,10 +1,41 @@
-/* line 1, ../sass/workout.scss */
-.slick-prev:before,
-.slick-next:before {
+/* line 2, ../sass/workout.scss */
+.workout-create .slick-prev:before,
+.workout-create .slick-next:before {
   color: black;
 }
-
-/* line 6, ../sass/workout.scss */
-.advanced-gear {
+/* line 7, ../sass/workout.scss */
+.workout-create .slick-prev {
+  left: 0;
+}
+/* line 11, ../sass/workout.scss */
+.workout-create .slick-next {
+  right: 0;
+}
+/* line 15, ../sass/workout.scss */
+.workout-create .advanced-gear {
   padding-left: 5px;
+}
+/* line 19, ../sass/workout.scss */
+.workout-create h4 {
+  margin-top: 0px;
+  margin-bottom: 8px;
+}
+/* line 24, ../sass/workout.scss */
+.workout-create slider {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+@media (min-width: 1024px) {
+  /* line 30, ../sass/workout.scss */
+  .workout-create .workout-column {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+}
+@media (min-width: 768px) {
+  /* line 37, ../sass/workout.scss */
+  .workout-create .workout-column-mid {
+    border-left: solid 1px #ddd;
+    border-right: solid 1px #ddd;
+  }
 }
