@@ -21,11 +21,12 @@ var MoveEntrySchema = new Schema({
 MoveEntrySchema.options.toJSON = { transform: subdocTransform };
 
 var FlowSchema = new Schema({
-    _id: {
+  _id: {
     type: ShortId,
     alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   },
   name: { type: String, required: true },
+  imageUrl: String,
   description: { type: String },
   authorName: { type: String },
   author: { type: ShortId, ref: 'User' },
@@ -33,7 +34,6 @@ var FlowSchema = new Schema({
   moves: [MoveEntrySchema],
 
   createdAt: { type : Date, default : Date.now },
-  official: Boolean,
   workout: {type: Boolean, default: false },
 
   playCount: { type: Number, default : 0 },
