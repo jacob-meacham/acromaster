@@ -4,7 +4,7 @@
 }
 /* line 4, ../sass/flows.scss */
 .flows .move-list {
-  padding-bottom: 20px;
+  list-style: none;
 }
 /* line 8, ../sass/flows.scss */
 .flows .flow-title {
@@ -25,7 +25,7 @@
   font-size: 4em;
 }
 /* line 26, ../sass/flows.scss */
-.flows hr {
+.flows hr.no-margin {
   margin: 0;
 }
 /* line 30, ../sass/flows.scss */

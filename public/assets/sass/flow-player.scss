@@ -1,29 +1,31 @@
 @import 'animations';
 
-.move-name {
-  font-weight: bold;
-  font-size: 10vw;
-  letter-spacing: 2px;
-}
+.flow-player {
+  .move-name {
+    font-weight: bold;
+    font-size: 10vw;
+    letter-spacing: 2px;
+  }
 
-.flow-start-button {
-  font-size: 18.0em !important;
-  padding-top: 40px;
-}
+  .flow-start-button {
+    font-size: 18.0em !important;
+    padding-top: 40px;
+  }
 
-.flow-player-button {
-  @include standard-ease(0.2s);
-  font-size: 4.0em;
-  color: #999;
-}
+  .flow-player-button {
+    @include standard-ease(0.2s);
+    font-size: 4.0em;
+    color: #999;
+  }
 
-.flow-player-button.ng-hide-add {
-  display: none !important;
-}
+  .flow-player-button.ng-hide-add {
+    display: none !important;
+  }
 
-.flow-player-button:hover {
-  @include standard-ease(0.2s);
-  color: #000;
-  cursor: pointer;
-  text-decoration: none;
+  .flow-player-button:hover {
+    @include standard-ease(0.2s);
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
+  }
 }

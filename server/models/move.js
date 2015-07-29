@@ -19,6 +19,7 @@ var MoveSchema = new Schema({
   },
   name: {type: String, required: true },
   audioUri: String,
+  descriptionUrl: String,
   difficulty: {type: Number, default: 5},
   aliases: [String],
 

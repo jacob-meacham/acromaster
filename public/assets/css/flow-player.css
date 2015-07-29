@@ -201,21 +201,19 @@
   background-color: #344e86;
 }
 
-/* line 3, ../sass/flow-player.scss */
-.move-name {
+/* line 4, ../sass/flow-player.scss */
+.flow-player .move-name {
   font-weight: bold;
   font-size: 10vw;
   letter-spacing: 2px;
 }
-
-/* line 9, ../sass/flow-player.scss */
-.flow-start-button {
+/* line 10, ../sass/flow-player.scss */
+.flow-player .flow-start-button {
   font-size: 18.0em !important;
   padding-top: 40px;
 }
-
-/* line 14, ../sass/flow-player.scss */
-.flow-player-button {
+/* line 15, ../sass/flow-player.scss */
+.flow-player .flow-player-button {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;
@@ -223,14 +221,12 @@
   font-size: 4.0em;
   color: #999;
 }
-
-/* line 20, ../sass/flow-player.scss */
-.flow-player-button.ng-hide-add {
+/* line 21, ../sass/flow-player.scss */
+.flow-player .flow-player-button.ng-hide-add {
   display: none !important;
 }
-
-/* line 24, ../sass/flow-player.scss */
-.flow-player-button:hover {
+/* line 25, ../sass/flow-player.scss */
+.flow-player .flow-player-button:hover {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;
