@@ -1,4 +1,5 @@
 @import 'common-mixins';
+@import 'animations';
 
 * {
     font-family:'Droid Sans', sans-serif;
@@ -19,6 +20,7 @@ a:hover {
 
 /* Custom default button */
 .btn-default {
+  @include standard-ease(0.2s);
   text-shadow: none; /* Prevent inheritence from `body` */
   color: white;
   background-color: #c12b32;
@@ -27,6 +29,7 @@ a:hover {
 }
 
 .btn-default:hover {
+  @include standard-ease(0.2s);
   text-shadow: none; /* Prevent inheritence from `body` */
   background-color: #741a1e;
   color: white;
