@@ -2,7 +2,7 @@
     text-align: left;
 
     .move-list {
-      padding-bottom: 20px;
+      list-style: none;
     }
 
     .flow-title {
@@ -23,7 +23,7 @@
         font-size: 4em;
     }
 
-    hr {
+    hr.no-margin {
         margin: 0;
     }
 
