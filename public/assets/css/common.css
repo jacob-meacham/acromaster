@@ -371,7 +371,7 @@ hr.narrow {
 slider, [slider] {
   display: inline-block;
   position: relative;
-  height: 25px;
+  height: 6px;
   width: 100%;
   margin: 25px 5px 25px 5px;
   vertical-align: middle;
@@ -387,7 +387,7 @@ slider span.bar, [slider] span.bar {
   height: 100%;
   background: #e0e0e0;
   border: solid 1px #111;
-  border-radius: 25px;
+  border-radius: 6px;
   overflow: hidden;
 }
 /* line 170, ../sass/common.scss */
@@ -399,18 +399,19 @@ slider span.bar .selection, [slider] span.bar .selection {
 /* line 177, ../sass/common.scss */
 slider span.pointer, [slider] span.pointer {
   cursor: pointer;
-  width: 60px;
+  width: 40px;
+  top: -10px;
   height: 25px;
   background-color: #fdd27d;
   z-index: 2;
   border: solid 2px #fcb426;
   border-radius: 10px;
 }
-/* line 186, ../sass/common.scss */
+/* line 184, ../sass/common.scss */
 slider span.pointer.active, [slider] span.pointer.active {
   background-color: #fdc755;
 }
-/* line 191, ../sass/common.scss */
+/* line 189, ../sass/common.scss */
 slider span.bubble, [slider] span.bubble {
   display: none !important;
 }

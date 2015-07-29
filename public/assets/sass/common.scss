@@ -146,7 +146,7 @@ hr.narrow {
   }
 }
 
-$slider-height: 25px;
+$slider-height: 6px;
 slider, [slider] {
   display: inline-block;
   position: relative;
@@ -176,8 +176,9 @@ slider, [slider] {
 
     &.pointer {
       cursor: pointer;
-      width: 60px;
-      height: $slider-height;
+      width: 40px;
+      top: -10px;
+      height: 25px;
       background-color: #fdd27d;
       z-index: 2;
       border: solid 2px #fcb426;

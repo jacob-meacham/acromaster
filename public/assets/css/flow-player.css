@@ -219,7 +219,7 @@
   -o-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
   font-size: 4.0em;
-  color: #999;
+  color: #222;
 }
 /* line 21, ../sass/flow-player.scss */
 .flow-player .flow-player-button.ng-hide-add {
