@@ -7,7 +7,7 @@
     <div collapse="vm.collapseAdvancedPane" class="advanced-pane">
         <div class="row">
             <div class="col-sm-3">
-                <h4>Move Duration <span class="glyphicon glyphicon-question-sign" popover="Moves that have a higher difficulty than this won't be part of the workout." popover-trigger="mouseenter"></span></h4>
+                <h4>Move Duration <span class="glyphicon glyphicon-question-sign" popover="Allows you to fine-tune the base time per move." popover-trigger="mouseenter"></span></h4>
                 <slider floor="5" ceiling="60" ng-model="vm.flowParams.timePerMove"></slider>
                 <h4>{{vm.flowParams.timePerMove}} seconds</h4>
             </div>

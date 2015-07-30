@@ -26,7 +26,7 @@
     <div class="col-md-4">
         <div class="box-container">
             <just-gage id="time-gauge" value="vm.minutesPlayedOptions.value" options="vm.minutesPlayedOptions"></just-gage>
-            <div class="info">{{vm.profile.stats.minutesPlayed | number:0 }} minutes played</div>
+            <div class="info">{{vm.profile.stats.secondsPlayed / 60 | number:0 }} minutes played</div>
         </div>
     </div>
     <div class="col-md-4">

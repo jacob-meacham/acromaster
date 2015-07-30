@@ -1,6 +1,6 @@
 'use strict';
 
-var ProfileHomeController = function($routeParams, $timeout, $window, rand, User, pageHeaderService, _) {
+var ProfileHomeController = function($routeParams, $timeout, rand, User, pageHeaderService, _) {
   var vm = this;
   vm.templateUrl = 'app/profile/profile-home.html';
   pageHeaderService.setTitle($routeParams.user);
@@ -15,7 +15,8 @@ var ProfileHomeController = function($routeParams, $timeout, $window, rand, User
     gaugeColor: '#00000000',
     counter: false,
     donutStartAngle: 270,
-    title: ''
+    title: '',
+    min: 0
   };
 
   vm.minutesPlayedOptions = {};
@@ -51,16 +52,19 @@ var ProfileHomeController = function($routeParams, $timeout, $window, rand, User
   vm.profile = User.get({userId: $routeParams.user});
   vm.profile.$promise.then(function() {
     var stats = vm.profile.stats;
-    vm.flowsPlayedOptions.max = $window.Math.max(vm.flowsPlayedOptions.max, stats.flowsPlayed / (1.5 + rand.random()));
-    vm.minutesPlayedOptions.max = $window.Math.max(vm.minutesPlayedOptions.max, stats.minutesPlayed / (1.5 + rand.random()));
-    vm.movesPlayedOptions.max = $window.Math.max(vm.movesPlayedOptions.max, stats.moves / (1.5 + rand.random()));
+    var minutesPlayed = stats.secondsPlayed / 60;
+    vm.flowsPlayedOptions.max = stats.flowsPlayed * (1.1 + (0.9 * rand.random()));
+    vm.minutesPlayedOptions.max = minutesPlayed * (1.1 + (0.9 * rand.random()));
+    vm.movesPlayedOptions.max = stats.moves * (1.1 + (0.9 * rand.random()));
+
+    console.log(vm.movesPlayedOptions.max);
 
     $timeout(function() {
       vm.flowsPlayedOptions.value = stats.flowsPlayed;
     }, 800);
 
     $timeout(function() {
-      vm.minutesPlayedOptions.value = stats.minutesPlayed;
+      vm.minutesPlayedOptions.value = minutesPlayed;
     }, 1000);
 
     $timeout(function() {
@@ -100,7 +104,7 @@ var ProfileAchievementsController = function($routeParams, User, pageHeaderServi
 };
 
 angular.module('acromaster.controllers')
-  .controller('ProfileHomeController', ['$routeParams', '$timeout', '$window', 'RandomService', 'User', 'PageHeaderService', '_', ProfileHomeController])
+  .controller('ProfileHomeController', ['$routeParams', '$timeout', 'RandomService', 'User', 'PageHeaderService', '_', ProfileHomeController])
   .controller('ProfileFlowsController', ['$routeParams', 'User', 'PageHeaderService', ProfileFlowsController])
   .controller('ProfileFavoritesController', ['$routeParams', 'User', 'PageHeaderService', ProfileFavoritesController])
   .controller('ProfileAchievementsController', ['$routeParams', 'User', 'PageHeaderService', 'AchievementsService', ProfileAchievementsController]);
