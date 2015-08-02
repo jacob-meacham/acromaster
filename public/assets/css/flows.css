@@ -25,26 +25,22 @@
   font-size: 4em;
 }
 /* line 26, ../sass/flows.scss */
-.flows hr.no-margin {
-  margin: 0;
-}
-/* line 30, ../sass/flows.scss */
 .flows .flow-author-info {
   margin-top: 10px;
   font-size: 0.9em;
 }
-/* line 35, ../sass/flows.scss */
+/* line 31, ../sass/flows.scss */
 .flows .flow-author {
   padding-top: 3px;
   margin-left: 8px;
   font-weight: bold;
 }
-/* line 41, ../sass/flows.scss */
+/* line 37, ../sass/flows.scss */
 .flows .flow-date {
   font-style: italic;
   margin-left: 8px;
 }
-/* line 46, ../sass/flows.scss */
+/* line 42, ../sass/flows.scss */
 .flows .flow-box {
   margin-top: 10px;
   margin-bottom: 15px;
@@ -54,32 +50,32 @@
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }
-/* line 56, ../sass/flows.scss */
+/* line 52, ../sass/flows.scss */
 .flows .likes {
   float: right;
   font-size: 1.5em;
   padding-right: 20px;
 }
-/* line 62, ../sass/flows.scss */
+/* line 58, ../sass/flows.scss */
 .flows .flow-actions {
   padding: 5px 0 8px 0;
 }
-/* line 65, ../sass/flows.scss */
+/* line 61, ../sass/flows.scss */
 .flows .flow-actions a {
   margin-right: 10px;
 }
 
-/* line 72, ../sass/flows.scss */
+/* line 68, ../sass/flows.scss */
 .flow-end .likes {
   font-size: 1.5em;
   display: inline-block;
   margin-right: 10px;
 }
-/* line 77, ../sass/flows.scss */
+/* line 73, ../sass/flows.scss */
 .flow-end .social-actions {
   padding: 5px 0 8px 0;
 }
-/* line 80, ../sass/flows.scss */
+/* line 76, ../sass/flows.scss */
 .flow-end .social-actions a {
   margin-right: 10px;
 }
