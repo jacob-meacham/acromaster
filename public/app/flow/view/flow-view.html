@@ -16,6 +16,8 @@
         <div class="flow-plays">{{vm.flow.plays + 1}} plays</div>
         <hr class="soften no-margin" />
         <div class="flow-actions">
+            <a ng-href="flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit" ng-show="vm.canEdit"><span class="glyphicon glyphicon-edit" aria-hidden="true" /> Edit</a>
+            <a ng-click="vm.delete()" ng-show="vm.canEdit"><span class="glyphicon glyphicon-remove" aria-hidden="true" /> Delete</a>
             <a ng-click='vm.toggleFavorite()'><span class="glyphicon glyphicon-plus" aria-hidden="true" />{{vm.action}}</a>
             <a ng-href="/flow/{{vm.flow.id}}/remix"><span class="glyphicon glyphicon-random" aria-hidden="true" /> Remix</a>
             <share share-partial="/flow/{{vm.flow.id}}"></share>
@@ -23,16 +25,12 @@
         </div>
     </div>
 
-    <div class="flow-box owner-actions" ng-show="vm.canEdit">
-        <a ng-href="flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit">Edit Your Flow</a>
-        <button ng-click="vm.delete()" class="btn btn-default">Delete Your Flow</button>
-    </div>
-
-    <div class="flow-box flow-info">
-        <div class="description" ng-show="vm.flow.description">
+    <div class="flow-box" ng-show="vm.flow.description">
+        <div class="description flow-info">
             {{vm.flow.description}}
-            <hr class="soften">
         </div>
+    </div>
+    <div class="flow-box flow-info" ng-show="vm.flow.description">
         <ul class="move-list">
             <li ng-repeat='moveEntry in vm.flow.moves'>
                 <div class="move-entry">
