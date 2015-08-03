@@ -103,3 +103,13 @@
 .flow-end .social-actions a {
   margin-right: 10px;
 }
+
+/* line 106, ../sass/flows.scss */
+.flow-delete-modal {
+  padding: 20px;
+}
+/* line 109, ../sass/flows.scss */
+.flow-delete-modal .flow-delete-buttons {
+  margin-top: 10px;
+  display: block;
+}
