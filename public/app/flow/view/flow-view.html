@@ -3,7 +3,7 @@
         <span class="glyphicon glyphicon-{{vm.flow.imageUrl}}" /><h1>{{vm.flow.name}}</h1>
     </div>
     <div class="flow-box flow-header">
-        <button ng-click="vm.start()" class="btn btn-default start-flow">Play Flow</button>
+        <button ng-click="vm.start()" class="btn btn-default start-flow">Play Flow!</button>
         <div class="flow-author-info">
             <div class="avatar-container" ng-switch on="vm.flow.author.profilePictureUrl || 'null'">
                 <span class="avatar glyphicon glyphicon-user" ng-switch-when="null" />
@@ -18,21 +18,21 @@
         <div class="flow-plays">{{vm.flow.plays + 1}} plays</div>
         <hr class="soften no-margin" />
         <div class="flow-actions">
-            <a ng-href="flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit" ng-show="vm.canEdit"><span class="glyphicon glyphicon-edit" aria-hidden="true" /> Edit</a>
-            <a ng-click="vm.delete()" ng-show="vm.canEdit"><span class="glyphicon glyphicon-remove" aria-hidden="true" /> Delete</a>
+            <a ng-href="flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit" ng-show="vm.canEdit"><span class="glyphicon glyphicon-edit icon-with-text" aria-hidden="true" />Edit</a>
+            <a ng-click="vm.delete()" ng-show="vm.canEdit"><span class="glyphicon glyphicon-remove icon-with-text" aria-hidden="true" />Delete</a>
             <a ng-click='vm.toggleFavorite()'><span class="glyphicon glyphicon-plus" aria-hidden="true" />{{vm.action}}</a>
-            <a ng-href="/flow/{{vm.flow.id}}/remix"><span class="glyphicon glyphicon-random" aria-hidden="true" /> Remix</a>
+            <a ng-href="/flow/{{vm.flow.id}}/remix"><span class="glyphicon glyphicon-random icon-with-text-remix" aria-hidden="true" />Remix</a>
             <share share-partial="/flow/{{vm.flow.id}}"></share>
             <flow-like flow="vm.flow"></flow-like>
         </div>
     </div>
 
     <div class="flow-box" ng-show="vm.flow.description">
-        <div class="description flow-info">
+        <div class="flow-description">
             {{vm.flow.description}}
         </div>
     </div>
-    <div class="flow-box flow-info" ng-show="vm.flow.description">
+    <div class="flow-box" ng-show="vm.flow.description">
         <ul class="move-list">
             <li ng-repeat='moveEntry in vm.flow.moves'>
                 <div class="move-entry">

@@ -348,16 +348,21 @@ span.large-glyphicon {
 }
 
 /* line 128, ../sass/common.scss */
+.icon-with-text {
+  margin-right: 2px;
+}
+
+/* line 132, ../sass/common.scss */
 hr.narrow {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-/* line 133, ../sass/common.scss */
+/* line 137, ../sass/common.scss */
 .debug {
   margin-top: 20px;
 }
-/* line 136, ../sass/common.scss */
+/* line 140, ../sass/common.scss */
 .debug .btn {
   margin-left: auto;
   margin-right: auto;
@@ -368,7 +373,7 @@ hr.narrow {
   outline: none;
   border-bottom: none;
 }
-/* line 147, ../sass/common.scss */
+/* line 151, ../sass/common.scss */
 .debug .debug-inner {
   font-size: 0.8em;
   padding: 0;
@@ -377,7 +382,7 @@ hr.narrow {
   background-color: #fff;
 }
 
-/* line 157, ../sass/common.scss */
+/* line 161, ../sass/common.scss */
 slider, [slider] {
   display: inline-block;
   position: relative;
@@ -386,12 +391,12 @@ slider, [slider] {
   margin: 25px 5px 25px 5px;
   vertical-align: middle;
 }
-/* line 165, ../sass/common.scss */
+/* line 169, ../sass/common.scss */
 slider span, [slider] span {
   white-space: nowrap;
   position: absolute;
 }
-/* line 169, ../sass/common.scss */
+/* line 173, ../sass/common.scss */
 slider span.bar, [slider] span.bar {
   width: 100%;
   height: 100%;
@@ -400,13 +405,13 @@ slider span.bar, [slider] span.bar {
   border-radius: 6px;
   overflow: hidden;
 }
-/* line 177, ../sass/common.scss */
+/* line 181, ../sass/common.scss */
 slider span.bar .selection, [slider] span.bar .selection {
   width: 0;
   height: 100%;
   background: #13b6ff;
 }
-/* line 184, ../sass/common.scss */
+/* line 188, ../sass/common.scss */
 slider span.pointer, [slider] span.pointer {
   cursor: pointer;
   width: 40px;
@@ -417,11 +422,11 @@ slider span.pointer, [slider] span.pointer {
   border: solid 2px #fcb426;
   border-radius: 10px;
 }
-/* line 194, ../sass/common.scss */
+/* line 198, ../sass/common.scss */
 slider span.pointer.active, [slider] span.pointer.active {
   background-color: #fdc755;
 }
-/* line 199, ../sass/common.scss */
+/* line 203, ../sass/common.scss */
 slider span.bubble, [slider] span.bubble {
   display: none !important;
 }

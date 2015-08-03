@@ -67,31 +67,39 @@
   border-radius: 5px;
 }
 /* line 68, ../sass/flows.scss */
+.flows .flow-description {
+  padding-bottom: 20px;
+}
+/* line 72, ../sass/flows.scss */
 .flows .likes {
   float: right;
   font-size: 1.5em;
   padding-right: 20px;
 }
-/* line 74, ../sass/flows.scss */
+/* line 78, ../sass/flows.scss */
 .flows .flow-actions {
   padding: 5px 0 8px 0;
 }
-/* line 77, ../sass/flows.scss */
+/* line 81, ../sass/flows.scss */
 .flows .flow-actions a {
   margin-right: 10px;
 }
+/* line 86, ../sass/flows.scss */
+.flows .icon-with-text-remix {
+  margin-right: 4px;
+}
 
-/* line 84, ../sass/flows.scss */
+/* line 92, ../sass/flows.scss */
 .flow-end .likes {
   font-size: 1.5em;
   display: inline-block;
   margin-right: 10px;
 }
-/* line 89, ../sass/flows.scss */
+/* line 97, ../sass/flows.scss */
 .flow-end .social-actions {
   padding: 5px 0 8px 0;
 }
-/* line 92, ../sass/flows.scss */
+/* line 100, ../sass/flows.scss */
 .flow-end .social-actions a {
   margin-right: 10px;
 }
