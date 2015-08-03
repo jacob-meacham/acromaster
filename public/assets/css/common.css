@@ -300,11 +300,6 @@ body {
   margin: 0;
 }
 
-/* line 88, ../sass/common.scss */
-.popover.top {
-  margin-top: 5px;
-}
-
 /* Padding for spacing */
 /* line 93, ../sass/common.scss */
 .inner {

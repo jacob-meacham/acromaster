@@ -44,7 +44,7 @@
                         <span class="move-duration">{{moveEntry.duration | number : 0}} seconds</span>
                     </div>
                     <div class="col-xs-1">
-                        <span class="move-info glyphicon glyphicon-option-horizontal" popover="{{moveEntry.move.difficulty}} - {{moveEntry.move.tags}}" popover-placement="top" popover-trigger="mouseenter"></span>
+                        <span class="move-info glyphicon glyphicon-option-horizontal" popover-template="'app/flow/view/move-info-popover.html'" popover-placement="top" popover-trigger="mouseenter"></span>
                     </div>
                 </div>
             </li>
