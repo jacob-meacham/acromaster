@@ -210,6 +210,10 @@ var generate = function(req, res, next) {
       flow.name = req.query.flowName;
     }
 
+    if (req.query.imageUrl) {
+      flow.imageUrl = req.query.imageUrl;
+    }
+
     if (req.user) {
       flow.author = req.user;
       flow.authorName = req.user.name;
