@@ -296,39 +296,44 @@ body {
 }
 
 /* line 84, ../sass/common.scss */
+.no-margin {
+  margin: 0;
+}
+
+/* line 88, ../sass/common.scss */
 .popover.top {
   margin-top: 5px;
 }
 
 /* Padding for spacing */
-/* line 89, ../sass/common.scss */
+/* line 93, ../sass/common.scss */
 .inner {
   padding: 30px;
 }
 
-/* line 93, ../sass/common.scss */
+/* line 97, ../sass/common.scss */
 span.large-glyphicon {
   font-size: 5em;
 }
 
-/* line 97, ../sass/common.scss */
+/* line 101, ../sass/common.scss */
 .sticky-item {
   margin-left: 18px;
   margin-right: 10px;
 }
 
-/* line 102, ../sass/common.scss */
+/* line 106, ../sass/common.scss */
 .back-button {
   font-size: 4.0em !important;
   padding-top: 40px;
   float: left;
 }
-/* line 107, ../sass/common.scss */
+/* line 111, ../sass/common.scss */
 .back-button .glyphicon {
   opacity: 0.5;
 }
 
-/* line 112, ../sass/common.scss */
+/* line 116, ../sass/common.scss */
 .box-container {
   margin-top: 10px;
   padding-bottom: 20px;
@@ -337,22 +342,27 @@ span.large-glyphicon {
   border-radius: 5px;
 }
 
-/* line 120, ../sass/common.scss */
+/* line 124, ../sass/common.scss */
 .ui-slider {
   background: #777;
 }
 
-/* line 124, ../sass/common.scss */
+/* line 128, ../sass/common.scss */
+.icon-with-text {
+  margin-right: 2px;
+}
+
+/* line 132, ../sass/common.scss */
 hr.narrow {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-/* line 129, ../sass/common.scss */
+/* line 137, ../sass/common.scss */
 .debug {
   margin-top: 20px;
 }
-/* line 132, ../sass/common.scss */
+/* line 140, ../sass/common.scss */
 .debug .btn {
   margin-left: auto;
   margin-right: auto;
@@ -363,7 +373,7 @@ hr.narrow {
   outline: none;
   border-bottom: none;
 }
-/* line 143, ../sass/common.scss */
+/* line 151, ../sass/common.scss */
 .debug .debug-inner {
   font-size: 0.8em;
   padding: 0;
@@ -372,7 +382,7 @@ hr.narrow {
   background-color: #fff;
 }
 
-/* line 153, ../sass/common.scss */
+/* line 161, ../sass/common.scss */
 slider, [slider] {
   display: inline-block;
   position: relative;
@@ -381,12 +391,12 @@ slider, [slider] {
   margin: 25px 5px 25px 5px;
   vertical-align: middle;
 }
-/* line 161, ../sass/common.scss */
+/* line 169, ../sass/common.scss */
 slider span, [slider] span {
   white-space: nowrap;
   position: absolute;
 }
-/* line 165, ../sass/common.scss */
+/* line 173, ../sass/common.scss */
 slider span.bar, [slider] span.bar {
   width: 100%;
   height: 100%;
@@ -395,13 +405,13 @@ slider span.bar, [slider] span.bar {
   border-radius: 6px;
   overflow: hidden;
 }
-/* line 173, ../sass/common.scss */
+/* line 181, ../sass/common.scss */
 slider span.bar .selection, [slider] span.bar .selection {
   width: 0;
   height: 100%;
   background: #13b6ff;
 }
-/* line 180, ../sass/common.scss */
+/* line 188, ../sass/common.scss */
 slider span.pointer, [slider] span.pointer {
   cursor: pointer;
   width: 40px;
@@ -412,11 +422,11 @@ slider span.pointer, [slider] span.pointer {
   border: solid 2px #fcb426;
   border-radius: 10px;
 }
-/* line 190, ../sass/common.scss */
+/* line 198, ../sass/common.scss */
 slider span.pointer.active, [slider] span.pointer.active {
   background-color: #fdc755;
 }
-/* line 195, ../sass/common.scss */
+/* line 203, ../sass/common.scss */
 slider span.bubble, [slider] span.bubble {
   display: none !important;
 }

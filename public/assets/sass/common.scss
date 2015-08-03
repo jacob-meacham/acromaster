@@ -81,6 +81,10 @@ $footer-border-height: 4px;
   }
 }
 
+.no-margin {
+    margin: 0;
+}
+
 .popover.top {
   margin-top: 5px;
 }
@@ -119,6 +123,10 @@ span.large-glyphicon {
 
 .ui-slider {
   background: #777;
+}
+
+.icon-with-text {
+  margin-right: 2px;
 }
 
 hr.narrow {

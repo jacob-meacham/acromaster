@@ -3,19 +3,35 @@
   text-align: left;
 }
 /* line 4, ../sass/flows.scss */
-.flows .move-list {
-  list-style: none;
+.flows .start-flow {
+  font-size: 18px;
 }
 /* line 8, ../sass/flows.scss */
+.flows .move-list {
+  padding-left: 10px;
+  list-style: none;
+}
+/* line 13, ../sass/flows.scss */
 .flows .flow-title {
   margin-bottom: 0;
 }
-/* line 12, ../sass/flows.scss */
+/* line 16, ../sass/flows.scss */
+.flows .flow-title .glyphicon {
+  font-size: 4.5em;
+  margin-right: 10px;
+}
+/* line 21, ../sass/flows.scss */
+.flows .flow-title h1 {
+  display: inline;
+  position: absolute;
+  top: -8px;
+}
+/* line 28, ../sass/flows.scss */
 .flows .flow-plays {
   text-align: right;
   font-size: 1.5em;
 }
-/* line 17, ../sass/flows.scss */
+/* line 33, ../sass/flows.scss */
 .flows .avatar {
   width: 50px;
   height: 50px;
@@ -24,27 +40,23 @@
   border-radius: 3px;
   font-size: 4em;
 }
-/* line 26, ../sass/flows.scss */
-.flows hr.no-margin {
-  margin: 0;
-}
-/* line 30, ../sass/flows.scss */
+/* line 42, ../sass/flows.scss */
 .flows .flow-author-info {
   margin-top: 10px;
   font-size: 0.9em;
 }
-/* line 35, ../sass/flows.scss */
+/* line 47, ../sass/flows.scss */
 .flows .flow-author {
   padding-top: 3px;
   margin-left: 8px;
   font-weight: bold;
 }
-/* line 41, ../sass/flows.scss */
+/* line 53, ../sass/flows.scss */
 .flows .flow-date {
-  font-style: italic;
   margin-left: 8px;
+  color: #555;
 }
-/* line 46, ../sass/flows.scss */
+/* line 58, ../sass/flows.scss */
 .flows .flow-box {
   margin-top: 10px;
   margin-bottom: 15px;
@@ -54,32 +66,84 @@
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }
-/* line 56, ../sass/flows.scss */
+/* line 68, ../sass/flows.scss */
+.flows .flow-description {
+  padding-bottom: 20px;
+}
+/* line 72, ../sass/flows.scss */
 .flows .likes {
   float: right;
   font-size: 1.5em;
   padding-right: 20px;
 }
-/* line 62, ../sass/flows.scss */
+/* line 78, ../sass/flows.scss */
 .flows .flow-actions {
   padding: 5px 0 8px 0;
 }
-/* line 65, ../sass/flows.scss */
+/* line 81, ../sass/flows.scss */
 .flows .flow-actions a {
   margin-right: 10px;
 }
+/* line 86, ../sass/flows.scss */
+.flows .icon-with-text-remix {
+  margin-right: 4px;
+}
+/* line 90, ../sass/flows.scss */
+.flows .easy-move {
+  color: green;
+}
+/* line 94, ../sass/flows.scss */
+.flows .medium-move {
+  color: orange;
+}
+/* line 98, ../sass/flows.scss */
+.flows .hard-move {
+  color: red;
+}
+/* line 102, ../sass/flows.scss */
+.flows .move-entry {
+  padding-bottom: 5px;
+}
+/* line 106, ../sass/flows.scss */
+.flows .move-name {
+  margin-right: -2px;
+  font-weight: bold;
+}
+/* line 111, ../sass/flows.scss */
+.flows .move-difficulty {
+  font-size: 1.5em;
+}
+/* line 115, ../sass/flows.scss */
+.flows .move-description-link {
+  font-size: 0.8em;
+}
+/* line 119, ../sass/flows.scss */
+.flows .separator {
+  margin-left: 5px;
+  margin-right: 5px;
+}
 
-/* line 72, ../sass/flows.scss */
+/* line 126, ../sass/flows.scss */
 .flow-end .likes {
   font-size: 1.5em;
   display: inline-block;
   margin-right: 10px;
 }
-/* line 77, ../sass/flows.scss */
+/* line 131, ../sass/flows.scss */
 .flow-end .social-actions {
   padding: 5px 0 8px 0;
 }
-/* line 80, ../sass/flows.scss */
+/* line 134, ../sass/flows.scss */
 .flow-end .social-actions a {
   margin-right: 10px;
+}
+
+/* line 140, ../sass/flows.scss */
+.flow-delete-modal {
+  padding: 20px;
+}
+/* line 143, ../sass/flows.scss */
+.flow-delete-modal .flow-delete-buttons {
+  margin-top: 10px;
+  display: block;
 }

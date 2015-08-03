@@ -1,7 +1,9 @@
 <section class="flows">
-    <h1 class="flow-title"><span class="glyphicon glyphicon-{{vm.flow.imageUrl}}" /> {{vm.flow.name}}</h1>
+    <div class="flow-title">
+        <span class="glyphicon glyphicon-{{vm.flow.imageUrl}}" /><h1>{{vm.flow.name}}</h1>
+    </div>
     <div class="flow-box flow-header">
-        <button ng-click="vm.start()" class="btn btn-default">Play Flow</button>
+        <button ng-click="vm.start()" class="btn btn-default start-flow">Play Flow!</button>
         <div class="flow-author-info">
             <div class="avatar-container" ng-switch on="vm.flow.author.profilePictureUrl || 'null'">
                 <span class="avatar glyphicon glyphicon-user" ng-switch-when="null" />
@@ -16,31 +18,34 @@
         <div class="flow-plays">{{vm.flow.plays + 1}} plays</div>
         <hr class="soften no-margin" />
         <div class="flow-actions">
+            <a ng-href="flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit" ng-show="vm.canEdit"><span class="glyphicon glyphicon-edit icon-with-text" aria-hidden="true" />Edit</a>
+            <a ng-click="vm.delete()" ng-show="vm.canEdit"><span class="glyphicon glyphicon-remove icon-with-text" aria-hidden="true" />Delete</a>
             <a ng-click='vm.toggleFavorite()'><span class="glyphicon glyphicon-plus" aria-hidden="true" />{{vm.action}}</a>
-            <a ng-href="/flow/{{vm.flow.id}}/remix"><span class="glyphicon glyphicon-random" aria-hidden="true" /> Remix</a>
+            <a ng-href="/flow/{{vm.flow.id}}/remix"><span class="glyphicon glyphicon-random icon-with-text-remix" aria-hidden="true" />Remix</a>
             <share share-partial="/flow/{{vm.flow.id}}"></share>
             <flow-like flow="vm.flow"></flow-like>
         </div>
     </div>
 
-    <div class="flow-box owner-actions" ng-show="vm.canEdit">
-        <a ng-href="flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit">Edit Your Flow</a>
-        <button ng-click="vm.delete()" class="btn btn-default">Delete Your Flow</button>
-    </div>
-
-    <div class="flow-box flow-info">
-        <div class="description" ng-show="vm.flow.description">
+    <div class="flow-box" ng-show="vm.flow.description">
+        <div class="flow-description">
             {{vm.flow.description}}
-            <hr class="soften">
         </div>
+    </div>
+    <div class="flow-box" ng-show="vm.flow.description">
         <ul class="move-list">
             <li ng-repeat='moveEntry in vm.flow.moves'>
-                <div class="move-entry">
-                    <span class="move-difficulty glyphicon glyphicon-certificate" ng-class="{ 'hard-move': {{moveEntry.move.difficulty > 7}}, 'medium-move': {{moveEntry.move.difficulty <= 7 && moveEntry.move.difficulty >= 4}}, 'easy-move': {{moveEntry.move.difficulty < 4}} }"></span>
-                    <span class="move-name">{{moveEntry.move.name}}</span>
-                    <span class="move-duration">({{moveEntry.duration | number : 0}} seconds)</span>
-                    <span class="move-info glyphicon glyphicon-option-horizontal" popover="{{moveEntry.move.difficulty}} - {{moveEntry.move.tags}}" popover-placement="top" popover-trigger="mouseenter"></span>
-                    <a target="_blank" ng-href="{{moveEntry.move.descriptionUrl}}" ng-show="moveEntry.move.descriptionUrl"><span class="glyphicon glyphicon-eye-open"></span></a>
+                <div class="move-entry row">
+                    <div class="col-md-11 col-xs-10">
+                        <span class="move-difficulty glyphicon glyphicon-fire" ng-class="{ 'hard-move': {{moveEntry.move.difficulty > 7}}, 'medium-move': {{moveEntry.move.difficulty <= 7 && moveEntry.move.difficulty >= 4}}, 'easy-move': {{moveEntry.move.difficulty < 4}} }"></span>
+                        <span class="move-name">{{moveEntry.move.name}}</span>
+                        <a target="_blank" class="move-description-link" ng-href="{{moveEntry.move.descriptionUrl}}" ng-show="moveEntry.move.descriptionUrl"><span class="glyphicon glyphicon-question-sign"></span></a>
+                        <span class="separator">&mdash;</span>
+                        <span class="move-duration">{{moveEntry.duration | number : 0}} seconds</span>
+                    </div>
+                    <div class="col-xs-1">
+                        <span class="move-info glyphicon glyphicon-option-horizontal" popover="{{moveEntry.move.difficulty}} - {{moveEntry.move.tags}}" popover-placement="top" popover-trigger="mouseenter"></span>
+                    </div>
                 </div>
             </li>
         </ul>

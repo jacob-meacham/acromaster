@@ -43,7 +43,7 @@ var RandomNameService = function(rand) {
     },
 
     randomFlowIcon: function() {
-      return rand.choose(['ice-lolly', 'ice-lolly-tasted', 'apple', 'grain', 'sunglasses', 'tree-deciduous', 'certificate', 'eye-open', 'fire', 'leaf', 'heart']);
+      return rand.choose(['ice-lolly', 'ice-lolly-tasted', 'apple', 'grain', 'sunglasses', 'tree-deciduous', 'certificate', 'flash', 'fire', 'leaf', 'heart']);
     }
   };
 };

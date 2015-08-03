@@ -1,12 +1,28 @@
 .flows {
     text-align: left;
 
+    .start-flow {
+        font-size: 18px;
+    }
+
     .move-list {
+      padding-left: 10px;
       list-style: none;
     }
 
     .flow-title {
       margin-bottom: 0;
+
+      .glyphicon {
+        font-size: 4.5em;
+        margin-right: 10px;
+      }
+
+      h1 {
+        display: inline;
+        position: absolute; // TODO: This doesn't work with a really long flow title. But, let's fix it when that happens!
+        top: -8px;
+      }
     }
 
     .flow-plays {
@@ -23,10 +39,6 @@
         font-size: 4em;
     }
 
-    hr.no-margin {
-        margin: 0;
-    }
-
     .flow-author-info {
         margin-top: 10px;
         font-size: 0.9em;
@@ -39,8 +51,8 @@
     }
 
     .flow-date {
-        font-style: italic;
         margin-left: 8px;
+        color: #555;
     }
 
     .flow-box {
@@ -51,6 +63,10 @@
         background-color: white;
         border: 1px solid #e5e5e5;
         border-radius: 5px;
+    }
+
+    .flow-description {
+        padding-bottom: 20px;
     }
 
     .likes {
@@ -66,6 +82,44 @@
             margin-right: 10px;
         }
     }
+
+    .icon-with-text-remix {
+        margin-right: 4px;
+    }
+
+    .easy-move {
+        color: green;
+    }
+
+    .medium-move {
+        color: orange;
+    }
+
+    .hard-move {
+        color: red;
+    }
+
+    .move-entry {
+        padding-bottom: 5px;
+    }
+
+    .move-name {
+        margin-right: -2px;
+        font-weight: bold;
+    }
+
+    .move-difficulty {
+        font-size: 1.5em;
+    }
+
+    .move-description-link {
+        font-size: 0.8em;
+    }
+
+    .separator {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
 }
 
 .flow-end {
@@ -80,5 +134,14 @@
         a {
             margin-right: 10px;
         }
+    }
+}
+
+.flow-delete-modal {
+    padding: 20px;
+
+    .flow-delete-buttons {
+        margin-top: 10px;
+        display: block;
     }
 }
