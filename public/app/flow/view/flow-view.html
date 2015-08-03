@@ -1,7 +1,9 @@
 <section class="flows">
-    <h1 class="flow-title"><span class="glyphicon glyphicon-{{vm.flow.imageUrl}}" /> {{vm.flow.name}}</h1>
+    <div class="flow-title">
+        <span class="glyphicon glyphicon-{{vm.flow.imageUrl}}" /><h1>{{vm.flow.name}}</h1>
+    </div>
     <div class="flow-box flow-header">
-        <button ng-click="vm.start()" class="btn btn-default">Play Flow</button>
+        <button ng-click="vm.start()" class="btn btn-default start-flow">Play Flow</button>
         <div class="flow-author-info">
             <div class="avatar-container" ng-switch on="vm.flow.author.profilePictureUrl || 'null'">
                 <span class="avatar glyphicon glyphicon-user" ng-switch-when="null" />
