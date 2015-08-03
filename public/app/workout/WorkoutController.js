@@ -22,6 +22,7 @@ var QuickPlayController = function($location, $scope, flowService, rand, pageHea
   };
 
   $scope.$watch('vm.currentDifficultyIndex', function(newVal) {
+    console.log('currentDifficultyIndex: ' + newVal);
     if (newVal === 0) { // Beginner
       flowParams.difficulty = 3;
     } else if (newVal === 1) { // Intermediate
@@ -34,6 +35,7 @@ var QuickPlayController = function($location, $scope, flowService, rand, pageHea
   });
 
   $scope.$watch('vm.currentMoveLengthIndex', function(newVal) {
+    console.log('currentMoveLengthIndex: ' + newVal);
     if (newVal === 0) { // Quick
       flowParams.timePerMove = 8;
       flowParams.timeVariance = 0;
