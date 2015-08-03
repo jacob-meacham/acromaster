@@ -39,7 +39,7 @@
                 </td>
                 <td>
                     <span editable-text="moveEntry.duration" e-name="duration" e-class="form-control" e-form="flowForm" onbeforesave="vm.checkDuration($data)" e-required>
-                        {{moveEntry.duration}}
+                        {{moveEntry.duration | number:0}}
                     </span>
                 </td>
                 <td>

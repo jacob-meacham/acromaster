@@ -57,7 +57,9 @@ var FlowEditDirectiveController = function($scope, _, Moves, flash, randomServic
       return 'No move specified';
     }
 
-    if (_.indexOf(vm.allMoves, $data) < 0) {
+    if (_.find(vm.allMoves, function(move) {
+      return move.id === $data.id;
+    }) === null) {
       return 'Not a valid move';
     }
 
