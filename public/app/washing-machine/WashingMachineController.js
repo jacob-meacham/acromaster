@@ -1,6 +1,6 @@
 'use strict';
 
-var WaschingMachineViewController = function($routeParams, WashingMachineService, pageHeaderService) {
+var WaschingMachineViewController = function($routeParams, $base64, WashingMachineService, pageHeaderService) {
   var vm = this;
 
   pageHeaderService.setTitle('Washing Machines');
@@ -11,8 +11,7 @@ var WaschingMachineViewController = function($routeParams, WashingMachineService
       vm.move2 = washingMachine.move2.name;
       vm.washing_machine = washingMachine.name;
 
-      // TODO: Make coords more concise?
-      vm.coords = [washingMachine.move1.name, washingMachine.move2.name, washingMachine.name].join(',');
+      vm.coords = $base64.encode([washingMachine.move1.name, washingMachine.move2.name, washingMachine.name].join(','));
     });
   };
 
@@ -22,7 +21,7 @@ var WaschingMachineViewController = function($routeParams, WashingMachineService
       needGeneration = false;
       
       vm.coords = $routeParams.coords;
-      var coords = vm.coords.split(',');
+      var coords = $base64.decode(vm.coords).split(',');
       vm.move1 = coords[0];
       vm.move2 = coords[1];
       vm.washing_machine = coords[2];
@@ -37,4 +36,4 @@ var WaschingMachineViewController = function($routeParams, WashingMachineService
 };
 
 angular.module('acromaster.controllers')
-  .controller('WashingMachineViewController', ['$routeParams', 'WashingMachineService', 'PageHeaderService', WaschingMachineViewController]);
+  .controller('WashingMachineViewController', ['$routeParams', '$base64', 'WashingMachineService', 'PageHeaderService', WaschingMachineViewController]);

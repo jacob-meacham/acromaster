@@ -16,7 +16,8 @@ var app = angular.module('acromaster', [
   'nsPopover',
   'slick',
   'angular-flash.service',
-  'angular-flash.flash-alert-directive'
+  'angular-flash.flash-alert-directive',
+  'base64'
 ])
 .run(function() {
   FastClick.attach(document.body);
