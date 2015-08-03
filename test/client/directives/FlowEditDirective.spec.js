@@ -15,7 +15,7 @@ describe('FlowEditDirective', function() {
       $rootScope = _$rootScope_;
       Moves = _Moves_;
       $q = _$q_;
-      sandbox.stub(Moves, 'query').returns(['move1', 'move2', 'move3']);
+      sandbox.stub(Moves, 'query').returns([{name: 'move1', id: 'move1'}, {name: 'move2', id: 'move2'}, {name: 'move3', id: 'move3'}]);
 
       // TODO: This should not be necessary. Remove.
       $httpBackend.expectGET('/app/home/home.html').respond(200, '');
@@ -93,7 +93,7 @@ describe('FlowEditDirective', function() {
       var ctrl = controllerFn();
       ctrl.randomMove();
       ctrl.moveList.length.should.eql(1);
-      ['move1', 'move2', 'move3'].should.contain(ctrl.moveList[0].move);
+      ['move1', 'move2', 'move3'].should.contain(ctrl.moveList[0].move.id);
     });
 
     it('should not allow invalid moves', function() {
@@ -101,10 +101,10 @@ describe('FlowEditDirective', function() {
       var ret = ctrl.checkMove(null);
       ret.should.eql('No move specified');
 
-      ret = ctrl.checkMove('move-not-appearing-in-this-test');
+      ret = ctrl.checkMove({id: 'move-not-appearing-in-this-test'});
       ret.should.eql('Not a valid move');
 
-      ret = ctrl.checkMove('move1');
+      ret = ctrl.checkMove({id: 'move1'});
       ret.should.be.true;
     });
 
