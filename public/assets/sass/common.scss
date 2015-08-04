@@ -19,8 +19,16 @@ a:hover {
 }
 
 /* Custom default button */
-.btn-default {
+.btn {
   @include standard-ease(0.2s);
+}
+
+.btn:hover {
+  @include standard-ease(0.2s);
+}
+
+.btn-default {
+  
   text-shadow: none; /* Prevent inheritence from `body` */
   color: white;
   background-color: #c12b32;
@@ -29,7 +37,6 @@ a:hover {
 }
 
 .btn-default:hover {
-  @include standard-ease(0.2s);
   text-shadow: none; /* Prevent inheritence from `body` */
   background-color: #741a1e;
   color: white;
