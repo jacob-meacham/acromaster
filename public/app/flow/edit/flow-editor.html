@@ -33,7 +33,7 @@
         <tbody ui:sortable ng:model="vm.moveList">
             <tr ng:repeat="moveEntry in vm.moveList" class="item">
                 <td>
-                    <span editable-text="moveEntry.move" e-autocomplete="off" e-name="name" e-class="form-control" e-form="flowForm" e-required e-typeahead="move as move.name for move in vm.allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="vm.removeMove($index)" onbeforesave="vm.checkMove($data)" onaftersave="vm.updateMove($index, $data)">
+                    <span editable-text="moveEntry.move" e-autocomplete="off" e-name="name" e-class="form-control" e-form="flowForm" e-required e-typeahead="move as move.name for move in vm.allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="vm.removeMove($index, true)" onbeforesave="vm.checkMove($data)" onaftersave="vm.updateMove($index, $data)">
                         {{moveEntry.move.name}}
                     </span>
                 </td>

@@ -18,7 +18,8 @@ var FlowEditDirectiveController = function($scope, _, Moves, flash, randomServic
     angular.forEach(vm.flow.moves, function(entry) {
       vm.moveList.push({
         move: entry.move,
-        duration: entry.duration
+        duration: entry.duration,
+        isNew: false
       });
     });
   });
@@ -30,7 +31,8 @@ var FlowEditDirectiveController = function($scope, _, Moves, flash, randomServic
   vm.addMove = function() {
     vm.inserted = {
       move: null,
-      duration: randomDuration()
+      duration: randomDuration(),
+      isNew: true
     };
     
     vm.moveList.push(vm.inserted);
@@ -38,10 +40,13 @@ var FlowEditDirectiveController = function($scope, _, Moves, flash, randomServic
 
   vm.updateMove = function(index, $data) {
     vm.moveList[index].move = $data;
+    vm.moveList[index].isNew = false;
   };
 
-  vm.removeMove = function(index) {
-    vm.moveList.splice(index, 1);
+  vm.removeMove = function(index, onlyNew) {
+    if (!onlyNew || vm.moveList[index].isNew) {
+      vm.moveList.splice(index, 1);
+    }
   };
 
   vm.randomMove = function() {
