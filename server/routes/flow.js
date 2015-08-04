@@ -118,7 +118,9 @@ var create = function(req, res, next) {
     flow.authorName = req.user.name;
 
     // We actually created this, so lets write it down
-    req.user.recordFlowWritten(); // Async is totally fine - we can just throw errors on the floor.
+    if (!flow.workout) {
+      req.user.recordFlowWritten(); // Async is totally fine - we can just throw errors on the floor.
+    }
   }
 
   flow.saveAsync().then(function() {
