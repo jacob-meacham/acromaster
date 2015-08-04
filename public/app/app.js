@@ -19,8 +19,9 @@ var app = angular.module('acromaster', [
   'angular-flash.flash-alert-directive',
   'base64'
 ])
-.run(function() {
+.run(function(editableOptions) {
   FastClick.attach(document.body);
+  editableOptions.theme = 'bs3';
 });
 
 // Pre-define modules

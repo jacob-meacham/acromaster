@@ -57,6 +57,18 @@ var FlowEditDirectiveController = function($scope, _, Moves, flash, randomServic
     vm.moveList.push(moveEntry);
   };
 
+  vm.checkName = function($data) {
+    if (!$data) {
+      return 'Name is required';
+    }
+
+    if ($data.length <= 3) {
+      return 'Name should be longer than three characters';
+    }
+
+    return true;
+  };
+
   vm.checkMove = function($data) {
     if (!$data) {
       return 'No move specified';

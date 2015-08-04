@@ -19,24 +19,26 @@
 /* line 17, ../sass/flows.scss */
 .flows .flow-title {
   margin-bottom: 0;
+  position: relative;
 }
-/* line 20, ../sass/flows.scss */
-.flows .flow-title .glyphicon {
+/* line 21, ../sass/flows.scss */
+.flows .flow-title .flow-icon {
   font-size: 4.5em;
   margin-right: 10px;
 }
-/* line 25, ../sass/flows.scss */
-.flows .flow-title h1 {
+/* line 26, ../sass/flows.scss */
+.flows .flow-title .flow-title-name {
   display: inline;
   position: absolute;
-  top: -8px;
+  top: 4px;
+  font-size: 36px;
 }
-/* line 32, ../sass/flows.scss */
+/* line 34, ../sass/flows.scss */
 .flows .flow-plays {
   text-align: right;
   font-size: 1.5em;
 }
-/* line 37, ../sass/flows.scss */
+/* line 39, ../sass/flows.scss */
 .flows .avatar {
   width: 50px;
   height: 50px;
@@ -45,23 +47,23 @@
   border-radius: 3px;
   font-size: 4em;
 }
-/* line 46, ../sass/flows.scss */
+/* line 48, ../sass/flows.scss */
 .flows .flow-author-info {
   margin-top: 10px;
   font-size: 0.9em;
 }
-/* line 51, ../sass/flows.scss */
+/* line 53, ../sass/flows.scss */
 .flows .flow-author {
   padding-top: 3px;
   margin-left: 8px;
   font-weight: bold;
 }
-/* line 57, ../sass/flows.scss */
+/* line 59, ../sass/flows.scss */
 .flows .flow-date {
   margin-left: 8px;
   color: #555;
 }
-/* line 62, ../sass/flows.scss */
+/* line 64, ../sass/flows.scss */
 .flows .flow-box {
   margin-top: 10px;
   margin-bottom: 15px;
@@ -71,84 +73,99 @@
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }
-/* line 72, ../sass/flows.scss */
+/* line 74, ../sass/flows.scss */
 .flows .flow-description {
   padding-bottom: 20px;
 }
-/* line 76, ../sass/flows.scss */
+/* line 78, ../sass/flows.scss */
 .flows .likes {
   float: right;
   font-size: 1.5em;
   padding-right: 20px;
 }
-/* line 82, ../sass/flows.scss */
+/* line 84, ../sass/flows.scss */
 .flows .flow-actions {
   padding: 5px 0 8px 0;
 }
-/* line 85, ../sass/flows.scss */
+/* line 87, ../sass/flows.scss */
 .flows .flow-actions a {
   margin-right: 10px;
 }
-/* line 90, ../sass/flows.scss */
+/* line 92, ../sass/flows.scss */
 .flows .icon-with-text-remix {
   margin-right: 4px;
 }
-/* line 94, ../sass/flows.scss */
+/* line 96, ../sass/flows.scss */
 .flows .easy-move {
   color: green;
 }
-/* line 98, ../sass/flows.scss */
+/* line 100, ../sass/flows.scss */
 .flows .medium-move {
   color: orange;
 }
-/* line 102, ../sass/flows.scss */
+/* line 104, ../sass/flows.scss */
 .flows .hard-move {
   color: red;
 }
-/* line 106, ../sass/flows.scss */
+/* line 108, ../sass/flows.scss */
 .flows .move-entry {
   padding-bottom: 5px;
 }
-/* line 110, ../sass/flows.scss */
+/* line 112, ../sass/flows.scss */
 .flows .move-name {
   margin-right: -2px;
   font-weight: bold;
 }
-/* line 115, ../sass/flows.scss */
+/* line 117, ../sass/flows.scss */
 .flows .move-difficulty {
   font-size: 1.5em;
 }
-/* line 119, ../sass/flows.scss */
+/* line 121, ../sass/flows.scss */
 .flows .move-description-link {
   font-size: 0.8em;
 }
-/* line 123, ../sass/flows.scss */
+/* line 125, ../sass/flows.scss */
 .flows .separator {
   margin-left: 5px;
   margin-right: 5px;
 }
 
-/* line 130, ../sass/flows.scss */
+/* line 132, ../sass/flows.scss */
 .flow-end .likes {
   font-size: 1.5em;
   display: inline-block;
   margin-right: 10px;
 }
-/* line 135, ../sass/flows.scss */
+/* line 137, ../sass/flows.scss */
 .flow-end .social-actions {
   padding: 5px 0 8px 0;
 }
-/* line 138, ../sass/flows.scss */
+/* line 140, ../sass/flows.scss */
 .flow-end .social-actions a {
   margin-right: 10px;
 }
 
-/* line 144, ../sass/flows.scss */
+/* line 146, ../sass/flows.scss */
 .flow-delete-modal {
   padding: 20px;
 }
-/* line 147, ../sass/flows.scss */
+/* line 149, ../sass/flows.scss */
 .flow-delete-modal .flow-delete-buttons {
   margin-top: 10px;
   display: block;
+}
+
+/* line 155, ../sass/flows.scss */
+.editable-buttons {
+  font-size: 14px;
+}
+
+/* line 159, ../sass/flows.scss */
+.flow-name-control {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  height: 40px;
+  font-size: 18px;
+  width: 80%;
 }
