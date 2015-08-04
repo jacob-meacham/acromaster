@@ -11,20 +11,25 @@
 /* line 11, ../sass/profile.scss */
 .profile h2 {
   font-size: 1.3em;
-  border: 2px solid #e5e5e5;
+  border: 1px solid #d4d4d4;
+  background-color: #e5e5e5;
   padding: 8px;
   margin: 0;
 }
-/* line 18, ../sass/profile.scss */
+/* line 19, ../sass/profile.scss */
 .profile .list-box-inner {
   position: relative;
   padding: 10px;
   list-style: none;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #d4d4d4;
   border-top: 0;
   margin: 0;
 }
 /* line 27, ../sass/profile.scss */
+.profile .list-box-inner .no-entry {
+  color: #555;
+}
+/* line 32, ../sass/profile.scss */
 .profile .play-now {
   position: absolute;
   top: 10px;
@@ -32,7 +37,7 @@
   font-size: 25px;
 }
 
-/* line 36, ../sass/profile.scss */
+/* line 41, ../sass/profile.scss */
 .profile .profile-bar .avatar {
   border-radius: 6px;
   display: inline-block;
@@ -40,55 +45,55 @@
   vertical-align: middle;
   line-height: 1px;
 }
-/* line 44, ../sass/profile.scss */
+/* line 49, ../sass/profile.scss */
 .profile .profile-bar h1 {
   font-size: 2em;
   overflow: hidden;
   display: block;
   width: 100%;
 }
-/* line 51, ../sass/profile.scss */
+/* line 56, ../sass/profile.scss */
 .profile .profile-bar .name {
   margin-top: 3px;
   margin-bottom: 3px;
 }
-/* line 56, ../sass/profile.scss */
+/* line 61, ../sass/profile.scss */
 .profile .profile-bar .username {
   margin-top: 2px;
   font-size: 1.5em;
   color: #666;
 }
-/* line 62, ../sass/profile.scss */
+/* line 67, ../sass/profile.scss */
 .profile .profile-bar .user-info {
   margin-top: 4px;
 }
-/* line 66, ../sass/profile.scss */
+/* line 71, ../sass/profile.scss */
 .profile .profile-bar .user-details {
   margin-top: 25px;
   padding-top: 10px;
   border-top: 1px solid #eee;
 }
-/* line 72, ../sass/profile.scss */
+/* line 77, ../sass/profile.scss */
 .profile .profile-bar .join-date {
   font-style: italic;
 }
 
-/* line 77, ../sass/profile.scss */
+/* line 82, ../sass/profile.scss */
 .profile .stats {
   text-align: center;
 }
-/* line 80, ../sass/profile.scss */
+/* line 85, ../sass/profile.scss */
 .profile .stats tspan {
   font-family: 'FontAwesome';
   font-size: 1.5em;
 }
-/* line 85, ../sass/profile.scss */
+/* line 90, ../sass/profile.scss */
 .profile .stats .info {
   font-size: 1.1em;
   font-weight: bold;
 }
 
-/* line 92, ../sass/profile.scss */
+/* line 97, ../sass/profile.scss */
 .profile .achievements .achievement {
   width: 174px;
   height: 160px;
@@ -100,22 +105,22 @@
   background-color: #808080;
   color: #cccccc;
 }
-/* line 104, ../sass/profile.scss */
+/* line 109, ../sass/profile.scss */
 .profile .achievements .awarded {
   background-color: black;
   border: 3px solid #fcb426;
   color: white;
 }
-/* line 110, ../sass/profile.scss */
+/* line 115, ../sass/profile.scss */
 .profile .achievements .popover {
   color: black;
 }
 
-/* line 115, ../sass/profile.scss */
+/* line 120, ../sass/profile.scss */
 .profile .nav {
   font-size: 1.2em;
 }
-/* line 117, ../sass/profile.scss */
+/* line 122, ../sass/profile.scss */
 .profile .nav a {
   padding-left: 15px;
 }

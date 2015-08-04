@@ -10,7 +10,8 @@
 
     h2 {
         font-size: 1.3em;
-        border: 2px solid #e5e5e5;
+        border: 1px solid #d4d4d4;
+        background-color: #e5e5e5;
         padding: 8px;
         margin: 0;
     }
@@ -19,9 +20,13 @@
         position: relative;
         padding: 10px;
         list-style: none;
-        border: 1px solid #e5e5e5;
+        border: 1px solid #d4d4d4;
         border-top: 0;
         margin: 0;
+
+        .no-entry {
+            color: #555;
+        }
     }
 
     .play-now {
