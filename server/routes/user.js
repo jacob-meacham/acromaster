@@ -68,7 +68,7 @@ var addFavorite = function(req, res, next) {
 };
 
 var removeFavorite = function(req, res, next) {
-  req.user.removeFavorite(req.params.flow).then(function(user) {
+  req.user.removeFavorite(req.params.flow).spread(function(user) {
     return res.jsonp(user);
   }).catch(next);
 };

@@ -23,7 +23,7 @@ var FlowViewController = function($routeParams, $location, $modal, flowService, 
   };
 
   if (authService.isAuthenticated()) {
-    User.hasFavorited({ flowId: flowId, userId: authService.getUser().id }, function(response) {
+    User.hasFavorited({ flowId: flowId, userId: authService.getUser().username }, function(response) {
       vm.hasFavorited = response.hasFavorited;
       vm.action = getAction();
     });
