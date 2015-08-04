@@ -205,3 +205,7 @@ slider, [slider] {
     }
   }
 }
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: white;
+}

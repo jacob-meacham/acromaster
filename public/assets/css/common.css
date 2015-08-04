@@ -425,3 +425,8 @@ slider span.pointer.active, [slider] span.pointer.active {
 slider span.bubble, [slider] span.bubble {
   display: none !important;
 }
+
+/* line 209, ../sass/common.scss */
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: white;
+}
