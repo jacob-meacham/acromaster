@@ -44,23 +44,23 @@
                 </td>
                 <td>
                     <form editable-form name="flowForm" ng-show="flowForm.$visible" class="form-buttons form-inline" shown="vm.inserted == moveEntry">
-                      <button type="submit" ng-disabled="flowForm.$waiting" class="btn btn-primary">
+                      <button type="submit" ng-disabled="flowForm.$waiting" title="Ok" class="btn btn-primary">
                         <span class="glyphicon glyphicon-ok"></span>
                       </button>
-                      <button type="button" ng-disabled="flowForm.$waiting" ng-click="flowForm.$cancel()" class="btn btn-default">
+                      <button type="button" ng-disabled="flowForm.$waiting" ng-click="flowForm.$cancel()" title="Cancel" class="btn btn-default">
                         <span class="glyphicon glyphicon-remove"></span>
                       </button>
                     </form>
                     <div class="buttons" ng-show="!flowForm.$visible">
-                      <button class="btn btn-primary" ng-click="flowForm.$show()"><span class="glyphicon glyphicon-pencil"></span></button>
-                      <button class="btn btn-danger" ng-click="vm.removeMove($index)"><span class="glyphicon glyphicon-minus"></span></button>
+                      <button class="btn btn-primary" ng-click="flowForm.$show()" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                      <button class="btn btn-danger" ng-click="vm.removeMove($index)" title="Delete"><span class="glyphicon glyphicon-minus"></span></button>
                     </div>  
                 </td>
             </tr>
         </tbody>
     </table>
-    <button class="btn btn-default" ng-click="vm.addMove()"><span class="glyphicon glyphicon-plus"></button>
-    <button class="btn btn-default" ng-click="vm.randomMove()"><span class="glyphicon glyphicon-random"></button>
+    <button class="btn btn-default" ng-click="vm.addMove()" title="Add Move"><span class="glyphicon glyphicon-plus"></button>
+    <button class="btn btn-default" ng-click="vm.randomMove()" title="Random Move"><span class="glyphicon glyphicon-random"></button>
 
     <div class="inner">
         <div class="alert alert-warning" role="alert" ng-hide="vm.authenticated">
