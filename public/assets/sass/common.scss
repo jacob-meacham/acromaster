@@ -27,8 +27,7 @@ a:hover {
   @include standard-ease(0.2s);
 }
 
-.btn-default {
-  
+.btn-default {  
   text-shadow: none; /* Prevent inheritence from `body` */
   color: white;
   background-color: #c12b32;

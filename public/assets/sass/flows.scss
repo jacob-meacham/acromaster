@@ -12,8 +12,9 @@
 
     .flow-title {
       margin-bottom: 0;
+      position: relative;
 
-      .glyphicon {
+      .flow-icon {
         font-size: 4.5em;
         margin-right: 10px;
       }
@@ -144,4 +145,8 @@
         margin-top: 10px;
         display: block;
     }
+}
+
+.editable-buttons {
+    font-size: 14px;
 }

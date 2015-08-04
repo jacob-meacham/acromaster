@@ -1,6 +1,5 @@
 <div>
     <div class="flow-basic-info">
-        <h3>Basic Info</h3>
         <div ng-show="vm.isCreating">
              <div class="form-group">
                 <label for="name">Flow Name</label>
@@ -13,12 +12,16 @@
         </div>
         <div ng-show="!vm.isCreating">
             <div class="form-group">
-                <label for="name">Flow Name</label>
-                <span editable-text="vm.flow.name" e-autocomplete="off" e-name="name" e-class="form-control" e-required>{{ vm.flow.name }}</span>
+                <div class="flow-title">
+                    <span class="flow-icon glyphicon glyphicon-{{vm.flow.imageUrl}}" /><h1><span editable-text="vm.flow.name" e-autocomplete="off" e-name="name" e-class="form-control" e-required>{{ vm.flow.name }}</span></h1>
+                </div>
             </div>
             <div class="form-group">
-                <label for="name">Description</label>
-                <span editable-textarea="vm.flow.description" e-name="description" e-class="form-control">{{ vm.flow.description || "Description" }}</span>
+                <div class="flow-box">
+                    <div class="flow-description">
+                        <span editable-textarea="vm.flow.description" e-name="description" e-class="form-control">{{ vm.flow.description || "Add a Description" }}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
