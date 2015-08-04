@@ -42,7 +42,7 @@ describe('FlowEditDirective', function() {
     });
 
     it('should start with moves in the flow', function() {
-      var moves = [{move: 'move1', duration: 30}, {move: 'move3', duration: 100}];
+      var moves = [{move: 'move1', duration: 30, isNew: false}, {move: 'move3', duration: 100, isNew: false}];
       controllerFn.instance.flow = {moves: moves};
       var deferred = $q.defer();
       controllerFn.instance.flow.$promise = deferred.promise;
