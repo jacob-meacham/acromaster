@@ -19,10 +19,11 @@
         margin-right: 10px;
       }
 
-      h1 {
+      .flow-title-name {
         display: inline;
         position: absolute; // TODO: This doesn't work with a really long flow title. But, let's fix it when that happens!
-        top: -8px;
+        top: 4px;
+        font-size: 36px;
       }
     }
 
@@ -149,4 +150,13 @@
 
 .editable-buttons {
     font-size: 14px;
+}
+
+.flow-name-control {
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    height: 40px;
+    font-size: 18px;
+    width: 80%;
 }
