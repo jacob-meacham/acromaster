@@ -85,10 +85,10 @@ describe('FlowViewController', function() {
 
       sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
       sandbox.stub(AuthService, 'isAuthenticated').returns(isAuthenticated);
-      sandbox.stub(AuthService, 'getUser').returns({id: 'userId'});
+      sandbox.stub(AuthService, 'getUser').returns({username: 'username'});
       sandbox.stub(User, 'hasFavorited', function(query, cb) {
         query.flowId.should.eql(flow.id);
-        query.userId.should.eql('userId');
+        query.userId.should.eql('username');
         cb({hasFavorited: hasFavorited});
       });
     };
