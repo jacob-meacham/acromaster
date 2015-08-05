@@ -57,8 +57,6 @@ var ProfileHomeController = function($routeParams, $timeout, rand, User, pageHea
     vm.minutesPlayedOptions.max = minutesPlayed * (1.1 + (0.9 * rand.random()));
     vm.movesPlayedOptions.max = stats.moves * (1.1 + (0.9 * rand.random()));
 
-    console.log(vm.movesPlayedOptions.max);
-
     $timeout(function() {
       vm.flowsPlayedOptions.value = stats.flowsPlayed;
     }, 800);
