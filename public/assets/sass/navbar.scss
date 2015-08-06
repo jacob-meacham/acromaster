@@ -13,6 +13,18 @@
   color: #000;
 }
 
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: transparent;
+  border-color: #fcb426;
+}
+
+.navbar-inverse .navbar-nav > .open > a, 
+.navbar-inverse .navbar-nav > .open > a:hover, 
+.navbar-inverse .navbar-nav > .open > a:focus {
+  color: #9d9d9d;
+  background-color: transparent;
+}
+
 .navbar-inverse .navbar-toggle {
   background-color: #333;
 }

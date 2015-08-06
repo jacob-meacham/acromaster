@@ -5,24 +5,39 @@
   padding-bottom: 8px;
   font-size: 1.8em;
   height: auto;
+  color: #000;
 }
 
-/* line 11, ../sass/navbar.scss */
+/* line 12, ../sass/navbar.scss */
 .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
   color: #000;
 }
 
-/* line 15, ../sass/navbar.scss */
+/* line 16, ../sass/navbar.scss */
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: transparent;
+  border-color: #fcb426;
+}
+
+/* line 21, ../sass/navbar.scss */
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  color: #9d9d9d;
+  background-color: transparent;
+}
+
+/* line 28, ../sass/navbar.scss */
 .navbar-inverse .navbar-toggle {
   background-color: #333;
 }
 
-/* line 19, ../sass/navbar.scss */
+/* line 32, ../sass/navbar.scss */
 .navbar-nav > li {
   display: inline-block;
 }
 
-/* line 23, ../sass/navbar.scss */
+/* line 36, ../sass/navbar.scss */
 .navbar-nav > li > a {
   font-size: 16px;
   font-weight: bold;
@@ -34,7 +49,7 @@
   margin-bottom: 3px;
 }
 
-/* line 34, ../sass/navbar.scss */
+/* line 47, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > li > a:hover {
   color: #9d9d9d;
   border-top-color: #fcb426;
@@ -44,20 +59,20 @@
   transition: border-top-color 0.15s ease;
 }
 
-/* line 43, ../sass/navbar.scss */
+/* line 56, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > .active > a {
   color: #9d9d9d;
   background: transparent;
   border-top-color: #c12b32;
 }
 
-/* line 49, ../sass/navbar.scss */
+/* line 62, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
   color: #9d9d9d;
   background: transparent;
 }
 
-/* line 54, ../sass/navbar.scss */
+/* line 67, ../sass/navbar.scss */
 .nav .avatar {
   width: 20px;
   height: 20px;
@@ -66,7 +81,7 @@
   border-radius: 3px;
 }
 
-/* line 62, ../sass/navbar.scss */
+/* line 75, ../sass/navbar.scss */
 .navbar {
   background-color: #f9f9f9;
   border-color: transparent;
