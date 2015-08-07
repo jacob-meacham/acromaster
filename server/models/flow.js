@@ -29,11 +29,12 @@ var FlowSchema = new Schema({
   },
   name: { type: String, required: true },
   imageUrl: String,
-  description: { type: String },
-  authorName: { type: String },
+  description: String,
+  authorName: String,
   author: { type: ShortId, ref: 'User' },
 
   moves: [MoveEntrySchema],
+  numMoves: { type: Number, default: 0 }, // TODO: Remove this and calculate it on the fly?
   length: { type: Number, default: 0 },
 
   createdAt: { type: Date, default: Date.now },
@@ -48,6 +49,7 @@ FlowSchema.index({ name: 'text', description: 'text', authorName: 'text' });
 FlowSchema.pre('save', function(next) {
   var self = this;
 
+  self.numMoves = self.moves ? self.moves.length : 0;
   self.length = _.reduce(self.moves, function(sum, move) {
     return sum + move.duration;
   });
@@ -56,6 +58,7 @@ FlowSchema.pre('save', function(next) {
 });
 
 FlowSchema.statics = {
+  // TODO: Combine load, list, listByUser to be more DRY
   load: function(id, cb) {
     return this.findOne({ _id: id })
       .populate('author', 'name username _id profilePictureUrl')
@@ -80,7 +83,7 @@ FlowSchema.statics = {
   },
 
   listByUser: function(author_id, options) {
-    return this.find({author: author_id}, '_id name author createdAt ratings')
+    return this.find({author: author_id}, '-moves -plays -likers')
       .sort({createdAt: -1})
       .limit(options.max)
       .skip(options.max * options.page)
