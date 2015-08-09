@@ -17,6 +17,7 @@ var app = angular.module('acromaster', [
   'slick',
   'angular-flash.service',
   'angular-flash.flash-alert-directive',
+  'angularUtils.directives.dirPagination',
   'base64'
 ])
 .run(function(editableOptions) {

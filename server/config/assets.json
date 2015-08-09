@@ -31,6 +31,7 @@
         "public/assets/lib/slick.js/slick/slick.min.js": "public/assets/lib/slick.js/slick/slick.js",
         "public/assets/lib/angular-slick/dist/slick.min.js": "public/assets/lib/angular-slick/dist/slick.js",
         "public/assets/lib/angular-base64/angular-base64.min.js": "public/assets/lib/angular-base64/angular-base64.js",
+        "public/assets/lib/angular-utils-pagination/dirPagination.js": "public/assets/lib/angular-utils-pagination/dirPagination.js",
         "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"
     }
   },

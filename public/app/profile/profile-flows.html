@@ -1,7 +1,8 @@
 <h2>Authored Flows</h2>
 <ul>
-    <li ng-repeat='flow in vm.flowResults.flows'><flow-list-item flow='flow' /></li>
+    <li dir-paginate='flow in vm.flowResults.flows | itemsPerPage: 8'><flow-list-item flow='flow' /></li>
 </ul>
+<dir-pagination-controls></dir-pagination-controls>
 <div class="col-md-12">
     <debug>{{ vm.flowResults | json }}</debug>
 </div>
