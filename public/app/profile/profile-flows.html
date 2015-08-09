@@ -1,6 +1,6 @@
 <h2>Authored Flows</h2>
 <ul ng-repeat='flow in vm.flowResults.flows'>
-    <li><a href="/flow/{{flow.id}}">{{flow.name}}</a></li>
+    <flow-list-item flow='flow' />
 </ul>
 <div class="col-md-12">
     <debug>{{ vm.flowResults | json }}</debug>
