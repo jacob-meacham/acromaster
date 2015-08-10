@@ -106,22 +106,21 @@
   margin: 0 5px;
 }
 
-/* line 97, ../sass/navbar.scss */
+/*
 .navbar-main > li > a {
   border-left: 1px solid #ccc;
 }
 
-/* line 101, ../sass/navbar.scss */
 .navbar-main > li:first-of-type > a {
   border-left: none;
 }
-
-/* line 105, ../sass/navbar.scss */
+*/
+/* line 107, ../sass/navbar.scss */
 .navbar-login > li:first-child:before {
   display: none;
 }
 
-/* line 109, ../sass/navbar.scss */
+/* line 111, ../sass/navbar.scss */
 .navbar-login > li:last-child {
   margin-right: 0;
 }
