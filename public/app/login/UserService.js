@@ -8,7 +8,7 @@ var User = function($resource) {
   {
     favorite: { method: 'POST', url: '/api/profile/:userId/favorites/:flowId' },
     unfavorite: { method: 'DELETE', url: '/api/profile/:userId/favorites/:flowId' },
-    getFavorites: { method: 'GET', url: '/api/profile/:userId/favorites', isArray: true },
+    getFavorites: { method: 'GET', url: '/api/profile/:userId/favorites' },
     hasFavorited: { method: 'GET', url: '/api/profile/:userId/favorites/:flowId' },
     getFlows: { method: 'GET', url: '/api/profile/:userId/flows' }
   });
