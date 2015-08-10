@@ -53,12 +53,12 @@ FlowSchema.pre('save', function(next) {
   self.numMoves = self.moves ? self.moves.length : 0;
   self.length = _.reduce(self.moves, function(sum, move) {
     return sum + move.duration;
-  });
+  }, 0);
 
   // Allow setting of difficulty manually?
   var totalDifficulty = _.reduce(self.moves, function(sum, move) {
     return sum + move.difficulty;
-  });
+  }, 0);
   self.difficulty = self.moves.length ? totalDifficulty / self.moves.length : 0;
 
   next();
