@@ -9,20 +9,17 @@
   <a class="navbar-brand" href="/">acromaster</a>
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse">
-    <ul nav-menu class="nav navbar-nav">
+    <ul nav-menu class="nav navbar-nav navbar-main">
         <li>
             <a href="/flows">Flows</a>
         </li>
         <li>
-            <a href="/flow/workout">Workout</a>
-        </li>
-        <li>
-            <a ng-click="nav.about()">About</a>
+            <a href="/flow/workout"><p>Workout</p></a>
         </li>
     </ul>
     <ul class="nav navbar-nav pull-right navbar-login" data-ng-hide="nav.authenticated">
       <li><a href="/login">Login</a></li>
-      <li><a href="/signup">Signup</a></li>
+      <li><a href="/signup">Register</a></li>
     </ul>
     <ul class="nav navbar-nav pull-right" data-ng-show="nav.authenticated">
         <li class="dropdown pull-right" dropdown>

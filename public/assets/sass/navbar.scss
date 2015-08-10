@@ -82,16 +82,24 @@
   padding-bottom: 8px;
 }
 
-.navbar-login>li>a {
+.navbar-login > li > a {
   padding: 0 4px;
   display: inline-block;
 }
 
 .navbar-login > li:before {
-  color: #666;
+  color: #9d9d9d;
   font-size: 1.3em;
   content: '\002022';
   margin: 0 5px;
+}
+
+.navbar-main > li > a {
+  border-left: 1px solid #ccc;
+}
+
+.navbar-main > li:first-of-type > a {
+  border-left: none;
 }
 
 .navbar-login > li:first-child:before {

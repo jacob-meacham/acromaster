@@ -100,18 +100,28 @@
 
 /* line 90, ../sass/navbar.scss */
 .navbar-login > li:before {
-  color: #666;
+  color: #9d9d9d;
   font-size: 1.3em;
   content: '\002022';
   margin: 0 5px;
 }
 
 /* line 97, ../sass/navbar.scss */
+.navbar-main > li > a {
+  border-left: 1px solid #ccc;
+}
+
+/* line 101, ../sass/navbar.scss */
+.navbar-main > li:first-of-type > a {
+  border-left: none;
+}
+
+/* line 105, ../sass/navbar.scss */
 .navbar-login > li:first-child:before {
   display: none;
 }
 
-/* line 101, ../sass/navbar.scss */
+/* line 109, ../sass/navbar.scss */
 .navbar-login > li:last-child {
   margin-right: 0;
 }
