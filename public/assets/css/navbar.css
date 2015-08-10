@@ -1,4 +1,4 @@
-/* line 3, ../sass/navbar.scss */
+/* line 5, ../sass/navbar.scss */
 .navbar-inverse .navbar-brand {
   margin-right: 20px;
   padding-top: 8px;
@@ -8,36 +8,41 @@
   color: #000;
 }
 
-/* line 12, ../sass/navbar.scss */
+/* line 14, ../sass/navbar.scss */
 .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
   color: #000;
 }
 
-/* line 16, ../sass/navbar.scss */
+/* line 18, ../sass/navbar.scss */
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: transparent;
   border-color: #fcb426;
 }
 
-/* line 21, ../sass/navbar.scss */
+/* line 23, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  color: #9d9d9d;
+  color: #666;
   background-color: transparent;
 }
 
-/* line 28, ../sass/navbar.scss */
+/* line 30, ../sass/navbar.scss */
 .navbar-inverse .navbar-toggle {
   background-color: #333;
 }
 
-/* line 32, ../sass/navbar.scss */
+/* line 34, ../sass/navbar.scss */
 .navbar-nav > li {
   display: inline-block;
 }
 
-/* line 36, ../sass/navbar.scss */
+/* line 38, ../sass/navbar.scss */
+.navbar-inverse .navbar-nav > li > a {
+  color: #666;
+}
+
+/* line 42, ../sass/navbar.scss */
 .navbar-nav > li > a {
   font-size: 16px;
   font-weight: bold;
@@ -45,13 +50,13 @@
   border-top: 3px solid transparent;
   padding-top: 3px;
   padding-bottom: 0;
-  margin-top: 5px;
+  margin-top: 7px;
   margin-bottom: 3px;
 }
 
-/* line 47, ../sass/navbar.scss */
+/* line 53, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > li > a:hover {
-  color: #9d9d9d;
+  color: #666;
   border-top-color: #fcb426;
   -webkit-transition: border-top-color 0.15s ease;
   -moz-transition: border-top-color 0.15s ease;
@@ -59,20 +64,25 @@
   transition: border-top-color 0.15s ease;
 }
 
-/* line 56, ../sass/navbar.scss */
+/* line 62, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > .active > a {
-  color: #9d9d9d;
+  color: #666;
   background: transparent;
   border-top-color: #c12b32;
 }
 
-/* line 62, ../sass/navbar.scss */
+/* line 68, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-  color: #9d9d9d;
+  color: #666;
   background: transparent;
 }
 
-/* line 67, ../sass/navbar.scss */
+/* line 73, ../sass/navbar.scss */
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+  color: #666;
+}
+
+/* line 77, ../sass/navbar.scss */
 .nav .avatar {
   width: 20px;
   height: 20px;
@@ -81,7 +91,7 @@
   border-radius: 3px;
 }
 
-/* line 75, ../sass/navbar.scss */
+/* line 85, ../sass/navbar.scss */
 .navbar {
   background-color: #f9f9f9;
   border-color: transparent;
@@ -89,38 +99,28 @@
   border-radius: 0;
   min-height: 30px;
   margin-bottom: 50px;
-  padding-bottom: 8px;
 }
 
-/* line 85, ../sass/navbar.scss */
-.navbar-login > li > a {
+/* line 94, ../sass/navbar.scss */
+.navbar-nav > li > a {
   padding: 0 4px;
   display: inline-block;
 }
 
-/* line 90, ../sass/navbar.scss */
-.navbar-login > li:before {
-  color: #9d9d9d;
+/* line 99, ../sass/navbar.scss */
+.navbar-nav > li:before {
+  color: #111;
   font-size: 1.3em;
   content: '\002022';
   margin: 0 5px;
 }
 
-/*
-.navbar-main > li > a {
-  border-left: 1px solid #ccc;
-}
-
-.navbar-main > li:first-of-type > a {
-  border-left: none;
-}
-*/
-/* line 107, ../sass/navbar.scss */
-.navbar-login > li:first-child:before {
+/* line 106, ../sass/navbar.scss */
+.navbar-nav > li:first-child:before {
   display: none;
 }
 
-/* line 111, ../sass/navbar.scss */
-.navbar-login > li:last-child {
+/* line 110, ../sass/navbar.scss */
+.navbar-nav > li:last-child {
   margin-right: 0;
 }
