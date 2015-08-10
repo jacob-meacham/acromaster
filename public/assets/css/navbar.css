@@ -91,3 +91,27 @@
   margin-bottom: 50px;
   padding-bottom: 8px;
 }
+
+/* line 85, ../sass/navbar.scss */
+.navbar-login > li > a {
+  padding: 0 4px;
+  display: inline-block;
+}
+
+/* line 90, ../sass/navbar.scss */
+.navbar-login > li:before {
+  color: #666;
+  font-size: 1.3em;
+  content: '\002022';
+  margin: 0 5px;
+}
+
+/* line 97, ../sass/navbar.scss */
+.navbar-login > li:first-child:before {
+  display: none;
+}
+
+/* line 101, ../sass/navbar.scss */
+.navbar-login > li:last-child {
+  margin-right: 0;
+}
