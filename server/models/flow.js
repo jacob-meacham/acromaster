@@ -3,12 +3,13 @@
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 Promise.promisifyAll(mongoose);
+var _ = require('lodash');
 var ShortId = require('mongoose-shortid');
 var likesPlugin = require('mongoose-likes');
 var randomPlugin = require('mongoose-random');
 var Schema = mongoose.Schema;
 
-var subdocTransform = function(doc, ret) {
+var moveEntryTransform = function(doc, ret) {
   delete ret._id;
   delete ret.__v;
   return ret;
@@ -18,7 +19,8 @@ var MoveEntrySchema = new Schema({
   move: { type: ShortId, ref: 'Move' },
   duration: Number,
 });
-MoveEntrySchema.options.toJSON = { transform: subdocTransform };
+
+MoveEntrySchema.options.toJSON = { transform: moveEntryTransform };
 
 var FlowSchema = new Schema({
   _id: {
@@ -27,22 +29,43 @@ var FlowSchema = new Schema({
   },
   name: { type: String, required: true },
   imageUrl: String,
-  description: { type: String },
-  authorName: { type: String },
+  description: String,
+  authorName: String,
   author: { type: ShortId, ref: 'User' },
 
   moves: [MoveEntrySchema],
+  numMoves: { type: Number, default: 0 }, // TODO: Remove this and calculate it on the fly?
+  length: { type: Number, default: 0 },
+  difficulty: { type: Number, default: 5 },
 
-  createdAt: { type : Date, default : Date.now },
-  workout: {type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now },
+  workout: { type: Boolean, default: false },
 
-  playCount: { type: Number, default : 0 },
-  plays: [{type: ShortId, ref: 'User'}]
+  playCount: { type: Number, default: 0 },
+  plays: [{ type: ShortId, ref: 'User' }]
 });
 
 FlowSchema.index({ name: 'text', description: 'text', authorName: 'text' });
 
+FlowSchema.pre('save', function(next) {
+  var self = this;
+
+  self.numMoves = self.moves ? self.moves.length : 0;
+  self.length = _.reduce(self.moves, function(sum, move) {
+    return sum + move.duration;
+  }, 0);
+
+  // Allow setting of difficulty manually?
+  var totalDifficulty = _.reduce(self.moves, function(sum, move) {
+    return sum + move.difficulty;
+  }, 0);
+  self.difficulty = self.moves.length ? totalDifficulty / self.moves.length : 0;
+
+  next();
+});
+
 FlowSchema.statics = {
+  // TODO: Combine load, list, listByUser to be more DRY
   load: function(id, cb) {
     return this.findOne({ _id: id })
       .populate('author', 'name username _id profilePictureUrl')
@@ -67,7 +90,7 @@ FlowSchema.statics = {
   },
 
   listByUser: function(author_id, options) {
-    return this.find({author: author_id}, '_id name author createdAt ratings')
+    return this.find({author: author_id}, '-moves -plays -likers')
       .sort({createdAt: -1})
       .limit(options.max)
       .skip(options.max * options.page)

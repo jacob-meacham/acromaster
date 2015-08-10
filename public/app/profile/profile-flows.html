@@ -1,7 +1,13 @@
-<h2>Authored Flows</h2>
-<ul ng-repeat='flow in vm.flowResults.flows'>
-    <li><a href="/flow/{{flow.id}}">{{flow.name}}</a></li>
+<ul class="list-box list-box-list">
+    <li class="list-box-inner">
+        <label>Include Workouts:
+            <input type="checkbox" ng-model="vm.includeWorkouts">
+        </label>
+    </li>
+    <li ng-if="vm.flows.length === 0" class="list-box-inner no-entry">None yet!</li>
+    <li ng-if="vm.flows.length > 0" class="list-box-inner" dir-paginate='flow in vm.flows | itemsPerPage: 7'><flow-list-item flow='flow' /></li>
 </ul>
+<dir-pagination-controls></dir-pagination-controls>
 <div class="col-md-12">
-    <debug>{{ vm.flowResults | json }}</debug>
+    <debug>{{ vm.flows | json }}</debug>
 </div>

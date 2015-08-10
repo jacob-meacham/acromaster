@@ -69,6 +69,7 @@ UserSchema.pre('save', function(next) {
 });
 
 UserSchema.statics = {
+  // TODO: loadPublicProfile and getFavorites should be DRYed
   loadPublicProfile: function(name) {
     return this.findOne({ username: name })
       .populate('favorites.flow', 'name _id')
@@ -77,6 +78,17 @@ UserSchema.statics = {
         if (user) {
           return user.toPublic();
         }
+      });
+  },
+
+  getFavorites: function(name) {
+    return this.findOne({ username: name })
+      .populate('favorites.flow', '-moves -plays -likers') // TODO: This selection should be more easily made
+      .exec().then(function(user) {
+        if (user) {
+          return user.favorites;
+        }
+        return [];
       });
   }
 };

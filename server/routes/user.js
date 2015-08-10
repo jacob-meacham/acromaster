@@ -39,7 +39,11 @@ var hasFavorited = function(req, res, next) {
 };
 
 var getFavorites = function(req, res) {
-  res.jsonp({favorites: req.profile.favorites});
+  User.getFavorites(req.profile.username).then(function(_favorites) {
+    res.jsonp({flows: _favorites,
+              page: 1,
+              total: _favorites.length});
+  });
 };
 
 var getFlows = function(req, res) {

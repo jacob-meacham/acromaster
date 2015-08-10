@@ -2,22 +2,31 @@
     <div class="col-md-6 recent-flows">
         <div class="list-box">
             <h2>Recent Flows</h2>
-            <ul ng-if="vm.profile.recentlyPlayed.length > 0" class="list-box-inner" ng-repeat="entry in vm.profile.recentlyPlayed | limitTo:5 | filter:{flow:'!'}">
-                <li><a href="/flow/{{entry.flow.id}}">{{entry.flow.name}}</a> <a href="/flow/{{entry.flow.id}}/play"><span popover="Play Now!" popover-placement="top" popover-trigger="mouseenter" class="play-now glyphicon glyphicon-2x glyphicon-play-circle" /></a></li>
+            <ul class="list-box-list">
+                <li ng-if="vm.profile.recentlyPlayed.length > 0" ng-repeat="entry in vm.profile.recentlyPlayed | limitTo:5 | filter:{flow:'!'}" class="list-box-inner">
+                    <a href="/flow/{{entry.flow.id}}">{{entry.flow.name}}</a>
+                    <a href="/flow/{{entry.flow.id}}/play">
+                        <span popover="Play Now!" popover-placement="top" popover-trigger="mouseenter" class="play-now glyphicon glyphicon-2x glyphicon-play-circle" />
+                    </a>
+                </li>
+                <li ng-if="vm.profile.recentlyPlayed.length === 0" class="no-entry list-box-inner">None yet!</li>
             </ul>
-            <ul ng-if="vm.profile.recentlyPlayed.length === 0" class="list-box-inner">
-                <li class="no-entry">None yet!</li>
+            <ul class="list-box-list" >
+                
             </ul>
         </div>
     </div>
     <div class="col-md-6">
         <div class="list-box">
             <h2>Favorites</h2>
-            <ul ng-if="vm.profile.favorites.length > 0" class="list-box-inner" ng-repeat="entry in vm.profile.favorites | limitTo:5 | filter:{flow:'!'}">
-                <li><a href="/flow/{{entry.flow.id}}">{{entry.flow.name}}</a> <a href="/flow/{{entry.flow.id}}/play"><span popover="Play Now!" popover-placement="top" popover-trigger="mouseenter" class="play-now glyphicon glyphicon-2x glyphicon-play-circle" /></a></li>
-            </ul>
-            <ul ng-if="vm.profile.favorites.length === 0" class="list-box-inner">
-                <li class="no-entry">None yet!</li>
+            <ul class="list-box-list">
+                <li ng-if="vm.profile.favorites.length > 0" ng-repeat="entry in vm.profile.favorites | limitTo:5 | filter:{flow:'!'}" class="list-box-inner">
+                    <a href="/flow/{{entry.flow.id}}">{{entry.flow.name}}</a>
+                    <a href="/flow/{{entry.flow.id}}/play">
+                        <span popover="Play Now!" popover-placement="top" popover-trigger="mouseenter" class="play-now glyphicon glyphicon-2x glyphicon-play-circle" />
+                    </a>
+                </li>
+                <li ng-if="vm.profile.favorites.length === 0" class="list-box-inner no-entry">None yet!</li>
             </ul>
         </div>
     </div>
