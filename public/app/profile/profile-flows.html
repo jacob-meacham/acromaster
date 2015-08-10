@@ -1,6 +1,7 @@
 <h2>Authored Flows</h2>
+<input type="checkbox" ng-model="vm.includeWorkouts">
 <ul>
-    <li dir-paginate='flow in vm.flowResults.flows | itemsPerPage: 8'><flow-list-item flow='flow' /></li>
+    <li dir-paginate='flow in vm.flows | itemsPerPage: 7'><flow-list-item flow='flow' /></li>
 </ul>
 <dir-pagination-controls></dir-pagination-controls>
 <div class="col-md-12">

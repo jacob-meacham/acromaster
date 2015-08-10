@@ -71,14 +71,36 @@ var ProfileHomeController = function($routeParams, $timeout, rand, User, pageHea
   });
 };
 
-var ProfileFlowsController = function($routeParams, User, pageHeaderService) {
+// TODO: Make a FlowFilterService
+var filterFlows = function(_, flows, includeWorkouts) {
+  if (includeWorkouts) {
+    return flows;
+  } else {
+    return _.filter(flows, function(flow) {
+      return !flow.workout;
+    });
+  }
+};
+
+var ProfileFlowsController = function($routeParams, $scope, User, pageHeaderService, _) {
   var vm = this;
   vm.templateUrl = 'app/profile/profile-flows.html';
   pageHeaderService.setTitle($routeParams.user);
 
+  vm.includeWorkouts = false;
+  $scope.$watch(function() {
+      return vm.includeWorkouts;
+    }, function() {
+      // TODO: Reload from server? Do something else more interesting?
+      vm.flows = filterFlows(_, vm.allResults.flows, vm.includeWorkouts);
+    }
+  );
+
   vm.profile = User.get({userId: $routeParams.user});
-  vm.flowResults = User.getFlows({userId: $routeParams.user});
-  vm.perPage = 25;
+  vm.allResults = User.getFlows({userId: $routeParams.user});
+  vm.allResults.$promise.then(function() {
+    vm.flows = filterFlows(_, vm.allResults.flows, vm.includeWorkouts);
+  });
 };
 
 var ProfileFavoritesController = function($routeParams, User, pageHeaderService) {
@@ -103,6 +125,6 @@ var ProfileAchievementsController = function($routeParams, User, pageHeaderServi
 
 angular.module('acromaster.controllers')
   .controller('ProfileHomeController', ['$routeParams', '$timeout', 'RandomService', 'User', 'PageHeaderService', '_', ProfileHomeController])
-  .controller('ProfileFlowsController', ['$routeParams', 'User', 'PageHeaderService', ProfileFlowsController])
+  .controller('ProfileFlowsController', ['$routeParams', '$scope', 'User', 'PageHeaderService', '_', ProfileFlowsController])
   .controller('ProfileFavoritesController', ['$routeParams', 'User', 'PageHeaderService', ProfileFavoritesController])
   .controller('ProfileAchievementsController', ['$routeParams', 'User', 'PageHeaderService', 'AchievementsService', ProfileAchievementsController]);
