@@ -14,10 +14,13 @@
         <tbody>
             <tr ng-repeat='flow in vm.featuredFlows'>
                 <!-- TODO: A directive for showing a flow -->
-                <td><a ng-href="/flow/{{flow.id}}">{{flow.name}}</a></td>
+                <td><flow-list-item flow='flow' /></td>
             </tr>
         </tbody>
     </table>
     <h3><a ng-href="/flow/{{vm.randomFlow.id}}">Random</a></h3>
     <h3><a href="/flow/create">Create your own</a></h3>
+    <div class="col-md-12">
+        <debug>{{ vm.featuredFlows | json }}</debug>
+    </div>
 </section>
