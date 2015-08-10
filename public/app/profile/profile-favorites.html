@@ -1,5 +1,9 @@
 <!-- TODO If this is me, add a link to unfavorite -->
-<h2>Favorite Flows</h2>
-<ul ng-repeat="favorite in vm.profile.favorites | filter:{flow:'!'}">
-    <li><a href="/flow/{{favorite.flow.id}}">{{favorite.flow.name}}</li>
+<ul class="list-box list-box-list">
+    <li ng-if="vm.favorites.flows.length === 0" class="list-box-inner no-entry">None yet!</li>
+    <li ng-if="vm.favorites.flows.length > 0" class="list-box-inner" dir-paginate='favoritedEntry in vm.favorites.flows | itemsPerPage: 7'><flow-list-item flow='favoritedEntry.flow' /></li>
 </ul>
+<dir-pagination-controls></dir-pagination-controls>
+<div class="col-md-12">
+    <debug>{{ vm.favorites | json }}</debug>
+</div>

@@ -107,8 +107,7 @@ var ProfileFavoritesController = function($routeParams, User, pageHeaderService)
   var vm = this;
   vm.templateUrl = 'app/profile/profile-favorites.html';
   vm.profile = User.get({userId: $routeParams.user});
-  vm.flows = User.getFavorites({userId: $routeParams.user});
-  vm.perPage = 25;
+  vm.favorites = User.getFavorites({userId: $routeParams.user}); // TODO: Handle this more nicely (Instead of having to do favorites.flows...)
   pageHeaderService.setTitle($routeParams.user);
 };
 
