@@ -36,6 +36,7 @@ var FlowSchema = new Schema({
   moves: [MoveEntrySchema],
   numMoves: { type: Number, default: 0 }, // TODO: Remove this and calculate it on the fly?
   length: { type: Number, default: 0 },
+  difficulty: { type: Number, default: 5 },
 
   createdAt: { type: Date, default: Date.now },
   workout: { type: Boolean, default: false },
@@ -53,6 +54,12 @@ FlowSchema.pre('save', function(next) {
   self.length = _.reduce(self.moves, function(sum, move) {
     return sum + move.duration;
   });
+
+  // Allow setting of difficulty manually?
+  var totalDifficulty = _.reduce(self.moves, function(sum, move) {
+    return sum + move.difficulty;
+  });
+  self.difficulty = self.moves.length ? totalDifficulty / self.moves.length : 0;
 
   next();
 });
