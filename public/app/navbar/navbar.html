@@ -20,9 +20,9 @@
             <a ng-click="nav.about()">About</a>
         </li>
     </ul>
-    <ul class="nav navbar-nav pull-right" data-ng-hide="nav.authenticated">
-      <li class="pull-right sticky-item"><a href="/login">Login</a></li>
-      <li class="pull-right sticky-item"><a href="/signup">Signup</a></li>
+    <ul class="nav navbar-nav pull-right navbar-login" data-ng-hide="nav.authenticated">
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Signup</a></li>
     </ul>
     <ul class="nav navbar-nav pull-right" data-ng-show="nav.authenticated">
         <li class="dropdown pull-right" dropdown>

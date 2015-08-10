@@ -81,3 +81,23 @@
   margin-bottom: 50px;
   padding-bottom: 8px;
 }
+
+.navbar-login>li>a {
+  padding: 0 4px;
+  display: inline-block;
+}
+
+.navbar-login > li:before {
+  color: #666;
+  font-size: 1.3em;
+  content: '\002022';
+  margin: 0 5px;
+}
+
+.navbar-login > li:first-child:before {
+  display: none;
+}
+
+.navbar-login > li:last-child {
+  margin-right: 0;
+}
