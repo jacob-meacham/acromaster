@@ -7,10 +7,15 @@ html(lang='en', ng-app='acromaster')
         div.container.inner
             div.view-container
                 section(data-ng-view).view-frame
-        footer.footer
+        footer(ng-controller="FooterController as footer").footer
             div.container
-                p.text-muted 
-                    | Created with love by <a href="http://www.jemonjam.com">Jacob Meacham</a> and Jessica Goodburn
+                div.row
+                    div.col-sm-8
+                        p.text-muted
+                            | Created with love by <a href="http://www.jemonjam.com">Jacob Meacham</a> and Jessica Goodburn
+                    div.col-sm-4
+                        div.text-muted.footer-links
+                            | <a ng-click="footer.about()">About</a> Contact Donate
     script(type='text/javascript').
         window.user = !{JSON.stringify(user).replace(/<\//g, "<\\/")};
         window.env = "!{env}";
