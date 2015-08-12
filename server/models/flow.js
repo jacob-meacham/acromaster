@@ -74,6 +74,7 @@ FlowSchema.statics = {
   },
 
   list: function(options, cb) {
+    options = options || {};
     var searchQuery = options.searchQuery || {};
 
     // Sory by creation time by default
