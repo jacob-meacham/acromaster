@@ -5,6 +5,7 @@ var app = angular.module('acromaster', [
   'ngAnimate',
   'ngRoute',
   'ngCookies',
+  'ngSanitize',
   'acromaster.services',
   'acromaster.controllers',
   'acromaster.directives',

@@ -28,9 +28,7 @@
     </div>
 
     <div class="flow-box" ng-show="vm.flow.description">
-        <div class="flow-description">
-            {{vm.flow.description}}
-        </div>
+        <div class="flow-description" ng-bind-html="vm.flow.description | linky: '_blank'" />
     </div>
     <div class="flow-box">
         <ul class="move-list">
