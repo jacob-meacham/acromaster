@@ -118,7 +118,10 @@ describe('/api/profile', function() {
 
     var flow;
 
-    before(function(done) {
+    beforeEach(function(done) {
+      carolAuthedApp = require('./utils/authedApp')(app).withUser(new User({username: 'carol', name: 'carol'}));
+      ameliaAuthedApp = require('./utils/authedApp')(app).withUser(user);
+
       var _flow = {
         name: 'Flow 1',
         createdAt: '12/10/1990'
@@ -127,15 +130,10 @@ describe('/api/profile', function() {
       flow.save(done);
     });
 
-    beforeEach(function() {
-      carolAuthedApp = require('./utils/authedApp')(app).withUser(new User({username: 'carol', name: 'carol'}));
-      ameliaAuthedApp = require('./utils/authedApp')(app).withUser(user);
-    });
-
     it('should return the favorites of the user', function() {
       var profile = stubLoadUserProfile();
 
-      user.addFavorite('flow1');
+      user.addFavorite(flow._id);
       user.addFavorite('flow2');
 
       return user.saveAsync().then(function() {
@@ -143,8 +141,8 @@ describe('/api/profile', function() {
           .get('/api/profile/amelia/favorites')
           .expect(200)
           .expect(function(res) {
-            res.body.favorites.should.have.length(2);
-            res.body.favorites[0].flow.should.eql(profile.favorites[0].flow);
+            res.body.flows.should.have.length(2);
+            res.body.flows[0].flow.id.should.eql(profile.favorites[0].flow);
           });
       });
     });
