@@ -1,5 +1,7 @@
 @import 'common-mixins';
 
+$navbar-link-color: #666;
+
 .navbar-inverse .navbar-brand {
   margin-right: 20px;
   padding-top: 8px;
@@ -21,7 +23,7 @@
 .navbar-inverse .navbar-nav > .open > a, 
 .navbar-inverse .navbar-nav > .open > a:hover, 
 .navbar-inverse .navbar-nav > .open > a:focus {
-  color: #9d9d9d;
+  color: $navbar-link-color;
   background-color: transparent;
 }
 
@@ -33,6 +35,10 @@
   display: inline-block;
 }
 
+.navbar-inverse .navbar-nav > li > a {
+  color: $navbar-link-color;
+}
+
 .navbar-nav > li > a {
   font-size: 16px;
   font-weight: bold;
@@ -40,12 +46,12 @@
   border-top: 3px solid transparent;
   padding-top: 3px;
   padding-bottom: 0;
-  margin-top: 5px;
+  margin-top: 7px;
   margin-bottom: 3px;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
-  color: #9d9d9d;
+  color: $navbar-link-color;
   border-top-color: #fcb426;
   -webkit-transition:border-top-color 0.15s ease;
   -moz-transition:border-top-color 0.15s ease;
@@ -54,14 +60,18 @@
 }
 
 .navbar-inverse .navbar-nav > .active > a {
-  color: #9d9d9d;
+  color: $navbar-link-color;
   background: transparent;
   border-top-color: #c12b32;
 }
 
 .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-  color: #9d9d9d;
+  color: $navbar-link-color;
   background: transparent;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+  color: $navbar-link-color;
 }
 
 .nav .avatar {
@@ -79,25 +89,24 @@
   border-radius: 0;
   min-height: 30px;
   margin-bottom: 50px;
-  padding-bottom: 8px;
 }
 
-.navbar-login>li>a {
+.navbar-nav > li > a {
   padding: 0 4px;
   display: inline-block;
 }
 
-.navbar-login > li:before {
-  color: #666;
+.navbar-nav > li:before {
+  color: #111;
   font-size: 1.3em;
   content: '\002022';
   margin: 0 5px;
 }
 
-.navbar-login > li:first-child:before {
+.navbar-nav > li:first-child:before {
   display: none;
 }
 
-.navbar-login > li:last-child {
+.navbar-nav > li:last-child {
   margin-right: 0;
 }

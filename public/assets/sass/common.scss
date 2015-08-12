@@ -70,20 +70,43 @@ body {
   min-height: 100%;
 }
 
-$footer-height: 30px;
+$footer-sm-height: 30px;
+$footer-xs-height: 55px;
 $footer-border-height: 4px;
+
 .footer {
   position: absolute;
-  bottom: 0;
   width: 100%;
 
-  height: $footer-height+$footer-border-height;
+  @media (min-width: 769px) {
+    bottom: 0;
+    height: $footer-sm-height+$footer-border-height;
+  }
+
+  @media (max-width: 768px) {
+    bottom: -30px;
+    height: $footer-xs-height+$footer-border-height;
+  }
+
   background-color: #111;
   border-top: $footer-border-height solid #c12b32;
 
   .text-muted {
     margin: 5px 0 0 5px;
     color: #fff;
+  }
+
+  a:hover {
+    color: white;
+  }
+
+  .footer-links > a {
+    padding: 0 8px 0 9px;
+    border-left: 1px solid #ddd;
+  }
+
+  .footer-links > a:first-of-type {
+    border-left: none;
   }
 }
 
