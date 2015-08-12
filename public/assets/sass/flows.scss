@@ -73,6 +73,20 @@
 
     .flow-description {
         padding-bottom: 20px;
+
+        // Make description text box take up the whole space
+        .editable, .form-inline, textarea, .editable-controls {
+            width: 100%;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        .editable-buttons {
+            display: block;
+            padding-top: 5px;
+        }
     }
 
     .likes {
