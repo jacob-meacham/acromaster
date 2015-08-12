@@ -99,6 +99,15 @@ $footer-border-height: 4px;
   a:hover {
     color: white;
   }
+
+  .footer-links > a {
+    padding: 0 8px 0 9px;
+    border-left: 1px solid #ddd;
+  }
+
+  .footer-links > a:first-of-type {
+    border-left: none;
+  }
 }
 
 .no-margin {
