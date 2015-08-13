@@ -9,6 +9,7 @@
     "angular-sanitize": "1.4.3",
     "angular-bootstrap": "0.13.2",
     "angular-ui-utils": "0.2.3",
+    "angularUtils-pagination": "0.8.3",
     "venturocket-angular-slider": "0.3.2",
     "angular-ui-sortable": "0.13.3",
     "angular-xeditable": "0.1.9",
