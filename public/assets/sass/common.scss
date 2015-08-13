@@ -108,6 +108,12 @@ $footer-border-height: 4px;
   .footer-links > a:first-of-type {
     border-left: none;
   }
+
+  @media (min-width: 768px) {
+    .by-line {
+      text-align: left;
+    }
+  }
 }
 
 .no-margin {
