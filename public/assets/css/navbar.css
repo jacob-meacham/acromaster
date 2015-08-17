@@ -20,6 +20,17 @@
 }
 
 /* line 23, ../sass/navbar.scss */
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border-color: #fcb426;
+}
+
+@media (max-width: 768px) {
+  /* line 28, ../sass/navbar.scss */
+  .navbar-nav {
+    display: inline-block;
+  }
+}
+/* line 33, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
@@ -27,22 +38,22 @@
   background-color: transparent;
 }
 
-/* line 30, ../sass/navbar.scss */
+/* line 40, ../sass/navbar.scss */
 .navbar-inverse .navbar-toggle {
   background-color: #333;
 }
 
-/* line 34, ../sass/navbar.scss */
+/* line 44, ../sass/navbar.scss */
 .navbar-nav > li {
   display: inline-block;
 }
 
-/* line 38, ../sass/navbar.scss */
+/* line 48, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > li > a {
   color: #666;
 }
 
-/* line 42, ../sass/navbar.scss */
+/* line 52, ../sass/navbar.scss */
 .navbar-nav > li > a {
   font-size: 16px;
   font-weight: bold;
@@ -54,7 +65,7 @@
   margin-bottom: 3px;
 }
 
-/* line 53, ../sass/navbar.scss */
+/* line 63, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > li > a:hover {
   color: #666;
   border-top-color: #fcb426;
@@ -64,25 +75,25 @@
   transition: border-top-color 0.15s ease;
 }
 
-/* line 62, ../sass/navbar.scss */
+/* line 72, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > .active > a {
   color: #666;
   background: transparent;
   border-top-color: #c12b32;
 }
 
-/* line 68, ../sass/navbar.scss */
+/* line 78, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
   color: #666;
   background: transparent;
 }
 
-/* line 73, ../sass/navbar.scss */
+/* line 83, ../sass/navbar.scss */
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
   color: #666;
 }
 
-/* line 77, ../sass/navbar.scss */
+/* line 87, ../sass/navbar.scss */
 .nav .avatar {
   width: 20px;
   height: 20px;
@@ -91,7 +102,7 @@
   border-radius: 3px;
 }
 
-/* line 85, ../sass/navbar.scss */
+/* line 95, ../sass/navbar.scss */
 .navbar {
   background-color: #f9f9f9;
   border-color: transparent;
@@ -101,13 +112,13 @@
   margin-bottom: 50px;
 }
 
-/* line 94, ../sass/navbar.scss */
+/* line 104, ../sass/navbar.scss */
 .navbar-nav > li > a {
   padding: 0 4px;
   display: inline-block;
 }
 
-/* line 99, ../sass/navbar.scss */
+/* line 109, ../sass/navbar.scss */
 .navbar-nav > li:before {
   color: #111;
   font-size: 1.3em;
@@ -115,12 +126,12 @@
   margin: 0 5px;
 }
 
-/* line 106, ../sass/navbar.scss */
+/* line 116, ../sass/navbar.scss */
 .navbar-nav > li:first-child:before {
   display: none;
 }
 
-/* line 110, ../sass/navbar.scss */
+/* line 120, ../sass/navbar.scss */
 .navbar-nav > li:last-child {
   margin-right: 0;
 }

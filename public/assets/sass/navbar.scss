@@ -20,6 +20,16 @@ $navbar-link-color: #666;
   border-color: #fcb426;
 }
 
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border-color: #fcb426;
+}
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    display: inline-block;
+  }
+}
+
 .navbar-inverse .navbar-nav > .open > a, 
 .navbar-inverse .navbar-nav > .open > a:hover, 
 .navbar-inverse .navbar-nav > .open > a:focus {
