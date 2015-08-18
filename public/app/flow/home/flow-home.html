@@ -5,6 +5,7 @@
           <input type="submit" value="Search">
         </form>
     </section>
+    <h1>Featured Flows</h1>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -13,7 +14,6 @@
         </thead>
         <tbody>
             <tr ng-repeat='flow in vm.featuredFlows'>
-                <!-- TODO: A directive for showing a flow -->
                 <td><flow-list-item flow='flow' /></td>
             </tr>
         </tbody>
