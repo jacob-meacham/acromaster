@@ -351,13 +351,12 @@ body {
 /* Padding for spacing */
 /* line 135, ../sass/common.scss */
 .inner {
-  padding: 30px 0 30px 0;
+  padding: 30px 5px;
 }
-@media (max-width: 992px) {
-  /* line 135, ../sass/common.scss */
-  .inner {
-    padding: 30px;
-  }
+
+/* line 139, ../sass/common.scss */
+.col-home {
+  padding-right: 5px;
 }
 
 /* line 143, ../sass/common.scss */
