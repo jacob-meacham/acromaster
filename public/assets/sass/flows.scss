@@ -202,12 +202,7 @@
             font-size: 20px;
             border-radius: 25px;
             margin-top: -3px;
-        }
-
-        @media (min-width: 600px) {
-            .btn-circle {
-                margin-left: 10px;
-            }
+            margin-right: 2px;
         }
     }
 }
@@ -216,4 +211,16 @@
     position: fixed;
     top: 40px;
     z-index: 3;
+
+    @media (min-width: 768px) {
+        width: 750px;
+    }
+
+    @media (min-width: 992px) {
+        width: 970px;
+    }
+
+    @media (min-width: 1200px) {
+        width: 1170px;
+    }
 }
