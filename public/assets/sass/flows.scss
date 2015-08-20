@@ -1,3 +1,5 @@
+@import 'common-mixins';
+
 .slick-arrow {
     z-index: 1;
 }
@@ -177,4 +179,48 @@
     height: 40px;
     font-size: 18px;
     width: 80%;
+}
+
+.search-field-container {
+    margin: -50px 0 15px 0;
+    padding: 20px 0 5px 20px;
+    border-bottom: 1px solid #eee;
+    background-color: $primary-background-color;
+
+    .btn-search {
+        padding: 0 7px 0 7px;
+    }
+
+    .search-form {
+        padding-left: 0;
+    }
+
+    .action-buttons {
+        float: right;
+
+        .btn-circle {
+            font-size: 20px;
+            border-radius: 25px;
+            margin-top: -3px;
+            margin-right: 2px;
+        }
+    }
+}
+
+.search-field-container.ui-scrollpoint {
+    position: fixed;
+    top: 40px;
+    z-index: 3;
+
+    @media (min-width: 768px) {
+        width: 750px;
+    }
+
+    @media (min-width: 992px) {
+        width: 970px;
+    }
+
+    @media (min-width: 1200px) {
+        width: 1170px;
+    }
 }

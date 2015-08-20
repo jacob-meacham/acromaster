@@ -109,9 +109,16 @@ $footer-border-height: 4px;
     border-left: none;
   }
 
-  @media (min-width: 768px) {
-    .by-line {
+  .by-line {
+    @media (min-width: 768px) {
       text-align: left;
+    }
+
+    @media (max-width: 440px) {
+      font-size: 10px;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: -5px;
     }
   }
 }
@@ -126,7 +133,7 @@ $footer-border-height: 4px;
 
 /* Padding for spacing */
 .inner {
-  padding: 30px;
+  padding: 30px 0 30px 0;
 }
 
 span.large-glyphicon {
@@ -243,4 +250,13 @@ slider, [slider] {
 
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: white;
+}
+
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  border-radius: 20px;
 }
