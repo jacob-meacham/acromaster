@@ -21,6 +21,7 @@ module.exports = {
         app.locals.pretty = true;
 
         if (process.env.NODE_ENV === 'development') {
+            app.set('showStackError', true);
             app.use(morgan('dev'));
         }
 
