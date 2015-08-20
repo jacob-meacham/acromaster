@@ -193,16 +193,27 @@ var recordPlayed = function(req, res, next) {
 };
 
 var generate = function(req, res, next) {
+  var parse = function(num) {
+    var parsed = parseFloat(num);
+    return isNaN(parsed) ? 0 : parsed;
+  };
+
   if (!('totalTime' in req.query) || !('timePerMove' in req.query)) {
     return next({error: 'totalTime and timePerMove required', status: 400});
   }
 
-  var generateFlow = function(all_moves) {
-    var parse = function(num) {
-        var parsed = parseFloat(num);
-        return isNaN(parsed) ? 0 : parsed;
-      };
+  var totalTime = parse(req.query.totalTime);
+  var timePerMove = parse(req.query.timePerMove);
 
+  if (timePerMove <= 0 || timePerMove > 1000) {
+    return next({error: 'timePerMove must be positive and <= 1000', status: 400});
+  }
+
+  if (totalTime <= 0 || totalTime > 3600) {
+    return next({error: 'totalTime must be positive and <= 3600', status: 400});
+  }
+
+  var generateFlow = function(all_moves) {
     // Construct a new list using the passed parameters
     var flow = new Flow();
     flow.name = 'Quick Flow';
@@ -227,7 +238,7 @@ var generate = function(req, res, next) {
     var timeVariance = parse(req.query.timeVariance);
     var numIterations = 0;
     while (numIterations < 100) {
-      var moveDuration = timePerMove + Math.random() * timeVariance;
+      var moveDuration = Math.floor(timePerMove + Math.random() * timeVariance);
       timeSoFar += moveDuration;
 
       var move = { 'duration': moveDuration, 'move': all_moves[Math.floor(Math.random() * all_moves.length)] };
