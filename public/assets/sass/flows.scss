@@ -190,6 +190,26 @@
     .btn-search {
         padding: 0 7px 0 7px;
     }
+
+    .search-form {
+        padding-left: 0;
+    }
+
+    .action-buttons {
+        float: right;
+
+        .btn-circle {
+            font-size: 20px;
+            border-radius: 25px;
+            margin-top: -3px;
+        }
+
+        @media (min-width: 600px) {
+            .btn-circle {
+                margin-left: 10px;
+            }
+        }
+    }
 }
 
 .search-field-container.ui-scrollpoint {

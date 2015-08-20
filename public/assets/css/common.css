@@ -469,3 +469,13 @@ slider span.bubble, [slider] span.bubble {
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: white;
 }
+
+/* line 248, ../sass/common.scss */
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  border-radius: 20px;
+}

@@ -244,3 +244,12 @@ slider, [slider] {
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: white;
 }
+
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  border-radius: 20px;
+}
