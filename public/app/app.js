@@ -13,6 +13,7 @@ var app = angular.module('acromaster', [
   'vr.directives.slider',
   'ui.bootstrap',
   'ui.sortable',
+  'ui.scrollpoint',
   'ngJustGage',
   'nsPopover',
   'slick',
