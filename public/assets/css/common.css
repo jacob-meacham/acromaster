@@ -349,9 +349,15 @@ body {
 }
 
 /* Padding for spacing */
-/* line 135, ../sass/common.scss */
+/* line 131, ../sass/common.scss */
 .inner {
-  padding: 30px 5px;
+  padding: 30px 0;
+}
+@media (max-width: 992px) {
+  /* line 131, ../sass/common.scss */
+  .inner {
+    padding: 30px 5px;
+  }
 }
 
 /* line 139, ../sass/common.scss */

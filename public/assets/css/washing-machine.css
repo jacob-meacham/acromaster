@@ -1,12 +1,11 @@
-/* line 1, ../sass/washing-machine.scss */
+/* line 2, ../sass/washing-machine.scss */
 .washing-machine a:hover {
   color: #fff;
   text-shadow: 0 0 4px #999;
   cursor: pointer;
   text-decoration: none;
 }
-
-/* line 8, ../sass/washing-machine.scss */
+/* line 9, ../sass/washing-machine.scss */
 .washing-machine h1 {
   padding-top: 30px;
 }
