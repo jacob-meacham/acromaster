@@ -96,84 +96,107 @@
   font-size: 1.5em;
   padding-right: 20px;
 }
-/* line 100, ../sass/flows.scss */
+@media (max-width: 378px) {
+  /* line 94, ../sass/flows.scss */
+  .flows .likes {
+    position: absolute;
+    right: 0px;
+    top: 255px;
+  }
+}
+/* line 108, ../sass/flows.scss */
 .flows .flow-actions {
   padding: 5px 0 8px 0;
 }
-/* line 103, ../sass/flows.scss */
+/* line 111, ../sass/flows.scss */
 .flows .flow-actions a {
   margin-right: 10px;
 }
-/* line 108, ../sass/flows.scss */
+@media (max-width: 551px) {
+  /* line 116, ../sass/flows.scss */
+  .flows .flow-actions .owner-actions {
+    display: block;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+  }
+}
+@media (max-width: 378px) {
+  /* line 126, ../sass/flows.scss */
+  .flows .flow-actions .social-actions a {
+    display: block;
+  }
+}
+/* line 133, ../sass/flows.scss */
 .flows .icon-with-text-remix {
   margin-right: 6px;
 }
-/* line 112, ../sass/flows.scss */
+/* line 137, ../sass/flows.scss */
 .flows .easy-move {
   color: green;
 }
-/* line 116, ../sass/flows.scss */
+/* line 141, ../sass/flows.scss */
 .flows .medium-move {
   color: orange;
 }
-/* line 120, ../sass/flows.scss */
+/* line 145, ../sass/flows.scss */
 .flows .hard-move {
   color: red;
 }
-/* line 124, ../sass/flows.scss */
+/* line 149, ../sass/flows.scss */
 .flows .move-entry {
   padding-bottom: 5px;
 }
-/* line 128, ../sass/flows.scss */
+/* line 153, ../sass/flows.scss */
 .flows .move-name {
   margin-right: -2px;
   font-weight: bold;
 }
-/* line 133, ../sass/flows.scss */
+/* line 158, ../sass/flows.scss */
 .flows .move-difficulty {
   font-size: 1.5em;
 }
-/* line 137, ../sass/flows.scss */
+/* line 162, ../sass/flows.scss */
 .flows .move-description-link {
   font-size: 0.8em;
 }
-/* line 141, ../sass/flows.scss */
+/* line 166, ../sass/flows.scss */
 .flows .separator {
   margin-left: 5px;
   margin-right: 5px;
 }
 
-/* line 148, ../sass/flows.scss */
+/* line 173, ../sass/flows.scss */
 .flow-end .likes {
   font-size: 1.5em;
   display: inline-block;
   margin-right: 10px;
 }
-/* line 153, ../sass/flows.scss */
+/* line 178, ../sass/flows.scss */
 .flow-end .social-actions {
   padding: 5px 0 8px 0;
 }
-/* line 156, ../sass/flows.scss */
+/* line 181, ../sass/flows.scss */
 .flow-end .social-actions a {
   margin-right: 10px;
 }
 
-/* line 162, ../sass/flows.scss */
+/* line 187, ../sass/flows.scss */
 .flow-delete-modal {
   padding: 20px;
 }
-/* line 165, ../sass/flows.scss */
+/* line 190, ../sass/flows.scss */
 .flow-delete-modal .flow-delete-buttons {
   margin-top: 10px;
   display: block;
 }
 
-/* line 171, ../sass/flows.scss */
+/* line 196, ../sass/flows.scss */
 .editable-buttons {
   font-size: 14px;
 }
 
-/* line 175, ../sass/flows.scss */
+/* line 200, ../sass/flows.scss */
 .flow-name-control {
   display: inline-block;
   position: absolute;
@@ -183,26 +206,26 @@
   width: 80%;
 }
 
-/* line 184, ../sass/flows.scss */
+/* line 209, ../sass/flows.scss */
 .search-field-container {
   margin: -50px 0 15px 0;
   padding: 20px 0 5px 20px;
   border-bottom: 1px solid #eee;
   background-color: #f9f9f9;
 }
-/* line 190, ../sass/flows.scss */
+/* line 215, ../sass/flows.scss */
 .search-field-container .btn-search {
   padding: 0 7px 0 7px;
 }
-/* line 194, ../sass/flows.scss */
+/* line 219, ../sass/flows.scss */
 .search-field-container .search-form {
   padding-left: 0;
 }
-/* line 198, ../sass/flows.scss */
+/* line 223, ../sass/flows.scss */
 .search-field-container .action-buttons {
   float: right;
 }
-/* line 201, ../sass/flows.scss */
+/* line 226, ../sass/flows.scss */
 .search-field-container .action-buttons .btn-circle {
   font-size: 20px;
   border-radius: 25px;
@@ -210,26 +233,26 @@
   margin-right: 2px;
 }
 
-/* line 210, ../sass/flows.scss */
+/* line 235, ../sass/flows.scss */
 .search-field-container.ui-scrollpoint {
   position: fixed;
   top: 40px;
   z-index: 3;
 }
 @media (min-width: 768px) {
-  /* line 210, ../sass/flows.scss */
+  /* line 235, ../sass/flows.scss */
   .search-field-container.ui-scrollpoint {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
-  /* line 210, ../sass/flows.scss */
+  /* line 235, ../sass/flows.scss */
   .search-field-container.ui-scrollpoint {
     width: 970px;
   }
 }
 @media (min-width: 1200px) {
-  /* line 210, ../sass/flows.scss */
+  /* line 235, ../sass/flows.scss */
   .search-field-container.ui-scrollpoint {
     width: 1170px;
   }

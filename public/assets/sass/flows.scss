@@ -95,6 +95,14 @@
         float: right;
         font-size: 1.5em;
         padding-right: 20px;
+
+        // When the screen is very small, position the like button
+        // next to a vertically aligned list of actions.
+        @media (max-width: 378px) {
+            position: absolute;
+            right: 0px;
+            top: 255px;
+        }
     }
 
     .flow-actions {
@@ -102,6 +110,23 @@
 
         a {
             margin-right: 10px;
+        }
+
+        @media (max-width: 551px) {
+            .owner-actions {
+                display: block;
+                padding-bottom: 5px;
+                margin-bottom: 5px;
+                border-bottom: 1px solid #eee;
+            }
+        }
+
+        @media (max-width: 378px) {
+            .social-actions {
+                a {
+                    display: block;
+                }
+            }
         }
     }
 
