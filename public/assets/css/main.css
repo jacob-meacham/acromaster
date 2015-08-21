@@ -23,3 +23,9 @@ a.divLinker {
   text-decoration: none;
   z-index: 10;
 }
+
+/* line 27, ../sass/main.scss */
+.col-home {
+  padding-left: 5px;
+  padding-right: 5px;
+}
