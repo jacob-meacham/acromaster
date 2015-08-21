@@ -1,7 +1,9 @@
 <section class="workout-create">
     <div class="row">
-        <div ng-class="{ 'advanced-open': vm.showAdvancedPane }" class="pull-right">
-            <a ng-click="vm.toggleAdvancedPane()">Advanced<span class="advanced-gear glyphicon glyphicon-cog"></span></a>
+        <div class="col-xs-12">
+            <div ng-class="{ 'advanced-open': vm.showAdvancedPane }" class="pull-right">
+                <a ng-click="vm.toggleAdvancedPane()">Advanced<span class="advanced-gear glyphicon glyphicon-cog"></span></a>
+            </div>
         </div>
     </div>
     <div collapse="vm.collapseAdvancedPane" class="advanced-pane">

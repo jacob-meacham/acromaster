@@ -1,13 +1,17 @@
-<section class="washing-machine">
-    <h4>Go From</h4>
-    <h2>{{vm.move1}}</h2>
-    <h4>To</h4>
-    <h2>{{vm.move2}}</h2>
-    <h4>And back, and call it</h4>
-    <h1>{{vm.washing_machine}}</h1>
-    <share share-partial="washing-machine?coords={{vm.coords}}"></share>
-    <div class="inner">
-        <button type="button" class="btn btn-default btn-lg" ng-click="vm.generate()">Give me another</button>
+<div class="row">
+    <div class="col-xs-12">
+        <section class="washing-machine">
+            <h4>Go From</h4>
+            <h2>{{vm.move1}}</h2>
+            <h4>To</h4>
+            <h2>{{vm.move2}}</h2>
+            <h4>And back, and call it</h4>
+            <h1>{{vm.washing_machine}}</h1>
+            <share share-partial="washing-machine?coords={{vm.coords}}"></share>
+            <div class="inner">
+                <button type="button" class="btn btn-default btn-lg" ng-click="vm.generate()">Give me another</button>
+            </div>
+        </section>
+        <back-button url="/"></back-button>
     </div>
-</section>
-<back-button url="/"></back-button>
+</div>
