@@ -1,34 +1,36 @@
 <section class="flows row">
-    <section class="search-field-container clearfix" ui-scrollpoint="+100">
-        <form ng-submit="vm.search()" class="form-horizontal">
-            <div class="search-form form-group col-xs-10 col-lg-8">
-                <div class="input-group">
-                    <input class="form-control" type="text" ng-model="vm.searchQuery" placeholder="Search">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default btn-add" type="submit"><span class="btn-search glyphicon glyphicon-search" /></button>
-                    </span>
+    <div class="col-xs-12">
+        <section class="search-field-container clearfix" ui-scrollpoint="+100">
+            <form ng-submit="vm.search()" class="form-horizontal">
+                <div class="search-form form-group col-xs-10 col-lg-8">
+                    <div class="input-group">
+                        <input class="form-control" type="text" ng-model="vm.searchQuery" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-add" type="submit"><span class="btn-search glyphicon glyphicon-search" /></button>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </form>
-        <span class="action-buttons">
-            <a class="btn btn-default btn-circle" href="/flow/create" popover="Create your own!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-plus" /></a>
-            <a class="btn btn-default btn-circle" ng-href="/flow/{{vm.randomFlow.id}}" popover="Take me to a random flow!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-random" /></a>
-        </span>
-    </section>
-    <h1>Featured Flows</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Flow</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat='flow in vm.featuredFlows'>
-                <td><flow-list-item flow='flow' /></td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="col-md-12">
-        <debug>{{ vm.featuredFlows | json }}</debug>
+            </form>
+            <span class="action-buttons">
+                <a class="btn btn-default btn-circle" href="/flow/create" popover="Create your own!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-plus" /></a>
+                <a class="btn btn-default btn-circle" ng-href="/flow/{{vm.randomFlow.id}}" popover="Take me to a random flow!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-random" /></a>
+            </span>
+        </section>
+        <h1>Featured Flows</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Flow</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat='flow in vm.featuredFlows'>
+                    <td><flow-list-item flow='flow' /></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-md-12">
+            <debug>{{ vm.featuredFlows | json }}</debug>
+        </div>
     </div>
 </section>
