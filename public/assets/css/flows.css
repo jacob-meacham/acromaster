@@ -100,7 +100,7 @@
   /* line 94, ../sass/flows.scss */
   .flows .likes {
     position: absolute;
-    right: 0px;
+    right: 0;
     top: 255px;
   }
 }
