@@ -27,8 +27,8 @@
 
       .flow-title-name {
         display: inline;
-        position: absolute; // TODO: This doesn't work with a really long flow title. But, let's fix it when that happens!
-        top: 4px;
+        position: relative;
+        top: -12px;
         font-size: 36px;
       }
     }

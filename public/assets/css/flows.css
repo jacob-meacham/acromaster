@@ -29,8 +29,8 @@
 /* line 28, ../sass/flows.scss */
 .flows .flow-title .flow-title-name {
   display: inline;
-  position: absolute;
-  top: 4px;
+  position: relative;
+  top: -12px;
   font-size: 36px;
 }
 /* line 36, ../sass/flows.scss */
