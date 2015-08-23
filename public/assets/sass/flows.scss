@@ -27,8 +27,8 @@
 
       .flow-title-name {
         display: inline;
-        position: absolute; // TODO: This doesn't work with a really long flow title. But, let's fix it when that happens!
-        top: 4px;
+        position: relative;
+        top: -12px;
         font-size: 36px;
       }
     }
@@ -96,12 +96,16 @@
         font-size: 1.5em;
         padding-right: 20px;
 
+        @media (max-width: 551px) {
+            padding-right: 0;
+        }
+
         // When the screen is very small, position the like button
         // next to a vertically aligned list of actions.
         @media (max-width: 378px) {
-            position: absolute;
-            right: 0px;
-            top: 255px;
+            position: relative;
+            right: 0;
+            top: -60px;
         }
     }
 

@@ -16,10 +16,10 @@
             <div class="flow-date">Created {{vm.flow.createdAt | date}}</div>
         </div>
         <div class="flow-plays">{{vm.flow.plays + 1}} plays</div>
-        <hr class="soften no-margin" />
+        <hr class="soften no-margin" ng-show="vm.canEdit" />
         <div class="flow-actions">
             <span class="owner-actions">
-                <a ng-href="flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit" ng-show="vm.canEdit"><span class="glyphicon glyphicon-edit icon-with-text" aria-hidden="true" />Edit</a>
+                <a ng-href="flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit"><span class="glyphicon glyphicon-edit icon-with-text" aria-hidden="true" />Edit</a>
                 <a ng-click="vm.delete()" ng-show="vm.canEdit"><span class="glyphicon glyphicon-remove icon-with-text" aria-hidden="true" />Delete</a>
             </span>
             <span class="social-actions">
