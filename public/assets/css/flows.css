@@ -263,3 +263,18 @@
     width: 1200px;
   }
 }
+
+/* line 257, ../sass/flows.scss */
+.flow-list-item {
+  display: flex;
+  align-items: flex-start;
+}
+/* line 262, ../sass/flows.scss */
+.flow-list-item .flow-item-icon {
+  margin-right: 0.25em;
+  font-size: 3em;
+}
+/* line 267, ../sass/flows.scss */
+.flow-list-item .flow-item-info {
+  flex: 1;
+}
