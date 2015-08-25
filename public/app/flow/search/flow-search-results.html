@@ -1,26 +1,12 @@
 <section class="flows row">
     <div class="col-xs-12">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Flow</th>
-                    <th>Author</th>
-                    <th>Length</th>
-                    <th>Created At</th>
-                    <th>Likes</th>
-                    <th>Plays</th>
-                </tr>
-            </thead>
+        <table class="table flow-list">
             <tbody>
-                <tr ng-repeat='flow in vm.flows | filter:query'>
-                    <td><a ng-href="/flow/{{flow.id}}">{{flow.name}}</a></td>
-                    <td>{{flow.author.name||"Anonymous"}}</td>
-                    <td>TODO Calculate Length {{flow.moves.length}}</td>
-                    <td>{{flow.createdAt}}</td>
-                    <td>{{flow.likes}}</td>
-                    <td>{{flow.plays}}</td>
+                <tr dir-paginate='flow in vm.flows | itemsPerPage: 7'>
+                    <td><flow-list-item flow='flow' show-author='false' /></td>
                 </tr>
             </tbody>
         </table>
+        <dir-pagination-controls></dir-pagination-controls>
     </div>
 </section>
