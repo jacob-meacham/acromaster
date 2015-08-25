@@ -1,8 +1,12 @@
 <!-- TODO If this is me, add a link to unfavorite -->
-<ul class="list-box list-box-list">
-    <li ng-if="vm.favorites.flows.length === 0" class="list-box-inner no-entry">None yet!</li>
-    <li ng-if="vm.favorites.flows.length > 0" class="list-box-inner" dir-paginate='favoritedEntry in vm.favorites.flows | itemsPerPage: 7'><flow-list-item flow='favoritedEntry.flow' /></li>
-</ul>
+<table class="table flow-list">
+    <tbody>
+        <tr ng-if="vm.favorites.flows.length === 0" class="no-entry"><td>None yet!</td></tr>
+        <tr ng-if="vm.favorites.flows.length > 0" dir-paginate='favoritedEntry in vm.favorites.flows | itemsPerPage: 7'>
+            <td><flow-list-item flow='favoritedEntry.flow' show-author='true' /></td>
+        </tr>
+    </tbody>
+</table>
 <dir-pagination-controls></dir-pagination-controls>
 <div class="col-md-12">
     <debug>{{ vm.favorites | json }}</debug>

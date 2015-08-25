@@ -13,7 +13,10 @@
         </div>
         <div class="flow-item-sub-info">
             <ul>
-                <li ng-if="showAuthor" class="flow-item-author">by <a href="/profile/{{flow.author.username}}">{{flow.author.username}}</a></li>
+                <li ng-if="showAuthor" class="flow-item-author">
+                    by <a ng-show="flow.author.username" href="/profile/{{flow.author.username}}">{{flow.author.username}}</a>
+                    <span ng-hide="flow.author.username">Anonymous</span>
+                </li>
                 <li class="flow-item-date">{{flow.createdAt | date}}</li>
             </ul>
             <ul>
