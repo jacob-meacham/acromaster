@@ -1,15 +1,27 @@
 <div class="flow-list-item">
-    <span class="glyphicon glyphicon-{{flow.imageUrl}} flow-item-icon" />
+    <div class="flow-item-left">
+        <span class="glyphicon glyphicon-{{flow.imageUrl}} flow-item-icon" />
+        <div class="flow-length"><span class="glyphicon glyphicon-time icon-with-text" aria-hidden="true" />{{flow.length / 60 | number:0 }} min</div>
+    </div>
     <div class="flow-item-info">
-        <a href="/flow/{{flow.id}}">{{flow.name}}</a>
-        <div ng-show="show-author" class="flow-author">{{flow.author.username}}</div>
-        <div class="flow-date">{{flow.createdAt | date}}</div>
-        <div class="flow-plays">{{flow.plays + 1}} plays</div>
-        <div class="flow-length">{{flow.length / 60 | number:0 }} min</div>
-        <div class="flow-likes">{{flow.likes}} Likes</div>
-        <div class="flow-description" ng-bind-html="flow.description | limitTo: 200 | linky: '_blank'" />
-        <div class="flow-difficulty">{{vm.getDifficultyDescription(flow.difficulty)}} difficulty</div>
-        <div class="flow-pace">{{vm.getPaceDescription(flow.length / flow.numMoves)}} pace</div>
+        <a href="/flow/{{flow.id}}" class="flow-name">{{flow.name}}</a>
+        <div class="flow-social">
+            <ul>
+                <li class="flow-item-plays">{{flow.plays + 1}} plays</li>
+                <li ng-if="flow.likes > 0" class="flow-likes">{{flow.likes}} <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" /></li>
+            </ul>
+        </div>
+        <div class="flow-item-sub-info">
+            <ul>
+                <li ng-if="showAuthor" class="flow-item-author">by <a href="/profile/{{flow.author.username}}">{{flow.author.username}}</a></li>
+                <li class="flow-item-date">{{flow.createdAt | date}}</li>
+            </ul>
+            <ul>
+                <li class="flow-difficulty">{{vm.getDifficultyDescription(flow.difficulty)}} difficulty</li>
+                <li class="flow-pace">{{vm.getPaceDescription(flow.length / flow.numMoves)}} pace</li>
+            </ul>
+            <div class="flow-item-description" ng-bind-html="flow.description | limitTo: 200 | linky: '_blank'" />
+        </div>
         <debug>{{ flow | json }}</debug>
     </item>
 </div>

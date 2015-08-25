@@ -37,6 +37,7 @@ var FlowListItem = function() {
     restrict: 'E',
     scope: {
       flow: '=',
+      showAuthor: '='
     },
     templateUrl: 'app/flow/flow-list/flow-list-item.html',
     controller: 'FlowListItemDirectiveController',
