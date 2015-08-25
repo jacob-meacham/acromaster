@@ -444,7 +444,6 @@ describe('/api/flow', function() {
         .expect(200)
         .expect(function(res) {
           res.body.likes.should.eql(1);
-          res.body.likers[0].should.eql(author1._id);
         });
     });
 
@@ -457,7 +456,6 @@ describe('/api/flow', function() {
             .expect(200)
             .expect(function(res) {
               res.body.likes.should.eql(1);
-              res.body.likers.should.have.length(1);
             });
         });
     });
@@ -503,7 +501,7 @@ describe('/api/flow', function() {
         .query({anonId: '__anon_abc123'})
         .expect(200)
         .expect(function(res) {
-          res.body.likers[0].should.eql('__anon_abc123');
+          res.body.likes.should.eql(1);
         });
     });
   });
@@ -561,14 +559,12 @@ describe('/api/flow', function() {
         .expect(200)
         .expect(function(res) {
           res.body.likes.should.eql(1);
-          res.body.likers[0].should.eql(author1._id);
         }).then(function() {
           return request(authedApp)
             .delete('/api/flow/' + flow1._id + '/likes')
             .expect(200)
             .expect(function(res) {
               res.body.likes.should.eql(0);
-              res.body.likers.should.have.length(0);
             });
         });
     });
