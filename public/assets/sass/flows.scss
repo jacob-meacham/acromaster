@@ -253,3 +253,88 @@
         width: 1200px;
     }
 }
+
+.flow-list-item {
+    // TODO: Specify the prefixess
+    display: flex;
+    align-items: flex-start;
+
+    ul {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    li {
+        display: inline-block;
+        list-style: none;
+    }
+
+    li:before {
+      font-size: 1.3em;
+      content: '\002022';
+      margin: 0 5px 0 0;
+    }
+
+    @media (max-width: 370px) { // When it's too small, we'll just collapse the list completely
+        .flow-item-sub-info li:before {
+            display: none;
+        }
+    }
+
+    li:first-child:before {
+      display: none;
+    }
+
+    li:last-child {
+      margin-right: 0;
+    }
+
+    .flow-item-icon {
+        font-size: 3em;
+        margin-right: 8px;
+    }
+
+    .flow-item-left {
+        margin-right: 1em;
+
+        @media (max-width: 492px) {
+            margin-right: 0.6em;
+        }
+    }
+
+    .flow-item-info {
+        flex: 1;
+    }
+
+    .flow-item-sub-info {
+        line-height: 19px;
+        color: #767676;
+    }
+
+    .flow-social {
+        @media (min-width: 492px) {
+            float: right;
+            font-size: 1.5em;
+        }
+
+        @media (max-width: 491px) {
+            line-height: 19px;
+        }
+    }
+
+    .flow-name {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .flow-length {
+        margin-top: 8px;
+    }
+
+    .flow-item-description {
+        margin-top: 5px;
+        a {
+            color: #767676;
+        }
+    }
+}

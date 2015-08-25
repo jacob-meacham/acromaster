@@ -67,7 +67,7 @@ FlowSchema.pre('save', function(next) {
 FlowSchema.statics = {
   // TODO: Combine load, list, listByUser to be more DRY
   load: function(id, cb) {
-    return this.findOne({ _id: id })
+    return this.findOne({ _id: id }, '-plays -likers')
       .populate('author', 'name username _id profilePictureUrl')
       .populate('moves.move')
       .exec(cb);
@@ -81,9 +81,8 @@ FlowSchema.statics = {
     var sortBy = {};
     sortBy[options.sortBy || 'createdAt'] = -1;
 
-    return this.find(searchQuery, null, options.score)
-      .populate('author')
-      .populate('moves.move')
+    return this.find(searchQuery, '-moves -plays -likers', options.score)
+      .populate('author', 'name username _id profilePictureUrl')
       .sort(sortBy)
       .limit(options.max)
       .skip(options.max * options.page)
