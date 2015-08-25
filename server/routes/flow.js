@@ -209,8 +209,8 @@ var generate = function(req, res, next) {
     return next({error: 'timePerMove must be positive and <= 1000', status: 400});
   }
 
-  if (totalTime <= 0 || totalTime > 3600) {
-    return next({error: 'totalTime must be positive and <= 3600', status: 400});
+  if (totalTime <= 0 || totalTime > 7500) {
+    return next({error: 'totalTime must be positive and <= 7500', status: 400});
   }
 
   var generateFlow = function(all_moves) {
