@@ -19,7 +19,9 @@ var FlowStatsService = function(flowService) {
 
       angular.forEach(flow.moves, function(entry) {
         stats.totalTime += entry.duration;
-        stats.difficulty += entry.move.difficulty;
+        if (entry.move) {
+          stats.difficulty += entry.move.difficulty;
+        }
       });
       
       stats.totalTime /= 60;
