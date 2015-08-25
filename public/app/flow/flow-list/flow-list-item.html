@@ -8,8 +8,8 @@
         <div class="flow-length">{{flow.length / 60 | number:0 }} min</div>
         <div class="flow-likes">{{flow.likes}} Likes</div>
         <div class="flow-description" ng-bind-html="flow.description | limitTo: 200 | linky: '_blank'" />
-        <div class="flow-difficulty">{{flow.difficulty}} difficulty</div>
-        <div class="flow-pace">{{flow.length / flow.numMoves}} pace</div>
+        <div class="flow-difficulty">{{vm.getDifficultyDescription(flow.difficulty)}} difficulty</div>
+        <div class="flow-pace">{{vm.getPaceDescription(flow.length / flow.numMoves)}} pace</div>
         <debug>{{ flow | json }}</debug>
     </item>
 </div>
