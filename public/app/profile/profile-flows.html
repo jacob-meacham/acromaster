@@ -1,12 +1,19 @@
-<ul class="list-box list-box-list">
-    <li class="list-box-inner">
-        <label>Include Workouts:
-            <input type="checkbox" ng-model="vm.includeWorkouts">
-        </label>
-    </li>
-    <li ng-if="vm.flows.length === 0" class="list-box-inner no-entry">None yet!</li>
-    <li ng-if="vm.flows.length > 0" class="list-box-inner" dir-paginate='flow in vm.flows | itemsPerPage: 7'><flow-list-item flow='flow' /></li>
-</ul>
+<div ng-if="vm.flows.length === 0" class="no-entry">
+    <h2>This user hasn't written any flows yet</h2>
+</div>
+<table ng-if="vm.flows.length > 0" class="table flow-list">
+    <tbody>
+        <tr>
+            <td>
+                <input type="checkbox" ng-model="vm.includeWorkouts" />
+                <label>Include Workouts</label>
+            </td>
+        </tr>
+        <tr dir-paginate='flow in vm.flows | itemsPerPage: 7'>
+            <td><flow-list-item flow='flow' show-author='false' /></td>
+        </tr>
+    </tbody>
+</table>
 <dir-pagination-controls></dir-pagination-controls>
 <div class="col-md-12">
     <debug>{{ vm.flows | json }}</debug>

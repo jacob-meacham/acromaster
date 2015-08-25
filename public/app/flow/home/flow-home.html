@@ -17,12 +17,7 @@
             </span>
         </section>
         <h1>Featured Flows</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Flow</th>
-                </tr>
-            </thead>
+        <table class="table flow-list">
             <tbody>
                 <tr ng-repeat='flow in vm.featuredFlows'>
                     <td><flow-list-item flow='flow' show-author='true' /></td>
