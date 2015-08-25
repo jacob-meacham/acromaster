@@ -1,8 +1,9 @@
-<!-- TODO If this is me, add a link to unfavorite -->
-<table class="table flow-list">
+<div ng-if="vm.favorites.flows.length === 0" class="no-entry">
+    <h2>This user hasn't added any favorites yet</h2>
+</div>
+<table ng-if="vm.favorites.flows.length > 0" class="table flow-list">
     <tbody>
-        <tr ng-if="vm.favorites.flows.length === 0" class="no-entry"><td>None yet!</td></tr>
-        <tr ng-if="vm.favorites.flows.length > 0" dir-paginate='favoritedEntry in vm.favorites.flows | itemsPerPage: 7'>
+        <tr dir-paginate='favoritedEntry in vm.favorites.flows | itemsPerPage: 7'>
             <td><flow-list-item flow='favoritedEntry.flow' show-author='true' /></td>
         </tr>
     </tbody>

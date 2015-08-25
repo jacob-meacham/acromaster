@@ -1,13 +1,15 @@
-<table class="table flow-list">
+<div ng-if="vm.flows.length === 0" class="no-entry">
+    <h2>This user hasn't written any flows yet</h2>
+</div>
+<table ng-if="vm.flows.length > 0" class="table flow-list">
     <tbody>
-        <tr ng-if="vm.flows.length === 0" class="no-entry"><td>None yet!</td></tr>
-        <tr ng-if="vm.flows.length > 0">
+        <tr>
             <td>
                 <input type="checkbox" ng-model="vm.includeWorkouts" />
                 <label>Include Workouts</label>
             </td>
         </tr>
-        <tr ng-if="vm.flows.length > 0" dir-paginate='flow in vm.flows | itemsPerPage: 7'>
+        <tr dir-paginate='flow in vm.flows | itemsPerPage: 7'>
             <td><flow-list-item flow='flow' show-author='false' /></td>
         </tr>
     </tbody>
