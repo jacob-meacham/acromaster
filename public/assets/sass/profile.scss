@@ -73,9 +73,12 @@
     }
 
     .user-details {
-        margin-top: 25px;
+        margin-top: 0px;
+        padding-bottom: 10px;
         padding-top: 10px;
         border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
     }
 
     .join-date {
@@ -125,5 +128,9 @@
     font-size: 1.2em;
     a {
         padding-left: 15px;
+
+        @media (max-width: 528px) {
+            display: block;
+        }
     }
 }
