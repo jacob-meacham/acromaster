@@ -1,5 +1,17 @@
 'use strict';
 
+// TODO: DRY, in a nicer way
+var populateProfile = function (vm, User, userId, success) {
+  vm.error = null;
+  vm.profile = User.get({userId: userId}, success, function(response) {
+    if (response.status === 404) {
+      vm.error = 'That user does not exist.';
+    } else {
+      vm.error = response.statusText;
+    }
+  });
+};
+
 var ProfileHomeController = function($routeParams, $timeout, rand, User, pageHeaderService, _) {
   var vm = this;
   vm.templateUrl = 'app/profile/profile-home.html';
@@ -49,8 +61,7 @@ var ProfileHomeController = function($routeParams, $timeout, rand, User, pageHea
     }
   }, commonOptions);
 
-  vm.profile = User.get({userId: $routeParams.user});
-  vm.profile.$promise.then(function() {
+  populateProfile(vm, User, $routeParams.user, function() {
     var stats = vm.profile.stats;
     var minutesPlayed = stats.secondsPlayed / 60;
     vm.flowsPlayedOptions.max = stats.flowsPlayed * (1.1 + (0.9 * rand.random()));
@@ -68,6 +79,12 @@ var ProfileHomeController = function($routeParams, $timeout, rand, User, pageHea
     $timeout(function() {
       vm.movesPlayedOptions.value = stats.moves;
     }, 1200);
+  }, function(response) {
+    if (response.status === 404) {
+      vm.error = 'That user does not exist.';
+    } else {
+      vm.error = response.statusText;
+    }
   });
 };
 
@@ -96,7 +113,9 @@ var ProfileFlowsController = function($routeParams, $scope, User, pageHeaderServ
     }
   );
 
-  vm.profile = User.get({userId: $routeParams.user});
+  populateProfile(vm, User, $routeParams.user, function() {});
+
+  // TODO: Don't need to do this work if there is no user.
   vm.allResults = User.getFlows({userId: $routeParams.user});
   vm.allResults.$promise.then(function() {
     vm.flows = filterFlows(_, vm.allResults.flows, vm.includeWorkouts);
@@ -106,7 +125,7 @@ var ProfileFlowsController = function($routeParams, $scope, User, pageHeaderServ
 var ProfileFavoritesController = function($routeParams, User, pageHeaderService) {
   var vm = this;
   vm.templateUrl = 'app/profile/profile-favorites.html';
-  vm.profile = User.get({userId: $routeParams.user});
+  populateProfile(vm, User, $routeParams.user, function() {});
   vm.favorites = User.getFavorites({userId: $routeParams.user}); // TODO: Handle this more nicely (Instead of having to do favorites.flows...)
   pageHeaderService.setTitle($routeParams.user);
 };
@@ -116,8 +135,7 @@ var ProfileAchievementsController = function($routeParams, User, pageHeaderServi
   vm.templateUrl = 'app/profile/profile-achievements.html';
   pageHeaderService.setTitle($routeParams.user);
 
-  vm.profile = User.get({userId: $routeParams.user});
-  vm.profile.$promise.then(function() {
+  populateProfile(vm, User, $routeParams.user, function() {
     vm.achievements = achievementsService.getUserAchievements(vm.profile);
   });
 };
