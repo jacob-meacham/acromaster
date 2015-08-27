@@ -134,76 +134,83 @@
     display: block;
   }
 }
-/* line 138, ../sass/flows.scss */
+@media (max-width: 378px) {
+  /* line 139, ../sass/flows.scss */
+  .flows .flow-actions a:not(.like-button) {
+    margin-top: 5px;
+    font-size: 1.15em;
+  }
+}
+/* line 145, ../sass/flows.scss */
 .flows .icon-with-text-remix {
   margin-right: 6px;
 }
-/* line 142, ../sass/flows.scss */
+/* line 149, ../sass/flows.scss */
 .flows .easy-move {
   color: green;
 }
-/* line 146, ../sass/flows.scss */
+/* line 153, ../sass/flows.scss */
 .flows .medium-move {
   color: orange;
 }
-/* line 150, ../sass/flows.scss */
+/* line 157, ../sass/flows.scss */
 .flows .hard-move {
   color: red;
 }
-/* line 154, ../sass/flows.scss */
+/* line 161, ../sass/flows.scss */
 .flows .move-entry {
   padding-bottom: 5px;
 }
-/* line 158, ../sass/flows.scss */
+/* line 165, ../sass/flows.scss */
 .flows .move-name {
   margin-right: -2px;
   font-weight: bold;
 }
-/* line 163, ../sass/flows.scss */
+/* line 170, ../sass/flows.scss */
 .flows .move-difficulty {
   font-size: 1.5em;
 }
-/* line 167, ../sass/flows.scss */
+/* line 174, ../sass/flows.scss */
 .flows .move-description-link {
   font-size: 0.8em;
 }
-/* line 171, ../sass/flows.scss */
+/* line 178, ../sass/flows.scss */
 .flows .separator {
   margin-left: 5px;
   margin-right: 5px;
 }
 
-/* line 178, ../sass/flows.scss */
+/* line 185, ../sass/flows.scss */
 .flow-end .likes {
   font-size: 1.5em;
   display: inline-block;
   margin-right: 10px;
 }
-/* line 183, ../sass/flows.scss */
+/* line 190, ../sass/flows.scss */
 .flow-end .social-actions {
   padding: 5px 0 8px 0;
 }
-/* line 186, ../sass/flows.scss */
+/* line 193, ../sass/flows.scss */
 .flow-end .social-actions a {
   margin-right: 10px;
 }
 
-/* line 192, ../sass/flows.scss */
+/* line 199, ../sass/flows.scss */
 .flow-delete-modal {
   padding: 20px;
 }
-/* line 195, ../sass/flows.scss */
+/* line 202, ../sass/flows.scss */
 .flow-delete-modal .flow-delete-buttons {
   margin-top: 10px;
   display: block;
 }
 
-/* line 201, ../sass/flows.scss */
+/* line 208, ../sass/flows.scss */
 .editable-buttons {
   font-size: 14px;
 }
 
-/* line 205, ../sass/flows.scss */
+/* line 212, ../sass/flows.scss */
 .flow-name-control {
   display: inline-block;
   position: absolute;
@@ -213,26 +220,26 @@
   width: 80%;
 }
 
-/* line 214, ../sass/flows.scss */
+/* line 221, ../sass/flows.scss */
 .search-field-container {
   margin: -50px 0 15px 0;
   padding: 20px 0 5px 20px;
   border-bottom: 1px solid #eee;
   background-color: #f9f9f9;
 }
-/* line 220, ../sass/flows.scss */
+/* line 227, ../sass/flows.scss */
 .search-field-container .btn-search {
   padding: 0 7px 0 7px;
 }
-/* line 224, ../sass/flows.scss */
+/* line 231, ../sass/flows.scss */
 .search-field-container .search-form {
   padding-left: 0;
 }
-/* line 228, ../sass/flows.scss */
+/* line 235, ../sass/flows.scss */
 .search-field-container .action-buttons {
   float: right;
 }
-/* line 231, ../sass/flows.scss */
+/* line 238, ../sass/flows.scss */
 .search-field-container .action-buttons .btn-circle {
   font-size: 20px;
   border-radius: 25px;
@@ -240,123 +247,123 @@
   margin-right: 2px;
 }
 
-/* line 240, ../sass/flows.scss */
+/* line 247, ../sass/flows.scss */
 .search-field-container.ui-scrollpoint {
   position: fixed;
   top: 40px;
   z-index: 3;
 }
 @media (min-width: 768px) {
-  /* line 240, ../sass/flows.scss */
+  /* line 247, ../sass/flows.scss */
   .search-field-container.ui-scrollpoint {
     width: 768px;
   }
 }
 @media (min-width: 992px) {
-  /* line 240, ../sass/flows.scss */
+  /* line 247, ../sass/flows.scss */
   .search-field-container.ui-scrollpoint {
     width: 992px;
   }
 }
 @media (min-width: 1200px) {
-  /* line 240, ../sass/flows.scss */
+  /* line 247, ../sass/flows.scss */
   .search-field-container.ui-scrollpoint {
     width: 1200px;
   }
 }
 
-/* line 258, ../sass/flows.scss */
+/* line 265, ../sass/flows.scss */
 .flow-list {
   background-color: white;
   box-shadow: 0 1px 2px #eee;
 }
 
-/* line 263, ../sass/flows.scss */
+/* line 270, ../sass/flows.scss */
 .flow-list-item {
   display: flex;
   align-items: flex-start;
 }
-/* line 268, ../sass/flows.scss */
+/* line 275, ../sass/flows.scss */
 .flow-list-item ul {
   padding-left: 0;
   margin-bottom: 0;
 }
-/* line 273, ../sass/flows.scss */
+/* line 280, ../sass/flows.scss */
 .flow-list-item li {
   display: inline-block;
   list-style: none;
 }
-/* line 278, ../sass/flows.scss */
+/* line 285, ../sass/flows.scss */
 .flow-list-item li:before {
   font-size: 1.3em;
   content: '\002022';
   margin: 0 5px 0 0;
 }
 @media (max-width: 370px) {
-  /* line 285, ../sass/flows.scss */
+  /* line 292, ../sass/flows.scss */
   .flow-list-item .flow-item-sub-info li:before {
     display: none;
   }
 }
-/* line 290, ../sass/flows.scss */
+/* line 297, ../sass/flows.scss */
 .flow-list-item li:first-child:before {
   display: none;
 }
-/* line 294, ../sass/flows.scss */
+/* line 301, ../sass/flows.scss */
 .flow-list-item li:last-child {
   margin-right: 0;
 }
-/* line 298, ../sass/flows.scss */
+/* line 305, ../sass/flows.scss */
 .flow-list-item .flow-item-icon {
   font-size: 3em;
   margin-right: 8px;
 }
-/* line 303, ../sass/flows.scss */
+/* line 310, ../sass/flows.scss */
 .flow-list-item .flow-item-left {
   margin-right: 1em;
 }
 @media (max-width: 492px) {
-  /* line 303, ../sass/flows.scss */
+  /* line 310, ../sass/flows.scss */
   .flow-list-item .flow-item-left {
     margin-right: 0.6em;
   }
 }
-/* line 311, ../sass/flows.scss */
+/* line 318, ../sass/flows.scss */
 .flow-list-item .flow-item-info {
   flex: 1;
 }
-/* line 315, ../sass/flows.scss */
+/* line 322, ../sass/flows.scss */
 .flow-list-item .flow-item-sub-info {
   line-height: 19px;
   color: #767676;
 }
 @media (min-width: 492px) {
-  /* line 320, ../sass/flows.scss */
+  /* line 327, ../sass/flows.scss */
   .flow-list-item .flow-social {
     float: right;
     font-size: 1.5em;
   }
 }
 @media (max-width: 491px) {
-  /* line 320, ../sass/flows.scss */
+  /* line 327, ../sass/flows.scss */
   .flow-list-item .flow-social {
     line-height: 19px;
   }
 }
-/* line 331, ../sass/flows.scss */
+/* line 338, ../sass/flows.scss */
 .flow-list-item .flow-name {
   font-size: 1.2em;
   font-weight: bold;
 }
-/* line 336, ../sass/flows.scss */
+/* line 343, ../sass/flows.scss */
 .flow-list-item .flow-length {
   margin-top: 8px;
 }
-/* line 340, ../sass/flows.scss */
+/* line 347, ../sass/flows.scss */
 .flow-list-item .flow-item-description {
   margin-top: 5px;
 }
-/* line 342, ../sass/flows.scss */
+/* line 349, ../sass/flows.scss */
 .flow-list-item .flow-item-description a {
   color: #767676;
 }
