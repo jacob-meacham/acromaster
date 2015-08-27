@@ -129,7 +129,10 @@ $footer-border-height: 4px;
 
 /* Padding for spacing */
 .inner {
-  padding-top: 30px;
+  @media (min-width: 768px) {
+    padding-top: 30px;
+  }
+  
   padding-bottom: 30px;
 }
 
