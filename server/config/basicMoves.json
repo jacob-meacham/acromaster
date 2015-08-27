@@ -3,28 +3,28 @@
     "name": "3 Step",
     "audioUri": "moves/audio/3-step.mp3",
     "descriptionUrl": "http://acropedia.org/3-step/",
-    "difficulty": 7,
+    "difficulty": 6,
     "tags": "washing_machine,star"
   },
   {
     "name": "4 Step",
     "audioUri": "moves/audio/4-step.mp3",
     "descriptionUrl": "http://acropedia.org/4-step/",
-    "difficulty": 6,
+    "difficulty": 5,
     "tags": "washing_machine,star"
   },
   {
     "name": "360 Twist",
     "audioUri": "moves/audio/360s.mp3",
     "descriptionUrl": "http://acropedia.org/360-twist/",
-    "difficulty": 6,
+    "difficulty": 5,
     "tags": "washing_machine,shoulderstand"
   },
   {
     "name": "Asym",
     "audioUri": "moves/audio/Asym.mp3",
     "descriptionUrl": "http://acropedia.org/tag/asymm/",
-    "difficulty": 4,
+    "difficulty": 3,
     "tags": "simple,static"
   },
   {
@@ -38,14 +38,14 @@
     "name": "Barrel Roll",
     "audioUri": "moves/audio/barrel_roll.mp3",
     "descriptionUrl": "http://acropedia.org/barrel-roll/",
-    "difficulty": 5,
+    "difficulty": 3,
     "tags": "washing_machine,simple"
   },
   {
     "name": "Bed",
     "audioUri": "moves/audio/bed.mp3",
     "descriptionUrl": "http://acropedia.org/bed/",
-    "difficulty": 5,
+    "difficulty": 2,
     "tags": "static"
   },
   {
@@ -59,14 +59,14 @@
     "name": "Boomerang",
     "audioUri": "moves/audio/boomerang.mp3",
     "descriptionUrl": "http://acropedia.org/boomerang/",
-    "difficulty": 5,
+    "difficulty": 7,
     "tags": "washing_machine"
   },
   {
     "name": "Bow",
     "audioUri": "moves/audio/bow.mp3",
     "descriptionUrl": "http://acropedia.org/bow/",
-    "difficulty": 5,
+    "difficulty": 2,
     "tags": "static"
   },
   {
@@ -80,14 +80,14 @@
     "name": "Dancer's Lament",
     "audioUri": "moves/audio/dancers_lament.mp3",
     "descriptionUrl": "http://acropedia.org/dancers-lament/",
-    "difficulty": 5,
+    "difficulty": 8,
     "tags": "static"
   },
   {
     "name": "Fireball",
     "audioUri": "moves/audio/fireball.mp3",
     "descriptionUrl": "http://acropedia.org/fireball/",
-    "difficulty": 5,
+    "difficulty": 8,
     "tags": "washing_machine,star"
   },
   {
@@ -101,14 +101,14 @@
     "name": "Floating Camel",
     "audioUri": "moves/audio/floating_camel.mp3",
     "descriptionUrl": "http://acropedia.org/floating-camel/",
-    "difficulty": 5,
+    "difficulty": 6,
     "tags": "static,hand_balance"
   },
   {
     "name": "Floating Paschi",
     "audioUri": "moves/audio/floating_paschi.mp3",
     "descriptionUrl": "http://acropedia.org/floating-paschi/",
-    "difficulty": 5,
+    "difficulty": 2,
     "tags": "static,hand_balance"
   },
   {
@@ -129,70 +129,70 @@
     "name": "Goofy Monolimb Reverse Star",
     "audioUri": "moves/audio/goofy_monolimb_rev_star.mp3",
     "descriptionUrl": "http://acropedia.org/reverse-star/",
-    "difficulty": 5,
+    "difficulty": 6,
     "tags": "static"
   },
   {
     "name": "Goofy Monolimb Star",
     "audioUri": "moves/audio/goofy_monolimb_star.mp3",
     "descriptionUrl": "http://acropedia.org/star/",
-    "difficulty": 5,
+    "difficulty": 4,
     "tags": "static"
   },
   {
     "name": "High Flying Whale",
     "audioUri": "moves/audio/high_flying_whale.mp3",
     "descriptionUrl": "http://acropedia.org/high-flying-whale/",
-    "difficulty": 5,
+    "difficulty": 1,
     "tags": "static"
   },
   {
     "name": "High Foot to Hand",
     "audioUri": "moves/audio/high_fth.mp3",
     "descriptionUrl": "http://acropedia.org/foot-to-hand/",
-    "difficulty": 5,
+    "difficulty": 3,
     "tags": "static,hand_balance"
   },
   {
     "name": "High Ninja Star",
     "audioUri": "moves/audio/high_ninja_star.mp3",
     "descriptionUrl": "http://acropedia.org/high-ninja-star/",
-    "difficulty": 5,
+    "difficulty": 7,
     "tags": "washing_machine"
   },
   {
     "name": "High Reverse Foot to Hand",
     "audioUri": "moves/audio/high_rev_fth.mp3",
     "descriptionUrl": "http://acropedia.org/foot-to-hand/",
-    "difficulty": 5,
+    "difficulty": 4,
     "tags": "static,hand_balance"
   },
   {
     "name": "Hand to Hand",
     "audioUri": "moves/audio/hth.mp3",
     "descriptionUrl": "http://acropedia.org/hand-to-hand/",
-    "difficulty": 5,
+    "difficulty": 9,
     "tags": "static,hand_balance"
   },
   {
     "name": "Low Foot to Hand",
     "audioUri": "moves/audio/low_fth.mp3",
     "descriptionUrl": "http://acropedia.org/foot-to-hand/",
-    "difficulty": 5,
+    "difficulty": 2,
     "tags": "static,hand_balance"
   },
   {
     "name": "Low Hand to Hand",
     "audioUri": "moves/audio/low_hth.mp3",
     "descriptionUrl": "http://acropedia.org/hand-to-hand/",
-    "difficulty": 5,
+    "difficulty": 9,
     "tags": "static,hand_balance"
   },
   {
     "name": "Low Reverse Foot to Hand",
     "audioUri": "moves/audio/low_rev_fth.mp3",
     "descriptionUrl": "http://acropedia.org/foot-to-hand/",
-    "difficulty": 5,
+    "difficulty": 2,
     "tags": "static,hand_balance"
   },
   {
@@ -206,14 +206,14 @@
     "name": "Melted Candlestick",
     "audioUri": "moves/audio/melted_candlestick.mp3",
     "descriptionUrl": "http://acropedia.org/melted-candlestick/",
-    "difficulty": 5,
+    "difficulty": 4,
     "tags": "static,shoulderstand"
   },
   {
     "name": "Mermaid",
     "audioUri": "moves/audio/mermaid.mp3",
     "descriptionUrl": "http://acropedia.org/mermaid/",
-    "difficulty": 5,
+    "difficulty": 2,
     "tags": "static,throne"
   },
   {
@@ -227,28 +227,28 @@
     "name": "Monkey Frog",
     "audioUri": "moves/audio/monkey_frog.mp3",
     "descriptionUrl": "http://acropedia.org/monkey-frog/",
-    "difficulty": 5,
+    "difficulty": 6,
     "tags": "washing_machine"
   },
   {
     "name": "Ninja Star",
     "audioUri": "moves/audio/ninja_star.mp3",
     "descriptionUrl": "http://acropedia.org/ninja-star/",
-    "difficulty": 5,
+    "difficulty": 6,
     "tags": "washing_machine"
   },
   {
     "name": "Not Ninja Star",
     "audioUri": "moves/audio/not_ninja_star.mp3",
     "descriptionUrl": "http://acropedia.org/not-ninja-star/",
-    "difficulty": 5,
+    "difficulty": 7,
     "tags": "washing_machine"
   },
   {
     "name": "Reverse Asym",
     "audioUri": "moves/audio/rev_asym.mp3",
     "descriptionUrl": "http://acropedia.org/tags/asymm/",
-    "difficulty": 5,
+    "difficulty": 4,
     "tags": "static"
   },
   {
@@ -283,67 +283,67 @@
     "name": "Reverse Mermaid",
     "audioUri": "moves/audio/rev_mermaid.mp3",
     "descriptionUrl": "http://acropedia.org/mermaid/",
-    "difficulty": 5,
+    "difficulty": 3,
     "tags": "static,throne"
   },
   {
     "name": "Reverse Shin to Foot",
     "audioUri": "moves/audio/rev_shin_to_foot.mp3",
-    "difficulty": 5,
+    "difficulty": 4,
     "tags": "static"
   },
   {
     "name": "Reverse Shoulderstand",
     "audioUri": "moves/audio/rev_shoulderstand.mp3",
     "descriptionUrl": "http://acropedia.org/reverse-shoulder-stand/",
-    "difficulty": 5,
+    "difficulty": 2,
     "tags": "static"
   },
   {
     "name": "Reverse Star",
     "audioUri": "moves/audio/rev_star.mp3",
     "descriptionUrl": "http://acropedia.org/reverse-star/",
-    "difficulty": 5,
+    "difficulty": 4,
     "tags": "static"
   },
   {
     "name": "Reverse Thinker",
     "audioUri": "moves/audio/rev_thinker.mp3",
-    "difficulty": 5,
+    "difficulty": 3,
     "tags": "static,throne"
   },
   {
     "name": "Reverse Throne",
     "audioUri": "moves/audio/rev_throne.mp3",
     "descriptionUrl": "http://acropedia.org/reverse-throne/",
-    "difficulty": 5,
+    "difficulty": 3,
     "tags": "static,throne"
   },
   {
     "name": "Reverse Vash",
     "audioUri": "moves/audio/rev_vash.mp3",
-    "difficulty": 5,
+    "difficulty": 3,
     "tags": "static"
   },
   {
     "name": "Seattle Barrel Roll",
     "audioUri": "moves/audio/seattle_barrel_roll.mp3",
     "descriptionUrl": "http://acropedia.org/seattle-barrel-roll/",
-    "difficulty": 6,
+    "difficulty": 4,
     "tags": "washing_machine"
   },
   {
     "name": "Secretary",
     "audioUri": "moves/audio/secretary.mp3",
     "descriptionUrl": "http://acropedia.org/secretary/",
-    "difficulty": 6,
+    "difficulty": 5,
     "tags": "washing_machine"
   },
   {
     "name": "Shoulderstand",
     "audioUri": "moves/audio/shoulderstand.mp3",
     "descriptionUrl": "http://acropedia.org/shoulder-stand/",
-    "difficulty": 5,
+    "difficulty": 2,
     "tags": "static"
   },
   {
@@ -404,7 +404,7 @@
     "name": "Throne",
     "audioUri": "moves/audio/throne.mp3",
     "descriptionUrl": "http://acropedia.org/throne/",
-    "difficulty": 3,
+    "difficulty": 2,
     "tags": "static,throne"
   },
   {
@@ -418,19 +418,19 @@
     "name": "Free Shoulderstand",
     "audioUri": "moves/audio/true_free_shoulderstand.mp3",
     "descriptionUrl": "http://acropedia.org/free-shoulder-stand/",
-    "difficulty": 5,
+    "difficulty": 6,
     "tags": "static,shoulderstand"
   },
   {
     "name": "Two Scoops",
     "audioUri": "moves/audio/two_scoops.mp3",
-    "difficulty": 5,
+    "difficulty": 2,
     "tags": "static"
   },
   {
     "name": "Vash",
     "audioUri": "moves/audio/vash.mp3",
-    "difficulty": 5,
+    "difficulty": 2,
     "tags": "static"
   },
   {
