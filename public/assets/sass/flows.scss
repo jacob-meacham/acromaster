@@ -134,6 +134,13 @@
             }
         }
     }
+    
+    @media (max-width: 378px) {
+        .flow-actions a:not(.like-button) {
+            margin-top: 5px;
+            font-size: 1.15em;
+        }
+    }
 
     .icon-with-text-remix {
         margin-right: 6px;
