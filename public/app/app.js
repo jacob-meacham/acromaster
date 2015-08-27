@@ -65,9 +65,9 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       controller: 'FlowSearchResultsController',
       controllerAs: 'vm',
       resolve: {
-        flows: function(FlowSearchInitialData) {
+        flows: ['FlowSearchInitialData', function(FlowSearchInitialData) {
           return FlowSearchInitialData.performSearch();
-        }
+        }]
       }
     })
     .when('/flow/create', {
