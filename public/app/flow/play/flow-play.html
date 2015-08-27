@@ -1,8 +1,7 @@
 <section class="row">
     <div class="col-xs-12">
         <flowplayer flow="vm.flow" on-flow-end="vm.onFlowEnd()"></flowplayer>
-        <a href="/"><span class="glyphicon glyphicon-circle-arrow-left large-glyphicon back-button"></span></a>
-
+        
         <debug>
             <a href="/flow/end">Skip</a>
             {{ vm.flow | json }}
