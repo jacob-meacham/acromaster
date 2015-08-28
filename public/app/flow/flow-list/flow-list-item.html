@@ -1,6 +1,6 @@
 <div class="flow-list-item">
     <div class="flow-item-left">
-        <span class="glyphicon glyphicon-{{flow.imageUrl}} flow-item-icon" />
+        <a href="/flow/{{flow.id}}" class="flow-item-icon"><span class="glyphicon glyphicon-{{flow.imageUrl}}" /></a>
         <div class="flow-length"><span class="glyphicon glyphicon-time icon-with-text" aria-hidden="true" />{{flow.length / 60 | number:0 }} min</div>
     </div>
     <div class="flow-item-info">
