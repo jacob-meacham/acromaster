@@ -116,28 +116,52 @@
   background-color: #808080;
   color: #cccccc;
 }
-/* line 120, ../sass/profile.scss */
+@media (max-width: 435px) {
+  /* line 108, ../sass/profile.scss */
+  .profile .achievements .achievement {
+    width: 145px;
+  }
+}
+@media (max-width: 375px) {
+  /* line 108, ../sass/profile.scss */
+  .profile .achievements .achievement {
+    width: 125px;
+    height: 140px;
+    margin: 5px;
+  }
+}
+/* line 132, ../sass/profile.scss */
 .profile .achievements .awarded {
   background-color: black;
   border: 3px solid #fcb426;
   color: white;
 }
-/* line 126, ../sass/profile.scss */
+/* line 138, ../sass/profile.scss */
 .profile .achievements .popover {
   color: black;
 }
 
-/* line 131, ../sass/profile.scss */
+/* line 143, ../sass/profile.scss */
 .profile .nav {
   font-size: 1.2em;
 }
-/* line 133, ../sass/profile.scss */
+/* line 145, ../sass/profile.scss */
 .profile .nav a {
   padding-left: 15px;
 }
 @media (max-width: 528px) {
-  /* line 133, ../sass/profile.scss */
+  /* line 145, ../sass/profile.scss */
   .profile .nav a {
     display: block;
   }
+}
+
+/* line 154, ../sass/profile.scss */
+.achievement-description-modal {
+  padding: 30px;
+}
+
+/* line 158, ../sass/profile.scss */
+.achievement-inner {
+  padding: 30px 0;
 }

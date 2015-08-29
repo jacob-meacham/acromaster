@@ -39,3 +39,8 @@
     border-right: solid 1px #ddd;
   }
 }
+
+/* line 44, ../sass/workout.scss */
+.flow-variable-explanation {
+  padding: 30px;
+}
