@@ -34,7 +34,6 @@ var QuickPlayController = function($location, $scope, $modal, flowService, rand,
   };
 
   $scope.$watch('vm.currentDifficultyIndex', function(newVal) {
-    $scope.$broadcast('rzSliderForceRender'); // Force the sliders to update to the correct position
     if (newVal === 0) { // Beginner
       flowParams.difficulty = 3;
     } else if (newVal === 1) { // Intermediate
@@ -47,7 +46,6 @@ var QuickPlayController = function($location, $scope, $modal, flowService, rand,
   });
 
   $scope.$watch('vm.currentMoveLengthIndex', function(newVal) {
-    $scope.$broadcast('rzSliderForceRender'); // Force the sliders to update to the correct position
     if (newVal === 0) { // Quick
       flowParams.timePerMove = 8;
       flowParams.timeVariance = 0;
