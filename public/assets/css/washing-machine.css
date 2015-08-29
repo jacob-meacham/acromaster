@@ -2,3 +2,11 @@
 .washing-machine h1 {
   padding-top: 30px;
 }
+/* line 6, ../sass/washing-machine.scss */
+.washing-machine .top-padding {
+  padding-top: 30px;
+}
+/* line 10, ../sass/washing-machine.scss */
+.washing-machine .share {
+  font-size: 1.5em;
+}

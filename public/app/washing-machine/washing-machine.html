@@ -7,8 +7,8 @@
             <h2>{{vm.move2}}</h2>
             <h4>And back, and call it</h4>
             <h1>{{vm.washing_machine}}</h1>
-            <share share-partial="washing-machine?coords={{vm.coords}}"></share>
-            <div class="inner">
+            <share share-partial="washing-machine?coords={{vm.coords}}" class="share" />
+            <div class="inner top-padding">
                 <button type="button" class="btn btn-default btn-lg" ng-click="vm.generate()">Give me another</button>
             </div>
         </section>
