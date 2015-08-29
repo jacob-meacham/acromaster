@@ -25,42 +25,37 @@
 
 /* line 22, ../sass/animations.scss */
 .view-frame.ng-leave .back-button {
-  opacity: 0;
+  display: none !important;
 }
 
 @keyframes viewExit {
   to {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
   }
 }
 @-moz-keyframes viewExit {
   to {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
   }
 }
 @-webkit-keyframes viewExit {
   to {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
   }
 }
 @keyframes viewEnter {
   from {
-    opacity: 0;
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
   }
   to {
-    opacity: 1;
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     transform: translateX(0);
@@ -68,13 +63,11 @@
 }
 @-moz-keyframes viewEnter {
   from {
-    opacity: 0;
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
   }
   to {
-    opacity: 1;
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     transform: translateX(0);
@@ -82,19 +75,17 @@
 }
 @-webkit-keyframes viewEnter {
   from {
-    opacity: 0;
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
   }
   to {
-    opacity: 1;
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     transform: translateX(0);
   }
 }
-/* line 98, ../sass/animations.scss */
+/* line 89, ../sass/animations.scss */
 .play-move.ng-hide-add {
   position: absolute;
   -webkit-animation: fade-out 0.5s both ease-in-out;
@@ -102,7 +93,7 @@
   animation: fade-out 0.5s both ease-in-out;
 }
 
-/* line 104, ../sass/animations.scss */
+/* line 95, ../sass/animations.scss */
 .play-move.ng-hide-remove {
   -webkit-animation: fade-in 0.5s both ease-in-out;
   -moz-animation: fade-in 0.5s both ease-in-out;
@@ -157,7 +148,7 @@
     opacity: 0;
   }
 }
-/* line 143, ../sass/animations.scss */
+/* line 134, ../sass/animations.scss */
 .thumbnail:hover,
 .thumbnail:focus {
   -webkit-transition: 0.3s ease-in-out;
@@ -165,10 +156,9 @@
   -o-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   background: #010101;
-  opacity: 1;
 }
 
-/* line 150, ../sass/animations.scss */
+/* line 140, ../sass/animations.scss */
 .back-button .glyphicon:hover,
 .back-button .glyphicon:focus,
 .back-button .glyphicon:active {
@@ -176,10 +166,10 @@
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
-  opacity: 1;
+  color: #0DB9F0;
 }
 
-/* line 157, ../sass/animations.scss */
+/* line 147, ../sass/animations.scss */
 .login-twitter:hover,
 .login-twitter:focus,
 .login-twitter:active {
@@ -190,7 +180,7 @@
   background-color: #3ea1ec;
 }
 
-/* line 164, ../sass/animations.scss */
+/* line 154, ../sass/animations.scss */
 .login-facebook:hover,
 .login-facebook:focus,
 .login-facebook:active {

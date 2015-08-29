@@ -8,35 +8,35 @@
     </div>
     <div collapse="vm.collapseAdvancedPane" class="advanced-pane">
         <div class="row">
-            <div class="col-sm-3">
-                <h4>Move Duration <span class="glyphicon glyphicon-question-sign" popover="{{vm.moveDurationExplanation}}" popover-trigger="mouseenter" ng-click="vm.openExplanationModal(vm.moveDurationExplanation)"></span></h4>
-                <slider floor="5" ceiling="60" ng-model="vm.flowParams.timePerMove"></slider>
+            <div class="col-sm-3 slider-block">
+                <h4 class="slider-title">Move Duration <span class="glyphicon glyphicon-question-sign" popover="{{vm.moveDurationExplanation}}" popover-trigger="mouseenter" ng-click="vm.openExplanationModal(vm.moveDurationExplanation)" /></h4>
+                <rzslider rz-slider-floor="5" rz-slider-ceil="60" rz-slider-model="vm.flowParams.timePerMove" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
                 <h4>{{vm.flowParams.timePerMove}} seconds</h4>
             </div>
-            <div class="col-sm-3 col-sm-offset-1">
-                <h4>Move Variance <span class="glyphicon glyphicon-question-sign" popover="{{vm.moveVarianceExplanation}}" popover-trigger="mouseenter" ng-click="vm.openExplanationModal(vm.moveVarianceExplanation)"></span></h4>
-                <slider floor="0" ceiling="60" ng-model="vm.flowParams.timeVariance"></slider>
+            <div class="col-sm-3 col-sm-offset-1 slider-block">
+                <h4 class="slider-title">Move Variance <span class="glyphicon glyphicon-question-sign" popover="{{vm.moveVarianceExplanation}}" popover-trigger="mouseenter" ng-click="vm.openExplanationModal(vm.moveVarianceExplanation)"></span></h4>
+                <rzslider rz-slider-floor="0" rz-slider-ceil="60" rz-slider-model="vm.flowParams.timeVariance" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
                 <h4>{{vm.flowParams.timeVariance}} seconds</h4>
             </div>
-            <div class="col-sm-3 col-sm-offset-1">
-                <h4>Difficulty <span class="glyphicon glyphicon-question-sign" popover="{{vm.difficultyExplanation}}" popover-trigger="mouseenter" ng-click="vm.openExplanationModal(vm.difficultyExplanation)"></span></h4>
-                <slider floor="1" ceiling="11" ng-model="vm.flowParams.difficulty"></slider>
+            <div class="col-sm-3 col-sm-offset-1 slider-block">
+                <h4 class="slider-title">Difficulty <span class="glyphicon glyphicon-question-sign" popover="{{vm.difficultyExplanation}}" popover-trigger="mouseenter" ng-click="vm.openExplanationModal(vm.difficultyExplanation)"></span></h4>
+                <rzslider rz-slider-floor="1" rz-slider-ceil="11" rz-slider-model="vm.flowParams.difficulty" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
                 <h4>{{vm.flowParams.difficulty}}</h4>
             </div>
         </div>
         <hr class="soften" />
     </div>
-    <div class="row">
+    <div class="row main-pane">
         <div class="col-sm-4">
             <div class="workout-column">
-                <h3>Flow Length</h3>
-                <slider floor="5" step="10" ceiling="125" ng-model="vm.flowParams.totalMinutes"></slider>
-                <h3>{{vm.flowParams.totalMinutes}} minutes</h3>
+                <h3 class="slider-title">Flow Length</h3>
+                <rzslider rz-slider-floor="5" rz-slider-step="10" rz-slider-ceil="125" rz-slider-model="vm.flowParams.totalMinutes" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
+                <h3 class="slider-amount">{{vm.flowParams.totalMinutes}} minutes</h3>
             </div>
         </div>
         <div class="col-sm-4 workout-column-mid">
             <div class="workout-column">
-                <h3>Difficulty</h3>
+                <h3 class="slider-title">Difficulty</h3>
                 <slick dots=false infinite=false current-index="vm.currentDifficultyIndex" initial-slide="{{vm.currentDifficultyIndex}}">
                     <div><h3>Beginner</h3></div>
                     <div><h3>Intermediate</h3></div>
@@ -47,7 +47,7 @@
         </div>
         <div class="col-sm-4">
             <div class="workout-column">
-                <h3>Move Length</h3>
+                <h3 class="slider-title">Move Length</h3>
                 <slick dots=false infinite=false current-index="vm.currentMoveLengthIndex" initial-slide="{{vm.currentMoveLengthIndex}}">
                     <div><h3>Quick</h3></div>
                     <div><h3>Short</h3></div>
@@ -59,5 +59,4 @@
         </div>
     </div>
     <button type="button" class="btn btn-default btn-lg" ng-click="vm.generateFlow()">Let's Go!</button>
-    <back-button url="/"></back-button>
 </section>

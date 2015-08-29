@@ -19,11 +19,47 @@
     h4 {
         margin-top: 0;
         margin-bottom: 8px;
+
+        @media (max-width: 768px) {
+            margin-bottom: 0;
+        }
     }
 
-    slider {
-        margin-top: 10px;
-        margin-bottom: 10px;
+    @media (max-width: 768px) {
+
+        .slider-title {
+            display: inline;
+            padding-top: 10px;
+        }
+
+        .slider-block {
+            margin-bottom: 45px;
+        }
+
+        .advanced-pane .slider-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .slider-amount {
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+
+        .workout-column {
+            margin-top: 50px;
+        }
+
+        .main-pane > div:first-child .workout-column {
+            margin-top: 0;
+        }
+    }
+
+    rzslider {
+        margin-top: 20px;
     }
 
     @media (min-width: 1024px) {
@@ -43,4 +79,20 @@
 
 .flow-variable-explanation {
     padding: 30px;
+}
+
+.rz-bubble {
+    display: none !important;
+}
+
+rzslider span.rz-pointer.rz-active:after {
+  background-color: white;
+}
+
+rzslider span.rz-pointer:hover {
+  background-color: #00A0D7;
+}
+
+rzslider span.rz-pointer.rz-active {
+  background-color: #00A0D7;
 }

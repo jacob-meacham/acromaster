@@ -25,42 +25,37 @@
 
 /* line 22, ../sass/animations.scss */
 .view-frame.ng-leave .back-button {
-  opacity: 0;
+  display: none !important;
 }
 
 @keyframes viewExit {
   to {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
   }
 }
 @-moz-keyframes viewExit {
   to {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
   }
 }
 @-webkit-keyframes viewExit {
   to {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
   }
 }
 @keyframes viewEnter {
   from {
-    opacity: 0;
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
   }
   to {
-    opacity: 1;
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     transform: translateX(0);
@@ -68,13 +63,11 @@
 }
 @-moz-keyframes viewEnter {
   from {
-    opacity: 0;
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
   }
   to {
-    opacity: 1;
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     transform: translateX(0);
@@ -82,19 +75,17 @@
 }
 @-webkit-keyframes viewEnter {
   from {
-    opacity: 0;
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
   }
   to {
-    opacity: 1;
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     transform: translateX(0);
   }
 }
-/* line 98, ../sass/animations.scss */
+/* line 89, ../sass/animations.scss */
 .play-move.ng-hide-add {
   position: absolute;
   -webkit-animation: fade-out 0.5s both ease-in-out;
@@ -102,7 +93,7 @@
   animation: fade-out 0.5s both ease-in-out;
 }
 
-/* line 104, ../sass/animations.scss */
+/* line 95, ../sass/animations.scss */
 .play-move.ng-hide-remove {
   -webkit-animation: fade-in 0.5s both ease-in-out;
   -moz-animation: fade-in 0.5s both ease-in-out;
@@ -157,7 +148,7 @@
     opacity: 0;
   }
 }
-/* line 143, ../sass/animations.scss */
+/* line 134, ../sass/animations.scss */
 .thumbnail:hover,
 .thumbnail:focus {
   -webkit-transition: 0.3s ease-in-out;
@@ -165,10 +156,9 @@
   -o-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   background: #010101;
-  opacity: 1;
 }
 
-/* line 150, ../sass/animations.scss */
+/* line 140, ../sass/animations.scss */
 .back-button .glyphicon:hover,
 .back-button .glyphicon:focus,
 .back-button .glyphicon:active {
@@ -176,10 +166,10 @@
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
-  opacity: 1;
+  color: #0DB9F0;
 }
 
-/* line 157, ../sass/animations.scss */
+/* line 147, ../sass/animations.scss */
 .login-twitter:hover,
 .login-twitter:focus,
 .login-twitter:active {
@@ -190,7 +180,7 @@
   background-color: #3ea1ec;
 }
 
-/* line 164, ../sass/animations.scss */
+/* line 154, ../sass/animations.scss */
 .login-facebook:hover,
 .login-facebook:focus,
 .login-facebook:active {
@@ -376,13 +366,10 @@ span.large-glyphicon {
   font-size: 4.0em !important;
   padding-top: 40px;
   float: left;
-}
-/* line 153, ../sass/common.scss */
-.back-button .glyphicon {
-  opacity: 0.5;
+  color: #00A0D7;
 }
 
-/* line 158, ../sass/common.scss */
+/* line 156, ../sass/common.scss */
 .box-container {
   margin-top: 10px;
   padding-bottom: 20px;
@@ -391,27 +378,27 @@ span.large-glyphicon {
   border-radius: 5px;
 }
 
-/* line 166, ../sass/common.scss */
+/* line 164, ../sass/common.scss */
 .ui-slider {
   background: #777;
 }
 
-/* line 170, ../sass/common.scss */
+/* line 168, ../sass/common.scss */
 .icon-with-text {
   margin-right: 4px;
 }
 
-/* line 174, ../sass/common.scss */
+/* line 172, ../sass/common.scss */
 hr.narrow {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-/* line 179, ../sass/common.scss */
+/* line 177, ../sass/common.scss */
 .debug {
   margin-top: 20px;
 }
-/* line 182, ../sass/common.scss */
+/* line 180, ../sass/common.scss */
 .debug .btn {
   margin-left: auto;
   margin-right: auto;
@@ -422,7 +409,7 @@ hr.narrow {
   outline: none;
   border-bottom: none;
 }
-/* line 193, ../sass/common.scss */
+/* line 191, ../sass/common.scss */
 .debug .debug-inner {
   font-size: 0.8em;
   padding: 0;
@@ -431,61 +418,12 @@ hr.narrow {
   background-color: #fff;
 }
 
-/* line 203, ../sass/common.scss */
-slider, [slider] {
-  display: inline-block;
-  position: relative;
-  height: 6px;
-  width: 100%;
-  margin: 25px 5px 25px 5px;
-  vertical-align: middle;
-}
-/* line 211, ../sass/common.scss */
-slider span, [slider] span {
-  white-space: nowrap;
-  position: absolute;
-}
-/* line 215, ../sass/common.scss */
-slider span.bar, [slider] span.bar {
-  width: 100%;
-  height: 100%;
-  background: #e0e0e0;
-  border: solid 1px #111;
-  border-radius: 6px;
-  overflow: hidden;
-}
-/* line 223, ../sass/common.scss */
-slider span.bar .selection, [slider] span.bar .selection {
-  width: 0;
-  height: 100%;
-  background: #13b6ff;
-}
-/* line 230, ../sass/common.scss */
-slider span.pointer, [slider] span.pointer {
-  cursor: pointer;
-  width: 40px;
-  top: -10px;
-  height: 25px;
-  background-color: #fdd27d;
-  z-index: 2;
-  border: solid 2px #fcb426;
-  border-radius: 10px;
-}
-/* line 240, ../sass/common.scss */
-slider span.pointer.active, [slider] span.pointer.active {
-  background-color: #fdc755;
-}
-/* line 245, ../sass/common.scss */
-slider span.bubble, [slider] span.bubble {
-  display: none !important;
-}
-
-/* line 251, ../sass/common.scss */
+/* line 200, ../sass/common.scss */
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: white;
 }
 
-/* line 255, ../sass/common.scss */
+/* line 204, ../sass/common.scss */
 .btn-circle {
   width: 40px;
   height: 40px;
