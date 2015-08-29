@@ -130,7 +130,7 @@ var ProfileFavoritesController = function($routeParams, User, pageHeaderService)
   pageHeaderService.setTitle($routeParams.user);
 };
 
-var ProfileAchievementsController = function($routeParams, User, pageHeaderService, achievementsService) {
+var ProfileAchievementsController = function($routeParams, $modal, User, pageHeaderService, achievementsService) {
   var vm = this;
   vm.templateUrl = 'app/profile/profile-achievements.html';
   pageHeaderService.setTitle($routeParams.user);
@@ -138,10 +138,18 @@ var ProfileAchievementsController = function($routeParams, User, pageHeaderServi
   populateProfile(vm, User, $routeParams.user, function() {
     vm.achievements = achievementsService.getUserAchievements(vm.profile);
   });
+
+  vm.openAchievementDescriptionModal = function(description) {
+    $modal.open({
+      template: '<div class="achievement-description-modal">' + description + '</div>',
+      size: 'sm',
+      backdrop: true
+    });
+  };
 };
 
 angular.module('acromaster.controllers')
   .controller('ProfileHomeController', ['$routeParams', '$timeout', 'RandomService', 'User', 'PageHeaderService', '_', ProfileHomeController])
   .controller('ProfileFlowsController', ['$routeParams', '$scope', 'User', 'PageHeaderService', '_', ProfileFlowsController])
   .controller('ProfileFavoritesController', ['$routeParams', 'User', 'PageHeaderService', ProfileFavoritesController])
-  .controller('ProfileAchievementsController', ['$routeParams', 'User', 'PageHeaderService', 'AchievementsService', ProfileAchievementsController]);
+  .controller('ProfileAchievementsController', ['$routeParams', '$modal', 'User', 'PageHeaderService', 'AchievementsService', ProfileAchievementsController]);

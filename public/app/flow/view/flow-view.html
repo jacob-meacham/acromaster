@@ -39,14 +39,14 @@
             <li ng-repeat='moveEntry in vm.flow.moves'>
                 <div class="move-entry row">
                     <div class="col-md-11 col-xs-10">
-                        <span class="move-difficulty glyphicon glyphicon-fire" ng-class="{ 'hard-move': {{moveEntry.move.difficulty > 7}}, 'medium-move': {{moveEntry.move.difficulty <= 7 && moveEntry.move.difficulty >= 4}}, 'easy-move': {{moveEntry.move.difficulty < 4}} }"></span>
+                        <span class="move-difficulty glyphicon glyphicon-fire" ng-class="{ 'hard-move': {{moveEntry.move.difficulty >= 7}}, 'medium-move': {{moveEntry.move.difficulty < 7 && moveEntry.move.difficulty >= 4}}, 'easy-move': {{moveEntry.move.difficulty < 4}} }"></span>
                         <span class="move-name">{{moveEntry.move.name}}</span>
                         <a target="_blank" class="move-description-link" ng-href="{{moveEntry.move.descriptionUrl}}" ng-show="moveEntry.move.descriptionUrl"><span class="glyphicon glyphicon-question-sign"></span></a>
                         <span class="separator">&mdash;</span>
                         <span class="move-duration">{{moveEntry.duration | number : 0}} seconds</span>
                     </div>
                     <div class="col-xs-1">
-                        <span class="move-info glyphicon glyphicon-option-horizontal" popover-template="'app/flow/view/move-info-popover.html'" popover-placement="top" popover-trigger="click"></span>
+                        <span class="move-info glyphicon glyphicon-option-horizontal" popover-template="'app/flow/view/move-info-popover.html'" popover-placement="top" popover-trigger="mouseenter" ng-click="vm.showInfoModal(moveEntry)"></span>
                     </div>
                 </div>
             </li>

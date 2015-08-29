@@ -368,3 +368,8 @@
 .flow-list-item .flow-item-description a {
   color: #767676;
 }
+
+/* line 356, ../sass/flows.scss */
+.move-info-popover {
+  text-align: left;
+}

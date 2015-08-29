@@ -1,6 +1,6 @@
 'use strict';
 
-var FlowViewController = function($routeParams, $location, $modal, flowService, authService, pageHeaderService, User) {
+var FlowViewController = function($routeParams, $location, $scope, $modal, flowService, authService, pageHeaderService, User) {
   var vm = this;
   var flowId = $routeParams.flowId;
 
@@ -60,7 +60,18 @@ var FlowViewController = function($routeParams, $location, $modal, flowService, 
       $location.path('/flows/');
     });
   };
+
+  vm.showInfoModal = function(moveEntry) {
+    var modalScope = $scope.$new(true);
+    modalScope.moveEntry = moveEntry;
+    $modal.open({
+      templateUrl: 'app/flow/view/move-info-popover.html',
+      scope: modalScope,
+      size: 'sm',
+      backdrop: true
+    });
+  };
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowViewController', ['$routeParams', '$location', '$modal', 'FlowService', 'AuthService', 'PageHeaderService', 'User', FlowViewController]);
+  .controller('FlowViewController', ['$routeParams', '$location', '$scope', '$modal', 'FlowService', 'AuthService', 'PageHeaderService', 'User', FlowViewController]);

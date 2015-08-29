@@ -1,10 +1,14 @@
 'use strict';
 
-var QuickPlayController = function($location, $scope, flowService, rand, pageHeaderService) {
+var QuickPlayController = function($location, $scope, $modal, flowService, rand, pageHeaderService) {
   var vm = this;
   var flowParams = vm.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};
   vm.currentDifficultyIndex = 1;
   vm.currentMoveLengthIndex = 2;
+  vm.moveDurationExplanation = 'Allows you to fine-tune the base time per move.';
+  vm.moveVarianceExplanation = 'This is the random number of seconds added to each move in the workout.';
+  vm.difficultyExplanation = 'Moves that have a higher difficulty than this won\'t be part of the workout.';
+
   vm.collapseAdvancedPane = true;
   vm.toggleAdvancedPane = function() {
     vm.collapseAdvancedPane = !vm.collapseAdvancedPane;
@@ -18,6 +22,14 @@ var QuickPlayController = function($location, $scope, flowService, rand, pageHea
     flowParams.imageUrl = rand.randomFlowIcon();
     flowService.generateFlow(flowParams).then(function(flow) {
       $location.path('/flow/' + flow.id + '/play');
+    });
+  };
+
+  vm.openExplanationModal = function(explanation) {
+    $modal.open({
+      template: '<div class="flow-variable-explanation">' + explanation + '</div>',
+      size: 'sm',
+      backdrop: true
     });
   };
 
@@ -56,4 +68,4 @@ var QuickPlayController = function($location, $scope, flowService, rand, pageHea
 };
 
 angular.module('acromaster.controllers')
-  .controller('QuickPlayController', ['$location', '$scope', 'FlowService', 'RandomNameService', 'PageHeaderService', QuickPlayController]);
+  .controller('QuickPlayController', ['$location', '$scope', '$modal', 'FlowService', 'RandomNameService', 'PageHeaderService', QuickPlayController]);
