@@ -20,47 +20,84 @@
   margin-top: 0;
   margin-bottom: 8px;
 }
-/* line 24, ../sass/workout.scss */
-.workout-create slider {
-  margin-top: 10px;
-  margin-bottom: 10px;
+@media (max-width: 768px) {
+  /* line 19, ../sass/workout.scss */
+  .workout-create h4 {
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 768px) {
+  /* line 30, ../sass/workout.scss */
+  .workout-create .slider-title {
+    display: inline;
+    padding-top: 10px;
+  }
+  /* line 35, ../sass/workout.scss */
+  .workout-create .slider-block {
+    margin-bottom: 45px;
+  }
+  /* line 39, ../sass/workout.scss */
+  .workout-create .advanced-pane .slider-block:last-child {
+    margin-bottom: 0;
+  }
+  /* line 43, ../sass/workout.scss */
+  .workout-create .slider-amount {
+    margin-top: 0;
+  }
+  /* line 47, ../sass/workout.scss */
+  .workout-create h3 {
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+  /* line 52, ../sass/workout.scss */
+  .workout-create .workout-column {
+    margin-top: 50px;
+  }
+  /* line 56, ../sass/workout.scss */
+  .workout-create .main-pane > div:first-child .workout-column {
+    margin-top: 0;
+  }
+}
+/* line 61, ../sass/workout.scss */
+.workout-create rzslider {
+  margin-top: 20px;
 }
 @media (min-width: 1024px) {
-  /* line 30, ../sass/workout.scss */
+  /* line 66, ../sass/workout.scss */
   .workout-create .workout-column {
     margin-left: 30px;
     margin-right: 30px;
   }
 }
 @media (min-width: 768px) {
-  /* line 37, ../sass/workout.scss */
+  /* line 73, ../sass/workout.scss */
   .workout-create .workout-column-mid {
     border-left: solid 1px #ddd;
     border-right: solid 1px #ddd;
   }
 }
 
-/* line 44, ../sass/workout.scss */
+/* line 80, ../sass/workout.scss */
 .flow-variable-explanation {
   padding: 30px;
 }
 
-/* line 48, ../sass/workout.scss */
+/* line 84, ../sass/workout.scss */
 .rz-bubble {
   display: none !important;
 }
 
-/* line 52, ../sass/workout.scss */
+/* line 88, ../sass/workout.scss */
 rzslider span.rz-pointer.rz-active:after {
   background-color: white;
 }
 
-/* line 56, ../sass/workout.scss */
+/* line 92, ../sass/workout.scss */
 rzslider span.rz-pointer:hover {
   background-color: #00A0D7;
 }
 
-/* line 60, ../sass/workout.scss */
+/* line 96, ../sass/workout.scss */
 rzslider span.rz-pointer.rz-active {
   background-color: #00A0D7;
 }
