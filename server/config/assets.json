@@ -6,6 +6,7 @@
         "public/assets/lib/angular-xeditable/dist/css/xeditable.css": "public/assets/lib/angular-xeditable/dist/css/xeditable.css",
         "public/assets/lib/slick.js/slick/slick.css": "public/assets/lib/slick.js/slick/slick.css",
         "public/assets/lib/slick.js/slick/slick-theme.css": "public/assets/lib/slick.js/slick/slick-theme.css",
+        "public/assets/lib/angularjs-slider/dist/rzslider.min.css": "public/assets/lib/angularjs-slider/dist/rzslider.css",
         "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css": "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
     },
     "js": {
@@ -21,7 +22,7 @@
         "public/assets/lib/angular-bootstrap/ui-bootstrap-tpls.min.js": "public/assets/lib/angular-bootstrap/ui-bootstrap-tpls.js",
         "public/assets/lib/angular-ui-scrollpoint/dist/scrollpoint.min.js": "public/assets/lib/angular-ui-scrollpoint/dist/scrollpoint.js",
         "public/assets/lib/angular-touch/angular-touch.min.js": "public/assets/lib/angular-touch/angular-touch.js",
-        "public/assets/lib/venturocket-angular-slider/build/angular-slider.min.js": "public/assets/lib/venturocket-angular-slider/build/angular-slider.min.js",
+        "public/assets/lib/angularjs-slider/dist/rzslider.min.js": "public/assets/lib/angularjs-slider/rzslider.js",
         "public/assets/lib/raphael/raphael-min.js": "public/assets/lib/raphael/raphael.js",
         "public/assets/lib/justgage-toorshia/justgage.js": "public/assets/lib/justgage-toorshia/justgage.js",
         "public/assets/lib/angular-justgage/ng-justgage.js": "public/assets/lib/angular-justgage/ng-justgage.js",

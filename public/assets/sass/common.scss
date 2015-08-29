@@ -150,9 +150,7 @@ span.large-glyphicon {
  padding-top: 40px;
  float: left;
 
-  .glyphicon {
-    opacity: 0.5;
-  }
+ color: #00A0D7;
 }
 
 .box-container {
@@ -196,55 +194,6 @@ hr.narrow {
     text-align: left;
     border-top-left-radius: 0;
     background-color: #fff;
-  }
-}
-
-$slider-height: 6px;
-slider, [slider] {
-  display: inline-block;
-  position: relative;
-  height: $slider-height;
-  width: 100%;
-  margin: 25px 5px 25px 5px;
-  vertical-align: middle;
-
-  span {
-    white-space: nowrap;
-    position: absolute;
-
-    &.bar {
-      width: 100%;
-      height: 100%;
-      background: #e0e0e0;
-      border: solid 1px #111;
-      border-radius: $slider-height;
-      overflow: hidden;
-
-      .selection {
-        width: 0;
-        height: 100%;
-        background: #13b6ff;
-      }
-    }
-
-    &.pointer {
-      cursor: pointer;
-      width: 40px;
-      top: -10px;
-      height: 25px;
-      background-color: #fdd27d;
-      z-index: 2;
-      border: solid 2px #fcb426;
-      border-radius: 10px;
-
-      &.active {
-        background-color: #fdc755;
-      }
-    }
-
-    &.bubble {
-      display: none !important;
-    }
   }
 }
 
