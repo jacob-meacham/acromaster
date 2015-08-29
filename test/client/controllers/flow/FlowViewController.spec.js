@@ -36,7 +36,7 @@ describe('FlowViewController', function() {
     var flowStub = sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
     var userStub = sandbox.stub(AuthService, 'getUser').returns({id: 'userId'});
     sandbox.stub(AuthService, 'isAuthenticated').returns(true);
-    var vm = $controller('FlowViewController');
+    var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
 
     vm.flow.should.eql(flow);
     flowStub.should.have.callCount(1);
@@ -49,7 +49,7 @@ describe('FlowViewController', function() {
     sandbox.stub(AuthService, 'getUser').returns({id: 'userId'});
     sandbox.stub(AuthService, 'isAuthenticated').returns(true);
 
-    var vm = $controller('FlowViewController');
+    var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
 
     vm.start();
     pathSpy.should.have.been.calledWith('/flow/10/play');
@@ -62,12 +62,12 @@ describe('FlowViewController', function() {
     });
 
     var authStub = sandbox.stub(AuthService, 'canEdit').returns(true);
-    var vm = $controller('FlowViewController');
+    var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
     vm.canEdit.should.eql(true);
 
     authStub.restore();
     authStub = sandbox.stub(AuthService, 'canEdit').returns(false);
-    vm = $controller('FlowViewController');
+    vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
     vm.canEdit.should.eql(false);
   });
 
@@ -95,21 +95,21 @@ describe('FlowViewController', function() {
 
     it('should have the correct state if authenticated and favorited', function() {
       setup(true, true);
-      var vm = $controller('FlowViewController');
+      var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
       vm.hasFavorited.should.eql(true);
       vm.action.should.eql('Remove Favorite');
     });
 
     it('should have the correct state if authenticated and not favorited', function() {
       setup(true, false);
-      var vm = $controller('FlowViewController');
+      var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
       vm.hasFavorited.should.eql(false);
       vm.action.should.eql('Add Favorite');
     });
 
     it('should have the correct state if not authenticated', function() {
       setup(false, false);
-      var vm = $controller('FlowViewController');
+      var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
       vm.hasFavorited.should.eql(false);
       vm.action.should.eql('Add Favorite');
     });
@@ -119,7 +119,7 @@ describe('FlowViewController', function() {
       var unfavoriteStub = sandbox.stub(User, 'unfavorite').returns({});
 
       setup(true, true);
-      var vm = $controller('FlowViewController');
+      var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
       vm.hasFavorited.should.eql(true);
       
       vm.toggleFavorite();
@@ -138,7 +138,7 @@ describe('FlowViewController', function() {
       var unfavoriteStub = sandbox.stub(User, 'unfavorite').returns({});
 
       setup(true, false);
-      var vm = $controller('FlowViewController');
+      var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
 
       vm.toggleFavorite();
       favoriteStub.should.have.callCount(1);
@@ -156,7 +156,7 @@ describe('FlowViewController', function() {
       var unfavoriteStub = sandbox.stub(User, 'unfavorite').returns({});
 
       setup(false, false);
-      var vm = $controller('FlowViewController');
+      var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
       vm.toggleFavorite();
       favoriteStub.should.have.callCount(0);
       unfavoriteStub.should.have.callCount(0);
@@ -175,7 +175,7 @@ describe('FlowViewController', function() {
     it('should open the a delete modal', function() {
       var openSpy = sandbox.spy($modal, 'open');
 
-      var vm = $controller('FlowViewController');
+      var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
 
       vm.delete();
       openSpy.should.have.callCount(1);
@@ -185,7 +185,7 @@ describe('FlowViewController', function() {
       sandbox.stub(FlowService, 'instantiateFlow').returns(flow);
       var openSpy = sandbox.spy($modal, 'open');
 
-      var vm = $controller('FlowViewController');
+      var vm = $controller('FlowViewController', {$scope: $rootScope.$new()});
 
       vm.delete();
       $httpBackend.expectGET('app/flow/edit/flow-delete-modal.html').respond({});
