@@ -219,6 +219,12 @@
 }
 
 .search-field-container {
+    // Padding is removed from the top on xs devices
+    // TODO: Just use a mixin.
+    @media (max-width: 768px) {
+        margin: -20px 0 15px 0;
+    }
+
     margin: -50px 0 15px 0;
     padding: 20px 0 5px 20px;
     border-bottom: 1px solid #eee;
@@ -246,6 +252,7 @@
 
 .search-field-container.ui-scrollpoint {
     position: fixed;
+    margin-top: -50px;
     top: 40px;
     z-index: 3;
 
