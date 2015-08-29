@@ -20,45 +20,40 @@
 }
 
 .view-frame.ng-leave .back-button {
-  opacity: 0;
+  display: none !important;
 }
 
 @keyframes viewExit {
   to    {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
   }
 }
 
 @-moz-keyframes viewExit {
   to    {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
   }
 }
 
 @-webkit-keyframes viewExit {
   to    {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
   }
 }
 
 @keyframes viewEnter {
   from  {
-    opacity: 0;
-    -webkit-transform:translateX(-100%);
-    -moz-transform:translateX(-100%);
-    transform:translateX(-100%);
+    -webkit-transform:translateX(-150%);
+    -moz-transform:translateX(-150%);
+    transform:translateX(-150%);
   }
   to    {
-    opacity: 1;
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     transform: translateX(0);
@@ -67,13 +62,11 @@
 
 @-moz-keyframes viewEnter {
   from  {
-    opacity: 0;
-    -webkit-transform:translateX(-100%);
-    -moz-transform:translateX(-100%);
-    transform:translateX(-100%);
+    -webkit-transform:translateX(-150%);
+    -moz-transform:translateX(-150%);
+    transform:translateX(-150%);
   }
   to    {
-    opacity: 1;
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     transform: translateX(0);
@@ -82,13 +75,11 @@
 
 @-webkit-keyframes viewEnter {
   from  {
-    opacity: 0;
-    -webkit-transform:translateX(-100%);
-    -moz-transform:translateX(-100%);
-    transform:translateX(-100%);
+    -webkit-transform:translateX(-150%);
+    -moz-transform:translateX(-150%);
+    transform:translateX(-150%);
   }
   to    {
-    opacity: 1;
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     transform: translateX(0);
@@ -144,14 +135,13 @@
 .thumbnail:focus {
   @include standard-ease(0.3s);
   background:rgba(1,1,1,1);
-  opacity: 1;
 }
 
 .back-button .glyphicon:hover,
 .back-button .glyphicon:focus,
 .back-button .glyphicon:active {
   @include standard-ease(0.2s);
-  opacity: 1;
+  color: #0DB9F0;
 }
 
 .login-twitter:hover,
