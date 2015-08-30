@@ -7,23 +7,14 @@ var navMenu = function($location) {
       var elements = element.find('li');
       var activeClass = attrs.navMenu || 'active';
       var currentLink;
-      var urlMap = [];
+      var urlMap = {};
 
       var setActiveLink = function() {
         if (currentLink) {
           currentLink.removeClass(activeClass);
         }
 
-        console.log($location);
-
-        var pathLink;
-        for (var i = 0; i < urlMap.length; i++) {
-          if ($location.path().startsWith(urlMap[i].base)) {
-            pathLink = urlMap[i].element;
-            break;
-          }
-        }
-
+        var pathLink = urlMap[$location.path()];
         if (pathLink) {
           currentLink = pathLink;
           currentLink.addClass(activeClass);
@@ -33,7 +24,7 @@ var navMenu = function($location) {
       for (var i = 0; i < links.length; i++) {
         var link = angular.element(links[i]);
         var url = link.attr('href');
-        urlMap.push({base: url, element: angular.element(elements[i])});
+        urlMap[url] = angular.element(elements[i]);
       }
 
       setActiveLink();

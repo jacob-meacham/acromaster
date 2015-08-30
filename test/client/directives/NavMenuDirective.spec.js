@@ -1,6 +1,6 @@
 'use strict';
 
-describe('FlowEditDirective', function() {
+describe('NavMenuDirective', function() {
   beforeEach(module('acromaster'));
 
   var $compile;
@@ -73,6 +73,6 @@ describe('FlowEditDirective', function() {
     sinon.stub($location, 'path').returns('/unknown');
     $rootScope.$emit('$routeChangeStart');
 
-    angular.element(links[0]).hasClass('active').should.be.true;
+    angular.element(links[0]).hasClass('active').should.be.false;
   });
 });
