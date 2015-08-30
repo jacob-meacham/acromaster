@@ -84,9 +84,8 @@ module.exports = {
 
         // jshint unused:false
         app.use(function(err, req, res, next) {
-            // Use toString because instances of Error don't JSON.stringify well.
             if (err.status) {
-                return res.status(err.status).send({ error: err.error.toString() });
+                return res.status(err.status).send({ error: (err.error ? err.error.toString() : err) }); // Use toString because instances of Error don't JSON.stringify well.
             }
             
             // Return 500 to the client.
