@@ -50,7 +50,6 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   };
 
   $scope.$watch(function() { return vm.volume; }, function(newVal) {
-    console.log(newVal);
     audio.volume = newVal / 100.0;
   });
 
