@@ -225,3 +225,87 @@
   cursor: pointer;
   text-decoration: none;
 }
+/* line 32, ../sass/flow-player.scss */
+.flow-player .controls-container {
+  background-color: white;
+  box-shadow: 0 1px 5px #eee;
+  border-radius: 10px;
+}
+/* line 38, ../sass/flow-player.scss */
+.flow-player .controls-left {
+  margin-top: 15px;
+  padding-left: 20px;
+  padding-right: 50px;
+}
+@media (max-width: 500px) {
+  /* line 38, ../sass/flow-player.scss */
+  .flow-player .controls-left {
+    padding-right: 40px;
+  }
+}
+/* line 48, ../sass/flow-player.scss */
+.flow-player .controls-right {
+  margin-top: 15px;
+  padding-left: 50px;
+  padding-right: 20px;
+}
+@media (max-width: 500px) {
+  /* line 48, ../sass/flow-player.scss */
+  .flow-player .controls-right {
+    padding-right: 10px;
+  }
+}
+@media (max-width: 500px) {
+  /* line 59, ../sass/flow-player.scss */
+  .flow-player .rz-pointer {
+    width: 20px;
+    height: 20px;
+    top: -8px;
+  }
+  /* line 65, ../sass/flow-player.scss */
+  .flow-player .rz-pointer:after {
+    top: 6px;
+    left: 6px;
+  }
+}
+/* line 71, ../sass/flow-player.scss */
+.flow-player .volume-icon {
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  font-size: 2em;
+}
+@media (max-width: 500px) {
+  /* line 71, ../sass/flow-player.scss */
+  .flow-player .volume-icon {
+    left: 4px;
+  }
+}
+/* line 82, ../sass/flow-player.scss */
+.flow-player .volume-slider {
+  padding-bottom: 20px;
+  padding-left: 30px;
+}
+@media (max-width: 500px) {
+  /* line 82, ../sass/flow-player.scss */
+  .flow-player .volume-slider {
+    padding-left: 14px;
+  }
+}
+/* line 91, ../sass/flow-player.scss */
+.flow-player .controls-play {
+  margin: 0 -30px;
+  padding: 20px 0;
+  width: 100px;
+  border-radius: 100px;
+  z-index: 1;
+}
+@media (max-width: 500px) {
+  /* line 91, ../sass/flow-player.scss */
+  .flow-player .controls-play {
+    margin: 9px -30px;
+    padding: 10px 0;
+    width: 80px;
+    border-radius: 80px;
+  }
+}
