@@ -13,6 +13,7 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   var scaledDuration;
   vm.timeRemaining = 0;
   vm.speedMultiplier = 1;
+  vm.volume = 100;
 
   if (!vm.flow || !vm.flow.$promise) {
     // No flow
@@ -47,6 +48,10 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
     audio.src = file;
     audio.play();
   };
+
+  $scope.$watch(function() { return vm.volume; }, function(newVal) {
+    audio.volume = newVal / 100.0;
+  });
 
   var getScaledDuration = function(duration, multiplier) {
     if (multiplier <= 0) {
