@@ -1,6 +1,6 @@
 'use strict';
 
-var FlowPlayController = function($location, $routeParams, flowService, pageHeaderService) {
+var FlowPlayController = function($scope, $location, $routeParams, flowService, pageHeaderService, containerService) {
   var vm = this;
   var flow = flowService.getCurrentFlow();
   if (!flow) {
@@ -10,6 +10,12 @@ var FlowPlayController = function($location, $routeParams, flowService, pageHead
   } else {
     pageHeaderService.setTitle(flow.name);
   }
+
+  containerService.setFluid(true);
+
+  $scope.$on('$routeChangeStart', function() {
+    containerService.setFluid(false);
+  });
 
   vm.flow = flow;
 
@@ -23,4 +29,4 @@ var FlowPlayController = function($location, $routeParams, flowService, pageHead
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowPlayController', ['$location', '$routeParams', 'FlowService', 'PageHeaderService', FlowPlayController]);
+  .controller('FlowPlayController', ['$scope', '$location', '$routeParams', 'FlowService', 'PageHeaderService', 'ContainerService', FlowPlayController]);
