@@ -24,7 +24,6 @@
         "public/assets/lib/angularjs-slider/dist/rzslider.min.js": "public/assets/lib/angularjs-slider/rzslider.js",
         "public/assets/lib/raphael/raphael-min.js": "public/assets/lib/raphael/raphael.js",
         "public/assets/lib/justgage-toorshia/justgage.js": "public/assets/lib/justgage-toorshia/justgage.js",
-        "public/assets/lib/ngFitText/src/ng-FitText.js": "public/assets/lib/ngFitText/src/ng-FitText.js",
         "public/assets/lib/angular-justgage/ng-justgage.js": "public/assets/lib/angular-justgage/ng-justgage.js",
         "public/assets/lib/angular-ui-sortable/sortable.min.js": "public/assets/lib/angular-ui-sortable/sortable.js",
         "public/assets/lib/angular-xeditable/dist/js/xeditable.min.js": "public/assets/lib/angular-xeditable/dist/js/xeditable.js",
