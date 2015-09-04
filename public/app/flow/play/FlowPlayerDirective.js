@@ -14,6 +14,7 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   vm.timeRemaining = 0;
   vm.speedMultiplier = 1;
   vm.volume = 100;
+  vm.muted = false;
 
   if (!vm.flow || !vm.flow.$promise) {
     // No flow
@@ -42,6 +43,16 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
     cancelTimer();
     audio.pause();
     vm.paused = true;
+  };
+
+  vm.toggleMute = function() {
+    vm.muted = !vm.muted;
+    if (vm.muted) {
+      vm.oldVolume = vm.volume;
+      vm.volume = 0;
+    } else {
+      vm.volume = vm.oldVolume;
+    }
   };
 
   vm.setAudio = function(file) {
