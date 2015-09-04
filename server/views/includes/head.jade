@@ -18,7 +18,10 @@ head(ng-controller="PageHeaderController as page")
   meta(property='og:site_name', content='{{page.header.siteName}}')
 
   each asset in assets.vendor.css
-    link(rel='stylesheet', href=asset)
+    link(href=asset, rel='stylesheet', type='text/css')
+
+  link(href='https://fonts.googleapis.com/css?family=Lobster', rel='stylesheet', type='text/css')
+  //link(href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700', rel='stylesheet', type='text/css')
   
   each asset in assets.client.css
-    link(rel='stylesheet', href=asset)
+    link(href=asset, rel='stylesheet', type='text/css')

@@ -194,9 +194,9 @@
 /* line 4, ../sass/flow-player.scss */
 .flow-player .move-name {
   font-weight: bold;
-  font-size: 20vmin;
   letter-spacing: 2px;
   margin-bottom: 30px;
+  line-height: 1;
 }
 /* line 11, ../sass/flow-player.scss */
 .flow-player .flow-start-button {
