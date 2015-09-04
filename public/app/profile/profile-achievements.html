@@ -1,10 +1,4 @@
 <div class="achievements clearfix">
-    <div class="achievement">
-        <div class="achievement-inner">
-            <i ng-class="glyphicon-apple"></i>
-            <div class="title">Test</div>
-        </div>
-    </div>
     <div ng-repeat="achievement in vm.achievements" ng-class="{achievement: true, awarded: achievement.awarded}" ng-click="vm.openAchievementDescriptionModal(achievement.description)">
         <div class="achievement-inner" popover="{{achievement.description}}" popover-placement="bottom" popover-trigger="mouseenter">
             <i ng-class='{{achievement.image}}'></i>
