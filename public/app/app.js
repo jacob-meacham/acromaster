@@ -10,7 +10,6 @@ var app = angular.module('acromaster', [
   'acromaster.controllers',
   'acromaster.directives',
   'ui.bootstrap',
-  'ui.sortable',
   'ui.scrollpoint',
   'xeditable',
   'rzModule',
