@@ -194,16 +194,17 @@
 /* line 4, ../sass/flow-player.scss */
 .flow-player .move-name {
   font-weight: bold;
+  font-size: 20vmin;
+  line-height: 1;
   letter-spacing: 2px;
   margin-bottom: 30px;
-  line-height: 1;
 }
-/* line 11, ../sass/flow-player.scss */
+/* line 12, ../sass/flow-player.scss */
 .flow-player .flow-start-button {
   font-size: 18.0em !important;
   padding-top: 40px;
 }
-/* line 16, ../sass/flow-player.scss */
+/* line 17, ../sass/flow-player.scss */
 .flow-player .flow-player-button {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
@@ -212,11 +213,11 @@
   font-size: 4.0em;
   color: #222;
 }
-/* line 22, ../sass/flow-player.scss */
+/* line 23, ../sass/flow-player.scss */
 .flow-player .flow-player-button.ng-hide-add {
   display: none !important;
 }
-/* line 26, ../sass/flow-player.scss */
+/* line 27, ../sass/flow-player.scss */
 .flow-player .flow-player-button:hover {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
@@ -226,56 +227,56 @@
   cursor: pointer;
   text-decoration: none;
 }
-/* line 33, ../sass/flow-player.scss */
+/* line 34, ../sass/flow-player.scss */
 .flow-player .controls-container {
   background-color: white;
   box-shadow: 0 1px 5px #eee;
   border-radius: 10px;
 }
-/* line 39, ../sass/flow-player.scss */
+/* line 40, ../sass/flow-player.scss */
 .flow-player .controls-left {
   margin-top: 15px;
   padding-left: 20px;
   padding-right: 50px;
 }
 @media (max-width: 500px) {
-  /* line 39, ../sass/flow-player.scss */
+  /* line 40, ../sass/flow-player.scss */
   .flow-player .controls-left {
     padding-right: 40px;
   }
 }
 @media (max-width: 768px) {
-  /* line 39, ../sass/flow-player.scss */
+  /* line 40, ../sass/flow-player.scss */
   .flow-player .controls-left {
     margin-left: 12%;
   }
 }
-/* line 53, ../sass/flow-player.scss */
+/* line 54, ../sass/flow-player.scss */
 .flow-player .controls-right {
   margin-top: 15px;
   padding-left: 50px;
   padding-right: 20px;
 }
 @media (max-width: 500px) {
-  /* line 53, ../sass/flow-player.scss */
+  /* line 54, ../sass/flow-player.scss */
   .flow-player .controls-right {
     padding-right: 10px;
   }
 }
 @media (max-width: 500px) {
-  /* line 64, ../sass/flow-player.scss */
+  /* line 65, ../sass/flow-player.scss */
   .flow-player .rz-pointer {
     width: 20px;
     height: 20px;
     top: -8px;
   }
-  /* line 70, ../sass/flow-player.scss */
+  /* line 71, ../sass/flow-player.scss */
   .flow-player .rz-pointer:after {
     top: 6px;
     left: 6px;
   }
 }
-/* line 76, ../sass/flow-player.scss */
+/* line 77, ../sass/flow-player.scss */
 .flow-player .volume-icon {
   position: absolute;
   top: 20px;
@@ -284,12 +285,12 @@
   color: #222;
 }
 @media (max-width: 500px) {
-  /* line 76, ../sass/flow-player.scss */
+  /* line 77, ../sass/flow-player.scss */
   .flow-player .volume-icon {
     left: 4px;
   }
 }
-/* line 88, ../sass/flow-player.scss */
+/* line 89, ../sass/flow-player.scss */
 .flow-player .volume-icon:hover {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
@@ -299,18 +300,18 @@
   cursor: pointer;
   text-decoration: none;
 }
-/* line 95, ../sass/flow-player.scss */
+/* line 96, ../sass/flow-player.scss */
 .flow-player .volume-slider {
   padding-bottom: 20px;
   padding-left: 30px;
 }
 @media (max-width: 500px) {
-  /* line 95, ../sass/flow-player.scss */
+  /* line 96, ../sass/flow-player.scss */
   .flow-player .volume-slider {
     padding-left: 14px;
   }
 }
-/* line 104, ../sass/flow-player.scss */
+/* line 105, ../sass/flow-player.scss */
 .flow-player .controls-play {
   margin: 0 -30px;
   padding: 20px 0;
@@ -319,7 +320,7 @@
   z-index: 1;
 }
 @media (max-width: 500px) {
-  /* line 104, ../sass/flow-player.scss */
+  /* line 105, ../sass/flow-player.scss */
   .flow-player .controls-play {
     margin: 9px -30px;
     padding: 10px 0;
@@ -327,7 +328,7 @@
     border-radius: 80px;
   }
 }
-/* line 119, ../sass/flow-player.scss */
+/* line 120, ../sass/flow-player.scss */
 .flow-player .speed-slider-label {
   font-weight: bold;
 }
