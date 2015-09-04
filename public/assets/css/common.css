@@ -432,3 +432,8 @@ hr.narrow {
   font-size: 12px;
   border-radius: 20px;
 }
+
+/* line 213, ../sass/common.scss */
+.alert {
+  margin: 8px 5px;
+}
