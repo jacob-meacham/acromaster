@@ -1,7 +1,7 @@
 {
   "name": "acromaster",
   "description": "Partner Acrobatics training and collaboration app.",
-  "version": "0.5.0",
+  "version": "0.8.0",
   "private": true,
   "author": "Jacob Meacham",
   "engines": {
