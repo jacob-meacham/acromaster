@@ -3,8 +3,9 @@
 .flow-player {
   .move-name {
     font-weight: bold;
-    font-size: 10vw;
+    font-size: 20vmin;
     letter-spacing: 2px;
+    margin-bottom: 30px;
   }
 
   .flow-start-button {
@@ -43,6 +44,10 @@
     @media (max-width: 500px) {
       padding-right: 40px;
     }
+
+    @media (max-width: 768px) {
+      margin-left: 12%; // TODO: Clean this up
+    }
   }
 
   .controls-right {
@@ -73,10 +78,18 @@
     top: 20px;
     left: 15px;
     font-size: 2em;
+    color: #222;
 
     @media (max-width: 500px) {
       left: 4px;
     }
+  }
+
+  .volume-icon:hover {
+    @include standard-ease(0.2s);
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
   }
 
   .volume-slider {
@@ -101,5 +114,9 @@
       width: 80px;
       border-radius: 80px;
     }
+  }
+
+  .speed-slider-label {
+    font-weight: bold;
   }
 }

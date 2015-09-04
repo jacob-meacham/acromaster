@@ -194,15 +194,16 @@
 /* line 4, ../sass/flow-player.scss */
 .flow-player .move-name {
   font-weight: bold;
-  font-size: 10vw;
+  font-size: 20vmin;
   letter-spacing: 2px;
+  margin-bottom: 30px;
 }
-/* line 10, ../sass/flow-player.scss */
+/* line 11, ../sass/flow-player.scss */
 .flow-player .flow-start-button {
   font-size: 18.0em !important;
   padding-top: 40px;
 }
-/* line 15, ../sass/flow-player.scss */
+/* line 16, ../sass/flow-player.scss */
 .flow-player .flow-player-button {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
@@ -211,11 +212,11 @@
   font-size: 4.0em;
   color: #222;
 }
-/* line 21, ../sass/flow-player.scss */
+/* line 22, ../sass/flow-player.scss */
 .flow-player .flow-player-button.ng-hide-add {
   display: none !important;
 }
-/* line 25, ../sass/flow-player.scss */
+/* line 26, ../sass/flow-player.scss */
 .flow-player .flow-player-button:hover {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
@@ -225,74 +226,91 @@
   cursor: pointer;
   text-decoration: none;
 }
-/* line 32, ../sass/flow-player.scss */
+/* line 33, ../sass/flow-player.scss */
 .flow-player .controls-container {
   background-color: white;
   box-shadow: 0 1px 5px #eee;
   border-radius: 10px;
 }
-/* line 38, ../sass/flow-player.scss */
+/* line 39, ../sass/flow-player.scss */
 .flow-player .controls-left {
   margin-top: 15px;
   padding-left: 20px;
   padding-right: 50px;
 }
 @media (max-width: 500px) {
-  /* line 38, ../sass/flow-player.scss */
+  /* line 39, ../sass/flow-player.scss */
   .flow-player .controls-left {
     padding-right: 40px;
   }
 }
-/* line 48, ../sass/flow-player.scss */
+@media (max-width: 768px) {
+  /* line 39, ../sass/flow-player.scss */
+  .flow-player .controls-left {
+    margin-left: 12%;
+  }
+}
+/* line 53, ../sass/flow-player.scss */
 .flow-player .controls-right {
   margin-top: 15px;
   padding-left: 50px;
   padding-right: 20px;
 }
 @media (max-width: 500px) {
-  /* line 48, ../sass/flow-player.scss */
+  /* line 53, ../sass/flow-player.scss */
   .flow-player .controls-right {
     padding-right: 10px;
   }
 }
 @media (max-width: 500px) {
-  /* line 59, ../sass/flow-player.scss */
+  /* line 64, ../sass/flow-player.scss */
   .flow-player .rz-pointer {
     width: 20px;
     height: 20px;
     top: -8px;
   }
-  /* line 65, ../sass/flow-player.scss */
+  /* line 70, ../sass/flow-player.scss */
   .flow-player .rz-pointer:after {
     top: 6px;
     left: 6px;
   }
 }
-/* line 71, ../sass/flow-player.scss */
+/* line 76, ../sass/flow-player.scss */
 .flow-player .volume-icon {
   position: absolute;
   top: 20px;
   left: 15px;
   font-size: 2em;
+  color: #222;
 }
 @media (max-width: 500px) {
-  /* line 71, ../sass/flow-player.scss */
+  /* line 76, ../sass/flow-player.scss */
   .flow-player .volume-icon {
     left: 4px;
   }
 }
-/* line 82, ../sass/flow-player.scss */
+/* line 88, ../sass/flow-player.scss */
+.flow-player .volume-icon:hover {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+}
+/* line 95, ../sass/flow-player.scss */
 .flow-player .volume-slider {
   padding-bottom: 20px;
   padding-left: 30px;
 }
 @media (max-width: 500px) {
-  /* line 82, ../sass/flow-player.scss */
+  /* line 95, ../sass/flow-player.scss */
   .flow-player .volume-slider {
     padding-left: 14px;
   }
 }
-/* line 91, ../sass/flow-player.scss */
+/* line 104, ../sass/flow-player.scss */
 .flow-player .controls-play {
   margin: 0 -30px;
   padding: 20px 0;
@@ -301,11 +319,15 @@
   z-index: 1;
 }
 @media (max-width: 500px) {
-  /* line 91, ../sass/flow-player.scss */
+  /* line 104, ../sass/flow-player.scss */
   .flow-player .controls-play {
     margin: 9px -30px;
     padding: 10px 0;
     width: 80px;
     border-radius: 80px;
   }
+}
+/* line 119, ../sass/flow-player.scss */
+.flow-player .speed-slider-label {
+  font-weight: bold;
 }
