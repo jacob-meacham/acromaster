@@ -2,38 +2,22 @@
 
 var path = require('path');
 var rootPath = path.normalize(__dirname + '/../..');
+var _ = require('lodash');
 
+// TODO: Cleanup base URL vs hostname
 var config = {
-    common: {
-        auth: {
-            facebook: {
-                clientID: process.env.FACEBOOK_ID,
-                clientSecret: process.env.FACEBOOK_SECRET,
-                callbackUrl: 'http://localhost:3000/auth/facebook/callback'
-            },
-            twitter: {
-                clientID: process.env.TWITTER_ID,
-                clientSecret: process.env.TWITTER_SECRET,
-                callbackUrl: 'http://localhost:3000/auth/twitter/callback'
-            },
-            google: {
-                clientID: process.env.GOOGLE_ID,
-                clientSecret: process.env.GOOGLE_SECRET,
-                callbackUrl: 'http://localhost:3000/auth/google/callback'
-            }
-        }
-    },
     development: {
         app: {
             name: 'Acromaster - Development',
             port: process.env.PORT || 3000,
-            hostname: '0.0.0.0' || process.env.HOST || process.env.HOSTNAME
+            hostname: process.env.HOST || process.env.HOSTNAME || '0.0.0.0',
+            baseUrl: process.env.BASE_URL || 'http://127.0.0.1:3000'
         },
         session: {
             secret: 'acromaster',
             collection: 'sessions'
         },
-        dbUrl: 'mongodb://localhost/am-dev',
+        dbUrl: 'mongodb://127.0.0.1/am-dev',
         root: rootPath,
 
         s3: {
@@ -46,7 +30,8 @@ var config = {
         app: {
             name: 'Acromaster - Test',
             port: process.env.PORT || 3000,
-            hostname: process.env.HOST || process.env.HOSTNAME
+            hostname: process.env.HOST || process.env.HOSTNAME,
+            baseUrl: process.env.BASE_URL
         },
         session: {
             secret: 'acromaster',
@@ -66,7 +51,8 @@ var config = {
         app: {
             name: 'Acromaster',
             port: process.env.PORT || 3000,
-            hostname: process.env.HOST || process.env.HOSTNAME
+            hostname: process.env.HOST || process.env.HOSTNAME,
+            baseUrl: process.env.BASE_URL
         },
         session: {
             secret: process.env.DB_SECRET,
@@ -82,5 +68,26 @@ var config = {
         }
     }
 };
+
+// TODO: Cleanup?
+_(['development', 'test', 'production']).forEach(function(env) {
+    config[env].auth = {
+        facebook: {
+            clientID: process.env.FACEBOOK_ID,
+            clientSecret: process.env.FACEBOOK_SECRET,
+            callbackUrl: config[env].app.baseUrl + '/auth/facebook/callback'
+        },
+        twitter: {
+            clientID: process.env.TWITTER_ID,
+            clientSecret: process.env.TWITTER_SECRET,
+            callbackUrl: config[env].app.baseUrl + '/auth/twitter/callback'
+        },
+        google: {
+            clientID: process.env.GOOGLE_ID,
+            clientSecret: process.env.GOOGLE_SECRET,
+            callbackUrl: config[env].app.baseUrl + '/auth/google/callback'
+        }
+    };
+});
 
 module.exports = config;

@@ -62,34 +62,34 @@ describe('FlowPlayerDirective', function() {
     }));
 
     it('should allow setting audio on the audio element', function() {
-      ctrl.audio.paused.should.be.true();
+      ctrl.audio.paused.should.be.true;
 
       ctrl.setAudio('testAudio');
       ctrl.audio.src.should.eql('testAudio');
-      ctrl.audio.paused.should.be.false();
+      ctrl.audio.paused.should.be.false;
     });
 
     it('should allow playing the audio element', function() {
       ctrl.play();
-      ctrl.audio.paused.should.be.false();
+      ctrl.audio.paused.should.be.false;
     });
 
     it('should allow pausing the audio element', function() {
       ctrl.play();
-      ctrl.audio.paused.should.be.false();
+      ctrl.audio.paused.should.be.false;
       ctrl.pause();
-      ctrl.audio.paused.should.be.true();
+      ctrl.audio.paused.should.be.true;
     });
 
     it('should start the flow', function() {
       var audioSpy = sandbox.spy(ctrl, 'setAudio');
-      ctrl.hasStarted.should.be.false();
+      ctrl.hasStarted.should.be.false;
       ctrl.start();
 
       deferred.resolve();
       $rootScope.$apply();
       
-      ctrl.hasStarted.should.be.true();
+      ctrl.hasStarted.should.be.true;
 
       ctrl.currentMove.should.eql(flowDef[0].move);
       audioSpy.should.have.been.calledWith('audio1');
@@ -155,6 +155,34 @@ describe('FlowPlayerDirective', function() {
 
       cancelSpy.should.have.callCount(1);
     });
+
+    it('should allow updating the duration', function() {
+      ctrl.start();
+
+      deferred.resolve();
+      $rootScope.$apply();
+
+      ctrl.timeRemaining.should.eql(10000);
+      ctrl.updateDuration();
+      ctrl.timeRemaining.should.eql(10000);
+
+      ctrl.speedMultiplier = 2;
+      ctrl.updateDuration();
+      ctrl.timeRemaining.should.eql(5000);
+
+      ctrl.speedMultiplier = 0.5;
+      ctrl.updateDuration();
+      ctrl.timeRemaining.should.eql(20000);
+
+      ctrl.speedMultiplier = -1;
+      ctrl.updateDuration();
+      ctrl.timeRemaining.should.eql(10000);
+
+      advanceMove(9000);
+      ctrl.speedMultiplier = 2;
+      ctrl.updateDuration();
+      ctrl.timeRemaining.should.eql(1000);
+    });
   });
 
   describe('directive', function() {
@@ -173,7 +201,7 @@ describe('FlowPlayerDirective', function() {
       var element = $compile('<flowplayer flow="flow"></flowplayer>')($rootScope);
       $rootScope.$digest();
 
-      var ctrl = element.isolateScope().vm;
+      var ctrl = element.isolateScope().player;
       ctrl.flow.should.eql($rootScope.flow);
     });
 
@@ -184,7 +212,7 @@ describe('FlowPlayerDirective', function() {
       var element = $compile('<flowplayer flow="flow" on-flow-end="onFlowEnd()"></flowplayer>')($rootScope);
       $rootScope.$digest();
 
-      var ctrl = element.isolateScope().vm;
+      var ctrl = element.isolateScope().player;
       ctrl.onFlowEnd();
 
       $rootScope.onFlowEnd.should.have.callCount(1);

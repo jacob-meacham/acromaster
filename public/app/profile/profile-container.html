@@ -1,0 +1,30 @@
+<div class="in alert alert-danger" role="alert" ng-if="vm.error">
+    <strong class="alert-heading">Error</strong>
+    <div class="alert-message">{{ vm.error }}</div>
+</div>
+<div class="profile row" ng-if="!vm.error">
+    <div class="col-md-3 profile-bar">
+        <img class="avatar" ng-src="{{vm.profile.profilePictureUrl}}"></img>
+        <div class="user-info">
+            <h1 class="name">{{ vm.profile.name }}</h1>
+            <h1 class="username">{{ vm.profile.username }}</h1>
+        </div>
+        <div class="user-details">
+            <div class="join-date"><i class="fa fa-clock-o"></i> User since {{vm.profile.createdAt | date}}</div>
+            <div class="flows"><a ng-href="/profile/{{vm.profile.username}}/flows">{{vm.profile.stats.flowsWritten}} flows written</a></div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <nav class="nav">
+            <a ng-href="/profile/{{vm.profile.username}}"><span class="glyphicon glyphicon-home icon-with-text" />Profile</a>
+            <a ng-href="/profile/{{vm.profile.username}}/achievements"><span class="glyphicon glyphicon-flag icon-with-text" />Achievements</a>
+            <a ng-href="/profile/{{vm.profile.username}}/flows"><span class="glyphicon glyphicon-fire icon-with-text" />My Flows</a>
+            <a ng-href="/profile/{{vm.profile.username}}/favorites"><span class="glyphicon glyphicon-bookmark icon-with-text" />My Favorites</a>
+        </nav>
+        <hr class="narrow soften" />
+        <ng-include src="vm.templateUrl"></ng-include>
+    </div>
+    <div class="col-md-12">
+        <debug>{{ vm.profile | json }}</debug>
+    </div>
+</div>

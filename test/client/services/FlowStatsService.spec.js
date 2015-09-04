@@ -33,10 +33,10 @@ describe('FlowStatsService', function() {
 
   it('should return empty if no flow is specified', function() {
     var stats = flowStatsService.getStats();
-    stats.should.be.empty();
+    stats.should.be.empty;
 
     stats = flowStatsService.getStats({});
-    stats.should.be.empty();
+    stats.should.be.empty;
   });
 
   it('should handle a flow with no moves', function() {

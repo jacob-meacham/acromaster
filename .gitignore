@@ -3,11 +3,12 @@
 .sass-cache/
 .idea/
 node_modules/
-public/lib
-public/css/client.min.css
-public/js/client.min.js
+public/assets/lib/
+public/assets/css/client.min.css
+public/app/client.min.js
 build/
 moves/
 fileeditor
 server/config/secrets.sh
 phantomjsdriver.log
+npm-debug.log

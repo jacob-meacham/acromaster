@@ -82,24 +82,24 @@ module.exports = {
 
         //Use twitter strategy
         passport.use(new TwitterStrategy({
-                consumerKey: config.auth.twitter.clientID,
-                consumerSecret: config.auth.twitter.clientSecret,
-                callbackURL: config.auth.twitter.callbackURL
+                consumerKey: config.twitter.clientID,
+                consumerSecret: config.twitter.clientSecret,
+                callbackURL: config.twitter.callbackURL
             }, twitterCallback));
 
         //Use facebook strategy
         passport.use(new FacebookStrategy({
-                clientID: config.auth.facebook.clientID,
-                clientSecret: config.auth.facebook.clientSecret,
-                callbackURL: config.auth.facebook.callbackUrl,
+                clientID: config.facebook.clientID,
+                clientSecret: config.facebook.clientSecret,
+                callbackURL: config.facebook.callbackUrl,
                 profileFields: ['id', 'name', 'displayName', 'photos']
             }, facebookCallback));
 
         //Use google strategy
         passport.use(new GoogleStrategy({
-                clientID: config.auth.google.clientID,
-                clientSecret: config.auth.google.clientSecret,
-                callbackURL: config.auth.google.callbackUrl
+                clientID: config.google.clientID,
+                clientSecret: config.google.clientSecret,
+                callbackURL: config.google.callbackUrl
             }, googleCallback));
     },
 

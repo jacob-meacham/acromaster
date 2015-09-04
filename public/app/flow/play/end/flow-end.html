@@ -1,0 +1,33 @@
+<section class="flow-end row">
+  <div class="col-xs-12">
+    <h1>Great Job!</h1>
+    <div class="flow-icon glyphicon glyphicon-{{vm.flow.imageUrl}}" />
+    <h3>You just completed {{vm.flow.name}}</h3>
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3 col-xs-12" >
+        <ul class="flow-box social-actions">
+          <li><share share-partial="/flow/{{vm.flow.id}}" /></li>
+          <li><a ng-href="flow/{{vm.flow.id}}/remix">Remix This Flow</a></li>
+          <li><flow-like flow="vm.flow" /></li>
+        </div>
+      </ul>
+    </div>
+    <div class="inner row stats">
+      <div class="col-sm-4">
+        <div class="flow-box">
+          <just-gage id="moves-gauge" class="stats-gauge" value="vm.numMovesOptions.value" options="vm.numMovesOptions" />
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="flow-box">
+          <just-gage id="time-gauge" class="stats-gauge" value="vm.totalTimeOptions.value" options="vm.totalTimeOptions" />
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="flow-box">
+          <just-gage id="difficulty-gauge" class="stats-gauge" value="vm.difficultyOptions.value" options="vm.difficultyOptions" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<div class="flow-player">
+    <span class="glyphicon glyphicon-play-circle large-glyphicon flow-start-button flow-player-button" ng-hide="player.hasStarted" ng-click="player.start()"></span>
+    <div>
+        <div class="play-move" ng-repeat="entry in player.flow.moves" ng-show="entry.visible">
+            <div class="move-name">{{entry.move.name}}</div>
+        </div>
+    </div>
+    <!-- TODO: Clean this up - it shouldn't use rows... -->
+    <div class="row controls" ng-show="player.hasStarted">
+        <div class="col-xs-4 col-xs-offset-2 col-sm-3 col-sm-offset-3 col-md-2 col-md-offset-4 controls-container controls-left">
+            <span class="glyphicon glyphicon-volume-up volume-icon" ng-class="{'glyphicon-volume-up': !player.muted, 'glyphicon-volume-off': player.muted}" ng-click="player.toggleMute()"/>
+            <div class="volume-slider">
+                <rzslider rz-slider-floor="0" rz-slider-ceil="100" rz-slider-model="player.volume" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
+            </div>
+        </div>
+        <div class="col-xs-2 controls-container controls-play">
+            <span class="glyphicon glyphicon-pause flow-player-button" ng-show="!player.paused" ng-click="player.pause()"></span>
+            <span class="glyphicon glyphicon-play flow-player-button" ng-show="player.paused" ng-click="player.play()"></span>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-2 controls-container controls-right">
+            <div class="speed-slider">
+                <rzslider rz-slider-floor="0.25" rz-slider-ceil="4" rz-slider-precision="2" rz-slider-step="0.25" rz-slider-model="player.speedMultiplier" rz-slider-on-change="player.updateDuration()" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
+                <div class="speed-slider-label">x{{player.speedMultiplier}}</div>
+            </div>
+        </div>
+    </div>
+</div>

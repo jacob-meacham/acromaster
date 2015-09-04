@@ -1,30 +1,39 @@
 {
   "vendor": {
     "css": {
-        "public/lib/bootstrap/dist/css/bootstrap.min.css": "public/lib/bootstrap/dist/css/bootstrap.css",
-        "public/lib/jquery-ui/themes/base/minified/jquery-ui.min.css": "public/lib/jquery-ui/themes/base/minified/jquery-ui.css",
-        "public/lib/angular-xeditable/dist/css/xeditable.css": "public/lib/angular-xeditable/dist/css/xeditable.css",
+        "public/assets/lib/bootstrap/dist/css/bootstrap.min.css": "public/assets/lib/bootstrap/dist/css/bootstrap.css",
+        "public/assets/lib/jquery-ui/themes/base/minified/jquery-ui.min.css": "public/assets/lib/jquery-ui/themes/base/minified/jquery-ui.css",
+        "public/assets/lib/angular-xeditable/dist/css/xeditable.css": "public/assets/lib/angular-xeditable/dist/css/xeditable.css",
+        "public/assets/lib/slick.js/slick/slick.css": "public/assets/lib/slick.js/slick/slick.css",
+        "public/assets/lib/slick.js/slick/slick-theme.css": "public/assets/lib/slick.js/slick/slick-theme.css",
+        "public/assets/lib/angularjs-slider/dist/rzslider.min.css": "public/assets/lib/angularjs-slider/dist/rzslider.css",
         "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css": "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
     },
     "js": {
-        "public/lib/jquery/dist/jquery.min.js": "public/lib/jquery/dist/jquery.js",
-        "public/lib/jquery-ui/jquery-ui.min.js": "public/lib/jquery-ui/jquery-ui.js",
-        "public/lib/bootstrap/dist/js/bootstrap.min.js": "public/lib/bootstrap/dist/js/bootstrap.js",
-        "public/lib/fastclick/lib/fastclick.js": "public/lib/fastclick/lib/fastclick.js",
-        "public/lib/angular/angular.min.js": "public/lib/angular/angular.js",
-        "public/lib/angular-route/angular-route.min.js": "public/lib/angular-route/angular-route.js",
-        "public/lib/angular-resource/angular-resource.min.js": "public/lib/angular-resource/angular-resource.js",
-        "public/lib/angular-animate/angular-animate.min.js": "public/lib/angular-animate/angular-animate.js",
-        "public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js": "public/lib/angular-bootstrap/ui-bootstrap-tpls.js",
-        "public/lib/angular-touch/angular-touch.min.js": "public/lib/angular-touch/angular-touch.js",
-        "public/lib/venturocket-angular-slider/build/angular-slider.min.js": "public/lib/venturocket-angular-slider/build/angular-slider.min.js",
-        "public/lib/raphael/raphael-min.js": "public/lib/raphael/raphael.js",
-        "public/lib/justgage-toorshia/justgage.js": "public/lib/justgage-toorshia/justgage.js",
-        "public/lib/angular-justgage/ng-justgage.js": "public/lib/angular-justgage/ng-justgage.js",
-        "public/lib/angular-ui-sortable/sortable.min.js": "public/lib/angular-ui-sortable/sortable.js",
-        "public/lib/angular-xeditable/dist/js/xeditable.min.js": "public/lib/angular-xeditable/dist/js/xeditable.js",
-        "public/lib/angular-flash/dist/angular-flash.min.js": "public/lib/angular-flash/dist/angular-flash.js",
-        "public/lib/nsPopover/src/nsPopover.js": "public/lib/nsPopover/src/nsPopover.js",
+        "public/assets/lib/jquery/dist/jquery.min.js": "public/assets/lib/jquery/dist/jquery.js",
+        "public/assets/lib/jquery-ui/jquery-ui.min.js": "public/assets/lib/jquery-ui/jquery-ui.js",
+        "public/assets/lib/bootstrap/dist/js/bootstrap.min.js": "public/assets/lib/bootstrap/dist/js/bootstrap.js",
+        "public/assets/lib/fastclick/lib/fastclick.js": "public/assets/lib/fastclick/lib/fastclick.js",
+        "public/assets/lib/angular/angular.min.js": "public/assets/lib/angular/angular.js",
+        "public/assets/lib/angular-route/angular-route.min.js": "public/assets/lib/angular-route/angular-route.js",
+        "public/assets/lib/angular-resource/angular-resource.min.js": "public/assets/lib/angular-resource/angular-resource.js",
+        "public/assets/lib/angular-sanitize/angular-sanitize.min.js": "public/assets/lib/angular-sanitize/angular-sanitize.js",
+        "public/assets/lib/angular-animate/angular-animate.min.js": "public/assets/lib/angular-animate/angular-animate.js",
+        "public/assets/lib/angular-bootstrap/ui-bootstrap-tpls.min.js": "public/assets/lib/angular-bootstrap/ui-bootstrap-tpls.js",
+        "public/assets/lib/angular-ui-scrollpoint/dist/scrollpoint.min.js": "public/assets/lib/angular-ui-scrollpoint/dist/scrollpoint.js",
+        "public/assets/lib/angularjs-slider/dist/rzslider.min.js": "public/assets/lib/angularjs-slider/rzslider.js",
+        "public/assets/lib/raphael/raphael-min.js": "public/assets/lib/raphael/raphael.js",
+        "public/assets/lib/justgage-toorshia/justgage.js": "public/assets/lib/justgage-toorshia/justgage.js",
+        "public/assets/lib/angular-justgage/ng-justgage.js": "public/assets/lib/angular-justgage/ng-justgage.js",
+        "public/assets/lib/angular-ui-sortable/sortable.min.js": "public/assets/lib/angular-ui-sortable/sortable.js",
+        "public/assets/lib/angular-xeditable/dist/js/xeditable.min.js": "public/assets/lib/angular-xeditable/dist/js/xeditable.js",
+        "public/assets/lib/angular-flash/dist/angular-flash.min.js": "public/assets/lib/angular-flash/dist/angular-flash.js",
+        "public/assets/lib/nsPopover/src/nsPopover.js": "public/assets/lib/nsPopover/src/nsPopover.js",
+        "public/assets/lib/angular-cookies/angular-cookies.min.js": "public/assets/lib/angular-cookies/angular-cookies.js",
+        "public/assets/lib/slick.js/slick/slick.min.js": "public/assets/lib/slick.js/slick/slick.js",
+        "public/assets/lib/angular-slick/dist/slick.min.js": "public/assets/lib/angular-slick/dist/slick.js",
+        "public/assets/lib/angular-base64/angular-base64.min.js": "public/assets/lib/angular-base64/angular-base64.js",
+        "public/assets/lib/angular-utils-pagination/dirPagination.js": "public/assets/lib/angular-utils-pagination/dirPagination.js",
         "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"
     }
   },
@@ -36,16 +45,15 @@
 
   "client": {
     "css": {
-      "public/css/client.min.css": [
-        "public/css/*.css"
+      "public/assets/css/client.min.css": [
+        "public/assets/css/*.css"
       ]
     },
 
     "js": {
-      "public/js/client.min.js": [
-        "public/js/app.js",
-        "public/js/*.js",
-        "public/js/**/*.js"
+      "public/app/client.min.js": [
+        "public/app/app.js",
+        "public/app/**/*.js"
       ]
     }
   }

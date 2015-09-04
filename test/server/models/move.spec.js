@@ -32,7 +32,7 @@ describe('Moves', function() {
     it('should save without error', function(done) {
       var _move = new Move(globalMove);
       _move.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         _move.remove();
         done();
       });

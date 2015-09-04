@@ -8,7 +8,7 @@ describe('AuthService', function() {
   var user;
 
   before(function() {
-    user = {name: 'userName', id: 'userId', roles: []};
+    user = {name: 'userName', id: 'userId'};
   });
 
   describe('with a user set', function() {
@@ -22,22 +22,22 @@ describe('AuthService', function() {
     }));
 
     it('should get the user set on the $window', function() {
-      expect(AuthService.getUser()).to.exist();
+      expect(AuthService.getUser()).to.exist;
       AuthService.getUser().should.eql(user);
     });
 
     it('should be authenticated with a user', function() {
-      AuthService.isAuthenticated().should.be.true();
+      AuthService.isAuthenticated().should.be.true;
     });
 
     it('should be able to clear the user', function() {
       AuthService.clearUser();
-      expect(AuthService.getUser()).to.be.null();
+      expect(AuthService.getUser()).to.be.null;
     });
 
     it('should not be authenticated if the user is cleared', function() {
       AuthService.clearUser();
-      AuthService.isAuthenticated().should.not.be.true();
+      AuthService.isAuthenticated().should.not.be.true;
     });
 
     describe('logout', function() {
@@ -58,7 +58,7 @@ describe('AuthService', function() {
         });
 
         $httpBackend.expectGET('/logout').respond({});
-        $httpBackend.expectGET('/partials/index.html').respond({});
+        $httpBackend.expectGET('/app/home/home.html').respond({});
       });
 
 
@@ -67,7 +67,7 @@ describe('AuthService', function() {
       });
 
       var logoutExpectations = function() {
-        expect($window.user).to.be.null();
+        expect($window.user).to.be.null;
         clearSpy.should.have.callCount(1);
 
         routeStub.should.have.callCount(1);
@@ -105,15 +105,15 @@ describe('AuthService', function() {
 
 
     it('should start with no user', function() {
-      expect(AuthService.getUser()).to.be.null();
+      expect(AuthService.getUser()).to.be.null;
     });
 
     it('should not start authenticated', function() {
-      AuthService.isAuthenticated().should.not.be.true();
+      AuthService.isAuthenticated().should.not.be.true;
     });
 
     it('should allow setting a user', function() {
-      expect(AuthService.getUser()).to.be.null();
+      expect(AuthService.getUser()).to.be.null;
       AuthService.setUser(user);
       AuthService.getUser().should.eql(user);
     });
@@ -131,8 +131,38 @@ describe('AuthService', function() {
 
 
     it('should not be authenticated', function() {
-      expect(AuthService.getUser()).to.not.be.null();
-      AuthService.isAuthenticated().should.not.be.true();
+      expect(AuthService.getUser()).to.not.be.null;
+      AuthService.isAuthenticated().should.not.be.true;
+    });
+  });
+
+  describe('canEdit', function() {
+    beforeEach(inject(function(_$window_) {
+      $window = _$window_;
+      $window.user = {};
+    }));
+
+    beforeEach(inject(function(_AuthService_) {
+      AuthService = _AuthService_;
+    }));
+
+    it('should return false if the flow is not valid', function() {
+      AuthService.canEdit(null).should.be.false;
+      AuthService.canEdit({name: 'flow'}).should.be.false;
+    });
+
+    it('should return false if no user is logged in', function() {
+      AuthService.canEdit({name: 'flow', author: { id: 'authorId' }}).should.be.false;
+    });
+
+    it('should return false if the author and user do not match', function() {
+      AuthService.setUser({id: 'userId'});
+      AuthService.canEdit({name: 'flow', author: { id: 'authorId' }}).should.be.false;
+    });
+
+    it('should allow editing on a match', function() {
+      AuthService.setUser({id: 'authorId'});
+      AuthService.canEdit({name: 'flow', author: { id: 'authorId' }}).should.be.true;
     });
   });
 });

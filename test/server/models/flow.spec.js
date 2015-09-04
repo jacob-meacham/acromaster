@@ -1,30 +1,26 @@
 'use strict';
 
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
+Promise.promisifyAll(mongoose);
 var mockgoose = require('mockgoose');
-var chai = require('chai');
-var async = require('async');
-require('../../../server/models/flow.js');
-require('../../../server/models/move.js');
-require('../../../server/models/user.js');
-var async = require('async');
+mockgoose(mongoose);
 
+var Flow = require('../../../server/models/flow');
+var Move = require('../../../server/models/move');
+var User = require('../../../server/models/user');
+
+var chai = require('chai');
 chai.should();
 var expect = chai.expect;
-
-mockgoose(mongoose);
 
 var flow1, flow2;
 var move1, move2;
 var user;
-var Flow = mongoose.model('Flow');
-var Move = mongoose.model('Move');
-var User = mongoose.model('User');
 
-var saveFlow = function(flow, next) {
-  flow.save(function(err) {
-    expect(err).to.not.exist();
-    next(null, null);
+var saveFlow = function(flow) {
+  return flow.saveAsync().catch(function(err) {
+    expect(err).to.not.exist;
   });
 };
 
@@ -73,30 +69,21 @@ describe('Flow Model', function() {
     };
   });
 
-  beforeEach(function(done) {
+  after(function() {
+    mockgoose.reset();
+  });
+
+  beforeEach(function() {
     mockgoose.reset();
 
-    async.parallel([
-      function(cb) {
-        new Move(move1).save(cb);
-      },
-      function(cb) {
-        new Move(move2).save(cb);
-      },
-      function(cb) {
-        user.save(cb);
-      }
-    ], function(err) {
-      expect(err).to.not.exist();
-      done();
-    });
+    return Promise.all([new Move(move1).saveAsync(), new Move(move2).saveAsync()]);
   });
   
   describe('save()', function() {
     it('should save without error', function(done) {
       var _flow = new Flow(flow1);
       _flow.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         done();
       });
     });
@@ -104,200 +91,157 @@ describe('Flow Model', function() {
     it('should save a flow without an author without error', function(done) {
       var _flow = new Flow(flow2);
       _flow.save(function(err) {
-        expect(err).to.not.exist();
+        expect(err).to.not.exist;
         done();
       });
     });
 
-    it('should be able to update flow without error', function(done) {
+    it('should be able to update flow without error', function() {
       var _flow = new Flow(flow1);
-      _flow.save(function(err) {
-        expect(err).to.not.exist();
-
+      _flow.saveAsync().then(function() {
         _flow.name = 'NewFlow';
-        _flow.save(function(err) {
-          expect(err).to.not.exist();
-          _flow.name.should.equal('NewFlow');
-          done();
-        });
+        _flow.saveAsync();
+      }).then(function() {
+        _flow.name.should.equal('NewFlow');
       });
     });
 
-    it('should be able to save two flows with the same name', function(done) {
+    it('should be able to save two flows with the same name', function() {
       var _flow1 = new Flow(flow1);
-      _flow1.save(function(err) {
-        expect(err).to.not.exist();
-
+      return _flow1.saveAsync().then(function() {
         var _flow2 = new Flow(flow1);
-        _flow2.save(function(err) {
-          expect(err).to.not.exist();
-          done();
-        });
+        _flow2.saveAsync();
       });
     });
   });
 
   describe('load()', function() {
-    it('should load with all moves intact', function(done) {
-      Move.list({}, function(err, moves) {
-        expect(err).to.not.exist();
+    it('should load with all moves intact', function() {
+      return Move.list({}).then(function(moves) {
         var _flow = new Flow(flow1);
-
         var move = { 'duration': 10, 'move': moves[0] };
         _flow.moves.push(move);
 
         move = {'duration': 20, 'move': moves[1] };
         _flow.moves.push(move);
 
-        async.parallel([
-          function(cb) {
-            _flow.save(cb);
-          },
-          function(cb) {
-            _flow.populate('moves.move', function(err) {
-              expect(err).to.not.exist();
-              _flow.moves.should.have.length(2);
-              _flow.moves[1].move.name.should.equal('New Move 2');
-              cb();
-            });
-          }], done);
+        return _flow.populateAsync('moves.move');
+      }).then(function(_flow) {
+        _flow.moves.should.have.length(2);
+        _flow.moves[1].move.name.should.equal('New Move 2');
       });
     });
 
-    it('should load by id', function(done) {
+    it('should load by id', function() {
       var _flow = new Flow(flow1);
-      async.waterfall([
-        function(next) {
-          _flow.save(next);
-        },
-
-        function() {
-          Flow.load(_flow._id, function(err, loaded_flow) {
-            expect(err).to.not.exist();
-            loaded_flow.name.should.equal(_flow.name);
-            done();
-          });
-        }
-      ]);
+      return _flow.saveAsync().then(function() {
+        return Flow.load(_flow._id);
+      }).then(function(loaded_flow) {
+        loaded_flow.name.should.equal(_flow.name);
+      });
     });
   });
 
   describe('list()', function() {
-    it('should start with an empty list', function(done) {
-      Flow.find({}, function(err, flows) {
+    it('should start with an empty list', function() {
+      Flow.find({}).exec().then(function(flows) {
         flows.should.have.length(0);
-        done();
       });
     });
 
-    it('should list multiple flows', function(done) {
-      async.waterfall([
-        function(next) {
-          saveFlow(new Flow(flow1), next);
-        },
-
-        function(result, next) {
-          saveFlow(new Flow(flow2), next);
-        },
-
-        function() {
-          Flow.list({}, function(err, flows) {
-            expect(err).to.not.exist();
-            flows.should.have.length(2);
-            flows[0].name.should.equal('Yet Another Flow');
-
-            done();
-          });
-        }
-      ]);
+    it('should list multiple flows', function() {
+      return Promise.all([saveFlow(new Flow(flow1)), saveFlow(new Flow(flow2))]).then(function() {
+        return Flow.list({});
+      }).then(function(flows) {
+        flows.should.have.length(2);
+        flows[0].name.should.equal('Yet Another Flow');
+      });
     });
 
-    it('should sort by the passed in option', function(done) {
-      async.waterfall([
-        function(next) {
-          saveFlow(new Flow(flow1), next);
-        },
+    it('should sort by the passed in option', function() {
+      return saveFlow(new Flow(flow1)).then(function() {
+        return saveFlow(new Flow(flow2));
+      }).then(function() {
+        var user = new User({name: 'Charlie', email: 'charlie_is_gr8@awesome.com'});
+        return user.saveAsync();
+      }).then(function(author) {
+        return saveFlow(new Flow({name: 'A Third Flow', author: author, createdAt: '12/10/1900'}));
+      }).then(function() {
+        return Flow.list({sortBy: 'name'});
+      }).then(function(flows) {
+        flows.should.have.length(3);
 
-        function(result, next) {
-          saveFlow(new Flow(flow2), next);
-        },
-
-        function(result, next) {
-          var userSchema = {
-            name: 'Charlie',
-            email: 'charlie_is_gr8@awesome.com'
-          };
-
-          var user = new User(userSchema);
-          user.save(function(err, savedUser) {
-            expect(err).to.not.exist();
-            next(null, savedUser);
-          });
-        },
-
-        function(author, next) {
-          saveFlow(new Flow({name: 'A Third Flow', author: author, createdAt: '12/10/1900'}), next);
-        },
-
-        function() {
-          Flow.list({sortBy: 'name'}, function(err, flows) {
-            expect(err).to.not.exist();
-            flows.should.have.length(3);
-
-            flows[0].name.should.equal('Yet Another Flow');
-            flows[1].name.should.equal('Flow 1');
-            flows[2].name.should.equal('A Third Flow');
-            
-            
-            done();
-          });
-        }
-      ]);
+        flows[0].name.should.equal('Yet Another Flow');
+        flows[1].name.should.equal('Flow 1');
+        flows[2].name.should.equal('A Third Flow');
+      });
     });
 
-    it('should list by pages', function(done) {
-      async.waterfall([
-        function(next) {
-          saveFlow(new Flow(flow1), next);
-        },
+    it('should list by pages', function() {
+      var flows = [saveFlow(new Flow(flow1)), saveFlow(new Flow(flow2)), saveFlow(new Flow({name: 'Flow 3'}))];
 
-        function(result, next) {
-          saveFlow(new Flow(flow2), next);
-        },
+      return Promise.all(flows).then(function() {
+        return Flow.list({max: 2, page: 0});
+      }).then(function(flows) {
+        flows.should.have.length(2);
+        flows[0].name.should.equal('Flow 3');
+        flows[1].name.should.equal('Yet Another Flow');
+      }).then(function() {
+        return Flow.list({max: 2, page: 2});
+      }).then(function(flows) {
+        return flows.should.have.length(0);
+      });
+    });
+  });
 
-        function(result, next) {
-          saveFlow(new Flow({name: 'Flow 3'}), next);
-        },
-        
-        function(err, next) {
-          expect(err).to.not.exist();
-          Flow.list({perPage: 2, page: 0}, function(err2, flows) {
-            expect(err2).to.not.exist();
-            flows.should.have.length(2);
-            flows[0].name.should.equal('Flow 3');
-            flows[1].name.should.equal('Yet Another Flow');
-            next(null, null);
-          });
-        },
+  describe('listByUser()', function() {
+    it('should list flows by the given user', function() {
+      var flows = [saveFlow(new Flow(flow1)), saveFlow(new Flow(flow2)), saveFlow(new Flow({name: 'Flow 3', author: user}))];
 
-        function(err, next) {
-          expect(err).to.not.exist();
-          Flow.list({perPage: 2, page: 1}, function(err2, flows) {
-            expect(err2).to.not.exist();
-            flows.should.have.length(1);
-            flows[0].name.should.equal('Flow 1');
-            next(null, null);
-          });
-        },
+      return Promise.all(flows).then(function() {
+        return Flow.listByUser(user._id, {});
+      }).then(function(flows) {
+        flows.should.have.length(2);
+        return Flow.listByUser(user._id, {max: 1, page: 0});
+      }).then(function(flows) {
+        flows.should.have.length(1);
+        return Flow.listByUser(user._id, {max: 10, page: 1});
+      }).then(function(flows) {
+        flows.should.have.length(0);
+      });
+    });
 
-        function() {
-          Flow.list({perPage: 2, page: 2}, function(err, flows) {
-            expect(err).to.not.exist();
-            flows.should.have.length(0);
-            done();
-          });
-        }
-      ]);
+    it('should return the count of flows by the user', function() {
+      var flows = [saveFlow(new Flow(flow1)), saveFlow(new Flow(flow2)), saveFlow(new Flow({name: 'Flow 3', author: user}))];
+      return Promise.all(flows).then(function() {
+        return Flow.countByUser(user._id);
+      }).then(function(count) {
+        count.should.eql(2);
+      });
+    });
+  });
+
+  describe('recordPlayed()', function() {
+    it('should record a play event', function() {
+      return saveFlow(new Flow(flow1)).then(function() {
+        return Flow.recordPlayed(flow1._id, user._id);
+      }).then(function(flow) {
+        flow.playCount.should.eql(1);
+        flow.plays[0].should.eql(user._id);
+      });
+    });
+
+    it('should not record duplicate players', function() {
+      return saveFlow(new Flow(flow1)).then(function() {
+        return Flow.recordPlayed(flow1._id, user._id);
+      }).then(function(flow) {
+        flow.playCount.should.eql(1);
+        flow.plays[0].should.eql(user._id);
+        return Flow.recordPlayed(flow1._id, user._id);
+      }).then(function(flow) {
+        flow.playCount.should.eql(2);
+        flow.plays.should.have.length(1);
+      });
     });
   });
 });

@@ -1,0 +1,33 @@
+/* line 1, ../sass/flow-likes.scss */
+.like-button {
+  color: #A8AEB2;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+}
+
+/* line 8, ../sass/flow-likes.scss */
+.like-button:focus,
+.like-button:hover {
+  color: #65686B;
+  text-decoration: none;
+}
+
+/* line 14, ../sass/flow-likes.scss */
+.like-button.liked {
+  color: #c12b32;
+}
+
+/* line 18, ../sass/flow-likes.scss */
+.like-button.liked:focus,
+.like-button.liked:hover {
+  color: #871E23;
+}
+
+/* line 23, ../sass/flow-likes.scss */
+.like-count {
+  font-size: 0.8em;
+  padding-bottom: 2px;
+  position: absolute;
+  left: 25px;
+}

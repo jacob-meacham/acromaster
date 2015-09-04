@@ -1,37 +1,32 @@
 'use strict';
 
-var request = require('supertest');
+var request = require('supertest-as-promised');
 var app = require('../../../server');
-var express = require('express');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
-var async = require('async');
-require('../../../server/models/flow.js');
-require('../../../server/models/move.js');
+var Flow = require('../../../server/models/flow');
+var Move = require('../../../server/models/move');
+var User = require('../../../server/models/user');
+var Promise = require('bluebird');
 
+Promise.promisifyAll(mongoose);
 mockgoose(mongoose);
 
-var chai = require('chai');
-chai.should();
-
-var expect = chai.expect;
-
-require('sinon');
+var sinon = require('sinon');
+require('sinon-as-promised');
 require('mocha-sinon');
-var sinonChai = require('sinon-chai');
-chai.use(sinonChai);
+var chai = require('chai');
+var expect = chai.expect;
+chai.should();
+chai.use(require('sinon-chai'));
 
-var Flow = mongoose.model('Flow');
-var Move = mongoose.model('Move');
-var User = mongoose.model('User');
-
-var author1, author2;
-var flow1, flow2, flow3;
-var move1, move2;
-
-// TODO: this should be mocked
 describe('/api/flow', function() {
-  before(function(done) {
+  var authedApp;
+  var author1, author2;
+  var flow1, flow2, flow3;
+  var move1, move2;
+
+  beforeEach(function() {
     var _move = {
       name: 'New Move',
       difficulty: 5,
@@ -55,6 +50,7 @@ describe('/api/flow', function() {
       email: 'test.foo@test.com'
     };
     author1 = new User(_user);
+    authedApp = require('./utils/authedApp')(app).withUser(author1);
 
     _user = {
         name: 'Abigail',
@@ -92,50 +88,39 @@ describe('/api/flow', function() {
       flow3 = new Flow(_flow);
     };
 
-    async.waterfall([
-      function(cb) {
-        move1.save(cb);
-      },
-      function(res, cb) {
-        move2.save(cb);
-      },
-      function(res, cb) {
-        author1.save(cb);
-      },
-      function(res, cb) {
-        author2.save(cb);
-      },
-      function(res, cb) {
-        setupFlows();
-        cb(null, null);
-      },
-      function(res, cb) {
-        flow1.save(cb);
-      },
-      function(res, cb) {
-        flow2.save(cb);
-      },
-      function(res, cb) {
-        flow3.save(cb);
-      }
-      ], function(err) {
-        expect(err).to.not.exist();
-        done();
-      });
+    return Promise.all([move1.saveAsync(), move2.saveAsync(), author1.saveAsync(), author2.saveAsync()]).then(function() {
+      setupFlows();
+
+      return Promise.all([flow1.saveAsync(), flow2.saveAsync(), flow3.saveAsync()]);
+    });
   });
 
-  describe('POST /api/flow', function() {
-    it('should not create with an empty body', function(done) {
-      request(app)
+  after(function() {
+    mockgoose.reset();
+  });
+
+  var sandbox;
+  beforeEach(function() {
+    sandbox = sinon.sandbox.create();
+  });
+
+  afterEach(function() {
+    sandbox.restore();
+    mockgoose.reset();
+  });
+
+  describe('POST', function() {
+    it('should not create with an empty body', function() {
+      return request(app)
         .post('/api/flow')
         .send({})
         .expect(500)
         .expect('Content-Type', /json/)
-        .expect(/ValidationError/, done);
+        .expect(/ValidationError/);
     });
 
-    it('should create with a name', function(done) {
-      request(app)
+    it('should create with a name', function() {
+      return request(app)
         .post('/api/flow')
         .send({name: 'My Flow'})
         .expect(200)
@@ -143,56 +128,49 @@ describe('/api/flow', function() {
         .expect(function(res) {
           res.body.should.have.property('name');
           res.body.name.should.equal('My Flow');
-          expect(res.body.author).to.be.undefined();
-        })
-        .end(done);
+          expect(res.body.author).to.be.undefined;
+        });
     });
 
-    describe('authenticated', function() {
-      var authedApp;
-      beforeEach(function() {
-        authedApp = express();
-        authedApp.all('*', function(req, res, next) {
-          req.user = author1;
-          next();
+    it('should use the logged in user as the author', function() {
+      return request(authedApp)
+        .post('/api/flow')
+        .send({name: 'Yet Another Flow'})
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          res.body.should.have.property('name');
+          res.body.name.should.equal('Yet Another Flow');
+          res.body.author.should.equal(author1._id);
         });
-        authedApp.use(app);
-      });
-      it('should use the logged in user as the author', function(done) {
-        request(authedApp)
-          .post('/api/flow')
-          .send({name: 'Yet Another Flow'})
-          .expect(200)
-          .expect('Content-Type', /json/)
-          .expect(function(res) {
-            res.body.should.have.property('name');
-            res.body.name.should.equal('Yet Another Flow');
-            res.body.author.should.equal(author1._id);
-          })
-          .end(done);
-      });
+    });
+
+    it('should not allow overwriting a flow with an author', function() {
+      return request(authedApp)
+        .post('/api/flow')
+        .send({name: 'A Flow!', author: author2})
+        .expect(401);
     });
   });
 
-  describe('GET /api/flow/:flowId', function() {
-    it('should return an error with an invalid id', function(done) {
-      request(app)
+  describe('/:flowId GET', function() {
+    it('should return an error with an invalid id', function() {
+      return request(app)
         .get('/api/flow/0')
-        .expect(500, done);
+        .expect(500);
     });
 
-    it('should return an error when the flow is not found', function(done) {
-      request(app)
+    it('should return an error when the flow is not found', function() {
+      return request(app)
         .get('/api/flow/54b756f3ccc62d70143fd7ea')
         .expect(500)
         .expect(function(res) {
           res.body.error.should.match(/Failed to load flow/);
-        })
-        .end(done);
+        });
     });
 
-    it('should return the correct flow when asked', function(done) {
-      request(app)
+    it('should return the correct flow when asked', function() {
+      return request(app)
         .get('/api/flow/' + flow1._id)
         .expect(200)
         .expect('Content-Type', /json/)
@@ -200,12 +178,11 @@ describe('/api/flow', function() {
           var _flow = res.body;
           _flow.name.should.equal(flow1.name);
           _flow.author.name.should.equal(author1.name);
-        })
-        .end(done);
+        });
     });
 
-    it('should only return the author name and id', function(done) {
-      request(app)
+    it('should only return the author name and id', function() {
+      return request(app)
         .get('/api/flow/' + flow1._id)
         .expect(200)
         .expect('Content-Type', /json/)
@@ -213,145 +190,193 @@ describe('/api/flow', function() {
           var _flow = res.body;
           _flow.name.should.equal(flow1.name);
           _flow.author.name.should.equal(author1.name);
-          expect(_flow.author._id).to.exist();
-          expect(_flow.author.email).to.not.exist();
-        })
-        .end(done);
+          expect(_flow.author.id).to.exist;
+          expect(_flow.author.email).to.not.exist;
+        });
+    });
+
+    it('should return an error from the backing db', function() {
+      sandbox.stub(Flow, 'load').rejects('bad id');
+      return request(app)
+        .get('/api/flow/' + flow1._id)
+        .expect(500)
+        .expect(function(res) {
+          res.body.error.should.match(/bad id/);
+        });
     });
   });
   
-  describe('PUT /api/flow/:flowId', function() {
-    it('should return an error with an invalid id', function(done) {
-      request(app)
+  describe('/:flowId PUT', function() {
+    it('should return an error with an invalid id', function() {
+      return request(app)
         .put('/api/flow/0')
-        .expect(500, done);
+        .expect(500);
     });
 
-    it('should return an error if there is no session, and the flow has an author', function(done) {
-      request(app)
+    it('should return an error if there is no session, and the flow has an author', function() {
+      return request(app)
         .put('/api/flow/' + flow1._id)
         .send({})
-        .expect(401)
-        .end(done);
+        .expect(401);
     });
 
-    it('should update without errors with no flow author', function(done) {
-      request(app)
+    it('should not update with no flow author', function() {
+      return request(app)
         .put('/api/flow/' + flow3._id)
         .send({moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }]})
+        .expect(401);
+    });
+
+    it('should return an error if the user is not the flow author', function() {
+      return request(authedApp)
+        .put('/api/flow/' + flow2._id)
+        .send({})
+        .expect(401);
+    });
+
+    it('should be a no op with an empty body', function() {
+      return request(authedApp)
+        .put('/api/flow/' + flow1._id)
+        .send({})
+        .expect(200)
+        .expect(function(res) {
+          var _flow = res.body;
+          _flow.moves.length.should.eql(flow1.moves.length);
+          _flow.name.should.eql(flow1.name);
+          _flow.author.name.should.eql(author1.name);
+        });
+    });
+
+    it('should update without errors', function() {
+      var update = {
+        moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }],
+        description: 'My new description',
+        name: 'My new name',
+        playCount: 1000
+      };
+
+      return request(authedApp)
+        .put('/api/flow/' + flow1._id)
+        .send(update)
         .expect(200)
         .expect(function(res) {
           var _flow = new Flow(res.body);
           _flow.moves.length.should.equal(2);
-        })
-        .end(done);
-    });
-
-    describe('authenticated', function() {
-      var authedApp;
-      beforeEach(function() {
-        authedApp = express();
-        authedApp.all('*', function(req, res, next) {
-          req.user = author1;
-          next();
+          _flow.description.should.eql('My new description');
+          _flow.name.should.eql('My new name');
+          _flow.playCount.should.eql(0);
         });
-        authedApp.use(app);
-      });
-      
-      it('should return an error if the user is not the flow author', function(done) {
-        request(authedApp)
-          .put('/api/flow/' + flow2._id)
-          .send({})
-          .expect(401)
-          .end(done);
-      });
-
-      it('should be a no op with an empty body', function(done) {
-        request(authedApp)
-          .put('/api/flow/' + flow1._id)
-          .send({})
-          .expect(200)
-          .expect(function(res) {
-            var _flow = res.body;
-            _flow.name.should.equal(flow1.name);
-            _flow.author.name.should.eql(author1.name);
-          })
-          .end(done);
-      });
-
-      it('should update without errors', function(done) {
-        request(authedApp)
-          .put('/api/flow/' + flow1._id)
-          .send({moves: [{ 'duration': 10, 'move': move1._id }, { 'duration': 20, 'move': move2._id }]})
-          .expect(200)
-          .expect(function(res) {
-            var _flow = new Flow(res.body);
-            _flow.moves.length.should.equal(2);
-          })
-          .end(done);
-      });
     });
   });
 
-  describe('GET /api/flow', function() {
-    it('should list all flows', function(done) {
-      request(app)
-        .get('/api/flow')
-        .set('Accept', 'application/json')
+  describe('/:flowId DELETE', function() {
+    it('should delete the flow', function() {
+      var stubFlow = { removeAsync: function() {} };
+      var removeStub = sandbox.stub(stubFlow, 'removeAsync').resolves({});
+      sandbox.stub(Flow, 'load').resolves(stubFlow);
+
+      return request(authedApp)
+        .delete('/api/flow/' + flow1._id)
         .expect(200)
-        .expect(function(res) {
-          res.body.flows.should.have.length(5);
-          res.body.flows[0].name.should.equal('Yet Another Flow');
-          res.body.flows[1].name.should.equal('My Flow');
-        })
-        .end(done);
+        .expect(function() {
+          removeStub.should.have.callCount(1);
+        });
     });
 
-    it('should list by pages', function(done) {
-      request(app)
+    it('should not delete the flow if the author does not match', function() {
+      return request(app)
+        .delete('/api/flow/' + flow1._id)
+        .expect(401).then(function() {
+          var _user = {
+            name: 'Bobby',
+            username: 'bobby',
+            email: 'test.foo@test.com'
+          };
+
+          var wrongAuthedApp = require('./utils/authedApp')(app).withUser(new User(_user));
+          return request(wrongAuthedApp)
+            .delete('/api/flow/' + flow1._id)
+            .expect(401);
+        });
+    });
+  });
+
+  describe('/ GET', function() {
+    it('should list all flows', function() {
+      return request(app)
+        .get('/api/flow')
+        .expect(200)
+        .expect(function(res) {
+          res.body.flows.should.have.length(3);
+          res.body.flows[0].name.should.equal('Flow');
+          res.body.flows[1].name.should.equal('Flow 3');
+        });
+    });
+
+    it('should list by pages', function() {
+      return request(app)
         .get('/api/flow')
         .query({page: 1})
-        .set('Accept', 'application/json')
         .expect(200)
         .expect(function(res) {
           res.body.flows.should.have.length(3);
           res.body.page.should.equal(1);
-          res.body.pages.should.equal(1);
+          res.body.total.should.equal(3);
+        }).then(function() {
+          request(app)
+            .get('/api/flow')
+            .query({page: 2})
+            .expect(200)
+            .expect(function(res) {
+              res.body.flows.should.have.length(0);
+              res.body.page.should.equal(2);
+              res.body.total.should.equal(3);
+            });
         });
-
-      request(app)
-        .get('/api/flow')
-        .query({page: 2})
-        .set('Accept', 'application/json')
-        .expect(200)
-        .expect(function(res) {
-          res.body.flows.should.have.length(0);
-          res.body.page.should.equal(2);
-          res.body.pages.should.equal(1);
-        })
-        .end(done);
     });
 
-    it('should return an error if list fails', function(done) {
-      var stub = this.sinon.stub(Flow, 'list', function(options, callback) {
-        callback('Stub error');
-      });
+    it('should return an error if list fails', function() {
+      var stub = sandbox.stub(Flow, 'list');
+      stub.rejects('Stub error');
 
-      request(app)
+      return request(app)
         .get('/api/flow')
-        .set('Accept', 'application/json')
         .expect(500)
         .expect(function(res) {
-          stub.should.have.been.callCount(1);
-          res.body.error.should.equal('Stub error');
-        })
-        .end(done);
+          stub.should.have.callCount(1);
+          res.body.error.should.equal('Error: Stub error');
+        });
+    });
+
+    it('should do full-text search', function() {
+      var listSpy = sandbox.spy(Flow, 'list');
+
+      return request(app)
+        .get('/api/flow')
+        .query({search_query: 'Flow'})
+        .expect(200)
+        .expect(function() {
+          listSpy.should.have.callCount(1);
+          var args = listSpy.getCall(0).args[0];
+          args.should.have.property('searchQuery');
+          args.searchQuery.should.eql({ $text: { $search: 'Flow' }});
+        });
+      });
+
+    it('should return a random selection', function() {
+      return request(app)
+        .get('/api/flow')
+        .query({random: true, max: 2})
+        .expect(200)
+        .expect(function(res) {
+          res.body.flows.should.have.length(2);
+        });
     });
   });
 
-  describe('GET /api/flow/generate', function() {
-    it('should return JSON', function(done) {
-      request(app)
+  describe('/generate', function() {
+    it('should return JSON', function() {
+      return request(app)
         .get('/api/flow/generate')
         .set('Accept', 'application/json')
         .query({totalTime:'10', timePerMove:'10'})
@@ -360,83 +385,242 @@ describe('/api/flow', function() {
           res.body.should.have.property('name');
           res.body.should.have.property('moves');
         })
-        .expect(200, done);
+        .expect(200);
     });
 
-    it('should fail without total time', function(done) {
-      request(app)
+    it('should fail without total time', function() {
+      return request(app)
         .get('/api/flow/generate')
         .set('Accept', 'application/json')
         .query({timePerMove:'10'})
         .expect('Content-Type', /json/)
         .expect(400)
-        .expect({error: 'totalTime and timePerMove required'}, done);
+        .expect({error: 'totalTime and timePerMove required'});
     });
 
-    it('should fail without time per move', function(done) {
-      request(app)
+    it('should fail without time per move', function() {
+      return request(app)
         .get('/api/flow/generate')
         .set('Accept', 'application/json')
         .query({totalTime:'10'})
         .expect('Content-Type', /json/)
         .expect(400)
-        .expect({error: 'totalTime and timePerMove required'}, done);
+        .expect({error: 'totalTime and timePerMove required'});
     });
 
-    it('should fail if the Move find fails', function(done) {
-      var stub = this.sinon.stub(Move, 'list', function(query, callback) {
-        callback('Stub error', null);
-      });
+    it('should fail if querying fails', function() {
+      var stub = sandbox.stub(Move, 'list');
+      stub.rejects('Stub error');
 
-      request(app)
+      return request(app)
         .get('/api/flow/generate')
         .set('Accept', 'application/json')
         .query({totalTime:'10', timePerMove:'10'})
         .expect(500)
         .expect(function(res) {
           stub.should.have.been.callCount(1);
-          res.body.error.should.equal('Stub error');
-        })
-        .end(done);
+          res.body.error.should.equal('Error: Stub error');
+        });
+    });
+
+    it('should allow setting flow name and user', function() {
+      return request(authedApp)
+        .get('/api/flow/generate')
+        .set('Accept', 'application/json')
+        .query({totalTime:'10', timePerMove:'10', flowName: 'haha a new flow'})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect(function(res) {
+          res.body.author.should.eql(author1._id);
+          res.body.name.should.eql('haha a new flow');
+        });
     });
   });
 
-  describe('GET /api/moves', function() {
-    it('should return the set of moves with an empty', function(done) {
-      request(app)
-        .get('/api/moves')
-        .expect('Content-Type', /json/)
+  describe('/likes POST', function() {
+    it('should return success when liking a flow that exists', function() {
+      return request(authedApp)
+        .post('/api/flow/' + flow1._id + '/likes')
         .expect(200)
         .expect(function(res) {
-          res.body.should.have.length(2);
-          res.body[0].name.should.equal('New Move');
-        })
-        .end(done);
+          res.body.likes.should.eql(1);
+        });
     });
 
-    it('should return a particular move with a query', function(done) {
-      request(app)
-        .get('/api/moves')
-        .query({name: 'New Move'})
-        .expect('Content-Type', /json/)
+    it('should not error if liking twice', function() {
+      return request(authedApp)
+        .post('/api/flow/' + flow1._id + '/likes')
         .expect(200)
-        .expect(function(res) {
-          res.body.should.have.length(1);
-          res.body[0].name.should.equal('New Move');
-        })
-        .end(done);
+        .then(function() {
+          return request(authedApp).post('/api/flow/' + flow1._id + '/likes')
+            .expect(200)
+            .expect(function(res) {
+              res.body.likes.should.eql(1);
+            });
+        });
     });
 
-    it('should return nothing with an invalid query', function(done) {
-      request(app)
-        .get('/api/moves')
-        .query({foo: 'New Move'})
-        .expect('Content-Type', /json/)
+    it('should fail if there is an error on the backend', function() {
+      var stubFlow = { like: function() {} };
+      var likeStub = sandbox.stub(stubFlow, 'like', function(id, cb) {
+        cb('oh noes!');
+      });
+
+      sandbox.stub(Flow, 'load').resolves(stubFlow);
+      return request(authedApp)
+        .post('/api/flow/' + flow1._id + '/likes')
+        .expect(500)
+        .expect(function(res) {
+          likeStub.should.have.callCount(1);
+          res.body.error.should.match(/oh noes!/);
+        });
+    });
+
+    it('should fail when the flow is not known', function() {
+      return request(authedApp)
+        .post('/api/flow/noFlowHere/likes')
+        .expect(500);
+    });
+
+    it('should fail if no user is logged in and no anon id is passed', function() {
+      return request(app)
+        .post('/api/flow/' + flow1._id + '/likes')
+        .expect(401);
+    });
+
+    it('should fail with an invalid anon id', function() {
+      return request(app)
+        .post('/api/flow/' + flow1._id + '/likes')
+        .query({anonId: 'blahblah'})
+        .expect(401);
+    });
+
+    it('should like with a valid anon id', function() {
+      return request(app)
+        .post('/api/flow/' + flow1._id + '/likes')
+        .query({anonId: '__anon_abc123'})
         .expect(200)
         .expect(function(res) {
-          res.body.should.have.length(0);
-        })
-        .end(done);
+          res.body.likes.should.eql(1);
+        });
+    });
+  });
+
+  describe('/likes GET', function() {
+    it('should return whether the user has liked the flow', function() {
+      return request(authedApp).get('/api/flow/' + flow1._id + '/likes')
+        .expect(200)
+        .expect(function(res) {
+          res.body.hasLiked.should.be.false;
+        }).then(function() {
+          return request(authedApp)
+            .post('/api/flow/' + flow1._id + '/likes')
+            .expect(200);
+        }).then(function() {
+          return request(authedApp).get('/api/flow/' + flow1._id + '/likes')
+            .expect(200)
+            .expect(function(res) {
+              res.body.hasLiked.should.be.true;
+            });
+        });
+    });
+
+    it('should fail if there is an error on the backend', function() {
+      var likeStub = sandbox.stub(Flow, 'findLikes', function(id, options, cb) {
+        cb('oh noes!');
+      });
+
+      return request(authedApp)
+        .get('/api/flow/' + flow1._id + '/likes')
+        .expect(500)
+        .expect(function(res) {
+          likeStub.should.have.callCount(1);
+          res.body.error.should.match(/oh noes!/);
+        });
+    });
+
+    it('should fail when the flow is not known', function() {
+      return request(app)
+        .get('/api/flow/noFlowHere/likes')
+        .expect(500);
+    });
+
+    it('should fail if no user is logged in', function() {
+      return request(app)
+        .get('/api/flow/' + flow1._id + '/likes')
+        .expect(401);
+    });
+  });
+
+  describe('/likes DELETE', function() {
+    it('should remove a like', function() {
+      return request(authedApp)
+        .post('/api/flow/' + flow1._id + '/likes')
+        .expect(200)
+        .expect(function(res) {
+          res.body.likes.should.eql(1);
+        }).then(function() {
+          return request(authedApp)
+            .delete('/api/flow/' + flow1._id + '/likes')
+            .expect(200)
+            .expect(function(res) {
+              res.body.likes.should.eql(0);
+            });
+        });
+    });
+
+    it('should fail if there is an error on the backend', function() {
+      var stubFlow = { cancelLike: function() {} };
+      var likeStub = sandbox.stub(stubFlow, 'cancelLike', function(id, cb) {
+        cb('oh noes!');
+      });
+
+      sandbox.stub(Flow, 'load').resolves(stubFlow);
+      return request(authedApp)
+        .delete('/api/flow/' + flow1._id + '/likes')
+        .expect(500)
+        .expect(function(res) {
+          likeStub.should.have.callCount(1);
+          res.body.error.should.match(/oh noes!/);
+        });
+    });
+
+    it('should fail when the flow is not known', function() {
+      return request(app)
+      .get('/api/flow/noFlowHere/likes')
+      .expect(500);
+    });
+
+    it('should fail if no user is logged in', function() {
+      return request(app)
+      .get('/api/flow/' + flow1._id + '/likes')
+      .expect(401);
+    });
+  });
+
+  describe('/plays', function() {
+    it('should add a play and a player', function() {
+      return request(authedApp)
+      .post('/api/flow/' + flow1._id + '/plays')
+      .expect(200)
+      .expect(function(res) {
+        res.body.flow.playCount.should.eql(1);
+        res.body.plays[0].should.eql(author1._id);
+      }).then(function() {
+        return request(authedApp)
+          .post('/api/flow/' + flow1._id + '/plays')
+          .expect(200);
+      });
+    });
+
+    it('should not fail when no user is logged in', function() {
+      return request(app)
+        .post('/api/flow/' + flow1._id + '/plays')
+        .expect(200)
+        .expect(function(res) {
+          res.body.flow.playCount.should.eql(1);
+          res.body.plays.should.have.length(0);
+        });
     });
   });
 });

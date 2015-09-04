@@ -1,10 +1,9 @@
 'use strict';
 
-var bucket = 'acromaster';
 var config;
 
 var buildRoot = function() {
-  return 'http://' + config.s3.url + '/' + bucket + '/audio/';
+  return 'http://' + config.s3.url + '/audio/';
 };
 
 var getRoot = function(req, res) {

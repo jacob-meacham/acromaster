@@ -1,0 +1,434 @@
+/* line 1, ../sass/animations.scss */
+.view-container {
+  position: relative;
+}
+
+/* line 5, ../sass/animations.scss */
+.view-frame.ng-leave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  -webkit-animation: viewExit 0.5s both ease-in-out;
+  -moz-animation: viewExit 0.5s both ease-in-out;
+  animation: viewExit 0.5s both ease-in-out;
+  z-index: 99;
+}
+
+/* line 15, ../sass/animations.scss */
+.view-frame.ng-enter {
+  -webkit-animation: viewEnter 0.5s both ease-in-out;
+  -moz-animation: viewEnter 0.5s both ease-in-out;
+  animation: viewEnter 0.5s both ease-in-out;
+  z-index: 100;
+}
+
+/* line 22, ../sass/animations.scss */
+.view-frame.ng-leave .back-button {
+  display: none !important;
+}
+
+@keyframes viewExit {
+  to {
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
+  }
+}
+@-moz-keyframes viewExit {
+  to {
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
+  }
+}
+@-webkit-keyframes viewExit {
+  to {
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
+  }
+}
+@keyframes viewEnter {
+  from {
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
+  }
+  to {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-moz-keyframes viewEnter {
+  from {
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
+  }
+  to {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes viewEnter {
+  from {
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
+  }
+  to {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+/* line 89, ../sass/animations.scss */
+.play-move.ng-hide-add {
+  position: absolute;
+  -webkit-animation: fade-out 0.5s both ease-in-out;
+  -moz-animation: fade-out 0.5s both ease-in-out;
+  animation: fade-out 0.5s both ease-in-out;
+}
+
+/* line 95, ../sass/animations.scss */
+.play-move.ng-hide-remove {
+  -webkit-animation: fade-in 0.5s both ease-in-out;
+  -moz-animation: fade-in 0.5s both ease-in-out;
+  animation: fade-in 0.5s both ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* line 134, ../sass/animations.scss */
+.thumbnail:hover,
+.thumbnail:focus {
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  background: #010101;
+}
+
+/* line 140, ../sass/animations.scss */
+.back-button .glyphicon:hover,
+.back-button .glyphicon:focus,
+.back-button .glyphicon:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  color: #0DB9F0;
+}
+
+/* line 147, ../sass/animations.scss */
+.login-twitter:hover,
+.login-twitter:focus,
+.login-twitter:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  background-color: #3ea1ec;
+}
+
+/* line 154, ../sass/animations.scss */
+.login-facebook:hover,
+.login-facebook:focus,
+.login-facebook:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  background-color: #344e86;
+}
+
+/* line 4, ../sass/common.scss */
+* {
+  font-family: 'Droid Sans', sans-serif;
+}
+
+/* Links */
+/* line 9, ../sass/common.scss */
+a {
+  color: #337ab7;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* line 15, ../sass/common.scss */
+a:focus,
+a:hover {
+  color: #23527c;
+  text-decoration: underline;
+}
+
+/* Custom default button */
+/* line 22, ../sass/common.scss */
+.btn {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+/* line 26, ../sass/common.scss */
+.btn:hover {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+/* line 30, ../sass/common.scss */
+.btn-default {
+  text-shadow: none;
+  /* Prevent inheritence from `body` */
+  color: white;
+  background-color: #c12b32;
+  border: 1px solid #111;
+  font-weight: bold;
+}
+
+/* line 38, ../sass/common.scss */
+.btn-default:hover {
+  text-shadow: none;
+  /* Prevent inheritence from `body` */
+  background-color: #741a1e;
+  color: white;
+  border: 1px solid #111;
+}
+
+/* line 45, ../sass/common.scss */
+html {
+  background-color: #f9f9f9;
+}
+
+/*
+ * Base structure
+ */
+/* line 52, ../sass/common.scss */
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+}
+
+/* line 58, ../sass/common.scss */
+body {
+  background-color: transparent;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  color: #111;
+  text-align: center;
+}
+
+/* line 68, ../sass/common.scss */
+.footer-wrapper {
+  position: relative;
+  min-height: 100%;
+}
+
+/* line 77, ../sass/common.scss */
+.footer {
+  position: absolute;
+  width: 100%;
+  background-color: #111;
+  border-top: 4px solid #c12b32;
+}
+@media (min-width: 769px) {
+  /* line 77, ../sass/common.scss */
+  .footer {
+    bottom: 0;
+    height: 34px;
+  }
+}
+@media (max-width: 768px) {
+  /* line 77, ../sass/common.scss */
+  .footer {
+    bottom: -30px;
+    height: 59px;
+  }
+}
+/* line 94, ../sass/common.scss */
+.footer .text-muted {
+  margin: 5px 0 0 5px;
+  color: #fff;
+}
+/* line 99, ../sass/common.scss */
+.footer a:hover {
+  color: white;
+}
+/* line 103, ../sass/common.scss */
+.footer .footer-links > a {
+  padding: 0 8px 0 9px;
+  border-left: 1px solid #ddd;
+}
+/* line 108, ../sass/common.scss */
+.footer .footer-links > a:first-of-type {
+  border-left: none;
+}
+@media (min-width: 768px) {
+  /* line 112, ../sass/common.scss */
+  .footer .by-line {
+    text-align: left;
+  }
+}
+@media (max-width: 440px) {
+  /* line 112, ../sass/common.scss */
+  .footer .by-line {
+    font-size: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: -5px;
+  }
+}
+
+/* line 126, ../sass/common.scss */
+.no-margin {
+  margin: 0;
+}
+
+/* Padding for spacing */
+/* line 131, ../sass/common.scss */
+.inner {
+  padding-bottom: 30px;
+}
+@media (min-width: 768px) {
+  /* line 131, ../sass/common.scss */
+  .inner {
+    padding-top: 30px;
+  }
+}
+
+/* line 139, ../sass/common.scss */
+span.large-glyphicon {
+  font-size: 5em;
+}
+
+/* line 143, ../sass/common.scss */
+.sticky-item {
+  margin-left: 18px;
+  margin-right: 10px;
+}
+
+/* line 148, ../sass/common.scss */
+.back-button {
+  font-size: 4.0em !important;
+  padding-top: 40px;
+  float: left;
+  color: #00A0D7;
+}
+
+/* line 156, ../sass/common.scss */
+.box-container {
+  margin-top: 10px;
+  padding-bottom: 20px;
+  background-color: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+}
+
+/* line 164, ../sass/common.scss */
+.ui-slider {
+  background: #777;
+}
+
+/* line 168, ../sass/common.scss */
+.icon-with-text {
+  margin-right: 4px;
+}
+
+/* line 172, ../sass/common.scss */
+hr.narrow {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* line 177, ../sass/common.scss */
+.debug {
+  margin-top: 20px;
+}
+/* line 180, ../sass/common.scss */
+.debug .btn {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0;
+  outline: none;
+  border-bottom: none;
+}
+/* line 191, ../sass/common.scss */
+.debug .debug-inner {
+  font-size: 0.8em;
+  padding: 0;
+  text-align: left;
+  border-top-left-radius: 0;
+  background-color: #fff;
+}
+
+/* line 200, ../sass/common.scss */
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: white;
+}
+
+/* line 204, ../sass/common.scss */
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  border-radius: 20px;
+}

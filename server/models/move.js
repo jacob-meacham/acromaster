@@ -19,6 +19,7 @@ var MoveSchema = new Schema({
   },
   name: {type: String, required: true },
   audioUri: String,
+  descriptionUrl: String,
   difficulty: {type: Number, default: 5},
   aliases: [String],
 
@@ -33,10 +34,19 @@ MoveSchema.statics = {
   list: function(options, cb) {
     var criteria = options.criteria || {};
 
-    this.find(criteria)
+    return this.find(criteria)
       .sort('name')
       .exec(cb);
   }
 };
 
-mongoose.model('Move', MoveSchema);
+MoveSchema.options.toJSON = {
+  transform: function(doc, ret) {
+    ret.id = ret._id;
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  }
+};
+
+module.exports = mongoose.model('Move', MoveSchema);

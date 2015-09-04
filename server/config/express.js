@@ -21,6 +21,7 @@ module.exports = {
         app.locals.pretty = true;
 
         if (process.env.NODE_ENV === 'development') {
+            app.set('showStackError', true);
             app.use(morgan('dev'));
         }
 
@@ -73,7 +74,9 @@ module.exports = {
 
     addErrorHandlers: function(app) {
         app.use(function(err, req, res, next) {
+            /* istanbul ignore next: explicitly not testable */
             if (process.env.NODE_ENV !== 'test') {
+                /* istanbul ignore next */
                 console.error(err.stack);
             }
             next(err);
@@ -81,8 +84,11 @@ module.exports = {
 
         // jshint unused:false
         app.use(function(err, req, res, next) {
+            if (err.status) {
+                return res.status(err.status).send({ error: (err.error ? err.error.toString() : err) }); // Use toString because instances of Error don't JSON.stringify well.
+            }
+            
             // Return 500 to the client.
-            // Use toString because instances of Error don't JSON.stringify well.
             res.status(500).send({ error: err.toString() });
         });
     }

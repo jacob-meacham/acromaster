@@ -1,0 +1,12 @@
+<section class="flows row">
+    <div class="col-xs-12">
+        <table class="table flow-list">
+            <tbody>
+                <tr dir-paginate='flow in vm.flows | itemsPerPage: 7'>
+                    <td><flow-list-item flow='flow' show-author='false' /></td>
+                </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls></dir-pagination-controls>
+    </div>
+</section>

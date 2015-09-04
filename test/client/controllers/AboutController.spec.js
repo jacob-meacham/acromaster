@@ -11,18 +11,27 @@ describe('AboutController', function() {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $modalInstance = {
-      close: sinon.spy()
+      close: sinon.spy(),
     };
+
+    $httpBackend.expectGET('/version').respond(200, 'myversion');
   }));
 
   it('should set the version to the server version', function() {
-    var $scope = {};
-    $httpBackend.expectGET('/version').respond(200, 'myversion');
-    
-    // Create controller
-    $controller('AboutController', { $scope: $scope, $modalInstance: $modalInstance });
+    var vm = $controller('AboutController', {$modalInstance: $modalInstance});
     $httpBackend.flush();
-    $scope.version.should.equal('myversion');
+    vm.version.should.equal('myversion');
+  });
+
+  it('should allow dismissal of the modal', function() {
+    var dismissSpy = $modalInstance.dismiss = sinon.spy();
+    var vm = $controller('AboutController', {$modalInstance: $modalInstance});
+    vm.exit.should.exist;
+
+    vm.exit();
+    dismissSpy.should.have.callCount(1);
+    dismissSpy.should.have.been.calledWith('exit');
+    $httpBackend.flush();
   });
 
   afterEach(function() {

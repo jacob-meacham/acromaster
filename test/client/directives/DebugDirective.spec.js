@@ -26,12 +26,12 @@ describe('DebugDirective', function() {
   it('should include ng-hide when debug is false', function() {
     sinon.stub(environment, 'isDebug').returns(false);
     var element = $compile('<debug>f00</debug>')($rootScope);
-    element.hasClass('ng-hide').should.be.true();
+    element.hasClass('ng-hide').should.be.true;
   });
 
   it('should not include ng-hide when debug is true', function() {
     sinon.stub(environment, 'isDebug').returns(true);
     var element = $compile('<debug>f00</debug>')($rootScope);
-    element.hasClass('ng-hide').should.be.false();
+    element.hasClass('ng-hide').should.be.false;
   });
 });

@@ -1,0 +1,160 @@
+.profile {
+    text-align: left;
+}
+
+.profile {
+    .list-box {
+        margin: 20px 0 20px 0;
+        background-color: white;
+    }
+
+    .list-box-list {
+        padding-left: 0;
+    }
+
+    h2 {
+        font-size: 1.3em;
+        border: 1px solid #d4d4d4;
+        background-color: #e5e5e5;
+        padding: 8px;
+        margin: 0;
+    }
+
+    .list-box-inner {
+        position: relative;
+        padding: 10px;
+        list-style: none;
+        border: 1px solid #d4d4d4;
+        border-top: 0;
+        margin: 0;
+
+        .no-entry {
+            color: #555;
+        }
+    }
+
+    .play-now {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 25px;
+    }
+
+    .flow-list {
+        margin-top: 10px;
+    }
+}
+
+.profile .profile-bar {
+    .avatar {
+        border-radius: 6px;
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: middle;
+        line-height: 1px;
+    }
+    
+    h1 {
+        font-size: 2em;
+        overflow: hidden;
+        display: block;
+        width: 100%;
+    }
+
+    .name {
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+
+    .username {
+        margin-top: 2px;
+        font-size: 1.5em;
+        color: #666;
+    }
+
+    .user-info {
+        margin-top: 4px;
+    }
+
+    .user-details {
+        margin-top: 0;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+    }
+
+    .join-date {
+        font-style: italic;
+    }
+}
+
+.profile .stats {
+    text-align: center;
+    
+    tspan {
+        font-family: 'FontAwesome';
+        font-size: 1.5em;
+    }
+
+    .info {
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+}
+
+.profile .achievements {
+    .achievement {
+
+        // TODO: A better way to lay these out?
+        @media (max-width: 435px) {
+            width: 145px;
+        }
+
+        @media (max-width: 375px) {
+            width: 125px;
+            height: 140px;
+            margin: 5px;
+        }
+
+        width: 174px;
+        height: 160px;
+        float: left;
+        padding: 15px;
+        text-align: center;
+        border-radius: 5px;
+        margin: 10px;
+        background-color: #808080;
+        color: #cccccc;
+    }
+
+    .awarded {
+        background-color: black;
+        border: 3px solid #fcb426;
+        color: white;
+    }
+
+    .popover {
+        color: black;
+    }
+}
+
+.profile .nav {
+    font-size: 1.2em;
+    a {
+        padding-left: 15px;
+
+        @media (max-width: 528px) {
+            display: block;
+        }
+    }
+}
+
+.achievement-description-modal {
+    padding: 30px;
+}
+
+.achievement-inner { 
+    padding: 30px 0;
+}

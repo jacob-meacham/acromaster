@@ -8,11 +8,11 @@ module.exports = function(config) {
   config.set({
     files: _.flatten(_.values(assets.vendor.js)).concat([
       'test/client/globals.js',
-      'public/lib/angular-mocks/angular-mocks.js',
-      'public/js/*.js',
-      'public/js/**/*.js',
+      'public/assets/lib/angular-mocks/angular-mocks.js',
+      'public/app/*.js',
+      'public/app/**/*.js',
       'test/client/**/*spec.js',
-      'public/partials/**/*.html'
+      'public/app/**/*.html'
     ]),
     
     frameworks: ['mocha', 'chai', 'sinon', 'sinon-chai'],
@@ -26,8 +26,8 @@ module.exports = function(config) {
     },
     
     preprocessors: {
-      'public/js/**/*.js' : 'coverage',
-      'public/partials/**/*.html' : 'ng-html2js'
+      'public/app/**/*.js' : 'coverage',
+      'public/app/**/*.html' : 'ng-html2js'
     },
 
     ngHtml2JsPreprocessor: {

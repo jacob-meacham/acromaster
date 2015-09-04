@@ -1,0 +1,192 @@
+/* line 1, ../sass/animations.scss */
+.view-container {
+  position: relative;
+}
+
+/* line 5, ../sass/animations.scss */
+.view-frame.ng-leave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  -webkit-animation: viewExit 0.5s both ease-in-out;
+  -moz-animation: viewExit 0.5s both ease-in-out;
+  animation: viewExit 0.5s both ease-in-out;
+  z-index: 99;
+}
+
+/* line 15, ../sass/animations.scss */
+.view-frame.ng-enter {
+  -webkit-animation: viewEnter 0.5s both ease-in-out;
+  -moz-animation: viewEnter 0.5s both ease-in-out;
+  animation: viewEnter 0.5s both ease-in-out;
+  z-index: 100;
+}
+
+/* line 22, ../sass/animations.scss */
+.view-frame.ng-leave .back-button {
+  display: none !important;
+}
+
+@keyframes viewExit {
+  to {
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
+  }
+}
+@-moz-keyframes viewExit {
+  to {
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
+  }
+}
+@-webkit-keyframes viewExit {
+  to {
+    -webkit-transform: translateX(150%);
+    -moz-transform: translateX(150%);
+    transform: translateX(150%);
+  }
+}
+@keyframes viewEnter {
+  from {
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
+  }
+  to {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-moz-keyframes viewEnter {
+  from {
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
+  }
+  to {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes viewEnter {
+  from {
+    -webkit-transform: translateX(-150%);
+    -moz-transform: translateX(-150%);
+    transform: translateX(-150%);
+  }
+  to {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+/* line 89, ../sass/animations.scss */
+.play-move.ng-hide-add {
+  position: absolute;
+  -webkit-animation: fade-out 0.5s both ease-in-out;
+  -moz-animation: fade-out 0.5s both ease-in-out;
+  animation: fade-out 0.5s both ease-in-out;
+}
+
+/* line 95, ../sass/animations.scss */
+.play-move.ng-hide-remove {
+  -webkit-animation: fade-in 0.5s both ease-in-out;
+  -moz-animation: fade-in 0.5s both ease-in-out;
+  animation: fade-in 0.5s both ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* line 134, ../sass/animations.scss */
+.thumbnail:hover,
+.thumbnail:focus {
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  background: #010101;
+}
+
+/* line 140, ../sass/animations.scss */
+.back-button .glyphicon:hover,
+.back-button .glyphicon:focus,
+.back-button .glyphicon:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  color: #0DB9F0;
+}
+
+/* line 147, ../sass/animations.scss */
+.login-twitter:hover,
+.login-twitter:focus,
+.login-twitter:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  background-color: #3ea1ec;
+}
+
+/* line 154, ../sass/animations.scss */
+.login-facebook:hover,
+.login-facebook:focus,
+.login-facebook:active {
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  background-color: #344e86;
+}
