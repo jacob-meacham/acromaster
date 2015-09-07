@@ -452,6 +452,7 @@ hr.narrow {
   display: block;
   width: 50px;
   height: 50px;
+  background: #19a598;
   background: rgba(25, 165, 152, 0.5);
   border-radius: 50%;
   overflow: hidden;
@@ -460,7 +461,7 @@ hr.narrow {
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
-/* line 238, ../sass/common.scss */
+/* line 239, ../sass/common.scss */
 .inner-circles-loader:not(:required):before, .inner-circles-loader:not(:required):after {
   content: '';
   position: absolute;
@@ -471,7 +472,7 @@ hr.narrow {
   border-radius: 50%;
 }
 
-/* line 247, ../sass/common.scss */
+/* line 248, ../sass/common.scss */
 .inner-circles-loader:not(:required):before {
   -moz-animation: inner-circles-loader 3s infinite;
   -webkit-animation: inner-circles-loader 3s infinite;
@@ -484,7 +485,7 @@ hr.narrow {
   background: #c7efcf;
 }
 
-/* line 258, ../sass/common.scss */
+/* line 259, ../sass/common.scss */
 .inner-circles-loader:not(:required):after {
   -moz-animation: inner-circles-loader 3s 0.2s reverse infinite;
   -webkit-animation: inner-circles-loader 3s 0.2s reverse infinite;
@@ -494,7 +495,7 @@ hr.narrow {
   -webkit-transform-origin: 100% 50%;
   transform-origin: 100% 50%;
   right: 0;
-  background: #eef5db;
+  background: #ffe759;
 }
 
 @-moz-keyframes inner-circles-loader {
