@@ -197,6 +197,10 @@ hr.narrow {
   }
 }
 
+.alert {
+  margin: 8px;
+}
+
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: white;
 }
@@ -213,6 +217,7 @@ hr.narrow {
 // Loading from http://www.css-spinners.com/, http://css-spinners.com/css/spinner/inner-circles.css
 /* :not(:required) hides this rule from IE9 and below */
 .inner-circles-loader:not(:required) {
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   -moz-transform: translate3d(0, 0, 0);

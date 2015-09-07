@@ -1,59 +1,64 @@
 <section class="flows">
-    <div class="flow-title">
-        <span class="flow-icon glyphicon glyphicon-{{vm.flow.imageUrl}}" /><span class="flow-title-name">{{vm.flow.name}}</span>
+    <div class="inner-circles-loader" ng-hide="vm.flow.$resolved">
+      Loading…
     </div>
-    <div class="flow-box flow-header">
-        <button ng-click="vm.start()" class="btn btn-default start-flow">Play Flow!</button>
-        <div class="flow-author-info">
-            <div class="avatar-container" ng-switch on="vm.flow.author.profilePictureUrl || 'null'">
-                <span class="avatar glyphicon glyphicon-user" ng-switch-when="null" />
-                <a ng-switch-default ng-href="/profile/{{vm.flow.author.username}}"><img class="avatar" ng-src="{{vm.flow.author.profilePictureUrl}}" /></a>
-            </div>
-            <div class="flow-author">
-                <a ng-href="/profile/{{vm.flow.author.username}}" ng-show="vm.flow.author.username">{{vm.flow.author.name}}</a>
-                <div ng-hide="vm.flow.author.username">Anonymous</div>
-            </div>
-            <div class="flow-date">Created {{vm.flow.createdAt | date}}</div>
+    <div ng-show="vm.flow.$resolved">
+        <div class="flow-title">
+            <span class="flow-icon glyphicon glyphicon-{{vm.flow.imageUrl}}" /><span class="flow-title-name">{{vm.flow.name}}</span>
         </div>
-        <div class="flow-plays">{{vm.flow.plays + 1}} plays</div>
-        <hr class="soften no-margin" ng-show="vm.canEdit" />
-        <div class="flow-actions">
-            <span class="owner-actions">
-                <a ng-href="flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit"><span class="glyphicon glyphicon-edit icon-with-text" aria-hidden="true" />Edit</a>
-                <a ng-click="vm.delete()" ng-show="vm.canEdit"><span class="glyphicon glyphicon-remove icon-with-text" aria-hidden="true" />Delete</a>
-            </span>
-            <span class="social-actions">
-                <a ng-click='vm.toggleFavorite()'><span class="glyphicon glyphicon-plus icon-with-text" aria-hidden="true" />{{vm.action}}</a>
-                <a ng-href="/flow/{{vm.flow.id}}/remix"><span class="glyphicon glyphicon-random icon-with-text-remix" aria-hidden="true" />Remix</a>
-                <share share-partial="/flow/{{vm.flow.id}}"></share>
-                <flow-like flow="vm.flow"></flow-like>
-            </span>
-        </div>
-    </div>
-
-    <div class="flow-box" ng-show="vm.flow.description">
-        <div class="flow-description" ng-bind-html="vm.flow.description | linky: '_blank'" />
-    </div>
-    <div class="flow-box">
-        <ul class="move-list">
-            <li ng-repeat='moveEntry in vm.flow.moves'>
-                <div class="move-entry row">
-                    <div class="col-md-11 col-xs-10">
-                        <span class="move-difficulty glyphicon glyphicon-fire" ng-class="{ 'hard-move': {{moveEntry.move.difficulty >= 7}}, 'medium-move': {{moveEntry.move.difficulty < 7 && moveEntry.move.difficulty >= 4}}, 'easy-move': {{moveEntry.move.difficulty < 4}} }"></span>
-                        <span class="move-name">{{moveEntry.move.name}}</span>
-                        <a target="_blank" class="move-description-link" ng-href="{{moveEntry.move.descriptionUrl}}" ng-show="moveEntry.move.descriptionUrl"><span class="glyphicon glyphicon-question-sign"></span></a>
-                        <span class="separator">&mdash;</span>
-                        <span class="move-duration">{{moveEntry.duration | number : 0}} seconds</span>
-                    </div>
-                    <div class="col-xs-1">
-                        <span class="move-info glyphicon glyphicon-option-horizontal" popover-template="'app/flow/view/move-info-popover.html'" popover-placement="top" popover-trigger="mouseenter" ng-click="vm.showInfoModal(moveEntry)"></span>
-                    </div>
+        <div class="flow-box flow-header">
+            <button ng-click="vm.start()" class="btn btn-default start-flow">Play Flow!</button>
+            <div class="flow-author-info">
+                <div class="avatar-container" ng-switch on="vm.flow.author.profilePictureUrl || 'null'">
+                    <span class="avatar glyphicon glyphicon-user" ng-switch-when="null" />
+                    <a ng-switch-default ng-href="/profile/{{vm.flow.author.username}}"><img class="avatar" ng-src="{{vm.flow.author.profilePictureUrl}}" /></a>
                 </div>
-            </li>
-        </ul>
+                <div class="flow-author">
+                    <a ng-href="/profile/{{vm.flow.author.username}}" ng-show="vm.flow.author.username">{{vm.flow.author.name}}</a>
+                    <div ng-hide="vm.flow.author.username">Anonymous</div>
+                </div>
+                <div class="flow-date">Created {{vm.flow.createdAt | date}}</div>
+            </div>
+            <div class="flow-plays">{{vm.flow.plays + 1}} plays</div>
+            <hr class="soften no-margin" ng-show="vm.canEdit" />
+            <div class="flow-actions">
+                <span class="owner-actions">
+                    <a ng-href="flow/{{vm.flow.id}}/edit" ng-show="vm.canEdit"><span class="glyphicon glyphicon-edit icon-with-text" aria-hidden="true" />Edit</a>
+                    <a ng-click="vm.delete()" ng-show="vm.canEdit"><span class="glyphicon glyphicon-remove icon-with-text" aria-hidden="true" />Delete</a>
+                </span>
+                <span class="social-actions">
+                    <a ng-click='vm.toggleFavorite()'><span class="glyphicon glyphicon-plus icon-with-text" aria-hidden="true" />{{vm.action}}</a>
+                    <a ng-href="/flow/{{vm.flow.id}}/remix"><span class="glyphicon glyphicon-random icon-with-text-remix" aria-hidden="true" />Remix</a>
+                    <share share-partial="/flow/{{vm.flow.id}}"></share>
+                    <flow-like flow="vm.flow"></flow-like>
+                </span>
+            </div>
+        </div>
+
+        <div class="flow-box" ng-show="vm.flow.description">
+            <div class="flow-description" ng-bind-html="vm.flow.description | linky: '_blank'" />
+        </div>
+        <div class="flow-box">
+            <ul class="move-list">
+                <li ng-repeat='moveEntry in vm.flow.moves'>
+                    <div class="move-entry row">
+                        <div class="col-md-11 col-xs-10">
+                            <span class="move-difficulty glyphicon glyphicon-fire" ng-class="{ 'hard-move': {{moveEntry.move.difficulty >= 7}}, 'medium-move': {{moveEntry.move.difficulty < 7 && moveEntry.move.difficulty >= 4}}, 'easy-move': {{moveEntry.move.difficulty < 4}} }"></span>
+                            <span class="move-name">{{moveEntry.move.name}}</span>
+                            <a target="_blank" class="move-description-link" ng-href="{{moveEntry.move.descriptionUrl}}" ng-show="moveEntry.move.descriptionUrl"><span class="glyphicon glyphicon-question-sign"></span></a>
+                            <span class="separator">&mdash;</span>
+                            <span class="move-duration">{{moveEntry.duration | number : 0}} seconds</span>
+                        </div>
+                        <div class="col-xs-1">
+                            <span class="move-info glyphicon glyphicon-option-horizontal" popover-template="'app/flow/view/move-info-popover.html'" popover-placement="top" popover-trigger="mouseenter" ng-click="vm.showInfoModal(moveEntry)"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <back-button url="/flows"></back-button>
+        <debug class="block">
+            <p>{{vm.flow}}</p>
+        </debug>
     </div>
-    <back-button url="/flows"></back-button>
-    <debug class="block">
-        <p>{{vm.flow}}</p>
-    </debug>
 </section>
