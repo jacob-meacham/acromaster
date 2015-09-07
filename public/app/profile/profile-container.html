@@ -1,15 +1,18 @@
 <div class="in alert alert-danger" role="alert" ng-if="vm.error">
-    <strong class="alert-heading">Error</strong>
+    <strong class="alert-heading">Error!</strong>
     <div class="alert-message">{{ vm.error }}</div>
 </div>
 <div class="profile row" ng-if="!vm.error">
     <div class="col-md-3 profile-bar">
+        <div class="inner-circles-loader" ng-hide="vm.profile.$resolved">
+          Loading…
+        </div>
         <img class="avatar" ng-src="{{vm.profile.profilePictureUrl}}"></img>
         <div class="user-info">
             <h1 class="name">{{ vm.profile.name }}</h1>
             <h1 class="username">{{ vm.profile.username }}</h1>
         </div>
-        <div class="user-details">
+        <div class="user-details" ng-show="vm.profile.$resolved">
             <div class="join-date"><i class="fa fa-clock-o"></i> User since {{vm.profile.createdAt | date}}</div>
             <div class="flows"><a ng-href="/profile/{{vm.profile.username}}/flows">{{vm.profile.stats.flowsWritten}} flows written</a></div>
         </div>
@@ -22,7 +25,10 @@
             <a ng-href="/profile/{{vm.profile.username}}/favorites"><span class="glyphicon glyphicon-bookmark icon-with-text" />My Favorites</a>
         </nav>
         <hr class="narrow soften" />
-        <ng-include src="vm.templateUrl"></ng-include>
+        <div class="inner-circles-loader" ng-hide="vm.profile.$resolved">
+          Loading…
+        </div>
+        <ng-include src="vm.templateUrl" ng-show="vm.profile.$resolved" />
     </div>
     <div class="col-md-12">
         <debug>{{ vm.profile | json }}</debug>

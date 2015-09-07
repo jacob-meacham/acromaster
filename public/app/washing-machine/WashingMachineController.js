@@ -1,6 +1,6 @@
 'use strict';
 
-var WaschingMachineViewController = function($routeParams, $base64, WashingMachineService, pageHeaderService) {
+var WaschingMachineViewController = function($routeParams, $base64, flash, WashingMachineService, pageHeaderService) {
   var vm = this;
 
   pageHeaderService.setTitle('Washing Machines');
@@ -11,7 +11,12 @@ var WaschingMachineViewController = function($routeParams, $base64, WashingMachi
       vm.move2 = washingMachine.move2.name;
       vm.washing_machine = washingMachine.name;
 
-      vm.coords = $base64.encode([washingMachine.move1.name, washingMachine.move2.name, washingMachine.name].join(','));
+      vm.coords = encodeURIComponent($base64.encode([washingMachine.move1.name, washingMachine.move2.name, washingMachine.name].join(',')));
+    }, function(response) {
+      vm.error = true;
+      console.log('Error!');
+      console.log(response);
+      flash.error = 'There was an error loading this washing machine. Please refresh and try again.';
     });
   };
 
@@ -21,7 +26,7 @@ var WaschingMachineViewController = function($routeParams, $base64, WashingMachi
       needGeneration = false;
       
       vm.coords = $routeParams.coords;
-      var coords = $base64.decode(vm.coords).split(',');
+      var coords = decodeURIComponent($base64.decode(vm.coords)).split(',');
       vm.move1 = coords[0];
       vm.move2 = coords[1];
       vm.washing_machine = coords[2];
@@ -36,4 +41,4 @@ var WaschingMachineViewController = function($routeParams, $base64, WashingMachi
 };
 
 angular.module('acromaster.controllers')
-  .controller('WashingMachineViewController', ['$routeParams', '$base64', 'WashingMachineService', 'PageHeaderService', WaschingMachineViewController]);
+  .controller('WashingMachineViewController', ['$routeParams', '$base64', 'flash', 'WashingMachineService', 'PageHeaderService', WaschingMachineViewController]);
