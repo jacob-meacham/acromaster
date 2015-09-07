@@ -239,7 +239,7 @@ a:hover {
 }
 
 /* line 38, ../sass/common.scss */
-.btn-default:hover {
+.btn-default:hover, .btn-default:active, .btn-default:focus {
   text-shadow: none;
   /* Prevent inheritence from `body` */
   background-color: #741a1e;
