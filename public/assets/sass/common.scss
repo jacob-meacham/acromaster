@@ -213,12 +213,14 @@ hr.narrow {
 // Loading from http://www.css-spinners.com/, http://css-spinners.com/css/spinner/inner-circles.css
 /* :not(:required) hides this rule from IE9 and below */
 .inner-circles-loader:not(:required) {
+  margin-left: auto;
+  margin-right: auto;
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   position: relative;
-  display: inline-block;
+  display: block;
   width: 50px;
   height: 50px;
   background: rgba(25, 165, 152, 0.5);
