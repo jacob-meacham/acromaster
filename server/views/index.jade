@@ -4,7 +4,7 @@ html(lang='en', ng-app='acromaster')
   body
     div.footer-wrapper
         div(role='navigator', ng-include="'app/navbar/navbar.html'" ng-controller="NavbarController as nav").navbar.navbar-inverse
-        div.container.inner
+        div(ng-controller="ContainerController as ctrl" ng-class="{container: !ctrl.container.fluid, 'container-fluid': ctrl.container.fluid }").inner
             div.view-container
                 section(data-ng-view).view-frame
         footer(ng-controller="FooterController as footer").footer

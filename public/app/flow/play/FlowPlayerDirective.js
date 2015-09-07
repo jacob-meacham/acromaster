@@ -13,6 +13,8 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   var scaledDuration;
   vm.timeRemaining = 0;
   vm.speedMultiplier = 1;
+  vm.volume = 100;
+  vm.muted = false;
 
   if (!vm.flow || !vm.flow.$promise) {
     // No flow
@@ -43,10 +45,24 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
     vm.paused = true;
   };
 
+  vm.toggleMute = function() {
+    vm.muted = !vm.muted;
+    if (vm.muted) {
+      vm.oldVolume = vm.volume;
+      vm.volume = 0;
+    } else {
+      vm.volume = vm.oldVolume;
+    }
+  };
+
   vm.setAudio = function(file) {
     audio.src = file;
     audio.play();
   };
+
+  $scope.$watch(function() { return vm.volume; }, function(newVal) {
+    audio.volume = newVal / 100.0;
+  });
 
   var getScaledDuration = function(duration, multiplier) {
     if (multiplier <= 0) {

@@ -1,6 +1,6 @@
 {
   "name": "acromaster",
-  "version": "0.3.0",
+  "version": "0.8.0",
   "dependencies": {
     "bootstrap": "3.3.4",
     "angular": "1.3.15",
