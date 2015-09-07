@@ -72,14 +72,11 @@ module.exports = {
         });
 
         app.use(function (req, res, next) {
-            // if (req.path.lastIndexOf('/api', 0) !== -1) {
-            //     return next(new Error('Failing on purpose for route ' + req.path));
-            // }
+            if (req.path.lastIndexOf('/api', 0) !== -1) {
+                return next(new Error('Failing on purpose for route ' + req.path));
+            }
             
-            //next();
-            setTimeout(function () {
-                next();
-              }, 5000);
+            next();
         });
     },
 
