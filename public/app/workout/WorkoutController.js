@@ -2,7 +2,6 @@
 
 var QuickPlayController = function($location, $scope, $modal, flash, flowService, rand, pageHeaderService) {
   var vm = this;
-  vm.flash = flash;
   var flowParams = vm.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};
   vm.currentDifficultyIndex = 1;
   vm.currentMoveLengthIndex = 2;
@@ -18,11 +17,15 @@ var QuickPlayController = function($location, $scope, $modal, flash, flowService
   pageHeaderService.setTitle('Flow Play');
 
   vm.generateFlow = function() {
+    vm.generating = true;
     flowParams.totalTime = flowParams.totalMinutes * 60;
     flowParams.flowName = rand.generateFlowName();
     flowParams.imageUrl = rand.randomFlowIcon();
     flowService.generateFlow(flowParams).then(function(flow) {
       $location.path('/flow/' + flow.id + '/play');
+    }).catch(function() {
+      vm.generating = false;
+      vm.error = true;
     });
   };
 
@@ -35,8 +38,9 @@ var QuickPlayController = function($location, $scope, $modal, flash, flowService
   };
 
   vm.hideError = function() {
-    flash.error = '';
-  }
+    flash.error = false;
+    vm.error = false;
+  };
 
   $scope.$watch('vm.currentDifficultyIndex', function(newVal) {
     if (newVal === 0) { // Beginner

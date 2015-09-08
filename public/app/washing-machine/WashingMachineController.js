@@ -12,10 +12,8 @@ var WaschingMachineViewController = function($routeParams, $base64, flash, Washi
       vm.washing_machine = washingMachine.name;
 
       vm.coords = encodeURIComponent($base64.encode([washingMachine.move1.name, washingMachine.move2.name, washingMachine.name].join(',')));
-    }, function(response) {
+    }, function() {
       vm.error = true;
-      console.log('Error!');
-      console.log(response);
       flash.error = 'There was an error loading this washing machine. Please refresh and try again.';
     });
   };

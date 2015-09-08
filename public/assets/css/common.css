@@ -28,6 +28,12 @@
   display: none !important;
 }
 
+/* line 26, ../sass/animations.scss */
+.btn.ng-hide {
+  opacity: 0;
+  display: none !important;
+}
+
 @keyframes viewExit {
   to {
     -webkit-transform: translateX(150%);
@@ -85,7 +91,7 @@
     transform: translateX(0);
   }
 }
-/* line 89, ../sass/animations.scss */
+/* line 94, ../sass/animations.scss */
 .play-move.ng-hide-add {
   position: absolute;
   -webkit-animation: fade-out 0.5s both ease-in-out;
@@ -93,7 +99,7 @@
   animation: fade-out 0.5s both ease-in-out;
 }
 
-/* line 95, ../sass/animations.scss */
+/* line 100, ../sass/animations.scss */
 .play-move.ng-hide-remove {
   -webkit-animation: fade-in 0.5s both ease-in-out;
   -moz-animation: fade-in 0.5s both ease-in-out;
@@ -148,7 +154,7 @@
     opacity: 0;
   }
 }
-/* line 134, ../sass/animations.scss */
+/* line 139, ../sass/animations.scss */
 .thumbnail:hover,
 .thumbnail:focus {
   -webkit-transition: 0.3s ease-in-out;
@@ -158,7 +164,7 @@
   background: #010101;
 }
 
-/* line 140, ../sass/animations.scss */
+/* line 145, ../sass/animations.scss */
 .back-button .glyphicon:hover,
 .back-button .glyphicon:focus,
 .back-button .glyphicon:active {
@@ -169,7 +175,7 @@
   color: #0DB9F0;
 }
 
-/* line 147, ../sass/animations.scss */
+/* line 152, ../sass/animations.scss */
 .login-twitter:hover,
 .login-twitter:focus,
 .login-twitter:active {
@@ -180,7 +186,7 @@
   background-color: #3ea1ec;
 }
 
-/* line 154, ../sass/animations.scss */
+/* line 159, ../sass/animations.scss */
 .login-facebook:hover,
 .login-facebook:focus,
 .login-facebook:active {
@@ -189,6 +195,30 @@
   -o-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
   background-color: #344e86;
+}
+
+/* line 166, ../sass/animations.scss */
+.alert {
+  -webkit-transition: -webkit-transform 0.22s cubic-bezier(0.25, 0, 0.25, 1), opacity 0.22s cubic-bezier(0.25, 0, 0.25, 1);
+  -moz-transition: -moz-transform 0.22s cubic-bezier(0.25, 0, 0.25, 1), opacity 0.22s cubic-bezier(0.25, 0, 0.25, 1);
+  -o-transition: -o-transform 0.22s cubic-bezier(0.25, 0, 0.25, 1), opacity 0.22s cubic-bezier(0.25, 0, 0.25, 1);
+  transition: transform 0.22s cubic-bezier(0.25, 0, 0.25, 1), opacity 0.22s cubic-bezier(0.25, 0, 0.25, 1);
+}
+
+/* line 172, ../sass/animations.scss */
+.alert.ng-hide-remove, .alert.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+  -webkit-transform: translate3d(100px, 0px, 0px);
+  transform: translate3d(100px, 0px, 0px);
+  display: block !important;
+}
+
+/* line 178, ../sass/animations.scss */
+.alert.ng-hide-add, .alert.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  display: block !important;
+  -webkit-transform: translate3d(0px, 0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
 }
 
 /* line 4, ../sass/common.scss */
