@@ -31,7 +31,13 @@ angular.module('acromaster.services', ['ngResource']);
 angular.module('acromaster.controllers', []);
 angular.module('acromaster.directives', []);
 
-app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function($routeProvider, $locationProvider, $sceDelegateProvider) {
+app.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('httpErrorsInterceptor');
+  }])
+  .config(['flashProvider', function(flashProvider) {
+    flashProvider.errorClassnames.push('alert-danger');
+  }])
+  .config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
     when('/', {
       templateUrl: '/app/home/home.html',
