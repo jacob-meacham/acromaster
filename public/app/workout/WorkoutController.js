@@ -1,7 +1,8 @@
 'use strict';
 
-var QuickPlayController = function($location, $scope, $modal, flowService, rand, pageHeaderService) {
+var QuickPlayController = function($location, $scope, $modal, flash, flowService, rand, pageHeaderService) {
   var vm = this;
+  vm.flash = flash;
   var flowParams = vm.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};
   vm.currentDifficultyIndex = 1;
   vm.currentMoveLengthIndex = 2;
@@ -32,6 +33,10 @@ var QuickPlayController = function($location, $scope, $modal, flowService, rand,
       backdrop: true
     });
   };
+
+  vm.hideError = function() {
+    flash.error = '';
+  }
 
   $scope.$watch('vm.currentDifficultyIndex', function(newVal) {
     if (newVal === 0) { // Beginner
@@ -66,4 +71,4 @@ var QuickPlayController = function($location, $scope, $modal, flowService, rand,
 };
 
 angular.module('acromaster.controllers')
-  .controller('QuickPlayController', ['$location', '$scope', '$modal', 'FlowService', 'RandomNameService', 'PageHeaderService', QuickPlayController]);
+  .controller('QuickPlayController', ['$location', '$scope', '$modal', 'flash', 'FlowService', 'RandomNameService', 'PageHeaderService', QuickPlayController]);

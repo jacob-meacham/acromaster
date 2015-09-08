@@ -58,5 +58,12 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-default btn-lg" ng-click="vm.generateFlow()">Let's Go!</button>
+    <div flash-alert="error" active-class="in alert" role="alert" duration="0">
+        <button type="button" class="close" ng-click="hide()">&times;</button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        <strong class="alert-heading">AcrOh Snap!</strong>
+        <span class="alert-message">{{flash.message}}</span>
+    </div>
+    <button type="button" class="btn btn-default btn-lg" ng-click="vm.generateFlow()" ng-hide="vm.flash.error">Let's Go!</button>
 </section>
