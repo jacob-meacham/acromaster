@@ -199,6 +199,9 @@ hr.narrow {
 
 .alert {
   margin: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {

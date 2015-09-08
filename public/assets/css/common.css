@@ -421,14 +421,17 @@ hr.narrow {
 /* line 200, ../sass/common.scss */
 .alert {
   margin: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* line 204, ../sass/common.scss */
+/* line 207, ../sass/common.scss */
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: white;
 }
 
-/* line 208, ../sass/common.scss */
+/* line 211, ../sass/common.scss */
 .btn-circle {
   width: 40px;
   height: 40px;
@@ -439,7 +442,7 @@ hr.narrow {
 }
 
 /* :not(:required) hides this rule from IE9 and below */
-/* line 219, ../sass/common.scss */
+/* line 222, ../sass/common.scss */
 .inner-circles-loader:not(:required) {
   margin-top: 20px;
   margin-left: auto;
@@ -461,7 +464,7 @@ hr.narrow {
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
-/* line 239, ../sass/common.scss */
+/* line 242, ../sass/common.scss */
 .inner-circles-loader:not(:required):before, .inner-circles-loader:not(:required):after {
   content: '';
   position: absolute;
@@ -472,7 +475,7 @@ hr.narrow {
   border-radius: 50%;
 }
 
-/* line 248, ../sass/common.scss */
+/* line 251, ../sass/common.scss */
 .inner-circles-loader:not(:required):before {
   -moz-animation: inner-circles-loader 3s infinite;
   -webkit-animation: inner-circles-loader 3s infinite;
@@ -485,7 +488,7 @@ hr.narrow {
   background: #c7efcf;
 }
 
-/* line 259, ../sass/common.scss */
+/* line 262, ../sass/common.scss */
 .inner-circles-loader:not(:required):after {
   -moz-animation: inner-circles-loader 3s 0.2s reverse infinite;
   -webkit-animation: inner-circles-loader 3s 0.2s reverse infinite;
