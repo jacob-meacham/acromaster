@@ -272,13 +272,13 @@
 @media (max-width: 500px) {
   /* line 40, ../sass/flow-player.scss */
   .flow-player .controls-left {
-    padding-right: 40px;
+    padding-right: 33px;
   }
 }
 @media (max-width: 768px) {
   /* line 40, ../sass/flow-player.scss */
   .flow-player .controls-left {
-    margin-left: 12%;
+    margin-left: 2%;
   }
 }
 /* line 54, ../sass/flow-player.scss */
@@ -290,23 +290,24 @@
 @media (max-width: 500px) {
   /* line 54, ../sass/flow-player.scss */
   .flow-player .controls-right {
-    padding-right: 10px;
+    width: 48%;
+    padding-right: 7px;
   }
 }
 @media (max-width: 500px) {
-  /* line 65, ../sass/flow-player.scss */
+  /* line 66, ../sass/flow-player.scss */
   .flow-player .rz-pointer {
     width: 20px;
     height: 20px;
     top: -8px;
   }
-  /* line 71, ../sass/flow-player.scss */
+  /* line 72, ../sass/flow-player.scss */
   .flow-player .rz-pointer:after {
     top: 6px;
     left: 6px;
   }
 }
-/* line 77, ../sass/flow-player.scss */
+/* line 78, ../sass/flow-player.scss */
 .flow-player .volume-icon {
   position: absolute;
   top: 20px;
@@ -315,12 +316,14 @@
   color: #222;
 }
 @media (max-width: 500px) {
-  /* line 77, ../sass/flow-player.scss */
+  /* line 78, ../sass/flow-player.scss */
   .flow-player .volume-icon {
+    top: 23px;
     left: 4px;
+    font-size: 1.5em;
   }
 }
-/* line 89, ../sass/flow-player.scss */
+/* line 92, ../sass/flow-player.scss */
 .flow-player .volume-icon:hover {
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
@@ -330,18 +333,18 @@
   cursor: pointer;
   text-decoration: none;
 }
-/* line 96, ../sass/flow-player.scss */
+/* line 99, ../sass/flow-player.scss */
 .flow-player .volume-slider {
   padding-bottom: 20px;
   padding-left: 30px;
 }
 @media (max-width: 500px) {
-  /* line 96, ../sass/flow-player.scss */
+  /* line 99, ../sass/flow-player.scss */
   .flow-player .volume-slider {
-    padding-left: 14px;
+    padding-left: 7px;
   }
 }
-/* line 105, ../sass/flow-player.scss */
+/* line 108, ../sass/flow-player.scss */
 .flow-player .controls-play {
   margin: 0 -30px;
   padding: 20px 0;
@@ -350,7 +353,7 @@
   z-index: 1;
 }
 @media (max-width: 500px) {
-  /* line 105, ../sass/flow-player.scss */
+  /* line 108, ../sass/flow-player.scss */
   .flow-player .controls-play {
     margin: 9px -30px;
     padding: 10px 0;
@@ -358,7 +361,7 @@
     border-radius: 80px;
   }
 }
-/* line 120, ../sass/flow-player.scss */
+/* line 123, ../sass/flow-player.scss */
 .flow-player .speed-slider-label {
   font-weight: bold;
 }
