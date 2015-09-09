@@ -6,6 +6,8 @@ var FlowEditDirectiveController = function($scope, _, Moves, flash, randomServic
   vm.moveList = [];
   vm.allMoves = Moves.query();
   vm.authenticated = authService.isAuthenticated();
+  vm.canEdit = true;
+  vm.flash = flash;
 
   $scope.$watch(function() {
     return vm.flow;
@@ -22,6 +24,14 @@ var FlowEditDirectiveController = function($scope, _, Moves, flash, randomServic
         isNew: false
       });
     });
+
+    if (vm.flow.author) {
+      if (!vm.authenticated) { // We're not authenticated, and this flow has an author
+        vm.canEdit = false;
+      } else if (authService.getUser().id !== vm.flow.author.id) { // We don't match
+        vm.canEdit = false;
+      }
+    }
   });
 
   var randomDuration = function() {
