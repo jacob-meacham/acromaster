@@ -1,14 +1,24 @@
 'use strict';
 
-var FlowSearchResultsController = function(flash, flowsPromise, pageHeaderService) {
+var FlowSearchResultsController = function($location, $routeParams, rand, flash, flowsPromise, pageHeaderService) {
   var vm = this;
-  if (flowsPromise.success === false) {
+  if (flowsPromise.success === false || !flowsPromise.flows) {
     flash.error = 'There was an error processing your request. Please try again later.';
+  } else if (flowsPromise.flows.length === 0) {
+    flash.error = 'No flows matched your query.';
   }
+
   vm.flows = flowsPromise.flows;
+  vm.searchQuery = $routeParams.search_query;
+
+  vm.randomFlow = rand.choose(vm.flows);
+
+  vm.search = function() {
+    $location.path('/flows/results').search({search_query: vm.searchQuery});
+  };
 
   pageHeaderService.setTitle('Flow Search Results');
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowSearchResultsController', ['flash', 'flows', 'PageHeaderService', FlowSearchResultsController]);
+  .controller('FlowSearchResultsController', ['$location', '$routeParams', 'RandomService', 'flash', 'flows', 'PageHeaderService', FlowSearchResultsController]);
