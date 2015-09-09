@@ -114,15 +114,14 @@ describe('/api/flow', function() {
       return request(app)
         .post('/api/flow')
         .send({})
-        .expect(500)
-        .expect('Content-Type', /json/)
-        .expect(/ValidationError/);
+        .expect(400)
+        .expect('Content-Type', /json/);
     });
 
-    it('should create with a name', function() {
+    it('should create with a name and a move', function() {
       return request(app)
         .post('/api/flow')
-        .send({name: 'My Flow'})
+        .send({name: 'My Flow', moves: [move1]})
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
@@ -135,13 +134,67 @@ describe('/api/flow', function() {
     it('should use the logged in user as the author', function() {
       return request(authedApp)
         .post('/api/flow')
-        .send({name: 'Yet Another Flow'})
+        .send({name: 'Yet Another Flow', moves: [move1]})
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
           res.body.should.have.property('name');
           res.body.name.should.equal('Yet Another Flow');
           res.body.author.should.equal(author1._id);
+        });
+    });
+
+    it('should fail if the move name is not valid', function() {
+      return request(authedApp)
+        .post('/api/flow')
+        .send({name: 'a'})
+        .expect(400)
+        .expect('Content-Type', /json/)
+        .expect({error:'Flow must have a name, and the name must be between 3 and 50 characters'})
+        .then(function() {
+          return request(authedApp)
+            .post('/api/flow')
+            .send({name: 'a really long flow name a really long flow name a really long flow name a really long flow name a really long flow name a really long flow name a really long flow name a really long flow name '})
+            .expect(400)
+            .expect('Content-Type', /json/)
+            .expect({error:'Flow must have a name, and the name must be between 3 and 50 characters'});
+        }).then(function() {
+          return request(authedApp)
+            .post('/api/flow')
+            .send({})
+            .expect(400)
+            .expect('Content-Type', /json/)
+            .expect({error:'Flow must have a name, and the name must be between 3 and 50 characters'});
+        });
+    });
+
+    it('should fail if the description is too long', function() {
+      return request(authedApp)
+        .post('/api/flow')
+        .send({name: 'My Flow', moves: [move1], description: 'a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description a really long flow description'})
+        .expect(400)
+        .expect('Content-Type', /json/)
+        .expect({error:'Description must be less than 500 characters'});
+    });
+
+    it('should fail if the moves are not valid', function() {
+      return request(authedApp)
+        .post('/api/flow')
+        .send({name: 'My Flow'})
+        .expect(400)
+        .expect('Content-Type', /json/)
+        .expect({error:'Flow must have moves, and there must be fewer than 200 moves'})
+        .then(function() {
+          var moves = [];
+          for (var i = 0; i <= 200; i++) {
+            moves.push(move1);
+          }
+          return request(authedApp)
+            .post('/api/flow')
+            .send({name: 'My Flow', moves: moves})
+            .expect(400)
+            .expect('Content-Type', /json/)
+            .expect({error:'Flow must have moves, and there must be fewer than 200 moves'});
         });
     });
 
