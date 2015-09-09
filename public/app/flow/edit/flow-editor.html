@@ -1,8 +1,16 @@
-<div>
-    <div class="inner-circles-loader" ng-hide="vm.flow">
+<div class="flow-editor">
+    <div class="inner-circles-loader" ng-hide="vm.flow || vm.flash.error">
       Loading…
     </div>
-    <div ng-show="vm.flow">
+    <div flash-alert="error" active-class="alert" role="alert" duration="0" ng-show="flash.visible">
+        <strong class="alert-heading">AcrOh Snap!</strong>
+        <span class="alert-message">{{flash.message}}</span>
+    </div>
+    <div class="alert alert-danger" role="alert" ng-show="!vm.canEdit">
+        <strong class="alert-heading">AcrOh Snap!</strong>
+        <span class="alert-message">You don't have permission to edit this flow</span>
+    </div>
+    <div ng-show="vm.flow && vm.canEdit">
         <div class="flow-basic-info">
             <div >
                 <div class="form-group">
@@ -64,16 +72,17 @@
                 </table>
             </div>
         </div>
-        <button class="btn btn-default" ng-click="vm.addMove()" title="Add Move"><span class="glyphicon glyphicon-plus"></button>
-        <button class="btn btn-default" ng-click="vm.randomMove()" title="Random Move"><span class="glyphicon glyphicon-random"></button>
+        <div class="actions">
+            <button class="btn btn-default" ng-click="vm.addMove()" title="Add Move"><span class="glyphicon glyphicon-plus"></button>
+            <button class="btn btn-default" ng-click="vm.randomMove()" title="Random Move"><span class="glyphicon glyphicon-random"></button>
+        </div>
 
         <div class="alert alert-warning" role="alert" ng-hide="vm.authenticated">
             <strong>Warning:</strong> Because you're not logged in, you won't be able to edit this flow after saving it. <a href="/login" class="alert-link">Login here</a>
         </div>
         <form ng-submit="vm.save()">
             <div class="form-group">
-                <div flash-alert="error" active-class="in alert alert-danger" role="alert" class="fade" duration="0">
-                    <button type="button" class="close" ng-click="hide()">&times;</button>
+                <div flash-alert="error" active-class="in alert" role="alert" class="fade" duration="5000" ng-show="flash.visible">
                     <strong class="alert-heading">Error</strong>
                     <span class="alert-message">{{flash.message}}</span>
                 </div>

@@ -1,8 +1,13 @@
 <section class="flows">
-    <div class="inner-circles-loader" ng-hide="vm.flow.$resolved">
+    <div class="inner-circles-loader" ng-hide="vm.flow.$resolved || vm.flash.error">
       Loading…
     </div>
-    <div ng-show="vm.flow.$resolved">
+    <div flash-alert="error" active-class="in alert" role="alert" duration="0" ng-show="vm.flash.error">
+        <button type="button" class="close" ng-click="vm.retryInstantiate()">&times;</button>
+        <strong class="alert-heading">AcrOh Snap!</strong>
+        <span class="alert-message">{{flash.message}}</span>
+    </div>
+    <div ng-show="vm.flow.$resolved && !vm.flash.error">
         <div class="flow-title">
             <span class="flow-icon glyphicon glyphicon-{{vm.flow.imageUrl}}" /><span class="flow-title-name">{{vm.flow.name}}</span>
         </div>

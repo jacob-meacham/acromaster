@@ -70,14 +70,6 @@ module.exports = {
             res.locals.assets = assets;
             next();
         });
-
-        app.use(function (req, res, next) {
-            if (req.path.lastIndexOf('/api', 0) !== -1) {
-                return next(new Error('Failing on purpose for route ' + req.path));
-            }
-            
-            next();
-        });
     },
 
     addErrorHandlers: function(app) {

@@ -46,6 +46,14 @@
 }
 
 .profile .profile-bar {
+    .error-icon {
+        font-size: 5em;
+        text-align: center;
+        display: block;
+        margin-bottom: 20px;
+        color: #aaa;
+    }
+    
     .avatar {
         border-radius: 6px;
         display: inline-block;

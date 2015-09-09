@@ -18,12 +18,12 @@
         </section>
         <article>
             <h1>Featured Flows</h1>
-            <div class="inner-circles-loader" ng-hide="vm.featuredFlows || vm.error">
+            <div class="inner-circles-loader" ng-hide="vm.featuredFlows || vm.flash.error">
               Loading…
             </div>
-            <div flash-alert="error" active-class="in alert alert-danger" role="alert" class="fade" duration="0" ng-show="vm.error">
-                <button type="button" class="close" ng-click="hide()">&times;</button>
-                <strong class="alert-heading">Error!</strong>
+            <div flash-alert="error" active-class="in alert" role="alert" duration="0" ng-show="vm.flash.error">
+                <button type="button" class="close" ng-click="vm.retryPopulate()">&times;</button>
+                <strong class="alert-heading">AcrOh Snap!</strong>
                 <span class="alert-message">{{flash.message}}</span>
             </div>
             <table class="table flow-list">
