@@ -6,6 +6,8 @@ var httpErrorsInterceptor = function($q, $log, flash) {
       $log.log(response);
       if (response.data.error) {
         flash.error = response.data.error;
+      } else {
+        flash.error = 'An internal server error occurred. Please contact feedback@acromaster.com.';
       }
       return $q.reject(response);
     }
