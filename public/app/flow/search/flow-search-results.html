@@ -1,5 +1,9 @@
 <section class="flows row">
     <div class="col-xs-12">
+        <div flash-alert="error" active-class="in alert" role="alert" duration="0" ng-show="flash.visible">
+            <strong class="alert-heading">AcrOh Snap!</strong>
+            <span class="alert-message">{{flash.message}}</span>
+        </div>
         <table class="table flow-list">
             <tbody>
                 <tr dir-paginate='flow in vm.flows | itemsPerPage: 7'>

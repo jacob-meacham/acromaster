@@ -71,7 +71,9 @@ app.config(['$httpProvider', function($httpProvider) {
       controllerAs: 'vm',
       resolve: {
         flows: ['FlowSearchInitialData', function(FlowSearchInitialData) {
-          return FlowSearchInitialData.performSearch();
+          return FlowSearchInitialData.performSearch().catch(function() {
+            return { success: false };
+          });
         }]
       }
     })
