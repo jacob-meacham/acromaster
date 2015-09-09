@@ -5,4 +5,4 @@ each asset in assets.client.js
     script(type='text/javascript', src=asset)
 
 if (env === 'development')
-    script(type='text/javascript', src='http://localhost:35729/livereload.js')
+    script(type='text/javascript', src='http://' + hostname + ':35729/livereload.js')
