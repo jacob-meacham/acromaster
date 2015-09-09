@@ -100,7 +100,7 @@ var ProfileHomeController = function($routeParams, $timeout, flash, rand, User, 
 };
 
 // TODO: Make a FlowFilterService
-var filterFlows = function(_, flash, flows, includeWorkouts) {
+var filterFlows = function(_, flows, includeWorkouts) {
   if (includeWorkouts) {
     return flows;
   } else {
