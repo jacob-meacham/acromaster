@@ -113,15 +113,15 @@ var list = function(req, res, next) {
 
 var _validateFlow = function(flow) {
   if (!flow.name || flow.name.length > 50 || flow.name.length < 3) {
-    return {error: 'Flow must have a name, and the name must be between 3 and 50 characters', status: 400};
+    return {error: 'Flow must have a name, and the name must be between 3 and 50 characters', status: 400, element: 'flow-name'};
   }
 
   if (!flow.moves || flow.moves.length === 0 || flow.moves.length > 200) {
-    return {error: 'Flow must have moves, and there must be fewer than 200 moves', status: 400};
+    return {error: 'Flow must have moves, and there must be fewer than 200 moves', status: 400, element: 'flow-moves'};
   }
 
-  if (flow.description && flow.description.length > 500) {
-    return {error: 'Description must be less than 500 characters', status: 400};
+  if (flow.description && flow.description.length > 1024) {
+    return {error: 'Description must be less than 1024 characters', status: 400, element: 'flow-description'};
   }
 
   return {};

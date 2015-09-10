@@ -2,7 +2,7 @@
     <div class="inner-circles-loader" ng-hide="vm.flow || vm.flash.error">
       Loading…
     </div>
-    <div flash-alert="error" active-class="alert" role="alert" duration="0" ng-show="flash.visible">
+    <div flash-alert="error" active-class="alert" role="alert" duration="0" ng-show="!vm.flow && flash.visible">
         <strong class="alert-heading">AcrOh Snap!</strong>
         <span class="alert-message">{{flash.message}}</span>
     </div>
@@ -17,13 +17,13 @@
                     <div class="flow-title">
                         <span class="flow-icon glyphicon glyphicon-{{vm.flow.imageUrl}}" />
                         <span class="flow-title-name" ng-show="!vm.isCreating" editable-text="vm.flow.name" e-autocomplete="off" e-name="name" e-class="form-control" e-required onbeforesave="vm.checkName($data)">{{ vm.flow.name }}</span>
-                        <input ng-show="vm.isCreating" type="text" class="form-control flow-name-control" ng-model="vm.flow.name" id="name" placeholder="Flow Name"></input>
+                        <input ng-show="vm.isCreating" type="text" class="form-control flow-name-control" ng-model="vm.flow.name" id="name" placeholder="Flow Name" required minlength="3" maxlength="50"></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="flow-box">
                         <div class="flow-description">
-                            <span editable-textarea="vm.flow.description" e-name="description" e-class="form-control">{{ vm.flow.description || "Add a Description" }}</span>
+                            <span editable-textarea="vm.flow.description" e-name="description" e-class="form-control" e-maxlength="1024">{{ vm.flow.description || "Add a Description" }}</span>
                         </div>
                     </div>
                 </div>
@@ -32,10 +32,11 @@
         <hr class="soften">
         <h3>Moves</h3>
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-9 col-xs-12">
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th class="hidden-xs"/>
                             <th>Move</th>
                             <th>Duration</th>
                             <th> </th>
@@ -43,29 +44,33 @@
                     </thead>
                     <tbody>
                         <tr ng:repeat="moveEntry in vm.moveList" class="item">
-                            <td class="col-sm-4">
+                            <td class="hidden-xs">
+                                <button class="btn reorder-btn" ng-click="vm.moveUp($index)" title=" Move Up" ng-class="{'disabled': !vm.canMoveUp($index)}"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                                <button class="btn reorder-btn" ng-click="vm.moveDown($index)" title="Move Down" ng-class="{'disabled': !vm.canMoveDown($index)}"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                            </td>
+                            <td class="move-name-row">
                                 <span editable-text="moveEntry.move" e-autocomplete="off" e-name="name" e-class="form-control" e-form="flowForm" e-required e-typeahead="move as move.name for move in vm.allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="vm.removeMove($index, true)" onbeforesave="vm.checkMove($data)" onaftersave="vm.updateMove($index, $data)">
                                     {{moveEntry.move.name}}
                                 </span>
                             </td>
-                            <td class="col-sm-2">
+                            <td>
                                 <span editable-text="moveEntry.duration" e-name="duration" e-type="number" e-class="form-control" e-form="flowForm" onbeforesave="vm.checkDuration($data)" e-required>
                                     {{moveEntry.duration | number:0}} seconds
                                 </span>
                             </td>
-                            <td class="col-sm-2">
+                            <td class="form-buttons-row">
                                 <form editable-form name="flowForm" ng-show="flowForm.$visible" class="form-buttons form-inline" shown="vm.inserted == moveEntry">
                                   <button type="submit" ng-disabled="flowForm.$waiting" title="Ok" class="btn btn-primary">
                                     <span class="glyphicon glyphicon-ok"></span>
                                   </button>
-                                  <button type="button" ng-disabled="flowForm.$waiting" ng-click="flowForm.$cancel()" title="Cancel" class="btn btn-default">
+                                  <button type="button" ng-disabled="flowForm.$waiting" ng-click="flowForm.$cancel()" title="Cancel" class="btn btn-danger">
                                     <span class="glyphicon glyphicon-remove"></span>
                                   </button>
                                 </form>
                                 <div class="buttons" ng-show="!flowForm.$visible">
                                   <button class="btn btn-primary" ng-click="flowForm.$show()" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
                                   <button class="btn btn-danger" ng-click="vm.removeMove($index)" title="Delete"><span class="glyphicon glyphicon-minus"></span></button>
-                                </div>  
+                                </div>
                             </td>
                         </tr>
                     </tbody>

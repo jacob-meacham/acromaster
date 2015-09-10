@@ -59,6 +59,34 @@ var FlowEditDirectiveController = function($scope, _, Moves, flash, randomServic
     }
   };
 
+  vm.canMoveUp = function(index) {
+    return index >= 1;
+  };
+
+  vm.moveUp = function(index) {
+    if (!vm.canMoveUp(index)) {
+      return;
+    }
+
+    var swappedMove = vm.moveList[index-1];
+    vm.moveList[index-1] = vm.moveList[index];
+    vm.moveList[index] = swappedMove;
+  };
+
+  vm.canMoveDown = function(index) {
+    return index < vm.moveList.length-1;
+  };
+
+  vm.moveDown = function(index) {
+    if (!vm.canMoveDown(index)) {
+      return;
+    }
+
+    var swappedMove = vm.moveList[index+1];
+    vm.moveList[index+1] = vm.moveList[index];
+    vm.moveList[index] = swappedMove;
+  };
+
   vm.randomMove = function() {
     var moveEntry = {
       move: randomService.choose(vm.allMoves),

@@ -18,6 +18,21 @@
     .actions {
         margin-bottom: 20px;
     }
+
+    .item .submit-buttons-row {
+        min-width: 100px;
+    }
+
+    .item .move-name-row {
+        min-width: 130px;
+    }
+
+    .reorder-btn {
+        -moz-transition: none;
+        -webkit-transition: none;
+        -o-transition: color 0 ease-in;
+        transition: none;
+    }
 }
 
 
