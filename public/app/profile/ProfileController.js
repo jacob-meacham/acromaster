@@ -110,7 +110,7 @@ var filterFlows = function(_, flows, includeWorkouts) {
   }
 };
 
-var ProfileFlowsController = function($routeParams, $scope, flash, User, pageHeaderService, _) {
+var ProfileFlowsController = function($routeParams, $scope, $anchorScroll, flash, User, pageHeaderService, _) {
   var vm = this;
   vm.flash = flash;
   vm.templateUrl = 'app/profile/profile-flows.html';
@@ -133,9 +133,13 @@ var ProfileFlowsController = function($routeParams, $scope, flash, User, pageHea
     vm.contentReady = true;
     vm.flows = filterFlows(_, vm.allResults.flows, vm.includeWorkouts);
   });
+
+  vm.onPageChange = function() {
+    $anchorScroll(); // Scroll back to the top.
+  };
 };
 
-var ProfileFavoritesController = function($routeParams, flash, User, pageHeaderService) {
+var ProfileFavoritesController = function($routeParams, $anchorScroll, flash, User, pageHeaderService) {
   var vm = this;
   vm.flash = flash;
   vm.templateUrl = 'app/profile/profile-favorites.html';
@@ -143,7 +147,12 @@ var ProfileFavoritesController = function($routeParams, flash, User, pageHeaderS
   vm.favorites = User.getFavorites({userId: $routeParams.user}, function() {
     vm.contentReady = true;
   }); // TODO: Handle this more nicely (Instead of having to do favorites.flows...)
+  
   pageHeaderService.setTitle($routeParams.user);
+
+  vm.onPageChange = function() {
+    $anchorScroll(); // Scroll back to the top.
+  };
 };
 
 var ProfileAchievementsController = function($routeParams, $modal, flash, User, pageHeaderService, achievementsService) {
@@ -168,6 +177,6 @@ var ProfileAchievementsController = function($routeParams, $modal, flash, User, 
 
 angular.module('acromaster.controllers')
   .controller('ProfileHomeController', ['$routeParams', '$timeout', 'flash', 'RandomService', 'User', 'PageHeaderService', '_', ProfileHomeController])
-  .controller('ProfileFlowsController', ['$routeParams', '$scope', 'flash', 'User', 'PageHeaderService', '_', ProfileFlowsController])
-  .controller('ProfileFavoritesController', ['$routeParams', 'flash', 'User', 'PageHeaderService', ProfileFavoritesController])
+  .controller('ProfileFlowsController', ['$routeParams', '$scope', '$anchorScroll', 'flash', 'User', 'PageHeaderService', '_', ProfileFlowsController])
+  .controller('ProfileFavoritesController', ['$routeParams', '$anchorScroll', 'flash', 'User', 'PageHeaderService', ProfileFavoritesController])
   .controller('ProfileAchievementsController', ['$routeParams', '$modal', 'flash', 'User', 'PageHeaderService', 'AchievementsService', ProfileAchievementsController]);
