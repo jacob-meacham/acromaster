@@ -65,11 +65,8 @@ var FlowEditDirectiveController = function($scope, _, Moves, flash, randomServic
 
   vm.moveUp = function(index) {
     if (!vm.canMoveUp(index)) {
-      console.log('cant move up');
       return;
     }
-
-    console.log('swapping up from ' + index + ' to ' + (index-1));
 
     var swappedMove = vm.moveList[index-1];
     vm.moveList[index-1] = vm.moveList[index];
@@ -82,11 +79,8 @@ var FlowEditDirectiveController = function($scope, _, Moves, flash, randomServic
 
   vm.moveDown = function(index) {
     if (!vm.canMoveDown(index)) {
-      console.log('cant move down');
       return;
     }
-
-    console.log('swapping down from ' + index + ' to ' + (index+1));
 
     var swappedMove = vm.moveList[index+1];
     vm.moveList[index+1] = vm.moveList[index];
