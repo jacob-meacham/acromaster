@@ -11,6 +11,8 @@ var app = angular.module('acromaster', [
   'acromaster.directives',
   'ui.bootstrap',
   'ui.scrollpoint',
+  'angulartics',
+  'angulartics.google.analytics',
   'xeditable',
   'rzModule',
   'ngJustGage',
