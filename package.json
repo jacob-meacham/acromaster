@@ -32,7 +32,7 @@
     "lodash": "2.4.1",
     "method-override": "2.3.x",
     "mongoose": "3.8.9",
-    "mongoose-likes": "git://github.com/jacob-meacham/mongoose-likes.git#2a729de77a98c48d5180fb046411f6d02066454a",
+    "mongoose-likes": "git://github.com/jacob-meacham/mongoose-likes.git#8fdec423808c1f6c84505756c602705e092d93ee",
     "mongoose-random": "0.1.1",
     "mongoose-recent": "1.0.3",
     "mongoose-shortid": "git://github.com/VocativLabs/mongoose-shortid.git#b6e7f73fbd41e3dc5617c5cf979f0740716d931d",
