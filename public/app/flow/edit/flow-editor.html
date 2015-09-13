@@ -13,7 +13,7 @@
     <div ng-show="vm.flow && vm.canEdit">
         <div class="flow-basic-info">
             <div >
-                <div class="form-group">
+                <div class="form-group has-error">
                     <div class="flow-title">
                         <span class="flow-icon glyphicon glyphicon-{{vm.flow.imageUrl}}" />
                         <span class="flow-title-name" ng-show="!vm.isCreating" editable-text="vm.flow.name" e-autocomplete="off" e-name="name" e-class="form-control" e-required onbeforesave="vm.checkName($data)">{{ vm.flow.name }}</span>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="flow-box">
+                    <div class="flow-box has-error">
                         <div class="flow-description">
                             <span editable-textarea="vm.flow.description" e-name="description" e-class="form-control" e-maxlength="1024">{{ vm.flow.description || "Add a Description" }}</span>
                         </div>
@@ -30,56 +30,58 @@
             </div>
         </div>
         <hr class="soften">
-        <h3>Moves</h3>
-        <div class="row">
-            <div class="col-sm-9 col-xs-12">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th class="hidden-xs"/>
-                            <th>Move</th>
-                            <th>Duration</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng:repeat="moveEntry in vm.moveList" class="item">
-                            <td class="hidden-xs">
-                                <button class="btn reorder-btn" ng-click="vm.moveUp($index)" title=" Move Up" ng-class="{'disabled': !vm.canMoveUp($index)}"><span class="glyphicon glyphicon-arrow-up"></span></button>
-                                <button class="btn reorder-btn" ng-click="vm.moveDown($index)" title="Move Down" ng-class="{'disabled': !vm.canMoveDown($index)}"><span class="glyphicon glyphicon-arrow-down"></span></button>
-                            </td>
-                            <td class="move-name-row">
-                                <span editable-text="moveEntry.move" e-autocomplete="off" e-name="name" e-class="form-control" e-form="flowForm" e-required e-typeahead="move as move.name for move in vm.allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="vm.removeMove($index, true)" onbeforesave="vm.checkMove($data)" onaftersave="vm.updateMove($index, $data)">
-                                    {{moveEntry.move.name}}
-                                </span>
-                            </td>
-                            <td>
-                                <span editable-text="moveEntry.duration" e-name="duration" e-type="number" e-class="form-control" e-form="flowForm" onbeforesave="vm.checkDuration($data)" e-required>
-                                    {{moveEntry.duration | number:0}} seconds
-                                </span>
-                            </td>
-                            <td class="form-buttons-row">
-                                <form editable-form name="flowForm" ng-show="flowForm.$visible" class="form-buttons form-inline" shown="vm.inserted == moveEntry">
-                                  <button type="submit" ng-disabled="flowForm.$waiting" title="Ok" class="btn btn-primary">
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                  </button>
-                                  <button type="button" ng-disabled="flowForm.$waiting" ng-click="flowForm.$cancel()" title="Cancel" class="btn btn-danger">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                  </button>
-                                </form>
-                                <div class="buttons" ng-show="!flowForm.$visible">
-                                  <button class="btn btn-primary" ng-click="flowForm.$show()" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
-                                  <button class="btn btn-danger" ng-click="vm.removeMove($index)" title="Delete"><span class="glyphicon glyphicon-minus"></span></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="flow-box has-error">
+            <h3>Poses</h3>
+            <div class="row">
+                <div class="col-sm-9 col-xs-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="hidden-xs"/>
+                                <th>Pose</th>
+                                <th>Duration</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng:repeat="moveEntry in vm.moveList" class="item">
+                                <td class="hidden-xs">
+                                    <button class="btn reorder-btn" ng-click="vm.moveUp($index)" title=" Move Up" ng-class="{'disabled': !vm.canMoveUp($index)}"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                                    <button class="btn reorder-btn" ng-click="vm.moveDown($index)" title="Move Down" ng-class="{'disabled': !vm.canMoveDown($index)}"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                                </td>
+                                <td class="move-name-row">
+                                    <span editable-text="moveEntry.move" e-autocomplete="off" e-name="name" e-class="form-control" e-form="flowForm" e-required e-typeahead="move as move.name for move in vm.allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="vm.removeMove($index, true)" onbeforesave="vm.checkMove($data)" onaftersave="vm.updateMove($index, $data)">
+                                        {{moveEntry.move.name}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span editable-text="moveEntry.duration" e-name="duration" e-type="number" e-class="form-control" e-form="flowForm" onbeforesave="vm.checkDuration($data)" e-required>
+                                        {{moveEntry.duration | number:0}} seconds
+                                    </span>
+                                </td>
+                                <td class="form-buttons-row">
+                                    <form editable-form name="flowForm" ng-show="flowForm.$visible" class="form-buttons form-inline" shown="vm.inserted == moveEntry">
+                                      <button type="submit" ng-disabled="flowForm.$waiting" title="Ok" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                      </button>
+                                      <button type="button" ng-disabled="flowForm.$waiting" ng-click="flowForm.$cancel()" title="Cancel" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                      </button>
+                                    </form>
+                                    <div class="buttons" ng-show="!flowForm.$visible">
+                                      <button class="btn btn-primary" ng-click="flowForm.$show()" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                                      <button class="btn btn-danger" ng-click="vm.removeMove($index)" title="Delete"><span class="glyphicon glyphicon-minus"></span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-        <div class="actions">
-            <button class="btn btn-default" ng-click="vm.addMove()" title="Add Move"><span class="glyphicon glyphicon-plus"></button>
-            <button class="btn btn-default" ng-click="vm.randomMove()" title="Random Move"><span class="glyphicon glyphicon-random"></button>
+            <div class="actions">
+                <button class="btn btn-default" ng-click="vm.addMove()" title="Add Pose"><span class="glyphicon glyphicon-plus"></button>
+                <button class="btn btn-default" ng-click="vm.randomMove()" title="Random Pose"><span class="glyphicon glyphicon-random"></button>
+            </div>
         </div>
 
         <div class="alert alert-warning" role="alert" ng-hide="vm.authenticated">

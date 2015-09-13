@@ -5,9 +5,9 @@ var QuickPlayController = function($location, $scope, $modal, flash, flowService
   var flowParams = vm.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};
   vm.currentDifficultyIndex = 1;
   vm.currentMoveLengthIndex = 2;
-  vm.moveDurationExplanation = 'Allows you to fine-tune the base time per move.';
-  vm.moveVarianceExplanation = 'This is the random number of seconds added to each move in the workout.';
-  vm.difficultyExplanation = 'Moves that have a higher difficulty than this won\'t be part of the workout.';
+  vm.moveDurationExplanation = 'Allows you to fine-tune the base time per pose.';
+  vm.moveVarianceExplanation = 'This is the random number of seconds added to each pose in the workout.';
+  vm.difficultyExplanation = 'Poses that have a higher difficulty than this won\'t be part of the workout.';
 
   vm.collapseAdvancedPane = true;
   vm.toggleAdvancedPane = function() {

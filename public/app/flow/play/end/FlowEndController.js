@@ -34,14 +34,14 @@ var FlowEndController = function($location, Flow, flowService, flowStats, $timeo
   }, commonOptions);
 
   vm.difficultyOptions = _.merge({
-    title: 'Average Move Difficulty',
+    title: 'Average Pose Difficulty',
     min: 0,
     max: 9,
     levelColors: ['#FFFF00'],
   }, commonOptions);
 
   vm.numMovesOptions = _.merge({
-    title: 'Number of Moves',
+    title: 'Number of Poses',
     min: 0,
     max: 100,
     levelColors: ['#CE1B21'],
