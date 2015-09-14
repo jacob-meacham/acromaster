@@ -11,8 +11,6 @@
     },
     "js": {
         "public/assets/lib/jquery/dist/jquery.min.js": "public/assets/lib/jquery/dist/jquery.js",
-        "public/assets/lib/jquery-ui/jquery-ui.min.js": "public/assets/lib/jquery-ui/jquery-ui.js",
-        "public/assets/lib/bootstrap/dist/js/bootstrap.min.js": "public/assets/lib/bootstrap/dist/js/bootstrap.js",
         "public/assets/lib/fastclick/lib/fastclick.js": "public/assets/lib/fastclick/lib/fastclick.js",
         "public/assets/lib/angular/angular.min.js": "public/assets/lib/angular/angular.js",
         "public/assets/lib/angular-route/angular-route.min.js": "public/assets/lib/angular-route/angular-route.js",
@@ -34,7 +32,10 @@
         "public/assets/lib/angular-slick/dist/slick.min.js": "public/assets/lib/angular-slick/dist/slick.js",
         "public/assets/lib/angular-base64/angular-base64.min.js": "public/assets/lib/angular-base64/angular-base64.js",
         "public/assets/lib/angular-utils-pagination/dirPagination.js": "public/assets/lib/angular-utils-pagination/dirPagination.js",
+        "public/assets/lib/angulartics/dist/angulartics.min.js": "public/assets/lib/angulartics/src/angulartics.js",
+        "public/assets/lib/angulartics-google-analytics/dist/angulartics-google-analytics.min.js": "public/assets/lib/angulartics-google-analytics/lib/angulartics-google-analytics.js",
         "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"
+
     }
   },
 

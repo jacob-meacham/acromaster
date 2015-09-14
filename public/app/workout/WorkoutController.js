@@ -1,13 +1,13 @@
 'use strict';
 
-var QuickPlayController = function($location, $scope, $modal, flowService, rand, pageHeaderService) {
+var QuickPlayController = function($location, $scope, $modal, flash, flowService, rand, pageHeaderService) {
   var vm = this;
   var flowParams = vm.flowParams = {totalMinutes: 30, difficulty: 3, timePerMove: 15, timeVariance: 10};
   vm.currentDifficultyIndex = 1;
   vm.currentMoveLengthIndex = 2;
-  vm.moveDurationExplanation = 'Allows you to fine-tune the base time per move.';
-  vm.moveVarianceExplanation = 'This is the random number of seconds added to each move in the workout.';
-  vm.difficultyExplanation = 'Moves that have a higher difficulty than this won\'t be part of the workout.';
+  vm.moveDurationExplanation = 'Allows you to fine-tune the base time per pose.';
+  vm.moveVarianceExplanation = 'This is the random number of seconds added to each pose in the workout.';
+  vm.difficultyExplanation = 'Poses that have a higher difficulty than this won\'t be part of the workout.';
 
   vm.collapseAdvancedPane = true;
   vm.toggleAdvancedPane = function() {
@@ -17,11 +17,15 @@ var QuickPlayController = function($location, $scope, $modal, flowService, rand,
   pageHeaderService.setTitle('Flow Play');
 
   vm.generateFlow = function() {
+    vm.generating = true;
     flowParams.totalTime = flowParams.totalMinutes * 60;
     flowParams.flowName = rand.generateFlowName();
     flowParams.imageUrl = rand.randomFlowIcon();
     flowService.generateFlow(flowParams).then(function(flow) {
       $location.path('/flow/' + flow.id + '/play');
+    }).catch(function() {
+      vm.generating = false;
+      vm.error = true;
     });
   };
 
@@ -31,6 +35,11 @@ var QuickPlayController = function($location, $scope, $modal, flowService, rand,
       size: 'sm',
       backdrop: true
     });
+  };
+
+  vm.hideError = function() {
+    flash.error = false;
+    vm.error = false;
   };
 
   $scope.$watch('vm.currentDifficultyIndex', function(newVal) {
@@ -66,4 +75,4 @@ var QuickPlayController = function($location, $scope, $modal, flowService, rand,
 };
 
 angular.module('acromaster.controllers')
-  .controller('QuickPlayController', ['$location', '$scope', '$modal', 'FlowService', 'RandomNameService', 'PageHeaderService', QuickPlayController]);
+  .controller('QuickPlayController', ['$location', '$scope', '$modal', 'flash', 'FlowService', 'RandomNameService', 'PageHeaderService', QuickPlayController]);

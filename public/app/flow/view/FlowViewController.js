@@ -1,13 +1,24 @@
 'use strict';
 
-var FlowViewController = function($routeParams, $location, $scope, $modal, flowService, authService, pageHeaderService, User) {
+var FlowViewController = function($routeParams, $location, $scope, $modal, flash, flowService, authService, pageHeaderService, User) {
   var vm = this;
+  vm.flash = flash;
   var flowId = $routeParams.flowId;
+  var flow;
 
-  var flow = vm.flow = flowService.instantiateFlow(flowId, function(flow) {
-    vm.canEdit = authService.canEdit(flow);
-    pageHeaderService.setTitle(flow.name);
-  });
+  var instantiateFlow = function() {
+    flow = vm.flow = flowService.instantiateFlow(flowId, function(flow) {
+      vm.canEdit = authService.canEdit(flow);
+      pageHeaderService.setTitle(flow.name);
+    });
+  };
+
+  instantiateFlow();
+
+  vm.retryInstantiate = function() {
+    vm.flash.error = false;
+    instantiateFlow();
+  };
 
   vm.start = function() {
     $location.path('/flow/' + flow.id + '/play');
@@ -74,4 +85,4 @@ var FlowViewController = function($routeParams, $location, $scope, $modal, flowS
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowViewController', ['$routeParams', '$location', '$scope', '$modal', 'FlowService', 'AuthService', 'PageHeaderService', 'User', FlowViewController]);
+  .controller('FlowViewController', ['$routeParams', '$location', '$scope', '$modal', 'flash', 'FlowService', 'AuthService', 'PageHeaderService', 'User', FlowViewController]);

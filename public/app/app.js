@@ -10,8 +10,9 @@ var app = angular.module('acromaster', [
   'acromaster.controllers',
   'acromaster.directives',
   'ui.bootstrap',
-  'ui.sortable',
   'ui.scrollpoint',
+  'angulartics',
+  'angulartics.google.analytics',
   'xeditable',
   'rzModule',
   'ngJustGage',
@@ -32,7 +33,13 @@ angular.module('acromaster.services', ['ngResource']);
 angular.module('acromaster.controllers', []);
 angular.module('acromaster.directives', []);
 
-app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function($routeProvider, $locationProvider, $sceDelegateProvider) {
+app.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('httpErrorsInterceptor');
+  }])
+  .config(['flashProvider', function(flashProvider) {
+    flashProvider.errorClassnames.push('alert-danger');
+  }])
+  .config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function($routeProvider, $locationProvider, $sceDelegateProvider) {
     $routeProvider.
     when('/', {
       templateUrl: '/app/home/home.html',
@@ -66,7 +73,9 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
       controllerAs: 'vm',
       resolve: {
         flows: ['FlowSearchInitialData', function(FlowSearchInitialData) {
-          return FlowSearchInitialData.performSearch();
+          return FlowSearchInitialData.performSearch().catch(function() {
+            return { success: false };
+          });
         }]
       }
     })

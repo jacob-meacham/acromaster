@@ -14,7 +14,7 @@
         </tr>
     </tbody>
 </table>
-<dir-pagination-controls></dir-pagination-controls>
+<dir-pagination-controls on-page-change="vm.onPageChange(newPageNumber)"></dir-pagination-controls>
 <div class="col-md-12">
     <debug>{{ vm.flows | json }}</debug>
 </div>

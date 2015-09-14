@@ -55,17 +55,17 @@ var AchievementsService = function(_) {
     // # of moves done
     fistfulofacro : {
       title: 'A Fistful of Acro',
-      description: 'Perform 100 moves',
+      description: 'Perform 100 poses',
       image: '{fa:true, "fa-trophy":true, "fa-2x":true}'
     },
     neverseenthatone : {
       title: 'Huh, Never Seen That One Before',
-      description: 'Perform 1000 moves',
+      description: 'Perform 1000 poses',
       image: '{fa:true, "fa-trophy":true, "fa-2x":true}'
     },
     allthemoves : {
       title: 'All. The. Moves',
-      description: 'Do a total of 10,000 moves',
+      description: 'Do a total of 10,000 poses',
       image: '{fa:true, "fa-trophy":true, "fa-2x":true}'
     },
 

@@ -16,16 +16,26 @@
                 <a class="btn btn-default btn-circle" ng-href="/flow/{{vm.randomFlow.id}}" popover="Take me to a random flow!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-random" /></a>
             </span>
         </section>
-        <h1>Featured Flows</h1>
-        <table class="table flow-list">
-            <tbody>
-                <tr ng-repeat='flow in vm.featuredFlows'>
-                    <td><flow-list-item flow='flow' show-author='true' /></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="col-md-12">
-            <debug>{{ vm.featuredFlows | json }}</debug>
-        </div>
+        <article>
+            <h1>Featured Flows</h1>
+            <div class="inner-circles-loader" ng-hide="vm.featuredFlows || vm.flash.error">
+              Loading…
+            </div>
+            <div flash-alert="error" active-class="in alert" role="alert" duration="0" ng-show="vm.flash.error">
+                <button type="button" class="close" ng-click="vm.retryPopulate()">&times;</button>
+                <strong class="alert-heading">AcrOh Snap!</strong>
+                <span class="alert-message">{{flash.message}}</span>
+            </div>
+            <table class="table flow-list">
+                <tbody>
+                    <tr ng-repeat='flow in vm.featuredFlows'>
+                        <td><flow-list-item flow='flow' show-author='true' /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-md-12">
+                <debug>{{ vm.featuredFlows | json }}</debug>
+            </div>
+        </article>
     </div>
 </section>

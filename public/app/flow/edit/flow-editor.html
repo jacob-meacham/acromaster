@@ -1,82 +1,103 @@
-<div>
-    <div class="flow-basic-info">
-        <div >
-            <div class="form-group">
-                <div class="flow-title">
-                    <span class="flow-icon glyphicon glyphicon-{{vm.flow.imageUrl}}" />
-                    <span class="flow-title-name" ng-show="!vm.isCreating" editable-text="vm.flow.name" e-autocomplete="off" e-name="name" e-class="form-control" e-required onbeforesave="vm.checkName($data)">{{ vm.flow.name }}</span>
-                    <input ng-show="vm.isCreating" type="text" class="form-control flow-name-control" ng-model="vm.flow.name" id="name" placeholder="Flow Name"></input>
+<div class="flow-editor">
+    <div class="inner-circles-loader" ng-hide="vm.flow || vm.flash.error">
+      Loading…
+    </div>
+    <div flash-alert="error" active-class="alert" role="alert" duration="0" ng-show="!vm.flow && flash.visible">
+        <strong class="alert-heading">AcrOh Snap!</strong>
+        <span class="alert-message">{{flash.message}}</span>
+    </div>
+    <div class="alert alert-danger" role="alert" ng-show="!vm.canEdit">
+        <strong class="alert-heading">AcrOh Snap!</strong>
+        <span class="alert-message">You don't have permission to edit this flow</span>
+    </div>
+    <div ng-show="vm.flow && vm.canEdit">
+        <div class="flow-basic-info">
+            <div >
+                <div class="form-group has-error">
+                    <div class="flow-title">
+                        <span class="flow-icon glyphicon glyphicon-{{vm.flow.imageUrl}}" />
+                        <span class="flow-title-name" ng-show="!vm.isCreating" editable-text="vm.flow.name" e-autocomplete="off" e-name="name" e-class="form-control" e-required onbeforesave="vm.checkName($data)">{{ vm.flow.name }}</span>
+                        <input ng-show="vm.isCreating" type="text" class="form-control flow-name-control" ng-model="vm.flow.name" id="name" placeholder="Flow Name" required minlength="3" maxlength="50"></input>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="flow-box">
-                    <div class="flow-description">
-                        <span editable-textarea="vm.flow.description" e-name="description" e-class="form-control">{{ vm.flow.description || "Add a Description" }}</span>
+                <div class="form-group">
+                    <div class="flow-box has-error">
+                        <div class="flow-description">
+                            <span editable-textarea="vm.flow.description" e-name="description" e-class="form-control" e-maxlength="1024">{{ vm.flow.description || "Add a Description" }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <hr class="soften">
-    <h3>Moves</h3>
-    <div class="row">
-        <div class="col-sm-8">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Move</th>
-                        <th>Duration</th>
-                        <th> </th>
-                    </tr>
-                </thead>
-                <tbody ui:sortable ng:model="vm.moveList">
-                    <tr ng:repeat="moveEntry in vm.moveList" class="item">
-                        <td class="col-sm-4">
-                            <span editable-text="moveEntry.move" e-autocomplete="off" e-name="name" e-class="form-control" e-form="flowForm" e-required e-typeahead="move as move.name for move in vm.allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="vm.removeMove($index, true)" onbeforesave="vm.checkMove($data)" onaftersave="vm.updateMove($index, $data)">
-                                {{moveEntry.move.name}}
-                            </span>
-                        </td>
-                        <td class="col-sm-2">
-                            <span editable-text="moveEntry.duration" e-name="duration" e-type="number" e-class="form-control" e-form="flowForm" onbeforesave="vm.checkDuration($data)" e-required>
-                                {{moveEntry.duration | number:0}} seconds
-                            </span>
-                        </td>
-                        <td class="col-sm-2">
-                            <form editable-form name="flowForm" ng-show="flowForm.$visible" class="form-buttons form-inline" shown="vm.inserted == moveEntry">
-                              <button type="submit" ng-disabled="flowForm.$waiting" title="Ok" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-ok"></span>
-                              </button>
-                              <button type="button" ng-disabled="flowForm.$waiting" ng-click="flowForm.$cancel()" title="Cancel" class="btn btn-default">
-                                <span class="glyphicon glyphicon-remove"></span>
-                              </button>
-                            </form>
-                            <div class="buttons" ng-show="!flowForm.$visible">
-                              <button class="btn btn-primary" ng-click="flowForm.$show()" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
-                              <button class="btn btn-danger" ng-click="vm.removeMove($index)" title="Delete"><span class="glyphicon glyphicon-minus"></span></button>
-                            </div>  
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <button class="btn btn-default" ng-click="vm.addMove()" title="Add Move"><span class="glyphicon glyphicon-plus"></button>
-    <button class="btn btn-default" ng-click="vm.randomMove()" title="Random Move"><span class="glyphicon glyphicon-random"></button>
-
-    <div class="alert alert-warning" role="alert" ng-hide="vm.authenticated">
-        <strong>Warning:</strong> Because you're not logged in, you won't be able to edit this flow after saving it. <a href="/login" class="alert-link">Login here</a>
-    </div>
-    <form ng-submit="vm.save()">
-        <div class="form-group">
-            <div flash-alert="error" active-class="in alert alert-danger" role="alert" class="fade" duration="0">
-                <button type="button" class="close" ng-click="hide()">&times;</button>
-                <strong class="alert-heading">Error</strong>
-                <span class="alert-message">{{flash.message}}</span>
+        <hr class="soften">
+        <div class="flow-box has-error">
+            <h3>Poses</h3>
+            <div class="row">
+                <div class="col-sm-9 col-xs-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="hidden-xs"/>
+                                <th>Pose</th>
+                                <th>Duration</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng:repeat="moveEntry in vm.moveList" class="item">
+                                <td class="hidden-xs">
+                                    <button class="btn reorder-btn" ng-click="vm.moveUp($index)" title=" Move Up" ng-class="{'disabled': !vm.canMoveUp($index)}"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                                    <button class="btn reorder-btn" ng-click="vm.moveDown($index)" title="Move Down" ng-class="{'disabled': !vm.canMoveDown($index)}"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                                </td>
+                                <td class="move-name-row">
+                                    <span editable-text="moveEntry.move" e-autocomplete="off" e-name="name" e-class="form-control" e-form="flowForm" e-required e-typeahead="move as move.name for move in vm.allMoves | filter:$viewValue | limitTo:20" e-typeahead-editable="false" oncancel="vm.removeMove($index, true)" onbeforesave="vm.checkMove($data)" onaftersave="vm.updateMove($index, $data)">
+                                        {{moveEntry.move.name}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span editable-text="moveEntry.duration" e-name="duration" e-type="number" e-class="form-control" e-form="flowForm" onbeforesave="vm.checkDuration($data)" e-required>
+                                        {{moveEntry.duration | number:0}} seconds
+                                    </span>
+                                </td>
+                                <td class="form-buttons-row">
+                                    <form editable-form name="flowForm" ng-show="flowForm.$visible" class="form-buttons form-inline" shown="vm.inserted == moveEntry">
+                                      <button type="submit" ng-disabled="flowForm.$waiting" title="Ok" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                      </button>
+                                      <button type="button" ng-disabled="flowForm.$waiting" ng-click="flowForm.$cancel()" title="Cancel" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                      </button>
+                                    </form>
+                                    <div class="buttons" ng-show="!flowForm.$visible">
+                                      <button class="btn btn-primary" ng-click="flowForm.$show()" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                                      <button class="btn btn-danger" ng-click="vm.removeMove($index)" title="Delete"><span class="glyphicon glyphicon-minus"></span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <button type="submit" class="btn btn-default">{{ vm.isCreating ? "Create Flow" : "Update Flow" }}</button>
+            <div class="actions">
+                <button class="btn btn-default" ng-click="vm.addMove()" title="Add Pose"><span class="glyphicon glyphicon-plus"></button>
+                <button class="btn btn-default" ng-click="vm.randomMove()" title="Random Pose"><span class="glyphicon glyphicon-random"></button>
+            </div>
         </div>
-    </form>
-    <debug class="block">
-        <p>{{vm.moveList}}</p>
-    </debug>
+
+        <div class="alert alert-warning" role="alert" ng-hide="vm.authenticated">
+            <strong>Warning:</strong> Because you're not logged in, you won't be able to edit this flow after saving it. <a href="/login" class="alert-link">Login here</a>
+        </div>
+        <form ng-submit="vm.save()">
+            <div class="form-group">
+                <div flash-alert="error" active-class="in alert" role="alert" class="fade" duration="5000" ng-show="flash.visible">
+                    <strong class="alert-heading">Error</strong>
+                    <span class="alert-message">{{flash.message}}</span>
+                </div>
+                <button type="submit" class="btn btn-default">{{ vm.isCreating ? "Create Flow" : "Update Flow" }}</button>
+            </div>
+        </form>
+        <debug class="block">
+            <p>{{vm.moveList}}</p>
+        </debug>
+    </div>
 </div>

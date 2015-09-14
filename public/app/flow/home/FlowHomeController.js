@@ -1,18 +1,28 @@
 'use strict';
 
-var FlowHomeController = function($location, Flow, PageHeaderService) {
+var FlowHomeController = function($location, flash, Flow, PageHeaderService) {
   var vm = this;
-  Flow.get({random: true, max: 11}, function(response) {
-    vm.randomFlow = response.flows[0];
-    vm.featuredFlows = response.flows.slice(1, response.total);
-  });
+  vm.flash = flash;
 
-  PageHeaderService.setTitle('Flows');
+  var populateFlows = function() {
+    Flow.get({random: true, max: 11}, function(response) {
+      vm.randomFlow = response.flows[0];
+      vm.featuredFlows = response.flows.slice(1, response.total);
+    });
+  };
 
   vm.search = function() {
     $location.path('/flows/results').search({search_query: vm.searchQuery});
   };
+
+  vm.retryPopulate = function() {
+    vm.flash.error = false;
+    populateFlows();
+  };
+
+  PageHeaderService.setTitle('Flows');
+  populateFlows();
 };
 
 angular.module('acromaster.controllers')
-  .controller('FlowHomeController', ['$location', 'Flow', 'PageHeaderService', 'PageHeaderService', FlowHomeController]);
+  .controller('FlowHomeController', ['$location', 'flash', 'Flow', 'PageHeaderService', 'PageHeaderService', FlowHomeController]);

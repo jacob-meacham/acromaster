@@ -2,18 +2,28 @@
 
 // TODO: DRY, in a nicer way
 var populateProfile = function (vm, User, userId, success) {
-  vm.error = null;
-  vm.profile = User.get({userId: userId}, success, function(response) {
-    if (response.status === 404) {
-      vm.error = 'That user does not exist.';
-    } else {
-      vm.error = response.statusText;
-    }
-  });
+  vm.username = userId;
+  var _populateProfile = function() {
+    vm.profile = User.get({userId: userId}, success, function(response) {
+      if (response.status === 404) {
+        vm.flash.error = 'That user does not exist.';
+        vm.profileError = true;
+      }
+    });
+  };
+
+  _populateProfile();
+
+  vm.retryPopulateProfile = function() {
+    vm.flash.error = false;
+    vm.profileError = false;
+    _populateProfile();
+  };
 };
 
-var ProfileHomeController = function($routeParams, $timeout, rand, User, pageHeaderService, _) {
+var ProfileHomeController = function($routeParams, $timeout, flash, rand, User, pageHeaderService, _) {
   var vm = this;
+  vm.flash = flash;
   vm.templateUrl = 'app/profile/profile-home.html';
   pageHeaderService.setTitle($routeParams.user);
 
@@ -62,6 +72,7 @@ var ProfileHomeController = function($routeParams, $timeout, rand, User, pageHea
   }, commonOptions);
 
   populateProfile(vm, User, $routeParams.user, function() {
+    vm.contentReady = true;
     var stats = vm.profile.stats;
     var minutesPlayed = stats.secondsPlayed / 60;
     vm.flowsPlayedOptions.max = stats.flowsPlayed * (1.1 + (0.9 * rand.random()));
@@ -99,8 +110,9 @@ var filterFlows = function(_, flows, includeWorkouts) {
   }
 };
 
-var ProfileFlowsController = function($routeParams, $scope, User, pageHeaderService, _) {
+var ProfileFlowsController = function($routeParams, $scope, $anchorScroll, flash, User, pageHeaderService, _) {
   var vm = this;
+  vm.flash = flash;
   vm.templateUrl = 'app/profile/profile-flows.html';
   pageHeaderService.setTitle($routeParams.user);
 
@@ -118,24 +130,39 @@ var ProfileFlowsController = function($routeParams, $scope, User, pageHeaderServ
   // TODO: Don't need to do this work if there is no user.
   vm.allResults = User.getFlows({userId: $routeParams.user});
   vm.allResults.$promise.then(function() {
+    vm.contentReady = true;
     vm.flows = filterFlows(_, vm.allResults.flows, vm.includeWorkouts);
   });
+
+  vm.onPageChange = function() {
+    $anchorScroll(); // Scroll back to the top.
+  };
 };
 
-var ProfileFavoritesController = function($routeParams, User, pageHeaderService) {
+var ProfileFavoritesController = function($routeParams, $anchorScroll, flash, User, pageHeaderService) {
   var vm = this;
+  vm.flash = flash;
   vm.templateUrl = 'app/profile/profile-favorites.html';
   populateProfile(vm, User, $routeParams.user, function() {});
-  vm.favorites = User.getFavorites({userId: $routeParams.user}); // TODO: Handle this more nicely (Instead of having to do favorites.flows...)
+  vm.favorites = User.getFavorites({userId: $routeParams.user}, function() {
+    vm.contentReady = true;
+  }); // TODO: Handle this more nicely (Instead of having to do favorites.flows...)
+  
   pageHeaderService.setTitle($routeParams.user);
+
+  vm.onPageChange = function() {
+    $anchorScroll(); // Scroll back to the top.
+  };
 };
 
-var ProfileAchievementsController = function($routeParams, $modal, User, pageHeaderService, achievementsService) {
+var ProfileAchievementsController = function($routeParams, $modal, flash, User, pageHeaderService, achievementsService) {
   var vm = this;
+  vm.flash = flash;
   vm.templateUrl = 'app/profile/profile-achievements.html';
   pageHeaderService.setTitle($routeParams.user);
 
   populateProfile(vm, User, $routeParams.user, function() {
+    vm.contentReady = true;
     vm.achievements = achievementsService.getUserAchievements(vm.profile);
   });
 
@@ -149,7 +176,7 @@ var ProfileAchievementsController = function($routeParams, $modal, User, pageHea
 };
 
 angular.module('acromaster.controllers')
-  .controller('ProfileHomeController', ['$routeParams', '$timeout', 'RandomService', 'User', 'PageHeaderService', '_', ProfileHomeController])
-  .controller('ProfileFlowsController', ['$routeParams', '$scope', 'User', 'PageHeaderService', '_', ProfileFlowsController])
-  .controller('ProfileFavoritesController', ['$routeParams', 'User', 'PageHeaderService', ProfileFavoritesController])
-  .controller('ProfileAchievementsController', ['$routeParams', '$modal', 'User', 'PageHeaderService', 'AchievementsService', ProfileAchievementsController]);
+  .controller('ProfileHomeController', ['$routeParams', '$timeout', 'flash', 'RandomService', 'User', 'PageHeaderService', '_', ProfileHomeController])
+  .controller('ProfileFlowsController', ['$routeParams', '$scope', '$anchorScroll', 'flash', 'User', 'PageHeaderService', '_', ProfileFlowsController])
+  .controller('ProfileFavoritesController', ['$routeParams', '$anchorScroll', 'flash', 'User', 'PageHeaderService', ProfileFavoritesController])
+  .controller('ProfileAchievementsController', ['$routeParams', '$modal', 'flash', 'User', 'PageHeaderService', 'AchievementsService', ProfileAchievementsController]);

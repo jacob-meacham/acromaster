@@ -111,6 +111,22 @@ var list = function(req, res, next) {
   }
 };
 
+var _validateFlow = function(flow) {
+  if (!flow.name || flow.name.length > 50 || flow.name.length < 3) {
+    return {error: 'Flow must have a name, and the name must be between 3 and 50 characters', status: 400, element: 'flow-name'};
+  }
+
+  if (!flow.moves || flow.moves.length === 0 || flow.moves.length > 200) {
+    return {error: 'Flow must have moves, and there must be fewer than 200 moves', status: 400, element: 'flow-moves'};
+  }
+
+  if (flow.description && flow.description.length > 1024) {
+    return {error: 'Description must be less than 1024 characters', status: 400, element: 'flow-description'};
+  }
+
+  return {};
+};
+
 var create = function(req, res, next) {
   var flow = req.flow;
   if (req.user) {
@@ -121,6 +137,11 @@ var create = function(req, res, next) {
     if (!flow.workout) {
       req.user.recordFlowWritten(); // Async is totally fine - we can just throw errors on the floor.
     }
+  }
+
+  var validation = _validateFlow(flow);
+  if (validation.error) {
+    return next(validation);
   }
 
   flow.saveAsync().then(function() {
@@ -138,6 +159,11 @@ var update = function(req, res, next) {
   if (req.body.moves) { flow.moves = req.body.moves; }
   if (req.body.name) { flow.name = req.body.name; }
   if (req.body.description) { flow.description = req.body.description; }
+
+  var validation = _validateFlow(flow);
+  if (validation.error) {
+    return next(validation.error);
+  }
 
   flow.saveAsync().then(function() {
     res.jsonp(flow);

@@ -1,5 +1,26 @@
 <section class="flows row">
     <div class="col-xs-12">
+        <section class="search-field-container clearfix">
+            <form ng-submit="vm.search()" class="form-horizontal">
+                <div class="search-form form-group col-xs-9 col-lg-8">
+                    <div class="input-group">
+                        <input class="form-control" type="text" ng-model="vm.searchQuery" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-add" type="submit"><span class="btn-search glyphicon glyphicon-search" /></button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <span class="action-buttons">
+                <a class="btn btn-default btn-circle" href="/flow/create" popover="Create your own!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-plus" /></a>
+                <!-- TODO: This doesn't currently work as desired. -->
+                <a class="btn btn-default btn-circle" ng-href="/flow/{{vm.randomFlow.id}}" popover="Take me to a random flow!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-random" /></a>
+            </span>
+        </section>
+        <div flash-alert="error" active-class="in alert" role="alert" duration="0" ng-show="flash.visible">
+            <strong class="alert-heading">AcrOh Snap!</strong>
+            <span class="alert-message">{{flash.message}}</span>
+        </div>
         <table class="table flow-list">
             <tbody>
                 <tr dir-paginate='flow in vm.flows | itemsPerPage: 7'>
@@ -7,6 +28,6 @@
                 </tr>
             </tbody>
         </table>
-        <dir-pagination-controls></dir-pagination-controls>
+        <dir-pagination-controls on-page-change="vm.onPageChange(newPageNumber)"></dir-pagination-controls>
     </div>
 </section>

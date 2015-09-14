@@ -9,12 +9,12 @@
     <div collapse="vm.collapseAdvancedPane" class="advanced-pane">
         <div class="row">
             <div class="col-sm-3 slider-block">
-                <h4 class="slider-title">Move Duration <span class="glyphicon glyphicon-question-sign" popover="{{vm.moveDurationExplanation}}" popover-trigger="mouseenter" ng-click="vm.openExplanationModal(vm.moveDurationExplanation)" /></h4>
+                <h4 class="slider-title">Pose Duration <span class="glyphicon glyphicon-question-sign" popover="{{vm.moveDurationExplanation}}" popover-trigger="mouseenter" ng-click="vm.openExplanationModal(vm.moveDurationExplanation)" /></h4>
                 <rzslider rz-slider-floor="5" rz-slider-ceil="60" rz-slider-model="vm.flowParams.timePerMove" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
                 <h4>{{vm.flowParams.timePerMove}} seconds</h4>
             </div>
             <div class="col-sm-3 col-sm-offset-1 slider-block">
-                <h4 class="slider-title">Move Variance <span class="glyphicon glyphicon-question-sign" popover="{{vm.moveVarianceExplanation}}" popover-trigger="mouseenter" ng-click="vm.openExplanationModal(vm.moveVarianceExplanation)"></span></h4>
+                <h4 class="slider-title">Pose Variance <span class="glyphicon glyphicon-question-sign" popover="{{vm.moveVarianceExplanation}}" popover-trigger="mouseenter" ng-click="vm.openExplanationModal(vm.moveVarianceExplanation)"></span></h4>
                 <rzslider rz-slider-floor="0" rz-slider-ceil="60" rz-slider-model="vm.flowParams.timeVariance" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
                 <h4>{{vm.flowParams.timeVariance}} seconds</h4>
             </div>
@@ -47,7 +47,7 @@
         </div>
         <div class="col-sm-4">
             <div class="workout-column">
-                <h3 class="slider-title">Move Length</h3>
+                <h3 class="slider-title">Time Between Poses</h3>
                 <slick dots=false infinite=false current-index="vm.currentMoveLengthIndex" initial-slide="{{vm.currentMoveLengthIndex}}">
                     <div><h3>Quick</h3></div>
                     <div><h3>Short</h3></div>
@@ -58,5 +58,15 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-default btn-lg" ng-click="vm.generateFlow()">Let's Go!</button>
+    <div flash-alert="error" active-class="in alert" role="alert" duration="0" ng-show="flash.visible">
+        <button type="button" class="close" ng-click="vm.hideError()">&times;</button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        <strong class="alert-heading">AcrOh Snap!</strong>
+        <span class="alert-message">{{flash.message}}</span>
+    </div>
+    <div class="inner-circles-loader" ng-show="vm.generating && !vm.error">
+      Loading…
+    </div>
+    <button type="button" class="btn btn-default btn-lg" ng-click="vm.generateFlow()" ng-hide="vm.generating || vm.error">Let's Go!</button>
 </section>

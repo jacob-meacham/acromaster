@@ -1,12 +1,14 @@
 'use strict';
+var os = require('os');
 var versionString = '';
 var env = '';
 
 var index = function(req, res) {
-    res.render('index', {
-      user: req.user ? req.user : {},
-      env: env
-    });
+  res.render('index', {
+    user: req.user ? req.user : {},
+    env: env,
+    hostname: os.hostname()
+  });
 };
 
 var version = function(req, res) {
