@@ -4,3 +4,9 @@
 
 [![Dependency Status](https://www.versioneye.com/user/projects/54b197de2eea784acc00016e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54b197de2eea784acc00016e)
 [![Dependency Status](https://www.versioneye.com/user/projects/54b197dd2eea78c8ad000047/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54b197dd2eea78c8ad000047)
+
+Version History
+---------------
+_0.9.0_
+* First limited public release
+* You can see all fixed issues [here](https://github.com/jacob-meacham/acromaster/issues?utf8=%E2%9C%93&q=milestone%3A0.9.0+)
