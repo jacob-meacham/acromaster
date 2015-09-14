@@ -1,7 +1,14 @@
 'use strict';
 
 describe('FlowService', function() {
-  beforeEach(module('acromaster'));
+  beforeEach(function() {
+    module('angulartics', function($analyticsProvider) { // Make angulartics a no-op, so that it doesn't mess with httpBackend requests.
+      $analyticsProvider.developerMode(true);
+      $analyticsProvider.virtualPageviews(false);
+      $analyticsProvider.firstPageview(false);
+    });
+    module('acromaster');
+  });
 
   describe('FlowService', function() {
     var flow = {name: 'newFlow', moves: [{name: 'moveA'}, {name: 'moveB'}]};
