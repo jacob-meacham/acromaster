@@ -1,16 +1,24 @@
 'use strict';
 
 var SoundService = function($http) {
-  return {
-    getRoot: function() {
-      return $http.get('/api/sounds').then(function(root) {
+  var getRoot = function() {
+    return $http.get('/api/sounds').then(function(root) {
         return root.data;
+      });
+  };
+
+  return {
+    getRoot: getRoot,
+
+    getDoneSound: function() {
+      return getRoot().then(function(root) {
+        return root + 'flowFinished.mp3'; // TODO: Firefox doesn't play mp3s?
       });
     },
 
-    getDoneSound: function() {
-      return $http.get('/api/sounds/done').then(function(doneSound) {
-        return doneSound.data;
+    getSilence: function() {
+      return getRoot().then(function(root) {
+        return root + 'soundOfSilence.mp3';
       });
     }
   };
