@@ -9,7 +9,7 @@ var LoopedAudio = function(tweenAudioSrcPromise) {
   var isInitialized = false;
 
   tweenAudioSrcPromise.then(function(src) {
-    tweenAudio.src = src.replace('http://localhost:10001', 'http://acromaster.s3.amazonaws.com');
+    tweenAudio.src = src;
     tweenAudio.loop = true;
   });
 
@@ -43,7 +43,7 @@ var LoopedAudio = function(tweenAudioSrcPromise) {
     }
     
     tweenAudio.pause();
-    mainAudio.src = file.replace('http://localhost:10001', 'http://acromaster.s3.amazonaws.com');
+    mainAudio.src = file;
     mainAudio.play();
     isTween = false;
   };
@@ -124,12 +124,21 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
     }
   };
 
+  vm.volumeSlideStarted = function() {
+    vm.oldVolume = vm.volume;
+  };
+
   vm.setAudio = function(file) {
-    audio.setAudio(file.replace('http://localhost:10001', 'http://acromaster.s3.amazonaws.com'));
+    audio.setAudio(file);
   };
 
   $scope.$watch(function() { return vm.volume; }, function(newVal) {
     audio.setVolume(newVal / 100.0);
+    if (newVal === 0) {
+      vm.muted = true;
+    } else {
+      vm.muted = false;
+    }
   });
 
   var getScaledDuration = function(duration, multiplier) {
