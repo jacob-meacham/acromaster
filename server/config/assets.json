@@ -2,7 +2,6 @@
   "vendor": {
     "css": {
         "public/assets/lib/bootstrap/dist/css/bootstrap.min.css": "public/assets/lib/bootstrap/dist/css/bootstrap.css",
-        "public/assets/lib/jquery-ui/themes/base/minified/jquery-ui.min.css": "public/assets/lib/jquery-ui/themes/base/minified/jquery-ui.css",
         "public/assets/lib/angular-xeditable/dist/css/xeditable.css": "public/assets/lib/angular-xeditable/dist/css/xeditable.css",
         "public/assets/lib/slick.js/slick/slick.css": "public/assets/lib/slick.js/slick/slick.css",
         "public/assets/lib/slick.js/slick/slick-theme.css": "public/assets/lib/slick.js/slick/slick-theme.css",
@@ -11,6 +10,7 @@
     },
     "js": {
         "public/assets/lib/jquery/dist/jquery.min.js": "public/assets/lib/jquery/dist/jquery.js",
+        "public/assets/lib/bootstrap/dist/js/bootstrap.min.js": "public/assets/lib/bootstrap/dist/js/bootstrap.js",
         "public/assets/lib/fastclick/lib/fastclick.js": "public/assets/lib/fastclick/lib/fastclick.js",
         "public/assets/lib/angular/angular.min.js": "public/assets/lib/angular/angular.js",
         "public/assets/lib/angular-route/angular-route.min.js": "public/assets/lib/angular-route/angular-route.js",
