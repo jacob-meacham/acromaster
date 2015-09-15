@@ -7,6 +7,7 @@ var app = angular.module('acromaster', [
   'ngCookies',
   'ngSanitize',
   'acromaster.services',
+  'acromaster.filters',
   'acromaster.controllers',
   'acromaster.directives',
   'ui.bootstrap',
@@ -30,6 +31,7 @@ var app = angular.module('acromaster', [
 
 // Pre-define modules
 angular.module('acromaster.services', ['ngResource']);
+angular.module('acromaster.filters', []);
 angular.module('acromaster.controllers', []);
 angular.module('acromaster.directives', []);
 

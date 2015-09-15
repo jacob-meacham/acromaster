@@ -19,8 +19,8 @@
         </div>
         <div class="col-xs-5 col-sm-3 col-md-2 controls-container controls-right">
             <div class="speed-slider">
-                <rzslider rz-slider-floor="0.25" rz-slider-ceil="4" rz-slider-precision="2" rz-slider-step="0.25" rz-slider-model="player.speedMultiplier" rz-slider-on-change="player.updateDuration()" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
-                <div class="speed-slider-label">x{{player.speedMultiplier}}</div>
+                <rzslider rz-slider-floor="0.25" rz-slider-ceil="4" rz-slider-precision="2" rz-slider-step="0.05" rz-slider-model="player.speedMultiplier" rz-slider-on-change="player.updateDuration()" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
+                <div class="speed-slider-label">x{{player.speedMultiplier | snap:4:2}}</div>
             </div>
         </div>
     </div>
