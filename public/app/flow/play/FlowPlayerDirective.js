@@ -1,12 +1,17 @@
 'use strict';
 
 // This class is used 
-var LoopedAudio = function(tweenAudioSrc) {
+var LoopedAudio = function(tweenAudioSrcPromise) {
+  
   var mainAudio = new Audio();
   var tweenAudio = new Audio();
-  tweenAudio.loop = true;
-  tweenAudio.src = tweenAudioSrc;
   var isTween = false;
+  var isInitialized = false;
+
+  tweenAudioSrcPromise.then(function(src) {
+    tweenAudio.src = src.replace('http://localhost:10001', 'http://acromaster.s3.amazonaws.com');
+    tweenAudio.loop = true;
+  });
 
   mainAudio.addEventListener('ended', function() {
     // The current sound ended, so let's set the in-between sound to keep mobile devices from shutting off.
@@ -31,6 +36,12 @@ var LoopedAudio = function(tweenAudioSrc) {
   };
 
   var setAudio = function(file) {
+    if (!isInitialized) {
+      // All audio must be started by user gesture...
+      isInitialized = true;
+      tweenAudio.play();
+    }
+    
     tweenAudio.pause();
     mainAudio.src = file.replace('http://localhost:10001', 'http://acromaster.s3.amazonaws.com');
     mainAudio.play();
@@ -59,7 +70,7 @@ var LoopedAudio = function(tweenAudioSrc) {
 var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   var vm = this;
 
-  var audio = new LoopedAudio('http://acromaster.s3.amazonaws.com/moves/audio/star.mp3');
+  var audio = new LoopedAudio(sounds.getSilence());
   var currentEntry = {};
   vm.currentMove = {};
   vm.currentMoveIdx = 0;
