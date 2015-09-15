@@ -63,14 +63,16 @@ var LoopedAudio = function(tweenAudioSrcPromise) {
     pause: pause,
     setAudio: setAudio,
     setVolume: setVolume,
-    destroy: destroy
+    destroy: destroy,
+    __mainAudio: mainAudio,
+    __tweenAudio: tweenAudio
   };
 };
 
 var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   var vm = this;
 
-  var audio = new LoopedAudio(sounds.getSilence());
+  var audio = vm.audio = new LoopedAudio(sounds.getSilence());
   var currentEntry = {};
   vm.currentMove = {};
   vm.currentMoveIdx = 0;
