@@ -1,15 +1,65 @@
 'use strict';
 
+// This class is used 
+var LoopedAudio = function(tweenAudioSrc) {
+  var mainAudio = new Audio();
+  var tweenAudio = new Audio();
+  tweenAudio.loop = true;
+  tweenAudio.src = tweenAudioSrc;
+  var isTween = false;
+
+  mainAudio.addEventListener('ended', function() {
+    // The current sound ended, so let's set the in-between sound to keep mobile devices from shutting off.
+    tweenAudio.play();
+    isTween = true;
+  });
+
+  var play = function() {
+    if (isTween) {
+      tweenAudio.play();
+    } else {
+      mainAudio.play();
+    }
+  };
+
+  var pause = function() {
+    if (isTween) {
+      tweenAudio.pause();
+    } else {
+      mainAudio.pause();
+    }
+  };
+
+  var setAudio = function(file) {
+    tweenAudio.pause();
+    mainAudio.src = file.replace('http://localhost:10001', 'http://acromaster.s3.amazonaws.com');
+    mainAudio.play();
+    isTween = false;
+  };
+
+  var setVolume = function(volume) {
+    tweenAudio.volume = volume;
+    mainAudio.volume = volume;
+  };
+
+  var destroy = function() {
+    mainAudio.pause();
+    tweenAudio.pause();
+  };
+
+  return {
+    play: play,
+    pause: pause,
+    setAudio: setAudio,
+    setVolume: setVolume,
+    destroy: destroy
+  };
+};
+
 var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   var vm = this;
 
-  var audio = vm.audio = new Audio();
-  audio.addEventListener('ended', function() {
-    // The current sound ended, so let's set the in-between sound to keep mobile devices from shutting off.
-    vm.setAudio(currentEntry.move.audioUri);
-    audio.loop = true;
-  });
-  
+  var audio = new LoopedAudio('http://acromaster.s3.amazonaws.com/moves/audio/star.mp3');
   var currentEntry = {};
   vm.currentMove = {};
   vm.currentMoveIdx = 0;
@@ -62,13 +112,11 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   };
 
   vm.setAudio = function(file) {
-    audio.src = file.replace('http://localhost:10001', 'http://acromaster.s3.amazonaws.com');
-    audio.loop = false;
-    audio.play();
+    audio.setAudio(file.replace('http://localhost:10001', 'http://acromaster.s3.amazonaws.com'));
   };
 
   $scope.$watch(function() { return vm.volume; }, function(newVal) {
-    audio.volume = newVal / 100.0;
+    audio.setVolume(newVal / 100.0);
   });
 
   var getScaledDuration = function(duration, multiplier) {
@@ -137,7 +185,7 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
 
   $scope.$on('$destroy', function() {
     cancelTimer();
-    audio.pause();
+    audio.destroy();
   });
 };
 
