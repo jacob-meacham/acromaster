@@ -4,6 +4,12 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   var vm = this;
 
   var audio = vm.audio = new Audio();
+  audio.addEventListener('ended', function() {
+    // The current sound ended, so let's set the in-between sound to keep mobile devices from shutting off.
+    vm.setAudio(currentEntry.move.audioUri);
+    audio.loop = true;
+  });
+  
   var currentEntry = {};
   vm.currentMove = {};
   vm.currentMoveIdx = 0;
@@ -56,7 +62,8 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
   };
 
   vm.setAudio = function(file) {
-    audio.src = file;
+    audio.src = file.replace('http://localhost:10001', 'http://acromaster.s3.amazonaws.com');
+    audio.loop = false;
     audio.play();
   };
 
@@ -130,6 +137,7 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
 
   $scope.$on('$destroy', function() {
     cancelTimer();
+    audio.pause();
   });
 };
 
