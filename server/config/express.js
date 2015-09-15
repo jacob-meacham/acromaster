@@ -23,6 +23,12 @@ module.exports = {
         if (process.env.NODE_ENV === 'development') {
             app.set('showStackError', true);
             app.use(morgan('dev'));
+        } else if (process.env.NODE_ENV === 'production') {
+            app.use(morgan('common', {
+                skip: function(req, res) {
+                    return res.statusCode < 400;
+                }
+            }));
         }
 
         app.set('views', path.join(config.root, 'server/views'));
