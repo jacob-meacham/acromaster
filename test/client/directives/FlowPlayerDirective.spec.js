@@ -62,6 +62,8 @@ describe('FlowPlayerDirective', function() {
       controllerFn.instance.flow = new Flow({moves: flowDef});
       endSpy = controllerFn.instance.onFlowEnd = sandbox.spy();
 
+      $httpBackend.expectGET('/api/sounds').respond('sounds/root/');
+
       // The real flow object always has a promise attached, so we need to simulate the promise.
       deferred = $q.defer();
       controllerFn.instance.flow.$promise = deferred.promise;
@@ -69,23 +71,23 @@ describe('FlowPlayerDirective', function() {
     }));
 
     it('should allow setting audio on the audio element', function() {
-      ctrl.audio.paused.should.be.true;
+      ctrl.audio.__mainAudio.paused.should.be.true;
 
       ctrl.setAudio('testAudio');
-      ctrl.audio.src.should.eql('testAudio');
-      ctrl.audio.paused.should.be.false;
+      ctrl.audio.__mainAudio.src.should.eql('testAudio');
+      ctrl.audio.__mainAudio.paused.should.be.false;
     });
 
     it('should allow playing the audio element', function() {
       ctrl.play();
-      ctrl.audio.paused.should.be.false;
+      ctrl.audio.__mainAudio.paused.should.be.false;
     });
 
     it('should allow pausing the audio element', function() {
       ctrl.play();
-      ctrl.audio.paused.should.be.false;
+      ctrl.audio.__mainAudio.paused.should.be.false;
       ctrl.pause();
-      ctrl.audio.paused.should.be.true;
+      ctrl.audio.__mainAudio.paused.should.be.true;
     });
 
     it('should start the flow', function() {
@@ -122,7 +124,7 @@ describe('FlowPlayerDirective', function() {
     });
 
     it('should end the flow when it is finished', function() {
-      $httpBackend.expectGET('/api/sounds/done').respond('flowFinished.mp3');
+      $httpBackend.expectGET('/api/sounds').respond('/root/sounds/');
       ctrl.start();
 
       deferred.resolve();
@@ -197,10 +199,12 @@ describe('FlowPlayerDirective', function() {
     var $rootScope;
     var Flow;
 
-    beforeEach(inject(function(_$compile_,  _$rootScope_, _Flow_) {
+    beforeEach(inject(function(_$compile_,  _$rootScope_, _Flow_, $httpBackend) {
       $compile = _$compile_;
       $rootScope = _$rootScope_;
       Flow = _Flow_;
+
+      $httpBackend.expectGET('/api/sounds').respond('sounds/root/');
     }));
 
     it('should bind a flow', function() {

@@ -23,19 +23,28 @@ describe('SoundService', function() {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should return a done sound', function(done) {
-    $httpBackend.expectGET('/api/sounds/done').respond('doneSound1.wav');
-    SoundService.getDoneSound().then(function(sound) {
-      sound.should.eql('doneSound1.wav');
+  it('should return the sounds root', function(done) {
+    $httpBackend.expectGET('/api/sounds').respond('sounds/root/');
+    SoundService.getRoot().then(function(sound) {
+      sound.should.eql('sounds/root/');
       done();
     });
     $httpBackend.flush();
   });
 
-  it('should return the sounds root', function(done) {
+  it('should return a done sound', function(done) {
     $httpBackend.expectGET('/api/sounds').respond('sounds/root/');
-    SoundService.getRoot().then(function(sound) {
-      sound.should.eql('sounds/root/');
+    SoundService.getDoneSound().then(function(sound) {
+      sound.should.eql('sounds/root/flowFinished.mp3');
+      done();
+    });
+    $httpBackend.flush();
+  });
+
+  it('should return the sound of silence (dun dun dun dun dun dun duuuuuuuuuun dun dun dun dun dun dun duuuunnnnnnn)', function(done) {
+    $httpBackend.expectGET('/api/sounds').respond('sounds/root/');
+    SoundService.getSilence().then(function(sound) {
+      sound.should.eql('sounds/root/soundOfSilence.mp3');
       done();
     });
     $httpBackend.flush();

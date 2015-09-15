@@ -11,6 +11,8 @@ function Audio() {
     pause: function() {
       this.paused = true;
     },
-    paused: true
+    paused: true,
+
+    addEventListener: function() {}
   };
 }
