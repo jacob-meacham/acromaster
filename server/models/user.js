@@ -8,6 +8,7 @@ var recentPlugin = require('mongoose-recent');
 var Schema = mongoose.Schema;
 var slugify = require('slugify');
 var _ = require('lodash');
+var winston = require('winston');
 
 var subdocTransform = function(doc, ret) {
   delete ret._id;
@@ -88,6 +89,8 @@ UserSchema.statics = {
         if (user) {
           return user.favorites;
         }
+
+        winston.debug('User.getFavorites: Found no user named ' + name);
         return [];
       });
   }
