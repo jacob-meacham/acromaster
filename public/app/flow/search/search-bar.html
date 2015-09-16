@@ -1,0 +1,16 @@
+<section class="search-field-container clearfix" ui-scrollpoint="{{searchbar.scrollPoint}}">
+    <form ng-submit="searchbar.search()" class="form-horizontal">
+        <div class="search-form form-group col-xs-9 col-lg-8">
+            <div class="input-group">
+                <input class="form-control" type="text" ng-model="searchbar.searchQuery" placeholder="Search">
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-add" type="submit"><span class="btn-search glyphicon glyphicon-search" /></button>
+                </span>
+            </div>
+        </div>
+    </form>
+    <span class="action-buttons">
+        <a class="btn btn-default btn-circle" href="/flow/create" popover="Create your own!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-plus" /></a>
+        <a class="btn btn-default btn-circle" ng-href="/flow/{{searchbar.randomFlow}}" popover="Take me to a random flow!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-random" /></a>
+    </span>
+</section>
