@@ -12,6 +12,7 @@ var express = require('express'),
     flash = require('connect-flash'),
     assetmanager = require('assetmanager'),
     morgan = require('morgan'),
+    winston = require('winston'),
     path = require('path');
 
 module.exports = {
@@ -23,6 +24,12 @@ module.exports = {
         if (process.env.NODE_ENV === 'development') {
             app.set('showStackError', true);
             app.use(morgan('dev'));
+        } else if (process.env.NODE_ENV === 'production') {
+            app.use(morgan('common', {
+                skip: function(req, res) {
+                    return res.statusCode < 400;
+                }
+            }));
         }
 
         app.set('views', path.join(config.root, 'server/views'));
@@ -77,7 +84,7 @@ module.exports = {
             /* istanbul ignore next: explicitly not testable */
             if (process.env.NODE_ENV !== 'test') {
                 /* istanbul ignore next */
-                console.error(err.stack);
+                winston.error(err.stack);
             }
             next(err);
         });

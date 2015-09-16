@@ -371,7 +371,7 @@ body {
 /* Padding for spacing */
 /* line 131, ../sass/common.scss */
 .inner {
-  padding-bottom: 30px;
+  padding-bottom: 60px;
 }
 @media (min-width: 768px) {
   /* line 131, ../sass/common.scss */
