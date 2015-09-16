@@ -12,6 +12,7 @@ var express = require('express'),
     flash = require('connect-flash'),
     assetmanager = require('assetmanager'),
     morgan = require('morgan'),
+    winston = require('winston'),
     path = require('path');
 
 module.exports = {
@@ -83,7 +84,7 @@ module.exports = {
             /* istanbul ignore next: explicitly not testable */
             if (process.env.NODE_ENV !== 'test') {
                 /* istanbul ignore next */
-                console.error(err.stack);
+                winston.error(err.stack);
             }
             next(err);
         });
