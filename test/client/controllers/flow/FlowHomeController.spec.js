@@ -36,16 +36,4 @@ describe('FlowHomeController', function() {
     vm.featuredFlows[0].should.eql(flows[1]);
     vm.featuredFlows[1].should.eql(flows[2]);
   });
-
-  it('should expose find', function() {
-    var locationSpy = sandbox.spy($location, 'path');
-
-    var vm = $controller('FlowHomeController');
-    vm.searchQuery = 'beginner';
-    vm.search();
-
-    // Ensure that the location is set correctly, with the query param.
-    locationSpy.should.have.callCount(1);
-    locationSpy.returnValues[0].$$url.should.eql('/flows/results?search_query=beginner');
-  });
 });

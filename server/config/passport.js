@@ -1,6 +1,7 @@
 'use strict';
 
 require('../models/user.js');
+var winston = require('winston');
 var mongoose = require('mongoose');
 var TwitterStrategy = require('passport-twitter').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -71,6 +72,21 @@ var googleCallback = function(accessToken, refreshToken, profile, done) {
     userCallback(profile, 'google.id', userCreator, done);
 };
 
+function setupStrategy(passport, name, Strategy, config, callback, profileFields) {
+    if (config.clientID === 'FAKE' || config.clientSecret === 'FAKE') {
+        winston.warn('Your client id or secret has not been specified for ' + name + ' (' + name.toUpperCase() + '_ID/' + name.toUpperCase() + '_SECRET). Logging in via this system will not work.');
+    }
+
+    passport.use(new Strategy({
+        consumerKey: config.clientID,
+        consumerSecret: config.clientSecret,
+        clientID: config.clientID,
+        clientSecret: config.clientSecret,
+        callbackURL: config.callbackUrl,
+        profileFields: profileFields
+    }, callback));
+}
+
 module.exports = {
     setupPassport: function(passport, config) {
         //Serialize sessions
@@ -80,27 +96,9 @@ module.exports = {
 
         passport.deserializeUser(deserializeUser);
 
-        //Use twitter strategy
-        passport.use(new TwitterStrategy({
-                consumerKey: config.twitter.clientID,
-                consumerSecret: config.twitter.clientSecret,
-                callbackURL: config.twitter.callbackURL
-            }, twitterCallback));
-
-        //Use facebook strategy
-        passport.use(new FacebookStrategy({
-                clientID: config.facebook.clientID,
-                clientSecret: config.facebook.clientSecret,
-                callbackURL: config.facebook.callbackUrl,
-                profileFields: ['id', 'name', 'displayName', 'photos']
-            }, facebookCallback));
-
-        //Use google strategy
-        passport.use(new GoogleStrategy({
-                clientID: config.google.clientID,
-                clientSecret: config.google.clientSecret,
-                callbackURL: config.google.callbackUrl
-            }, googleCallback));
+        setupStrategy(passport, 'twitter', TwitterStrategy, config.twitter, twitterCallback);
+        setupStrategy(passport, 'facebook', FacebookStrategy, config.facebook, facebookCallback, ['id', 'name', 'displayName', 'photos']);
+        setupStrategy(passport, 'google', GoogleStrategy, config.google, googleCallback);
     },
 
         // Exposed for unit testing

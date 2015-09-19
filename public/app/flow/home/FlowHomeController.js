@@ -11,10 +11,6 @@ var FlowHomeController = function($location, flash, Flow, PageHeaderService) {
     });
   };
 
-  vm.search = function() {
-    $location.path('/flows/results').search({search_query: vm.searchQuery});
-  };
-
   vm.retryPopulate = function() {
     vm.flash.error = false;
     populateFlows();

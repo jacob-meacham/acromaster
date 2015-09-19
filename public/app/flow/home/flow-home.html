@@ -1,21 +1,6 @@
 <section class="flows row">
     <div class="col-xs-12">
-        <section class="search-field-container clearfix" ui-scrollpoint="+100">
-            <form ng-submit="vm.search()" class="form-horizontal">
-                <div class="search-form form-group col-xs-9 col-lg-8">
-                    <div class="input-group">
-                        <input class="form-control" type="text" ng-model="vm.searchQuery" placeholder="Search">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default btn-add" type="submit"><span class="btn-search glyphicon glyphicon-search" /></button>
-                        </span>
-                    </div>
-                </div>
-            </form>
-            <span class="action-buttons">
-                <a class="btn btn-default btn-circle" href="/flow/create" popover="Create your own!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-plus" /></a>
-                <a class="btn btn-default btn-circle" ng-href="/flow/{{vm.randomFlow.id}}" popover="Take me to a random flow!" popover-placement="left" popover-trigger="mousenter"><span class="glyphicon glyphicon-random" /></a>
-            </span>
-        </section>
+        <searchbar random-flow="{{vm.randomFlow.id}}" scroll-point="+100" />
         <article>
             <h1>Featured Flows</h1>
             <div class="inner-circles-loader" ng-hide="vm.featuredFlows || vm.flash.error">

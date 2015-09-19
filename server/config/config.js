@@ -73,18 +73,18 @@ var config = {
 _(['development', 'test', 'production']).forEach(function(env) {
     config[env].auth = {
         facebook: {
-            clientID: process.env.FACEBOOK_ID,
-            clientSecret: process.env.FACEBOOK_SECRET,
+            clientID: process.env.FACEBOOK_ID || 'FAKE',
+            clientSecret: process.env.FACEBOOK_SECRET || 'FAKE',
             callbackUrl: config[env].app.baseUrl + '/auth/facebook/callback'
         },
         twitter: {
-            clientID: process.env.TWITTER_ID,
-            clientSecret: process.env.TWITTER_SECRET,
+            clientID: process.env.TWITTER_ID || 'FAKE',
+            clientSecret: process.env.TWITTER_SECRET || 'FAKE',
             callbackUrl: config[env].app.baseUrl + '/auth/twitter/callback'
         },
         google: {
-            clientID: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_SECRET,
+            clientID: process.env.GOOGLE_ID || 'FAKE',
+            clientSecret: process.env.GOOGLE_SECRET || 'FAKE',
             callbackUrl: config[env].app.baseUrl + '/auth/google/callback'
         }
     };

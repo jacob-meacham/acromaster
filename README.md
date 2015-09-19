@@ -10,3 +10,10 @@ Version History
 _0.9.0_
 * First limited public release
 * You can see all fixed issues [here](https://github.com/jacob-meacham/acromaster/issues?utf8=%E2%9C%93&q=milestone%3A0.9.0+)
+
+How to Run
+----------
+1. run `npm install`
+2. run `grunt`
+
+To run tests, run `grunt test`

@@ -1,6 +1,6 @@
 'use strict';
 
-// This class is used 
+// This class is used to keep audio playing on mobile devices at all times by switching between an empty sound and the audio we want.
 var LoopedAudio = function(tweenAudioSrcPromise) {
   
   var mainAudio = new Audio();
