@@ -101,7 +101,6 @@ var FlowPlayerDirectiveController = function($scope, $interval, sounds) {
     });
   };
 
-  // TODO: Refactor the audio playing out into a separate directive
   vm.play = function() {
     audio.play();
     startTimer(1000);

@@ -3,7 +3,6 @@
 var FlowListItemDirectiveController = function() {
   var vm = this;
 
-  // TODO: Move to a service?
   vm.getDifficultyDescription = function(difficulty) {
     if (difficulty <= 3) {
       return 'Beginner';
