@@ -5,7 +5,6 @@
             <div class="move-name">{{entry.move.name}}</div>
         </div>
     </div>
-    <!-- TODO: Clean this up - it shouldn't use rows... -->
     <div class="row controls" ng-show="player.hasStarted">
         <div class="col-xs-5 col-sm-3 col-sm-offset-3 col-md-2 col-md-offset-4 controls-container controls-left">
             <span class="glyphicon glyphicon-volume-up volume-icon" ng-class="{'glyphicon-volume-up': !player.muted, 'glyphicon-volume-off': player.muted}" ng-click="player.toggleMute()"/>

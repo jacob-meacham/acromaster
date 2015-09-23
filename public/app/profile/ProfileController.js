@@ -1,6 +1,5 @@
 'use strict';
 
-// TODO: DRY, in a nicer way
 var populateProfile = function (vm, User, userId, success) {
   vm.username = userId;
   var _populateProfile = function() {
