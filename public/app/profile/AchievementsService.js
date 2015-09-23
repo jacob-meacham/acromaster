@@ -129,7 +129,8 @@ var AchievementsService = function(_) {
       // # of moves done
       setStepBasedAchievements(achievements, [{key: 'fistfulofacro', val: 100}, {key: 'neverseenthatone', val: 1000}, {key: 'allthemoves', val: 10000}], user.stats.moves);
 
-      // TODO: length of flow
+      // # longest flow
+      setStepBasedAchievements(achievements, [{key: 'acroquickie', val: 600}, {key: 'hourwellspent', val: 3600}, {key: 'unendingendurance', val: 5400}], user.stats.longestFlow);
       
       // # of flows written
       setStepBasedAchievements(achievements, [{key: 'riteofpassage', val: 1}, {key: 'acroauteur', val: 10}, {key: 'rlstine', val: 100}], user.stats.flowsWritten);

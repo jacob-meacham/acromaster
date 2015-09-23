@@ -1,6 +1,5 @@
 'use strict';
 
-// TODO: DRY, in a nicer way
 var populateProfile = function (vm, User, userId, success) {
   vm.username = userId;
   var _populateProfile = function() {
@@ -120,14 +119,12 @@ var ProfileFlowsController = function($routeParams, $scope, $anchorScroll, flash
   $scope.$watch(function() {
       return vm.includeWorkouts;
     }, function() {
-      // TODO: Reload from server? Do something else more interesting?
       vm.flows = filterFlows(_, vm.allResults.flows, vm.includeWorkouts);
     }
   );
 
   populateProfile(vm, User, $routeParams.user, function() {});
 
-  // TODO: Don't need to do this work if there is no user.
   vm.allResults = User.getFlows({userId: $routeParams.user});
   vm.allResults.$promise.then(function() {
     vm.contentReady = true;
