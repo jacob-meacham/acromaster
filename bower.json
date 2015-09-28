@@ -20,11 +20,11 @@
     "nsPopover": "5.0.4",
     "angular-cookies": "1.4.6",
     "angular-slick": "git://github.com/jacob-meacham/angular-slick.git#bugfix/initial-slide",
-    "slick.js": "1.5.5",
+    "slick.js": "1.5.8",
     "angular-base64": "2.0.5",
     "angular-ui-scrollpoint": "1.0.1",
     "angularjs-slider": "git://github.com/rzajac/angularjs-slider.git#remove-leading-parameter",
-    "angulartics": "0.20.0",
+    "angulartics": "0.20.1",
     "angulartics-google-analytics": "0.1.1"
   },
   "devDependencies": {

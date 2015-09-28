@@ -81,7 +81,7 @@
     "karma-sinon": "1.0.4",
     "karma-sinon-chai": "1.1.0",
     "load-grunt-tasks": "3.3.0",
-    "mocha": "2.2.4",
+    "mocha": "2.3.3",
     "mocha-sinon": "1.1.4",
     "mockgoose": "4.0.1",
     "passport-stub": "1.0.x",
