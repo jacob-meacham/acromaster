@@ -2,36 +2,35 @@
   "name": "acromaster",
   "version": "0.9.0",
   "dependencies": {
-    "bootstrap": "3.3.4",
-    "angular": "1.3.15",
-    "angular-route": "1.3.15",
-    "angular-resource": "1.3.13",
-    "angular-sanitize": "1.4.3",
-    "angular-bootstrap": "0.13.2",
-    "angular-ui-utils": "0.2.3",
-    "angular-utils-pagination": "0.8.3",
-    "angular-ui-sortable": "0.13.3",
+    "bootstrap": "3.3.5",
+    "angular": "1.4.6",
+    "angular-route": "1.4.6",
+    "angular-resource": "1.4.6",
+    "angular-sanitize": "1.4.6",
+    "angular-bootstrap": "0.13.4",
+    "angular-ui-utils": "3.0.0",
+    "angular-utils-pagination": "0.8.4",
     "angular-xeditable": "0.1.9",
-    "angular-animate": "1.3.15",
+    "angular-animate": "1.4.6",
     "json3": "3.3.2",
-    "jquery": "2.1.3",
+    "jquery": "2.1.4",
     "fastclick": "1.0.6",
     "angular-justgage": "1.0.1",
     "angular-flash": "git://github.com/jacob-meacham/angular-flash.git#feature/add-visible-flag",
-    "nsPopover": "0.6.7",
-    "angular-cookies": "1.3.15",
+    "nsPopover": "5.0.4",
+    "angular-cookies": "1.4.6",
     "angular-slick": "git://github.com/jacob-meacham/angular-slick.git#bugfix/initial-slide",
-    "slick.js": "~1.5.5",
-    "angular-base64": "~2.0.5",
-    "angular-ui-scrollpoint": "~1.0.1",
+    "slick.js": "1.5.5",
+    "angular-base64": "2.0.5",
+    "angular-ui-scrollpoint": "1.0.1",
     "angularjs-slider": "git://github.com/rzajac/angularjs-slider.git#remove-leading-parameter",
-    "angulartics": "~0.20.0",
-    "angulartics-google-analytics": "~0.1.1"
+    "angulartics": "0.20.0",
+    "angulartics-google-analytics": "0.1.1"
   },
   "devDependencies": {
-    "angular-mocks": "1.3.15"
+    "angular-mocks": "1.4.6"
   },
   "resolutions": {
-    "angular": "1.3.15"
+    "angular": "1.4.6"
   }
 }
