@@ -3,21 +3,21 @@
   "version": "0.9.0",
   "dependencies": {
     "bootstrap": "3.3.5",
-    "angular": "1.4.6",
-    "angular-route": "1.4.6",
-    "angular-resource": "1.4.6",
-    "angular-sanitize": "1.4.6",
+    "angular": "1.4.7",
+    "angular-route": "1.4.7",
+    "angular-resource": "1.4.7",
+    "angular-sanitize": "1.4.7",
     "angular-bootstrap": "0.13.4",
     "angular-ui-utils": "3.0.0",
     "angular-utils-pagination": "0.8.4",
     "angular-xeditable": "0.1.9",
-    "angular-animate": "1.4.6",
+    "angular-animate": "1.4.7",
     "json3": "3.3.2",
     "jquery": "2.1.4",
     "fastclick": "1.0.6",
     "angular-justgage": "1.0.1",
     "angular-flash": "git://github.com/jacob-meacham/angular-flash.git#feature/add-visible-flag",
-    "nsPopover": "5.0.4",
+    "nsPopover": "0.6.8",
     "angular-cookies": "1.4.6",
     "angular-slick": "git://github.com/jacob-meacham/angular-slick.git#bugfix/initial-slide",
     "slick.js": "1.5.8",
@@ -28,9 +28,9 @@
     "angulartics-google-analytics": "0.1.1"
   },
   "devDependencies": {
-    "angular-mocks": "1.4.6"
+    "angular-mocks": "1.4.7"
   },
   "resolutions": {
-    "angular": "1.4.6"
+    "angular": "1.4.7"
   }
 }
