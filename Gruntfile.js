@@ -50,13 +50,9 @@ module.exports = function(grunt) {
                     spawn: false
                 }
             },
-            mocha: {
-                files: ['test/server/**/*.js', 'server/**/*.js'],
-                tasks: ['env:test', 'mochaTest:dev']
-            },
             
             karma: {
-                files: ['test/client/**/*.spec.js', 'public/app/**/*.js'],
+                files: ['public/app/**/*.js'],
                 tasks: ['karma:dev:run']
             }
         },
@@ -158,7 +154,7 @@ module.exports = function(grunt) {
                 reporter: 'spec'
             },
             dev: {
-                src: ['test/server/**/*.spec.js'],
+                src: ['server/**/*.spec.js'],
             }
         },
 
@@ -172,7 +168,7 @@ module.exports = function(grunt) {
 
         mocha_istanbul: {
             coverage: {
-                src: 'test/server/**/*.spec.js',
+                src: 'server/**/*.spec.js',
                 options: {
                     timeout: 3000,
                     coverageFolder: 'build/coverage/server',

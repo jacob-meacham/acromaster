@@ -11,7 +11,6 @@ module.exports = function(config) {
       'public/assets/lib/angular-mocks/angular-mocks.js',
       'public/app/*.js',
       'public/app/**/*.js',
-      'test/client/**/*spec.js',
       'public/app/**/*.html'
     ]),
     
