@@ -49,3 +49,17 @@
   background-color: #d63a21;
   color: #fff;
 }
+
+.login-twitter:hover,
+.login-twitter:focus,
+.login-twitter:active {
+  @include standard-ease(0.2s);
+  background-color: #3ea1ec;
+}
+
+.login-facebook:hover,
+.login-facebook:focus,
+.login-facebook:active {
+  @include standard-ease(0.2s);
+  background-color: #344e86;
+}

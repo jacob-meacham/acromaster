@@ -1,54 +1,15 @@
 @import 'common-mixins';
 @import 'animations';
 
+/* Basic structure */
 * {
     font-family:'Droid Sans', sans-serif;
-}
-
-/* Links */
-a {
-  color: #337ab7;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-a:focus,
-a:hover {
-  color: #23527c;
-  text-decoration: underline;
-}
-
-/* Custom default button */
-.btn {
-  @include standard-ease(0.2s);
-}
-
-.btn:hover {
-  @include standard-ease(0.2s);
-}
-
-.btn-default {  
-  text-shadow: none; /* Prevent inheritence from `body` */
-  color: white;
-  background-color: #c12b32;
-  border: 1px solid #111;
-  font-weight: bold;
-}
-
-.btn-default:hover, .btn-default:active, .btn-default:focus {
-  text-shadow: none; /* Prevent inheritence from `body` */
-  background-color: #741a1e;
-  color: white;
-  border: 1px solid #111;
 }
 
 html {
   background-color: $primary-background-color;
 }
 
-/*
- * Base structure
- */
 html,
 body {
   min-height:100%;
@@ -61,73 +22,15 @@ body {
   margin:0;
   padding:0;
 
-  color: #111;
+  color: $primary-font-color;
   text-align: center;
 }
 
-.footer-wrapper {
-  position: relative;
-  min-height: 100%;
-}
-
-$footer-sm-height: 30px;
-$footer-xs-height: 55px;
-$footer-border-height: 4px;
-
-.footer {
-  position: absolute;
-  width: 100%;
-
-  @media (min-width: 769px) {
-    bottom: 0;
-    height: $footer-sm-height+$footer-border-height;
-  }
-
-  @media (max-width: 768px) {
-    bottom: -30px;
-    height: $footer-xs-height+$footer-border-height;
-  }
-
-  background-color: #111;
-  border-top: $footer-border-height solid #c12b32;
-
-  .text-muted {
-    margin: 5px 0 0 5px;
-    color: #fff;
-  }
-
-  a:hover {
-    color: white;
-  }
-
-  .footer-links > a {
-    padding: 0 8px 0 9px;
-    border-left: 1px solid #ddd;
-  }
-
-  .footer-links > a:first-of-type {
-    border-left: none;
-  }
-
-  .by-line {
-    @media (min-width: 768px) {
-      text-align: left;
-    }
-
-    @media (max-width: 440px) {
-      font-size: 10px;
-      padding-left: 0;
-      padding-right: 0;
-      margin-left: -5px;
-    }
-  }
-}
-
+/* Standard padding / spacing */
 .no-margin {
-    margin: 0;
+  margin: 0;
 }
 
-/* Padding for spacing */
 .inner {
   @media (min-width: 768px) {
     padding-top: 30px;
@@ -136,33 +39,51 @@ $footer-border-height: 4px;
   padding-bottom: 60px;
 }
 
+/* Default links and buttons */
+a {
+  color: #337ab7;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:focus,
+a:hover {
+  color: #23527c;
+  text-decoration: underline;
+}
+
+.btn {
+  @include standard-ease(0.2s);
+}
+
+.btn:hover {
+  @include standard-ease(0.2s);
+}
+
+.btn-default, .btn-default:hover, .btn-default:active, .btn-default:focus {  
+  text-shadow: none; /* Prevent inheritence from `body` */
+  color: white;
+  background-color: #c12b32;
+  border: 1px solid $primary-font-color;
+  font-weight: bold;
+}
+
+.btn-default:hover, .btn-default:active, .btn-default:focus {
+  background-color: #741a1e;
+}
+
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  border-radius: 20px;
+}
+
+/* Other useful defaults */
 span.large-glyphicon {
   font-size: 5.0em
-}
-
-.sticky-item {
-  margin-left: 18px;
-  margin-right: 10px;
-}
-
-.back-button {
- font-size: 4.0em !important;
- padding-top: 40px;
- float: left;
-
- color: #00A0D7;
-}
-
-.box-container {
-  margin-top: 10px;
-  padding-bottom: 20px;
-  background-color: white;
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
-}
-
-.ui-slider {
-  background: #777;
 }
 
 .icon-with-text {
@@ -172,6 +93,18 @@ span.large-glyphicon {
 hr.narrow {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: white;
+}
+
+.back-button {
+ font-size: 4.0em !important;
+ padding-top: 40px;
+ float: left;
+
+ color: #00A0D7;
 }
 
 .debug {
@@ -194,128 +127,5 @@ hr.narrow {
     text-align: left;
     border-top-left-radius: 0;
     background-color: #fff;
-  }
-}
-
-.alert {
-  margin: 8px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: white;
-}
-
-.btn-circle {
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  border-radius: 20px;
-}
-
-// Loading from http://www.css-spinners.com/, http://css-spinners.com/css/spinner/inner-circles.css
-/* :not(:required) hides this rule from IE9 and below */
-.inner-circles-loader:not(:required) {
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  position: relative;
-  display: block;
-  width: 50px;
-  height: 50px;
-  background: rgb(25, 165, 152); // fallback for ie
-  background: rgba(25, 165, 152, 0.5);
-  border-radius: 50%;
-  overflow: hidden;
-  text-indent: -9999px;
-  /* Hides inner circles outside base circle at safari */
-  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-}
-.inner-circles-loader:not(:required):before, .inner-circles-loader:not(:required):after {
-  content: '';
-  position: absolute;
-  top: 0;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-.inner-circles-loader:not(:required):before {
-  -moz-animation: inner-circles-loader 3s infinite;
-  -webkit-animation: inner-circles-loader 3s infinite;
-  animation: inner-circles-loader 3s infinite;
-  -moz-transform-origin: 0 50%;
-  -ms-transform-origin: 0 50%;
-  -webkit-transform-origin: 0 50%;
-  transform-origin: 0 50%;
-  left: 0;
-  background: #c7efcf;
-}
-.inner-circles-loader:not(:required):after {
-  -moz-animation: inner-circles-loader 3s 0.2s reverse infinite;
-  -webkit-animation: inner-circles-loader 3s 0.2s reverse infinite;
-  animation: inner-circles-loader 3s 0.2s reverse infinite;
-  -moz-transform-origin: 100% 50%;
-  -ms-transform-origin: 100% 50%;
-  -webkit-transform-origin: 100% 50%;
-  transform-origin: 100% 50%;
-  right: 0;
-  background: #ffe759;
-}
-
-@-moz-keyframes inner-circles-loader {
-  0% {
-    -moz-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  50% {
-    -moz-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-  100% {
-    -moz-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-}
-@-webkit-keyframes inner-circles-loader {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  50% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-  100% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-}
-@keyframes inner-circles-loader {
-  0% {
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  50% {
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-  100% {
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
   }
 }
