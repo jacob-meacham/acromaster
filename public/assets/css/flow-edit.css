@@ -32,8 +32,5 @@
 }
 /* line 33, ../sass/flow-edit.scss */
 .flow-editor .reorder-btn {
-  -moz-transition: none;
-  -webkit-transition: none;
-  -o-transition: color 0 ease-in;
   transition: none;
 }
