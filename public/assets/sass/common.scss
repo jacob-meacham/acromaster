@@ -149,11 +149,11 @@ hr.narrow {
   right: 0;
   z-index: 99;
 
-  animation: 0.5s both ease-in-out;
+  animation:viewExit 0.5s both ease-in-out;
 }
 
 .view-frame.ng-enter {
-  animation: 0.5s both ease-in-out;
+  animation:viewEnter 0.5s both ease-in-out;
   z-index: 100;
 }
 

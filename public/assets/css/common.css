@@ -184,12 +184,12 @@ hr.narrow {
   left: 0;
   right: 0;
   z-index: 99;
-  animation: 0.5s both ease-in-out;
+  animation: viewExit 0.5s both ease-in-out;
 }
 
 /* line 155, ../sass/common.scss */
 .view-frame.ng-enter {
-  animation: 0.5s both ease-in-out;
+  animation: viewEnter 0.5s both ease-in-out;
   z-index: 100;
 }
 

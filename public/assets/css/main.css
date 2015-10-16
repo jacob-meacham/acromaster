@@ -28,9 +28,10 @@
 .thumbnail .caption {
   color: white;
 }
-/* line 16, ../sass/main.scss */
-.thumbnail :hover,
-.thumbnail :focus {
+
+/* line 17, ../sass/main.scss */
+.thumbnail:hover,
+.thumbnail:focus {
   transition: 0.3s ease-in-out;
   background: #010101;
 }

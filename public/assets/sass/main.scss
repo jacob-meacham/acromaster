@@ -12,12 +12,12 @@
   .caption {
     color: white;
   }
+}
 
-  :hover,
-  :focus {
-    @include standard-ease(0.3s);
-    background:rgba(1,1,1,1);
-  }
+.thumbnail:hover,
+.thumbnail:focus {
+  @include standard-ease(0.3s);
+  background:rgba(1,1,1,1);
 }
 
 a.divLinker {
