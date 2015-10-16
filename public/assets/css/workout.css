@@ -1,103 +1,64 @@
-/* line 2, ../sass/workout.scss */
-.workout-create .slick-prev:before,
-.workout-create .slick-next:before {
-  color: black;
-}
-/* line 7, ../sass/workout.scss */
-.workout-create .slick-prev {
-  left: 0;
-}
-/* line 11, ../sass/workout.scss */
-.workout-create .slick-next {
-  right: 0;
-}
-/* line 15, ../sass/workout.scss */
+/* line 4, ../sass/workout.scss */
 .workout-create .advanced-gear {
   padding-left: 5px;
 }
-/* line 19, ../sass/workout.scss */
+/* line 8, ../sass/workout.scss */
 .workout-create h4 {
   margin-top: 0;
   margin-bottom: 8px;
 }
-@media (max-width: 768px) {
-  /* line 19, ../sass/workout.scss */
-  .workout-create h4 {
-    margin-bottom: 0;
-  }
-}
-@media (max-width: 768px) {
-  /* line 30, ../sass/workout.scss */
+@media only screen and (max-width: 768px) {
+  /* line 14, ../sass/workout.scss */
   .workout-create .slider-title {
     display: inline;
     padding-top: 10px;
   }
-  /* line 35, ../sass/workout.scss */
+  /* line 19, ../sass/workout.scss */
   .workout-create .slider-block {
     margin-bottom: 45px;
   }
-  /* line 39, ../sass/workout.scss */
+  /* line 23, ../sass/workout.scss */
   .workout-create .advanced-pane .slider-block:last-child {
     margin-bottom: 0;
   }
-  /* line 43, ../sass/workout.scss */
+  /* line 27, ../sass/workout.scss */
   .workout-create .slider-amount {
     margin-top: 0;
   }
-  /* line 47, ../sass/workout.scss */
+  /* line 31, ../sass/workout.scss */
   .workout-create h3 {
     margin-top: 5px;
     margin-bottom: 0;
   }
-  /* line 52, ../sass/workout.scss */
+  /* line 36, ../sass/workout.scss */
+  .workout-create h4 {
+    margin-bottom: 0;
+  }
+  /* line 40, ../sass/workout.scss */
   .workout-create .workout-column {
     margin-top: 50px;
   }
-  /* line 56, ../sass/workout.scss */
+  /* line 44, ../sass/workout.scss */
   .workout-create .main-pane > div:first-child .workout-column {
     margin-top: 0;
   }
 }
-/* line 61, ../sass/workout.scss */
-.workout-create rzslider {
-  margin-top: 20px;
-}
 @media (min-width: 1024px) {
-  /* line 66, ../sass/workout.scss */
+  /* line 50, ../sass/workout.scss */
   .workout-create .workout-column {
     margin-left: 30px;
     margin-right: 30px;
   }
 }
-@media (min-width: 768px) {
-  /* line 73, ../sass/workout.scss */
+@media only screen and (min-width: 768px) {
+  /* line 57, ../sass/workout.scss */
   .workout-create .workout-column-mid {
     border-left: solid 1px #ddd;
     border-right: solid 1px #ddd;
   }
 }
 
-/* line 80, ../sass/workout.scss */
+/* line 65, ../sass/workout.scss */
 .flow-variable-explanation {
   padding: 30px;
-}
-
-/* line 84, ../sass/workout.scss */
-.rz-bubble {
-  display: none !important;
-}
-
-/* line 88, ../sass/workout.scss */
-rzslider span.rz-pointer.rz-active:after {
-  background-color: white;
-}
-
-/* line 92, ../sass/workout.scss */
-rzslider span.rz-pointer:hover {
-  background-color: #00A0D7;
-}
-
-/* line 96, ../sass/workout.scss */
-rzslider span.rz-pointer.rz-active {
-  background-color: #00A0D7;
 }

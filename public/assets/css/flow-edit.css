@@ -1,0 +1,39 @@
+/* line 2, ../sass/flow-edit.scss */
+.flows .buttons {
+  white-space: nowrap;
+}
+
+/* line 7, ../sass/flow-edit.scss */
+.editable-buttons {
+  font-size: 14px;
+}
+
+/* line 11, ../sass/flow-edit.scss */
+.flow-name-control {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  height: 40px;
+  font-size: 18px;
+  width: 80%;
+}
+
+/* line 21, ../sass/flow-edit.scss */
+.flow-editor .actions {
+  margin-bottom: 20px;
+}
+/* line 25, ../sass/flow-edit.scss */
+.flow-editor .item .submit-buttons-row {
+  min-width: 100px;
+}
+/* line 29, ../sass/flow-edit.scss */
+.flow-editor .item .move-name-row {
+  min-width: 130px;
+}
+/* line 33, ../sass/flow-edit.scss */
+.flow-editor .reorder-btn {
+  -moz-transition: none;
+  -webkit-transition: none;
+  -o-transition: color 0 ease-in;
+  transition: none;
+}

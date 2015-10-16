@@ -88,57 +88,85 @@
   padding-top: 5px;
 }
 
-/* line 3, ../sass/flow-likes.scss */
-.like-button {
-  color: #A8AEB2;
-  text-decoration: none;
-  cursor: pointer;
-  position: relative;
+/* line 4, ../sass/flow-view.scss */
+.flows .start-flow {
+  font-size: 18px;
 }
-
-/* line 10, ../sass/flow-likes.scss */
-.like-button:focus,
-.like-button:hover {
-  color: #65686B;
-  text-decoration: none;
+/* line 8, ../sass/flow-view.scss */
+.flows .flow-actions {
+  padding: 5px 0 8px 0;
 }
-
-/* line 16, ../sass/flow-likes.scss */
-.like-button.liked {
-  color: #c12b32;
-}
-
-/* line 20, ../sass/flow-likes.scss */
-.like-button.liked:focus,
-.like-button.liked:hover {
-  color: #871E23;
-}
-
-/* line 25, ../sass/flow-likes.scss */
-.like-count {
-  font-size: 0.8em;
-  padding-bottom: 2px;
-  position: absolute;
-  left: 25px;
-}
-
-/* line 32, ../sass/flow-likes.scss */
-.likes {
-  float: right;
-  font-size: 1.5em;
-  padding-right: 20px;
+/* line 11, ../sass/flow-view.scss */
+.flows .flow-actions a {
+  margin-right: 10px;
 }
 @media only screen and (max-width: 551px) {
-  /* line 32, ../sass/flow-likes.scss */
-  .likes {
-    padding-right: 0;
+  /* line 16, ../sass/flow-view.scss */
+  .flows .flow-actions .owner-actions {
+    display: block;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
   }
 }
 @media only screen and (max-width: 378px) {
-  /* line 32, ../sass/flow-likes.scss */
-  .likes {
-    position: relative;
-    right: 0;
-    top: -60px;
+  /* line 26, ../sass/flow-view.scss */
+  .flows .flow-actions .social-actions a {
+    display: block;
   }
+}
+@media only screen and (max-width: 378px) {
+  /* line 34, ../sass/flow-view.scss */
+  .flows .flow-actions a:not(.like-button) {
+    margin-top: 5px;
+    font-size: 1.15em;
+  }
+}
+/* line 40, ../sass/flow-view.scss */
+.flows .icon-with-text-remix {
+  margin-right: 6px;
+}
+/* line 44, ../sass/flow-view.scss */
+.flows .easy-move {
+  color: green;
+}
+/* line 48, ../sass/flow-view.scss */
+.flows .medium-move {
+  color: orange;
+}
+/* line 52, ../sass/flow-view.scss */
+.flows .hard-move {
+  color: red;
+}
+/* line 56, ../sass/flow-view.scss */
+.flows .move-entry {
+  padding-bottom: 5px;
+}
+/* line 60, ../sass/flow-view.scss */
+.flows .move-difficulty {
+  font-size: 1.5em;
+}
+/* line 64, ../sass/flow-view.scss */
+.flows .move-description-link {
+  font-size: 0.8em;
+}
+/* line 68, ../sass/flow-view.scss */
+.flows .separator {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+/* line 75, ../sass/flow-view.scss */
+.flow-delete-modal {
+  padding: 20px;
+}
+/* line 78, ../sass/flow-view.scss */
+.flow-delete-modal .flow-delete-buttons {
+  margin-top: 10px;
+  display: block;
+}
+
+/* line 84, ../sass/flow-view.scss */
+.move-info-popover {
+  text-align: left;
 }

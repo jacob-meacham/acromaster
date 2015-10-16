@@ -1,0 +1,60 @@
+/* line 3, ../sass/footer.scss */
+.footer-wrapper {
+  position: relative;
+  min-height: 100%;
+}
+
+/* line 12, ../sass/footer.scss */
+.footer {
+  position: absolute;
+  width: 100%;
+  background-color: #111;
+  border-top: 4px solid #c12b32;
+}
+@media only screen and (min-width: 768px) {
+  /* line 12, ../sass/footer.scss */
+  .footer {
+    bottom: 0;
+    height: 34px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  /* line 12, ../sass/footer.scss */
+  .footer {
+    bottom: -30px;
+    height: 59px;
+  }
+}
+/* line 29, ../sass/footer.scss */
+.footer .text-muted {
+  margin: 5px 0 0 5px;
+  color: #fff;
+}
+/* line 34, ../sass/footer.scss */
+.footer a:hover {
+  color: white;
+}
+/* line 38, ../sass/footer.scss */
+.footer .footer-links > a {
+  padding: 0 8px 0 9px;
+  border-left: 1px solid #ddd;
+}
+/* line 43, ../sass/footer.scss */
+.footer .footer-links > a:first-of-type {
+  border-left: none;
+}
+@media only screen and (min-width: 768px) {
+  /* line 47, ../sass/footer.scss */
+  .footer .by-line {
+    text-align: left;
+  }
+}
+@media (max-width: 440px) {
+  /* line 47, ../sass/footer.scss */
+  .footer .by-line {
+    font-size: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: -5px;
+  }
+}
