@@ -1,98 +1,67 @@
+@import 'breakpoints'
+
 .workout-create {
-    .slick-prev:before,
-    .slick-next:before {
-        color: black;
+  .advanced-gear {
+    padding-left: 5px;
+  }
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+
+  @include screen-sm {
+    .slider-title {
+      display: inline;
+      padding-top: 10px;
     }
 
-    .slick-prev {
-        left: 0;
+    .slider-block {
+      margin-bottom: 45px;
     }
 
-    .slick-next {
-        right: 0;
+    .advanced-pane .slider-block:last-child {
+      margin-bottom: 0;
     }
 
-    .advanced-gear {
-        padding-left: 5px;
+    .slider-amount {
+      margin-top: 0;
+    }
+
+    h3 {
+      margin-top: 5px;
+      margin-bottom: 0;
     }
 
     h4 {
-        margin-top: 0;
-        margin-bottom: 8px;
-
-        @media (max-width: 768px) {
-            margin-bottom: 0;
-        }
+      margin-bottom: 0;
     }
 
-    @media (max-width: 768px) {
-
-        .slider-title {
-            display: inline;
-            padding-top: 10px;
-        }
-
-        .slider-block {
-            margin-bottom: 45px;
-        }
-
-        .advanced-pane .slider-block:last-child {
-            margin-bottom: 0;
-        }
-
-        .slider-amount {
-            margin-top: 0;
-        }
-
-        h3 {
-            margin-top: 5px;
-            margin-bottom: 0;
-        }
-
-        .workout-column {
-            margin-top: 50px;
-        }
-
-        .main-pane > div:first-child .workout-column {
-            margin-top: 0;
-        }
+    .workout-column {
+      margin-top: 50px;
     }
 
-    rzslider {
-        margin-top: 20px;
+    .main-pane > div:first-child .workout-column {
+      margin-top: 0;
     }
+  }
 
-    @media (min-width: 1024px) {
-        .workout-column {
-            margin-left: 30px;
-            margin-right: 30px;
-        }
+  @media (min-width: 1024px) {
+    .workout-column {
+      margin-left: 30px;
+      margin-right: 30px;
     }
+  }
 
-    @media (min-width: 768px) {
-        .workout-column-mid {
-            border-left: solid 1px #ddd;
-            border-right: solid 1px #ddd;
-        }
+  @include screen-md-min {
+    .workout-column-mid {
+      border-left: solid 1px #ddd;
+      border-right: solid 1px #ddd;
     }
+  }
 }
 
+// Used in alert
 .flow-variable-explanation {
-    padding: 30px;
-}
-
-.rz-bubble {
-    display: none !important;
-}
-
-rzslider span.rz-pointer.rz-active:after {
-  background-color: white;
-}
-
-rzslider span.rz-pointer:hover {
-  background-color: #00A0D7;
-}
-
-rzslider span.rz-pointer.rz-active {
-  background-color: #00A0D7;
-}
+  padding: 30px;
+}  

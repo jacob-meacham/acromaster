@@ -1,0 +1,52 @@
+@import 'variables'
+@import 'breakpoints'
+
+.search-field-container {
+    // Padding is removed from the top on small devices
+    @include screen-sm {
+        margin: -20px 0 15px 0;
+    }
+
+    margin: -50px 0 15px 0;
+    padding: 20px 0 5px 20px;
+    border-bottom: 1px solid #eee;
+    background-color: $primary-background-color;
+
+    .btn-search {
+        padding: 0 7px 0 7px;
+    }
+
+    .search-form {
+        padding-left: 0;
+    }
+
+    .action-buttons {
+        float: right;
+
+        .btn-circle {
+            font-size: 20px;
+            border-radius: 25px;
+            margin-top: -3px;
+            margin-right: 2px;
+        }
+    }
+}
+
+.search-field-container.ui-scrollpoint {
+    position: fixed;
+    margin-top: -50px;
+    top: 40px;
+    z-index: 3;
+
+    @include screen-sm {
+        width: $screen-sm;
+    }
+
+    @include screen-md {
+        width: $screen-md;
+    }
+
+    @include screen-lg {
+        width: $screen-lg;
+    }
+}

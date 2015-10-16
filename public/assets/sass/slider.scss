@@ -1,0 +1,23 @@
+@import 'breakpoints'
+
+@include screen-sm {
+    rzslider {
+        margin-top: 20px;
+    }
+}
+
+.rz-bubble {
+    display: none !important;
+}
+
+rzslider span.rz-pointer.rz-active:after {
+  background-color: white;
+}
+
+rzslider span.rz-pointer:hover {
+  background-color: #00A0D7;
+}
+
+rzslider span.rz-pointer.rz-active {
+  background-color: #00A0D7;
+}

@@ -1,4 +1,4 @@
-@import 'common-mixins';
+@import 'breakpoints';
 
 .footer-wrapper {
   position: relative;
@@ -13,12 +13,12 @@ $footer-border-height: 4px;
   position: absolute;
   width: 100%;
 
-  @media (min-width: 769px) {
+  @include screen-md-min {
     bottom: 0;
     height: $footer-sm-height+$footer-border-height;
   }
 
-  @media (max-width: 768px) {
+  @include screen-sm {
     bottom: -30px;
     height: $footer-xs-height+$footer-border-height;
   }
@@ -45,10 +45,10 @@ $footer-border-height: 4px;
   }
 
   .by-line {
-    @media (min-width: 768px) {
+    @include screen-md-min {
       text-align: left;
     }
-
+    
     @media (max-width: 440px) {
       font-size: 10px;
       padding-left: 0;

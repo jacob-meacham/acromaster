@@ -107,6 +107,13 @@ hr.narrow {
  color: #00A0D7;
 }
 
+.back-button .glyphicon:hover,
+.back-button .glyphicon:focus,
+.back-button .glyphicon:active {
+  @include standard-ease(0.2s);
+  color: #0DB9F0;
+}
+
 .debug {
   margin-top: 20px;
 
@@ -127,5 +134,49 @@ hr.narrow {
     text-align: left;
     border-top-left-radius: 0;
     background-color: #fff;
+  }
+}
+
+/* View animations */
+.view-container {
+  position: relative;
+}
+
+.view-frame.ng-leave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+
+  animation: 0.5s both ease-in-out;
+}
+
+.view-frame.ng-enter {
+  animation: 0.5s both ease-in-out;
+  z-index: 100;
+}
+
+.view-frame.ng-leave .back-button {
+  display: none !important;
+}
+
+.btn.ng-hide {
+  opacity: 0;
+  display: none !important;
+}
+
+@keyframes viewExit {
+  to {
+    transform: translateX(150%);
+  }
+}
+
+@keyframes viewEnter {
+  from {
+    transform: translateX(-150%);
+  }
+  to {
+    transform: translateX(0);
   }
 }

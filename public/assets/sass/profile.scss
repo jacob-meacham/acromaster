@@ -1,8 +1,10 @@
-.profile {
-    text-align: left;
-}
+// Profile container
+$profile-border-color: #d4d4d4;
+$profile-background-color: #e5e5e5;
 
 .profile {
+    text-align: left;
+
     .list-box {
         margin: 20px 0 20px 0;
         background-color: white;
@@ -14,8 +16,8 @@
 
     h2 {
         font-size: 1.3em;
-        border: 1px solid #d4d4d4;
-        background-color: #e5e5e5;
+        border: 1px solid $profile-border-color;
+        background-color: $profile-background-color;
         padding: 8px;
         margin: 0;
     }
@@ -24,7 +26,7 @@
         position: relative;
         padding: 10px;
         list-style: none;
-        border: 1px solid #d4d4d4;
+        border: 1px solid $profile-border-color;
         border-top: 0;
         margin: 0;
 
@@ -45,6 +47,7 @@
     }
 }
 
+// Profile info bar
 .profile .profile-bar {
     .error-icon {
         font-size: 5em;
@@ -98,6 +101,16 @@
     }
 }
 
+// Profile Home
+.box-container {
+  margin-top: 10px;
+  padding-bottom: 20px;
+  background-color: white;
+  border: 1px solid $profile-background-color;
+  border-radius: 5px;
+}
+
+// Profile stats
 .profile .stats {
     text-align: center;
     
@@ -112,9 +125,9 @@
     }
 }
 
+// Profile achievements
 .profile .achievements {
     .achievement {
-
         // TODO: A better way to lay these out?
         @media (max-width: 435px) {
             width: 145px;
@@ -165,12 +178,4 @@
 
 .achievement-inner { 
     padding: 30px 0;
-}
-
-.box-container {
-  margin-top: 10px;
-  padding-bottom: 20px;
-  background-color: white;
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
 }
