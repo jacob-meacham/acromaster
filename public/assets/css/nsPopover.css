@@ -5,8 +5,6 @@
   border-radius: 3px;
   z-index: 100;
   background-color: #fff;
-  -webkit-box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.2);
   box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.2); }
   /* line 18, ../sass/ns-popover.scss */
   .ns-popover-list-theme ul, .ns-popover-list-theme .list {
@@ -39,8 +37,6 @@
     padding: 0.5625rem 0.875rem;
     max-width: 20rem;
     font-size: 0.875rem;
-    -webkit-box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.2);
     box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.2);
     margin: 10px; }
     /* line 142, ../sass/ns-popover.scss */
@@ -181,4 +177,4 @@
     margin-top: 0; }
   /* line 205, ../sass/ns-popover.scss */
   .ns-popover-tooltip-theme.ns-popover-bottom-align .ns-popover-tooltip {
-    margin-bottom: 0; }
+    margin-bottom: 0; }

@@ -41,7 +41,7 @@ module.exports = function(grunt) {
             },
             css: {
                 files: paths.css,
-                tasks: ['csslint']
+                tasks: ['postcss', 'csslint']
             },
             express: {
                 files: ['server.js', 'server/**/*.js'],
@@ -91,6 +91,17 @@ module.exports = function(grunt) {
                     sassDir: 'public/assets/sass',
                     cssDir: 'public/assets/css'
                 }
+            }
+        },
+
+        postcss: {
+            options: {
+              processors: [
+                require('autoprefixer')({browsers: 'last 1 version'}), // add vendor prefixes
+              ]
+            },
+            dist: {
+              src: paths.css
             }
         },
 
@@ -256,5 +267,6 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['lint', 'env:dev', 'karma:dev:start', 'express:dev', 'watch']);
     grunt.registerTask('protractor', ['env:test', 'selenium_start', 'mongoimport', 'express:ci', 'mochaProtractor']);
     grunt.registerTask('test', ['lint', 'env:test', 'mongodrop', 'mocha_istanbul:coverage', 'karma:ci', 'protractor', 'lcovMerge']);
+    grunt.registerTask('build', ['compass:dist', 'postcss', 'test']);
     grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
 };

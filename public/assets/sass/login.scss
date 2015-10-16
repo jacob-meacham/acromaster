@@ -1,13 +1,9 @@
-@import 'common-mixins';
+@import 'animations';
 
 .btn-login {
-  border: 0;
-  @include border-radius(3px);
+  border-radius: 3px;
   color: #fff;
-  border-width: 1px;
-  border-style: solid;
   margin: 0 0 5px;
-  outline: 0;
   padding: 0 0 0 15px;
   text-align: left;
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .3) inset;
@@ -48,4 +44,18 @@
 .login-google:hover, .login-google:active {
   background-color: #d63a21;
   color: #fff;
+}
+
+.login-twitter:hover,
+.login-twitter:focus,
+.login-twitter:active {
+  @include standard-ease(0.2s);
+  background-color: #3ea1ec;
+}
+
+.login-facebook:hover,
+.login-facebook:focus,
+.login-facebook:active {
+  @include standard-ease(0.2s);
+  background-color: #344e86;
 }

@@ -1,4 +1,11 @@
 @import 'animations';
+@import 'breakpoints';
+
+@mixin screen-sm-player {
+  @media only screen and (max-width: $screen-sm+20) {
+    @content;
+  }
+}
 
 .flow-player {
   .move-name {
@@ -7,6 +14,14 @@
     line-height: 1;
     letter-spacing: 2px;
     margin-bottom: 30px;
+  }
+
+  .play-move.ng-hide-add {
+    position: absolute;
+    animation: fade-out 0.5s both ease-in-out;
+  }
+  .play-move.ng-hide-remove {  
+    animation: fade-in 0.5s both ease-in-out;
   }
 
   .flow-start-button {
@@ -31,6 +46,7 @@
     text-decoration: none;
   }
 
+  // Controls:
   .controls-container {
     background-color: white;
     box-shadow: 0 1px 5px #eee;
@@ -42,11 +58,11 @@
     padding-left: 20px;
     padding-right: 50px;
 
-    @media (max-width: 500px) {
+    @include screen-sm-player {
       padding-right: 33px;
     }
 
-    @media (max-width: 768px) {
+    @include screen-sm {
       margin-left: 2%; // TODO: Clean this up
     }
   }
@@ -56,13 +72,13 @@
     padding-left: 50px;
     padding-right: 20px;
 
-    @media (max-width: 500px) {
+    @include screen-sm-player {
       width: 48%;
       padding-right: 7px;
     }
   }
 
-  @media (max-width: 500px) {
+  @include screen-sm-player {
     .rz-pointer {
       width: 20px;
       height: 20px;
@@ -75,6 +91,21 @@
     }
   }
 
+  .controls-play {
+    margin: 0 -30px;
+    padding: 20px 0;
+    width: 100px;
+    border-radius: 100px;
+    z-index: 1;
+
+    @include screen-sm-player {
+      margin: 9px -30px;
+      padding: 10px 0;
+      width: 80px;
+      border-radius: 80px;
+    }
+  }
+
   .volume-icon {
     position: absolute;
     top: 20px;
@@ -82,7 +113,7 @@
     font-size: 2em;
     color: #222;
 
-    @media (max-width: 500px) {
+    @include screen-sm-player {
       top: 23px;
       left: 4px;
       font-size: 1.5em;
@@ -100,23 +131,8 @@
     padding-bottom: 20px;    
     padding-left: 30px;
 
-    @media (max-width: 500px) {
+    @include screen-sm-player {
       padding-left: 7px;
-    }
-  }
-
-  .controls-play {
-    margin: 0 -30px;
-    padding: 20px 0;
-    width: 100px;
-    border-radius: 100px;
-    z-index: 1;
-
-    @media (max-width: 500px) {
-      margin: 9px -30px;
-      padding: 10px 0;
-      width: 80px;
-      border-radius: 80px;
     }
   }
 
