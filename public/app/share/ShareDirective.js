@@ -10,7 +10,6 @@ var share = function($document, $timeout) {
     // Sadly, nsPopover compiles async, and doesn't have any callback, so we fake it via a timeout
     var focusTimeout;
     var compileTimeout = $timeout(function() {
-      // TODO: add popover to this element container
       var popover = $document.find('#nspopover-1');
       var input = popover.find('input');
       input.on('click', function() {

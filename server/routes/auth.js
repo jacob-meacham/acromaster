@@ -18,7 +18,7 @@ var getUser = function(req, res) {
 };
 
 var isLoggedIn = function(req, res) {
-  res.send(req.isAuthenticated() ? req.user : '0');
+  res.send(req.isAuthenticated() ? req.user : {authenticated: false});
 };
 
 module.exports = {

@@ -57,7 +57,8 @@ var UserSchema = new Schema({
     flowsPlayed: { type: Number, 'default': '0' },
     secondsPlayed: { type: Number, 'default': '0' },
     flowsWritten: { type: Number, 'default': '0' },
-    moves: { type: Number, 'default': '0' }
+    moves: { type: Number, 'default': '0' },
+    longestFlow: { type: Number, 'default': '0' }
   }
 });
 
@@ -132,6 +133,10 @@ UserSchema.methods = {
     }, 0);
 
     this.stats.secondsPlayed += secondsPlayed;
+    if (secondsPlayed > this.stats.longestFlow) {
+      this.stats.longestFlow = secondsPlayed;
+    }
+    
     return this.addRecentPlay(flow._id);
   },
 

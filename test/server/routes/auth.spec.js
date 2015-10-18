@@ -40,7 +40,9 @@ describe('/auth', function() {
       return request(app)
         .get('/auth/loggedin')
         .expect(200)
-        .expect(0);
+        .expect(function(res) {
+          res.body.authenticated.should.be.false;
+        });
     });
 
     it('should return the user object when a user is logged in', function() {
@@ -61,7 +63,7 @@ describe('/auth', function() {
       return request(app)
         .get('/auth/currentUser')
         .expect(200)
-        .expect({});
+        .expect(null);
     });
 
     it('should return the current user when a user is logged in ', function() {

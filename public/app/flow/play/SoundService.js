@@ -12,7 +12,7 @@ var SoundService = function($http) {
 
     getDoneSound: function() {
       return getRoot().then(function(root) {
-        return root + 'flowFinished.mp3'; // TODO: Firefox doesn't play mp3s?
+        return root + 'flowFinished.mp3';
       });
     },
 
