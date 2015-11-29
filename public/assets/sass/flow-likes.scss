@@ -1,3 +1,5 @@
+@import 'flows-common';
+
 .like-button {
   color: #A8AEB2;
   text-decoration: none;
@@ -12,17 +14,35 @@
 }
 
 .like-button.liked {
-    color: #c12b32;
+  color: #c12b32;
 }
 
 .like-button.liked:focus,
 .like-button.liked:hover {
-    color: #871E23;
+  color: #871E23;
 }
 
 .like-count {
-    font-size: 0.8em;
-    padding-bottom: 2px;
-    position: absolute;
-    left: 25px;
+  font-size: 0.8em;
+  padding-bottom: 2px;
+  position: absolute;
+  left: 25px;
+}
+
+.likes {
+  float: right;
+  font-size: 1.5em;
+  padding-right: 20px;
+
+  @include screen-xs-flow {
+    padding-right: 0;
+  }
+
+  // When the screen is very small, position the like button
+  // next to a vertically aligned list of actions.
+  @include screen-xxs-flow {
+    position: relative;
+    right: 0;
+    top: -60px;
+  }
 }

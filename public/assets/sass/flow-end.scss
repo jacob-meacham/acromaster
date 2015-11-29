@@ -1,0 +1,38 @@
+.flow-end {
+    .likes {
+        font-size: 1.5em;
+        display: inline-block;
+        margin-right: 10px;
+        position: relative;
+        top: 5px;
+    }
+
+    .social-actions {
+        padding: 5px 0 8px 0;
+        margin-bottom: 0;
+
+        li {
+            display: inline-block;
+            list-style: none;
+            border-right: 1px solid #aaa;
+            padding-right: 5px;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        li:last-child {
+            padding-left: 5px;
+            margin-right: 0;
+        }
+    }
+
+    .flow-icon {
+        font-size: 3em;
+    }
+
+    .inner {
+        padding: 30px 0;
+    }
+}

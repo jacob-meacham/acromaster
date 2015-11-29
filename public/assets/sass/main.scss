@@ -1,4 +1,4 @@
-@import 'common-mixins';
+@import 'animations';
 
 .thumbnail {
   padding-top: 30px;
@@ -12,6 +12,12 @@
   .caption {
     color: white;
   }
+}
+
+.thumbnail:hover,
+.thumbnail:focus {
+  @include standard-ease(0.3s);
+  background:rgba(1,1,1,1);
 }
 
 a.divLinker {

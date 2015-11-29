@@ -1,0 +1,15 @@
+/* line 1, ../sass/slick.scss */
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+}
+
+/* line 6, ../sass/slick.scss */
+.slick-prev {
+  left: 0;
+}
+
+/* line 10, ../sass/slick.scss */
+.slick-next {
+  right: 0;
+}

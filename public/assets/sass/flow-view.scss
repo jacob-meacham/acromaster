@@ -1,0 +1,86 @@
+@import 'flows-common';
+
+.flows {
+  .start-flow {
+    font-size: 18px;
+  }
+
+  .flow-actions {
+    padding: 5px 0 8px 0;
+
+    a {
+      margin-right: 10px;
+    }
+
+    @include screen-xs-flow {
+      .owner-actions {
+        display: block;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #eee;
+      }
+    }
+
+    @include screen-xxs-flow {
+      .social-actions {
+        a {
+          display: block;
+        }
+      }
+    }
+  }
+  
+  @include screen-xxs-flow {
+    .flow-actions a:not(.like-button) {
+      margin-top: 5px;
+      font-size: 1.15em;
+    }
+  }
+
+  .icon-with-text-remix {
+    margin-right: 6px;
+  }
+
+  .easy-move {
+    color: green;
+  }
+
+  .medium-move {
+    color: orange;
+  }
+
+  .hard-move {
+    color: red;
+  }
+
+  .move-entry {
+    padding-bottom: 5px;
+  }
+
+  .move-difficulty {
+    font-size: 1.5em;
+  }
+
+  .move-description-link {
+    font-size: 0.8em;
+  }
+
+  .separator {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+// Modals/popovers
+.flow-delete-modal {
+    padding: 20px;
+
+    .flow-delete-buttons {
+        margin-top: 10px;
+        display: block;
+    }
+}
+
+.move-info-popover {
+    text-align: left;
+}
