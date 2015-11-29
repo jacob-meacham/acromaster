@@ -19,7 +19,7 @@
         "public/assets/lib/angular-animate/angular-animate.min.js": "public/assets/lib/angular-animate/angular-animate.js",
         "public/assets/lib/angular-bootstrap/ui-bootstrap-tpls.min.js": "public/assets/lib/angular-bootstrap/ui-bootstrap-tpls.js",
         "public/assets/lib/angular-ui-scrollpoint/dist/scrollpoint.min.js": "public/assets/lib/angular-ui-scrollpoint/dist/scrollpoint.js",
-        "public/assets/lib/angularjs-slider/dist/rzslider.min.js": "public/assets/lib/angularjs-slider/rzslider.js",
+        "public/assets/lib/angularjs-slider/dist/rzslider.min.js": "public/assets/lib/angularjs-slider/dist/rzslider.js",
         "public/assets/lib/raphael/raphael-min.js": "public/assets/lib/raphael/raphael.js",
         "public/assets/lib/justgage-toorshia/justgage.js": "public/assets/lib/justgage-toorshia/justgage.js",
         "public/assets/lib/angular-justgage/ng-justgage.js": "public/assets/lib/angular-justgage/ng-justgage.js",

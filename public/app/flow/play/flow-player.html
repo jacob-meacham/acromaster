@@ -9,7 +9,7 @@
         <div class="col-xs-5 col-sm-3 col-sm-offset-3 col-md-2 col-md-offset-4 controls-container controls-left">
             <span class="glyphicon glyphicon-volume-up volume-icon" ng-class="{'glyphicon-volume-up': !player.muted, 'glyphicon-volume-off': player.muted}" ng-click="player.toggleMute()"/>
             <div class="volume-slider">
-                <rzslider rz-slider-floor="0" rz-slider-ceil="100" rz-slider-model="player.volume" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" rz-slider-on-start="player.volumeSlideStarted()"/>
+                <rzslider rz-slider-floor="0" rz-slider-ceil="100" rz-slider-model="player.volume" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" rz-slider-on-start="player.volumeSlideStarted()" rz-slider-interval="0"/>
             </div>
         </div>
         <div class="col-xs-2 controls-container controls-play">
@@ -18,7 +18,7 @@
         </div>
         <div class="col-xs-5 col-sm-3 col-md-2 controls-container controls-right">
             <div class="speed-slider">
-                <rzslider rz-slider-floor="0.25" rz-slider-ceil="4" rz-slider-precision="2" rz-slider-step="0.05" rz-slider-model="player.speedMultiplier" rz-slider-on-change="player.updateDuration()" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" />
+                <rzslider rz-slider-floor="0.25" rz-slider-ceil="4" rz-slider-precision="2" rz-slider-step="0.05" rz-slider-model="player.speedMultiplier" rz-slider-on-change="player.updateDuration()" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true" rz-slider-interval="0"/>
                 <div class="speed-slider-label">x{{player.speedMultiplier | snap:4:2}}</div>
             </div>
         </div>
