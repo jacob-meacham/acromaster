@@ -1,0 +1,61 @@
+{
+  "name": "acromaster",
+  "scripts": {
+  },
+  "env": {
+    "BASE_URL": {
+      "required": true
+    },
+    "BUILDPACK_URL": {
+      "required": true
+    },
+    "DB_SECRET": {
+      "required": true
+    },
+    "FACEBOOK_ID": {
+      "required": true
+    },
+    "FACEBOOK_SECRET": {
+      "required": true
+    },
+    "GOOGLE_ID": {
+      "required": true
+    },
+    "GOOGLE_SECRET": {
+      "required": true
+    },
+    "MONGO_URL": {
+      "required": true
+    },
+    "MONGOLAB_URI": {
+      "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "TWITTER_ID": {
+      "required": true
+    },
+    "TWITTER_SECRET": {
+      "required": true
+    },
+    "VERSION": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "logentries",
+    "mongolab",
+    "strongloop"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git"
+    }
+  ]
+}
