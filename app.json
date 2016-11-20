@@ -41,6 +41,9 @@
     },
     "VERSION": {
       "required": true
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "required": true
     }
   },
   "formation": {
@@ -50,12 +53,11 @@
   },
   "addons": [
     "logentries",
-    "mongolab",
-    "strongloop"
+    "mongolab"
   ],
   "buildpacks": [
     {
-      "url": "https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git"
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs#v91"
     }
   ]
 }

@@ -54,7 +54,7 @@ module.exports = function(grunt) {
                 files: ['test/server/**/*.js', 'server/**/*.js'],
                 tasks: ['env:test', 'mochaTest:dev']
             },
-            
+
             karma: {
                 files: ['test/client/**/*.spec.js', 'public/app/**/*.js'],
                 tasks: ['karma:dev:run']
@@ -137,7 +137,8 @@ module.exports = function(grunt) {
             ci: {
                 options: {
                     script: 'server.js',
-                    debug: false
+                    debug: false,
+                    //node_env: 'ci'
                 }
             }
         },
@@ -202,7 +203,7 @@ module.exports = function(grunt) {
               baseUrl: 'http://localhost:3000',
               args: '--ignore-certificate-errors',
               slow: 4000,
-              timeout: 10000,
+              timeout: 20000,
               suiteTimeout: 90000
             },
             files: ['test/e2e/**/*.spec.js']
