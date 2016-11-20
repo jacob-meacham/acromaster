@@ -268,5 +268,5 @@ module.exports = function(grunt) {
     grunt.registerTask('protractor', ['env:test', 'selenium_start', 'mongoimport', 'express:ci', 'mochaProtractor']);
     grunt.registerTask('test', ['lint', 'env:test', 'mongodrop', 'mocha_istanbul:coverage', 'karma:ci', 'protractor', 'lcovMerge']);
     grunt.registerTask('build', ['compass:dist', 'postcss', 'test']);
-    grunt.registerTask('heroku:production', ['cssmin:production', 'uglify:production']);
+    grunt.registerTask('heroku:production', ['compass:dist', 'postcss' 'cssmin:production', 'uglify:production']);
 };

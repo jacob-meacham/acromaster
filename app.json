@@ -54,7 +54,7 @@
   ],
   "buildpacks": [
     {
-      "url": "https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git"
+      "url": "heroku/nodejs#v91"
     }
   ]
 }
