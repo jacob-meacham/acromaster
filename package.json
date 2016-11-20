@@ -12,7 +12,6 @@
     "start": "node node_modules/.bin/grunt",
     "test": "node node_modules/.bin/grunt test",
     "postinstall": "node node_modules/.bin/bower install",
-    "heroku-prebuild": "npm install --dev",
     "heroku-postbuild": "node node_modules/.bin/grunt heroku:production && npm prune --production"
   },
   "dependencies": {
@@ -30,8 +29,6 @@
     "express-session": "1.11.3",
     "express-validator": "2.17.1",
     "forever": "0.15.1",
-    "grunt": "0.4.5",
-    "grunt-cli": "0.1.13",
     "jade": "1.11.0",
     "lodash": "2.4.1",
     "method-override": "2.3.x",
@@ -56,6 +53,8 @@
     "chai": "3.3.0",
     "chai-as-promised": "5.1.0",
     "coveralls": "2.11.4",
+    "grunt": "0.4.5",
+    "grunt-cli": "0.1.13",
     "grunt-contrib-compass": "1.0.4",
     "grunt-contrib-csslint": "0.5.0",
     "grunt-contrib-cssmin": "0.14.0",

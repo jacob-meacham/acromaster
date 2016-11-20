@@ -30,7 +30,7 @@ var config = {
         app: {
             name: 'Acromaster - Test',
             port: process.env.PORT || 3000,
-            hostname: process.env.HOST || process.env.HOSTNAME,
+            hostname: undefined,
             baseUrl: process.env.BASE_URL
         },
         session: {

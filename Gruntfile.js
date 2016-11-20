@@ -137,7 +137,8 @@ module.exports = function(grunt) {
             ci: {
                 options: {
                     script: 'server.js',
-                    debug: false
+                    debug: false,
+                    //node_env: 'ci'
                 }
             }
         },

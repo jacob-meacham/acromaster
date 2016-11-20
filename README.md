@@ -20,3 +20,9 @@ To run tests, run `grunt test`
 Building
 --------
 Need to run `grunt build` before committing, to generate css (this is dumb)
+
+NPM_CONFIG_PRODUCTION needs to be set to false (this is also dumb)
+
+Future
+------
+* Just use docker, dummy
