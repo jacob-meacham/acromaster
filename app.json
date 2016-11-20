@@ -54,7 +54,7 @@
   ],
   "buildpacks": [
     {
-      "url": "heroku/nodejs#v91"
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs#v91"
     }
   ]
 }
