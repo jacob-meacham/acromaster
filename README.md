@@ -16,3 +16,7 @@ How to Run
 2. run `grunt`
 
 To run tests, run `grunt test`
+
+Building
+--------
+Need to run `grunt build` before committing, to generate css (this is dumb)
