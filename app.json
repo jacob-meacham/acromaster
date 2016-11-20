@@ -50,8 +50,7 @@
   },
   "addons": [
     "logentries",
-    "mongolab",
-    "strongloop"
+    "mongolab"
   ],
   "buildpacks": [
     {
